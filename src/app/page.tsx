@@ -1,66 +1,49 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <div className={styles.container}>
+          <div className={styles.badge}>Etapa 1: Concluída</div>
+          
+          <h1 className={styles.title}>
+            Gestão de Contratos <span className={styles.glow}>SaaS</span>
+          </h1>
+          
+          <p className={styles.description}>
+            A fundação técnica do seu CLM foi criada com sucesso usando Next.js e Supabase. 
+            Pronto para modelar, escalar e conectar seu backend para auditorias e assinaturas eletrônicas.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+          <div className={styles.grid}>
+            <div className={styles.card}>
+              <h3>📂 Estrutura Modular</h3>
+              <p>Arquitetura limpa com separação de domínios, aplicação e infraestrutura pré-configurada.</p>
+            </div>
+
+            <div className={styles.card}>
+              <h3>⚡ Conexão Supabase</h3>
+              <p>Wrapper para SSR e Client já inclusos. Integração com Autenticação e Storage por cookies.</p>
+            </div>
+
+            <div className={styles.card}>
+              <h3>🛠️ SQL Migrations</h3>
+              <p>Acesse `supabase/migrations` para importar o modelo das 15 entidades core do CLM.</p>
+            </div>
+          </div>
+
+          <div className={styles.ctas}>
+            <a href="/DOCS/GERAL.md" className={styles.primary}>
+              Ver Documentação
+            </a>
+            <a href="https://supabase.com/dashboard" target="_blank" className={styles.secondary}>
+              Painel Supabase
+            </a>
+          </div>
         </div>
       </main>
     </div>
   );
 }
+
