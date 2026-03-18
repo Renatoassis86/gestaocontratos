@@ -8,10 +8,14 @@ export async function updateSession(request: NextRequest) {
     },
   })
 
-  // Exemplo de criação de cliente Supabase no middleware
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return NextResponse.next() // Previne crash 500 se variáveis da Vercel estiverem vazias
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+
     {
       cookies: {
         getAll() {

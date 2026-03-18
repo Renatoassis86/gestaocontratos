@@ -17,6 +17,8 @@ export default async function DashboardLayout({
     redirect('/login')
   }
 
+
+
   // 2. Obter Detalhes do Perfil
   const { data: perfil } = await supabase
     .from('perfis')

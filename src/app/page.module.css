@@ -1,163 +1,199 @@
 .page {
-  display: flex;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  overflow: hidden;
+  background-color: #05060A;
+  color: #E2E8F0;
+  font-family: 'Inter', -apple-system, sans-serif;
+  overflow-x: hidden;
   position: relative;
 }
 
-/* Background effects */
-.page::before {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-  top: -200px;
-  right: -100px;
-  z-index: 0;
-  border-radius: 50%;
-}
-
-.main {
-  z-index: 1;
-  width: 100%;
-  max-width: 900px;
-}
-
-.container {
-  background: var(--glass);
+/* 1. Header */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  background-color: rgba(5, 6, 10, 0.7);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 3.5rem 2.5rem;
-  text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 100;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoIcon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #7C3AED, #D946EF);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
+}
+
+.logoText {
   display: flex;
   flex-direction: column;
+}
+
+.logoTitle {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.logoSub {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #94A3B8;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.headerActions {
+  display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 16px;
 }
 
-.badge {
-  background: rgba(16, 185, 129, 0.12);
-  color: var(--success);
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  letter-spacing: 0.5px;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+.btnText {
+  background: none; border: none;
+  color: #94A3B8; font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; padding: 8px 16px; border-radius: 8px;
+  transition: all 0.2s;
+}
+.btnText:hover { color: white; background-color: rgba(255,255,255,0.05); }
+
+.btnPrimary {
+  background: linear-gradient(90deg, #10B981, #14B8A6);
+  color: #05060A; font-weight: 800; font-size: 0.95rem;
+  border-radius: 10px; border: none;
+  padding: 10px 20px; cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btnPrimary:hover { transform: translateY(-1px); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.25); }
+
+/* 2. Hero Section */
+.hero {
+  padding-top: 160px; padding-bottom: 120px;
+  text-align: center;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center;
+  padding-left: 20px; padding-right: 20px;
 }
 
-.title {
-  font-size: 3rem;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
+.heroGlow {
+  position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background-color: rgba(124, 58, 237, 0.08);
+  filter: blur(80px); border-radius: 100%; z-index: -1;
 }
 
-.glow {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.heroTag {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 6px 16px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px; font-weight: 600; color: #94A3B8;
+  letter-spacing: 0.03em; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-.description {
-  color: var(--secondary);
-  font-size: 1.15rem;
-  max-width: 600px;
-  line-height: 1.6;
+.heroH1 {
+  font-size: 4rem; font-weight: 900; color: white;
+  line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px;
+}
+
+.gradientText {
+  background: linear-gradient(90deg, #34D399, #67E8F9);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.heroP {
+  color: #94A3B8; font-size: 1.125rem; max-width: 600px;
+  margin-bottom: 40px; line-height: 1.6;
+}
+
+/* 3. Módulos Grid */
+.modulesWrapper {
+  max-width: 1200px; margin: 0 auto; padding-bottom: 140px;
+  padding-left: 40px; padding-right: 40px;
+}
+
+.modulesHeader {
+  text-align: center; margin-bottom: 64px;
+}
+
+.modulesBadge {
+  color: #34D399; font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; background: rgba(16, 185, 129, 0.05);
+  padding: 6px 12px; border-radius: 100px; border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.modulesTitle {
+  font-size: 2.25rem; font-weight: 900; color: white; margin-top: 12px;
+  letter-spacing: -0.02em;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-  margin-top: 1.5rem;
-  text-align: left;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
 }
+
+@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .heroH1 { font-size: 2.5rem; } }
 
 .card {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  padding: 1.5rem;
-  border-radius: 16px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: rgba(30, 41, 59, 0.2);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 20px; overflow: hidden;
+  transition: all 0.3s;
+  display: flex; flex-direction: column;
+}
+.card:hover { border-color: rgba(52, 211, 153, 0.2); transform: translateY(-4px); }
+
+.cardImage {
+  height: 220px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, rgba(5,6,10,0.8), rgba(16, 185, 129, 0.1), rgba(5,6,10,0.8));
 }
 
-@media (prefers-color-scheme: dark) {
-  .card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
+.cardGlow {
+  position: absolute; width: 140px; height: 140px;
+  background: rgba(16, 185, 129, 0.15); filter: blur(40px); border-radius: 50%;
 }
 
-.card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.cardStatus {
+  position: absolute; bottom: 16px; left: 16px;
+  background: #0D1512; color: #34D399; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(52, 211, 153, 0.2);
 }
 
-.card p {
-  color: var(--secondary);
-  font-size: 0.95rem;
-  line-height: 1.5;
+.cardBody {
+  padding: 24px; flex: 1; display: flex; flex-direction: column;
 }
 
-.ctas {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
+.cardTitle { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 8px; }
+.cardP { color: #94A3B8; font-size: 0.875rem; line-height: 1.5; margin-bottom: 20px; flex: 1; }
 
-.ctas a {
-  padding: 0.8rem 1.8rem;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s;
-}
+.cardList { list-style: none; padding: 0; margin: 0 0 24px 0; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 16px; }
+.cardListItem { display: flex; align-items: center; gap: 8px; color: #64748B; font-size: 0.75rem; margin-bottom: 8px; }
 
-.primary {
-  background: var(--primary);
-  color: white !important;
-  box-shadow: 0 10px 15px -3px var(--primary-glow);
+.cardBtn {
+  width: 100%; padding: 12px; background: #1E293B; border-radius: 12px;
+  border: none; color: #E2E8F0; font-weight: 700; font-size: 0.875rem;
+  cursor: pointer; transition: all 0.2s;
 }
-
-.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 25px -5px var(--primary-glow);
-}
-
-.secondary {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--foreground) !important;
-}
-
-.secondary:hover {
-  background: rgba(0, 0, 0, 0.02);
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .title {
-    font-size: 2.2rem;
-  }
-  
-  .container {
-    padding: 2rem 1.5rem;
-  }
-}
-
+.cardBtn:hover { background: #10B981; color: #05060A; }
