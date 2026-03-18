@@ -1,49 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
 :root {
-  --background: #f4f7f6; /* Leve cinza azulado/esverdeado sutil */
-  --foreground: #022c22; /* Neutro escuro com tom de verde */
+  /* Nova Identidade Arkos (Preto Obsidiana + Verde Signal) */
+  --background: #0A0C0F; 
+  --foreground: #F4F2ED; 
   
-  /* Palette de cores Adapta (Verde Sofisticado) */
-  --primary: #00e676; /* Verde elétrico sofisticado inspirado na Adapta */
-  --primary-hover: #00c853; 
-  --primary-glow: rgba(0, 230, 118, 0.15);
+  --primary: #C8F542; /* Verde Signal Luminescente */
+  --primary-hover: #A8D422; 
+  --primary-glow: rgba(200, 245, 66, 0.15);
   
-  --secondary: #4b5563;
-  --accent: #111827; /* Preto corporativo para contrastes elegantes */
+  --secondary: #8A8F99; /* Cinematic mute cinza */
+  --accent: #111318; /* Background Secundário */
   
-  --border: #e4e8e7;
-  --glass: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.4);
+  --border: rgba(255, 255, 255, 0.07);
+  --glass: rgba(17, 19, 24, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
   
-  --sidebar: #ffffff;
-  --header: #ffffff;
+  --sidebar: #0A0C0F;
+  --header: #0A0C0F;
   
-  --success: #00e676;
-  --warning: #eab308;
-  --danger: #ef4444;
+  --success: #A8D422;
+  --warning: #EAB308;
+  --danger: #EF4444;
 
-  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   --border-radius: 12px;
+
+  /* Fontes do Brandbook */
+  --serif: 'DM Serif Display', serif;
+  --sans: 'Inter', sans-serif;
+  --mono: 'DM Mono', monospace;
 }
 
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09090b;
-    --foreground: #f4f4f5;
-    
-    --primary: #3b82f6;
-    --primary-hover: #2563eb;
-    
-    --border: #27272a;
-    --glass: rgba(24, 24, 27, 0.6);
-    --glass-border: rgba(39, 39, 42, 0.4);
-    
-    --sidebar: #09090b;
-    --header: #09090b;
-  }
-}
+
+
+/* Remoção de queries condicionais. Arkos é nativamente Dark pura */
 
 * {
+
   box-sizing: border-box;
   padding: 0;
   margin: 0;

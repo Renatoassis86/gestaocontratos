@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <title>ARKOS — Símbolo Monocromático · Branco</title>
+  <!-- Para serigrafia 1 cor, bordado branco, hot stamping prata/branco -->
+  <!-- Fundo preto de referência — remova para exportar com fundo transparente -->
+  <rect width="200" height="220" fill="#0A0C0F"/>
+  <line x1="100" y1="20" x2="30" y2="190" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+  <line x1="100" y1="20" x2="170" y2="190" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+  <line x1="52"  y1="130" x2="148" y2="130" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="100" cy="20" r="10" fill="#FFFFFF"/>
+</svg>

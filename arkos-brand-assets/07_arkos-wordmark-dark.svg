@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80">
+  <title>ARKOS — Wordmark Isolado · Fundo Escuro</title>
+  <rect width="360" height="80" fill="#0A0C0F"/>
+  <text
+    x="180" y="54"
+    text-anchor="middle"
+    font-family="'DM Mono', 'Courier New', monospace"
+    font-weight="500"
+    font-size="48"
+    letter-spacing="16"
+    fill="#F4F2ED">ARKOS</text>
+</svg>

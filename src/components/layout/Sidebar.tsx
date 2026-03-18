@@ -1,29 +1,61 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
 import styles from './sidebar.module.css'
 import { LayoutDashboard, Building2, Users, FileText, LifeBuoy, Settings, LogOut, FileCheck } from 'lucide-react'
 
 interface SidebarProps {
-  currentPath: string;
+  currentPath?: string; // Mantido por compatibilidade
+  activeCompany?: {
+    id: string;
+    razaoSocial: string;
+    nomeFantasia: string;
+  };
+  isAdmin?: boolean;
 }
 
-export function Sidebar({ currentPath }: SidebarProps) {
+export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
+  const pathname = usePathname()
+  const isFICV = activeCompany?.nomeFantasia?.toLowerCase().includes('ficv') || 
+                 activeCompany?.razaoSocial?.toLowerCase().includes('ficv')
+
   const menus = [
     { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
+  ]
+
+
+
+
+  // Se for FICV, adicionar os Menus Acadêmicos no Topo
+  if (isFICV) {
+    menus.push(
+      { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
+      { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> }
+    )
+  }
+
+
+
+
+
+  // Menus Operacionais e Contratos (Sempre visíveis para todos, inclusive FICV)
+  menus.push(
     { name: 'CLM Ópera', path: '/dashboard/clm', icon: <FileCheck size={20} /> },
     { name: 'Contratos', path: '/dashboard/contratos', icon: <FileText size={20} /> },
     { name: 'Documentos', path: '/dashboard/documentos', icon: <FileText size={20} /> },
-    { name: 'Alunos', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
     { name: 'Assinaturas', path: '/dashboard/assinaturas', icon: <FileText size={20} /> },
+    { name: 'Planos & Templates', path: '/dashboard/templates', icon: <FileText size={20} /> }
+  )
 
+  // Menus Administrativos Finais
+  if (isAdmin) {
+    menus.push({ name: 'Empresas', path: '/dashboard/empresas', icon: <Building2 size={20} /> })
+  }
+  
+  menus.push({ name: 'Pessoas', path: '/dashboard/pessoas', icon: <Users size={20} /> })
 
-    { name: 'Templates', path: '/dashboard/templates', icon: <FileText size={20} /> },
-    { name: 'Tipos', path: '/dashboard/tipos-contrato', icon: <Settings size={20} /> },
-
-
-    { name: 'Empresas', path: '/dashboard/empresas', icon: <Building2 size={20} /> },
-    { name: 'Pessoas', path: '/dashboard/pessoas', icon: <Users size={20} /> },
-
-  ]
 
   const BottomMenus = [
     { name: 'Configurações', path: '/dashboard/settings', icon: <Settings size={20} /> },
@@ -39,7 +71,7 @@ export function Sidebar({ currentPath }: SidebarProps) {
       <nav className={styles.nav}>
         <ul>
           {menus.map((menu) => {
-            const isActive = currentPath === menu.path;
+            const isActive = pathname === menu.path;
             return (
               <li key={menu.path}>
                 <Link href={menu.path} className={isActive ? styles.active : ''}>
@@ -55,7 +87,7 @@ export function Sidebar({ currentPath }: SidebarProps) {
       <div className={styles.footer}>
         <ul>
           {BottomMenus.map((menu) => {
-            const isActive = currentPath === menu.path;
+            const isActive = pathname === menu.path;
             return (
               <li key={menu.path}>
                 <Link href={menu.path} className={isActive ? styles.active : ''}>

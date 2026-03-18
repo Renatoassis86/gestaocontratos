@@ -1,6 +1,8 @@
 import { createClient } from '@/infrastructure/supabase/server'
 import styles from '../dashboard.module.css'
 import { getValidatedCompanyId } from '@/application/services/TenantService'
+import Link from 'next/link'
+
 
 export default async function TemplatesPage() {
   const supabase = await createClient()
@@ -20,8 +22,12 @@ export default async function TemplatesPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Templates de Contratos</h1>
-      <p className={styles.subtitle}>Gestão de modelos e conteúdos base pré-aprovados.</p>
+      <h1 className={styles.title}>Templates de Documentos</h1>
+      <p className={styles.subtitle}>Gestão de modelos, contratos e conteúdos base pré-aprovados.</p>
+
+
+
+
 
       {!activeCompanyId && (
         <p style={{ color: 'var(--danger)', fontStyle: 'italic' }}>
@@ -32,10 +38,12 @@ export default async function TemplatesPage() {
       {activeCompanyId && (
         <>
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
-            <button className={styles.companySwitcher} style={{ background: 'var(--primary)', color: 'white', border: 'none' }}>
+            <Link href="/dashboard/templates/novo" className={styles.companySwitcher} style={{ background: 'var(--primary)', color: 'white', border: 'none', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               + Novo Template
-            </button>
+            </Link>
+
           </div>
+
 
           <div style={{ background: 'var(--sidebar)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
             {templates.length === 0 ? (
@@ -48,7 +56,9 @@ export default async function TemplatesPage() {
                     <th style={{ padding: '0.75rem 0', color: 'var(--secondary)' }}>Tipo</th>
                     <th style={{ padding: '0.75rem 0', color: 'var(--secondary)' }}>Versão</th>
                     <th style={{ padding: '0.75rem 0', color: 'var(--secondary)' }}>Status</th>
+                    <th style={{ padding: '0.75rem 0', color: 'var(--secondary)', textAlign: 'center' }}>Ações</th>
                   </tr>
+
                 </thead>
                 <tbody>
                   {templates.map((t: any) => (
@@ -61,7 +71,12 @@ export default async function TemplatesPage() {
                           {t.status}
                         </span>
                       </td>
+                      <td style={{ padding: '0.75rem 0', textAlign: 'center' }}>
+                        <button style={{ background: 'transparent', border: 'none', color: '#10b981', fontSize: '0.8rem', marginRight: '10px', cursor: 'pointer' }}>Editar</button>
+                        <button style={{ background: 'transparent', border: 'none', color: '#ef4444', fontSize: '0.8rem', cursor: 'pointer' }}>Excluir</button>
+                      </td>
                     </tr>
+
                   ))}
                 </tbody>
               </table>

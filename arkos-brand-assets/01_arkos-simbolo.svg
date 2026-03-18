@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <title>ARKOS — Símbolo</title>
+  <!-- Perna esquerda -->
+  <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="16" stroke-linecap="round"/>
+  <!-- Perna direita -->
+  <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="16" stroke-linecap="round"/>
+  <!-- Barra de Sinal (verde — não alterar) -->
+  <line x1="52" y1="130" x2="148" y2="130" stroke="#C8F542" stroke-width="12" stroke-linecap="round"/>
+  <!-- Ápice (verde — não alterar) -->
+  <circle cx="100" cy="20" r="10" fill="#C8F542"/>
+</svg>

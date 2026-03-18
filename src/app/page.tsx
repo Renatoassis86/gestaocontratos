@@ -5,37 +5,46 @@ import { ArrowRight, FileText, ShoppingCart, Users, Sparkles, CheckCircle2 } fro
 export default function Home() {
   return (
     <div className={styles.page}>
-      {/* Glow fundo top */}
+      {/* Mesh de grid linear do Brandbook */}
+      <div className={styles.heroGrid}></div>
+
+      {/* Glow de inteligência de fundo */}
       <div className={styles.heroGlow}></div>
 
       {/* 1. Header */}
       <header className={styles.header}>
-        <div className={styles.logoArea}>
-          <div className={styles.logoIcon}>A</div>
-          <div className={styles.logoText}>
-            <span className={styles.logoTitle}>ARKOS</span>
-            <span className={styles.logoSub}>Intelligence</span>
-          </div>
+        <div>
+          <img src="/logo-high-res.svg" alt="ARKOS" className={styles.logoImage} />
         </div>
+ 
+
+
+
+
+
+        
+
+
 
         <div className={styles.headerActions}>
           <Link href="/login">
-            <button className={styles.btnText}>Login</button>
+            <button className={styles.btnText}>Entrar</button>
           </Link>
           <Link href="/login">
             <button className={styles.btnPrimary}>
-              <span>Começar</span>
+              <span>Cadastrar</span>
               <ArrowRight size={16} />
             </button>
           </Link>
         </div>
+
       </header>
 
       {/* 2. Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroTag}>
-          <Sparkles size={14} className="text-emerald-400" style={{ color: '#10B981' }} />
-          <span>A Infraestrutura de Inteligência da Nova Economia</span>
+          <Sparkles size={14} style={{ color: 'var(--primary)' }} />
+          <span>Infraestrutura de Inteligência para a Nova Economia</span>
         </div>
 
         <h1 className={styles.heroH1}>
@@ -44,8 +53,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.heroP}>
-          Otimize seus processos com B2B SaaS, Enterprise Analytics e Marketing Intelligence.
-          Crie, comunique e assine tudo em uma única central de processamento.
+          Analytics estratégico de dados para B2B SaaS Enterprise, Marketing Intelligence e Operações Digitais de alto desempenho.
         </p>
 
         <Link href="/login">
@@ -59,8 +67,8 @@ export default function Home() {
       {/* 3. Grid de Módulos */}
       <section className={styles.modulesWrapper}>
         <div className={styles.modulesHeader}>
-          <span className={styles.modulesBadge}>Nossos Módulos</span>
-          <h2 className={styles.modulesTitle}>Ecossistema unificado para seu negócio</h2>
+          <span className={styles.modulesBadge}>Módulo Principal</span>
+          <h2 className={styles.modulesTitle}>Ecossistema Integrado Arkos</h2>
         </div>
 
         <div className={styles.grid}>
@@ -68,7 +76,7 @@ export default function Home() {
           <div className={styles.card}>
             <div className={styles.cardImage}>
               <div className={styles.cardGlow}></div>
-              <div style={{ opacity: 0.3, color: '#10B981' }}>
+              <div style={{ opacity: 0.3, color: 'var(--primary)' }}>
                 <FileText size={100} strokeWidth={1} />
               </div>
               <span className={styles.cardStatus}>Disponível</span>
@@ -77,15 +85,15 @@ export default function Home() {
             <div className={styles.cardBody}>
               <h3 className={styles.cardTitle}>Gestão de Contratos CLM</h3>
               <p className={styles.cardP}>
-                Controle fluxos de processos, rastreabilidade auditável, assinatura digital em lote e central documental.
+                Controle fluxos de processos, rastreabilidade auditável e central documental de alta segurança.
               </p>
               <ul className={styles.cardList}>
                 <li className={styles.cardListItem}>
-                  <CheckCircle2 size={12} style={{ color: '#10B981' }} />
+                  <CheckCircle2 size={12} style={{ color: 'var(--primary)' }} />
                   <span>Assinatura Digital Integrada</span>
                 </li>
                 <li className={styles.cardListItem}>
-                  <CheckCircle2 size={12} style={{ color: '#10B981' }} />
+                  <CheckCircle2 size={12} style={{ color: 'var(--primary)' }} />
                   <span>Gestão de Ciclo de Vida (CLM)</span>
                 </li>
               </ul>
@@ -94,6 +102,8 @@ export default function Home() {
               </Link>
             </div>
           </div>
+ 
+
 
           {/* Módulo 2: Enterprise Analytics */}
           <div className={styles.card} style={{ opacity: 0.7 }}>

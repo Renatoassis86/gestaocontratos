@@ -1,8 +1,13 @@
-import { createClient } from '@/infrastructure/supabase/server'
-import { redirect } from 'next/navigation'
 import { Sidebar } from '@/components/layout/Sidebar'
+import { CompanySwitcher } from '@/components/layout/CompanySwitcher'
 import { cookies } from 'next/headers'
 import styles from './dashboard.module.css'
+import { BuildingIcon } from 'lucide-react'
+import Link from 'next/link'
+import { selectCompany } from '../actions'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/infrastructure/supabase/server'
+
 
 export default async function DashboardLayout({
   children,
@@ -26,17 +31,33 @@ export default async function DashboardLayout({
     .eq('id', user.id)
     .single()
 
-  // 3. Obter Empresas que o usuário pertence
-  const { data: usuariosEmpresas } = await supabase
-    .from('usuarios_empresas')
-    .select('empresa_id, empresas(razao_social, nome_fantasia)')
-    .eq('perfil_id', user.id)
+  // 3. Obter Empresas que o usuário pertence (Bypass de todas para renato086@gmail.com)
+  const isAdmin = user.email === 'renato086@gmail.com';
+  let empresas: any[] = []
 
-  const empresas = usuariosEmpresas?.map((ue: any) => ({
-    id: ue.empresa_id,
-    razaoSocial: ue.empresas.razao_social,
-    nomeFantasia: ue.empresas.nome_fantasia
-  })) || []
+  if (isAdmin) {
+    const { data: todasEmpresas } = await supabase
+      .from('empresas')
+      .select('id, razao_social, nome_fantasia')
+    
+    empresas = todasEmpresas?.map((e: any) => ({
+      id: e.id,
+      razaoSocial: e.razao_social,
+      nomeFantasia: e.nome_fantasia
+    })) || []
+  } else {
+    const { data: usuariosEmpresas } = await supabase
+      .from('usuarios_empresas')
+      .select('empresa_id, empresas(razao_social, nome_fantasia)')
+      .eq('perfil_id', user.id)
+
+    empresas = usuariosEmpresas?.map((ue: any) => ({
+      id: ue.empresa_id,
+      razaoSocial: ue.empresas.razao_social,
+      nomeFantasia: ue.empresas.nome_fantasia
+    })) || []
+  }
+
 
   // 4. Resolver Empresa Ativa de Cookie
   const cookieStore = await cookies()
@@ -46,18 +67,18 @@ export default async function DashboardLayout({
 
   return (
     <div className={styles.layout}>
-      {/* Exemplo de caminho atual fixado para este layout */}
-      <Sidebar currentPath="/dashboard" />
+      <Sidebar currentPath="/dashboard" activeCompany={activeCompany} isAdmin={isAdmin} />
+
+
       
       <div className={styles.content}>
         <header className={styles.header}>
           <div className={styles.companySwitcher}>
-            {activeCompany ? (
-              <span className={styles.companyName}>🏢 {activeCompany.nomeFantasia || activeCompany.razaoSocial}</span>
-            ) : (
-              <span className={styles.placeholder}>Selecione uma empresa</span>
-            )}
+            <CompanySwitcher empresas={empresas} activeCompany={activeCompany} />
           </div>
+ 
+
+
           
           <div className={styles.userMenu}>
             <div className={styles.perfilIcon}>

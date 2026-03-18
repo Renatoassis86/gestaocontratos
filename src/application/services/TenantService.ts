@@ -29,10 +29,9 @@ export async function getValidatedCompanyId(): Promise<string | null> {
   // 5. Fallback para primeira empresa se não houver cookie ou se for inválido
   const fallbackId = empresasIds[0]
   if (fallbackId) {
-    // Atualizar cookie para evitar disparidades futuras
-    cookieStore.set('active_company_id', fallbackId, { secure: true, httpOnly: true })
-    return fallbackId
+    return fallbackId    
   }
+
 
   return null
 }

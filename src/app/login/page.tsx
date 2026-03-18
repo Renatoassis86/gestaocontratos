@@ -1,12 +1,23 @@
+'use client'
+
 import styles from './login.module.css'
 import { signIn, signUp } from '../actions'
+import { useState, useEffect } from 'react'
 
-export default async function LoginPage({
+export default function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  searchParams: any
 }) {
-  const error = (await searchParams).error as string | undefined;
+  const [view, setView] = useState<'signin' | 'signup'>('signin')
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Pegar erro da URL de forma segura no client
+    const params = new URLSearchParams(window.location.search)
+    const err = params.get('error')
+    if (err) setErrorMsg(err)
+  }, [])
 
   return (
     <div className={styles.page}>
@@ -16,42 +27,65 @@ export default async function LoginPage({
           <p>Gestão Inteligente de Ciclo de Vida Contratual</p>
         </div>
 
-        {error && (
+        {errorMsg && (
           <div className={styles.errorBanner}>
-            ⚠️ {error}
+            ⚠️ {errorMsg}
           </div>
         )}
 
-        <form action={signIn} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" name="email" required placeholder="seu@email.com" />
-          </div>
+        {view === 'signin' ? (
+          /* FORMULÁRIO DE LOGIN */
+          <form action={signIn} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="email">E-mail</label>
+              <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+            </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="password">Senha</label>
-            <input type="password" id="password" name="password" required placeholder="••••••••" />
-          </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="password">Senha</label>
+              <input type="password" id="password" name="password" required placeholder="••••••••" />
+            </div>
 
-          <button type="submit" className={styles.loginBtn}>Entrar</button>
-        </form>
+            <button type="submit" className={styles.loginBtn}>Entrar</button>
 
-        <div className={styles.divider}>ou</div>
+            <p className="text-center text-xs text-slate-500 mt-2">
+              Não tem uma conta?{' '}
+              <span onClick={() => setView('signup')} className="text-emerald-500 font-bold cursor-pointer hover:underline">
+                Cadastre-se
+              </span>
+            </p>
+          </form>
+        ) : (
+          /* FORMULÁRIO DE CADASTRO */
+          <form action={signUp} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name">Nome Completo</label>
+              <input type="text" id="name" name="name" required placeholder="Seu Nome" />
+            </div>
 
-        <form action={signUp} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="name">Nome Completo</label>
-            <input type="text" id="name" name="name" placeholder="Seu Nome" />
-          </div>
-          
-          <div className={styles.formGroup}>
-            <input type="email" name="email" required placeholder="Email novo" style={{ display: 'none' }} />
-            <input type="password" name="password" required placeholder="Senha nova" style={{ display: 'none' }} />
-          </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="email_up">E-mail</label>
+              <input type="email" id="email_up" name="email" required placeholder="seu@email.com" />
+            </div>
 
-          <button type="submit" className={styles.secondaryBtn}>Criar Conta</button>
-        </form>
+            <div className={styles.formGroup}>
+              <label htmlFor="password_up">Senha</label>
+              <input type="password" id="password_up" name="password" required placeholder="••••••••" />
+            </div>
+
+            <button type="submit" className={styles.loginBtn}>Criar Conta</button>
+
+            <p className="text-center text-xs text-slate-500 mt-2">
+              Já tem uma conta?{' '}
+              <span onClick={() => setView('signin')} className="text-emerald-500 font-bold cursor-pointer hover:underline">
+                Acesse aqui
+              </span>
+            </p>
+          </form>
+        )}
       </div>
     </div>
   )
 }
+
+

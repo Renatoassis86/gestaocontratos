@@ -1,18 +1,30 @@
 import { createClient } from '@/infrastructure/supabase/server'
 import styles from '../dashboard.module.css'
 import { Building2 } from 'lucide-react'
+import { AddCompanyModal } from './AddCompanyModal'
+import { createCompany } from '@/app/actions'
 
 export default async function EmpresasPage() {
   const supabase = await createClient()
 
   // 1. Obter todas as empresas vinculadas ao usuário
   const { data: { user } } = await supabase.auth.getUser()
-  const { data: uv } = await supabase
-    .from('usuarios_empresas')
-    .select('empresa_id, empresas(*)')
-    .eq('perfil_id', user?.id)
+  const isAdmin = user?.email === 'renato086@gmail.com'
+  let empresas: any[] = []
 
-  const empresas = uv?.map((u: any) => u.empresas) || []
+  if (isAdmin) {
+    const { data: todasEmpresas } = await supabase
+      .from('empresas')
+      .select('*')
+    empresas = todasEmpresas || []
+  } else {
+    const { data: uv } = await supabase
+      .from('usuarios_empresas')
+      .select('empresa_id, empresas(*)')
+      .eq('perfil_id', user?.id)
+    
+    empresas = uv?.map((u: any) => u.empresas) || []
+  }
 
   return (
     <div>
@@ -20,10 +32,9 @@ export default async function EmpresasPage() {
       <p className={styles.subtitle}>Gestão de Tenants que você pertence.</p>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
-        <button className={styles.companySwitcher} style={{ background: 'var(--primary)', color: 'white', border: 'none' }}>
-          + Cadastrar Empresa
-        </button>
+        <AddCompanyModal createAction={createCompany} />
       </div>
+
 
       <div style={{ background: 'var(--sidebar)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
         {empresas.length === 0 ? (

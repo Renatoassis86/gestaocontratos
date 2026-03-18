@@ -32,11 +32,26 @@ export default async function PessoasPage() {
 
       {activeCompanyId && (
         <>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
-            <button className={styles.companySwitcher} style={{ background: 'var(--primary)', color: 'white', border: 'none' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '1.5rem' }}>
+            <a href="/api/planilha/modelo/pessoas" download style={{ textDecoration: 'none' }}>
+              <button style={{ background: 'rgba(200, 245, 66, 0.1)', color: 'var(--primary)', border: '1px solid rgba(200, 245, 66, 0.2)', padding: '10px 16px', borderRadius: '12px', fontWeight: 600, cursor: 'pointer' }}>
+                Baixar Planilha Modelo (.xlsx)
+              </button>
+            </a>
+
+
+            <button style={{ background: 'rgba(255,255,255,0.02)', color: 'white', border: '1px solid var(--border)', padding: '10px 16px', borderRadius: '12px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              Importar Planilha (.xls)
+            </button>
+
+            
+            <button style={{ background: 'var(--primary)', color: '#000', border: 'none', padding: '10px 16px', borderRadius: '12px', fontWeight: 700, cursor: 'pointer' }}>
               + Cadastrar Pessoa
             </button>
           </div>
+
+
+
 
           <div style={{ background: 'var(--sidebar)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
             {pessoas.length === 0 ? (

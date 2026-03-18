@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>ARKOS — Ícone App 512×512</title>
+  <!-- Fundo quadrado com canto arredondado (padrão iOS/Android) -->
+  <rect width="512" height="512" rx="112" fill="#0A0C0F"/>
+  <!-- Leve gradiente de profundidade no fundo -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-grad)"/>
+  <defs>
+    <radialGradient id="bg-grad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1F242D" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0A0C0F" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <!-- SÍMBOLO — centralizado, escalonado para 512px -->
+  <!-- Perna esquerda -->
+  <line x1="256" y1="82"  x2="100" y2="430" stroke="#F4F2ED" stroke-width="44" stroke-linecap="round"/>
+  <!-- Perna direita -->
+  <line x1="256" y1="82"  x2="412" y2="430" stroke="#F4F2ED" stroke-width="44" stroke-linecap="round"/>
+  <!-- Barra de Sinal -->
+  <line x1="147" y1="296" x2="365" y2="296" stroke="#C8F542" stroke-width="36" stroke-linecap="round"/>
+  <!-- Ápice -->
+  <circle cx="256" cy="82" r="28" fill="#C8F542"/>
+</svg>
