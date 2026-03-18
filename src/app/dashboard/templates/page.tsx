@@ -3,6 +3,9 @@ import styles from '../dashboard.module.css'
 import { getValidatedCompanyId } from '@/application/services/TenantService'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
+
 
 export default async function TemplatesPage() {
   const supabase = await createClient()
@@ -22,8 +25,9 @@ export default async function TemplatesPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Templates de Documentos</h1>
-      <p className={styles.subtitle}>Gestão de modelos, contratos e conteúdos base pré-aprovados.</p>
+      <h1 className={styles.title}>Documentos e Templates</h1>
+      <p className={styles.subtitle}>Gestão de modelos, certificados e conteúdos base pré-aprovados.</p>
+
 
 
 
@@ -71,10 +75,12 @@ export default async function TemplatesPage() {
                           {t.status}
                         </span>
                       </td>
-                      <td style={{ padding: '0.75rem 0', textAlign: 'center' }}>
-                        <button style={{ background: 'transparent', border: 'none', color: '#10b981', fontSize: '0.8rem', marginRight: '10px', cursor: 'pointer' }}>Editar</button>
-                        <button style={{ background: 'transparent', border: 'none', color: '#ef4444', fontSize: '0.8rem', cursor: 'pointer' }}>Excluir</button>
+                      <td style={{ padding: '0.75rem 0', textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                        <Link href={`/dashboard/templates/popular/${t.id}`} style={{ textDecoration: 'none', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}>Popular ✨</Link>
+                        <button style={{ background: 'transparent', border: 'none', color: '#10b981', fontSize: '0.75rem', cursor: 'pointer' }}>Editar</button>
+                        <button style={{ background: 'transparent', border: 'none', color: '#ef4444', fontSize: '0.75rem', cursor: 'pointer' }}>Excluir</button>
                       </td>
+
                     </tr>
 
                   ))}

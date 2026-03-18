@@ -46,8 +46,13 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
     { name: 'Contratos', path: '/dashboard/contratos', icon: <FileText size={20} /> },
     { name: 'Documentos', path: '/dashboard/documentos', icon: <FileText size={20} /> },
     { name: 'Assinaturas', path: '/dashboard/assinaturas', icon: <FileText size={20} /> },
-    { name: 'Planos & Templates', path: '/dashboard/templates', icon: <FileText size={20} /> }
+    { name: 'Planos & Templates', path: '/dashboard/templates', icon: <FileCheck size={20} /> }
   )
+
+  // Ajustar nome do menu para o Usuário
+  const indexPlanos = menus.findIndex(m => m.path === '/dashboard/templates');
+  if (indexPlanos !== -1) menus[indexPlanos].name = 'Documentos e Templates';
+
 
   // Menus Administrativos Finais
   if (isAdmin) {
@@ -64,9 +69,11 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
 
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.header}>
-        <span className={styles.logoText}>Contratos<span className={styles.accent}>SaaS</span></span>
+      <div className={styles.header} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '1.5rem' }}>
+        <img src="/logo-green.png" alt="Arkos" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+        <span style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'white', letterSpacing: '0.5px' }}>ARKOS</span>
       </div>
+
 
       <nav className={styles.nav}>
         <ul>

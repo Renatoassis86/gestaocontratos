@@ -329,5 +329,80 @@ export async function criarObrigacao(formData: FormData) {
   redirect(`/dashboard/contratos/${contratoId}?obrigacao=true`)
 }
 
+export async function salvarTemplate(formData: FormData) {
+  const supabase = await createClient()
+  const activeCompanyId = await getValidatedCompanyId()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!activeCompanyId) throw new Error('Empresa ativa não selecionada.')
+  if (!user) throw new Error('Não autenticado.')
+
+  const titulo = formData.get('titulo') as string
+  const corpoTemplate = formData.get('corpo_template') as string
+  const variablesJson = formData.get('variables') as string
+  const variables = variablesJson ? JSON.parse(variablesJson) : []
+
+  // 1. Preparar File Upload se houver
+  let imagemFundoPath = null
+  const file = formData.get('fundo_certificado') as File | null
+  
+  if (file && file.size > 0) {
+    const bucketName = 'contratos_arquivos'
+    const fileExt = file.name.split('.').pop()
+    const filePath = `${activeCompanyId}/templates/fundo_${Date.now()}.${fileExt}`
+    
+    // Tenta upload
+    const { error: uploadError } = await supabase.storage
+      .from(bucketName)
+      .upload(filePath, file)
+      
+    if (!uploadError) {
+      imagemFundoPath = filePath
+    } else {
+      console.error('Erro ao fazer upload da imagem de fundo:', uploadError)
+    }
+  }
+
+  // 2. Inserir o Template
+  const { data: templateData, error: templateError } = await supabase
+    .from('templates_contrato')
+    .insert({
+      empresa_id: activeCompanyId,
+      titulo: titulo || 'Novo Template',
+      corpo_template: corpoTemplate || '',
+      status: 'ativo',
+      created_by: user.id,
+      versao: '1.0.0',
+      imagem_fundo_path: imagemFundoPath
+    })
+    .select()
+    .single()
+
+  if (templateError) throw new Error(templateError.message)
+
+  // 3. Inserir Variáveis vinculadas (Se houverem)
+  if (variables && variables.length > 0) {
+    const formattedVars = variables.map((v: any, index: number) => ({
+      template_id: templateData.id,
+      chave_tag: v.tag,
+      rotulo: v.label || v.tag.replace('{{', '').replace('}}', '').toUpperCase(),
+      tipo_dado: v.tipo || 'Texto',
+      origem: v.origem || 'manual',
+      ordem: index
+    }))
+
+    const { error: varsError } = await supabase
+      .from('campos_template')
+      .insert(formattedVars)
+
+    if (varsError) throw new Error(varsError.message)
+  }
+
+  return { success: true, data: templateData }
+}
+
+
+
+
 
 

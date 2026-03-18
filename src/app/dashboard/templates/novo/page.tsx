@@ -3,6 +3,8 @@
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/infrastructure/supabase/client'
+import { salvarTemplate } from '@/app/actions'
+
 
 import { Check, ArrowRight, ArrowLeft, Upload, FileText, Settings, BadgePercent, CheckCircle } from 'lucide-react'
 
@@ -28,46 +30,49 @@ export default function NovoTemplatePage() {
   ])
   const [highlightedText, setHighlightedText] = useState('')
   const [popoverPos, setPopoverPos] = useState({ top: 0, left: 0, active: false })
-  const [isSaved, setIsSaved] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
 
   const handleSave = async () => {
-    setIsSaved(true)
-
     try {
-      // 1. Obter Empresa Ativa do Cookie
-      const getActiveCompanyId = () => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; active_company_id=`);
-        if (parts.length === 2) return parts.pop()?.split(';').shift();
-        return null;
-      }
-      
-      const companyId = getActiveCompanyId()
+      // 1. Capturar o Corpo do Editor Atual
+      const corpoHTML = editorRef.current?.innerHTML || 'Texto do template'
 
-      if (companyId) {
-        const supabase = createClient()
-        
-        // 2. Salvar na Tabela `templates_contrato`
-        const { error } = await supabase
-          .from('templates_contrato')
-          .insert({
-            empresa_id: companyId,
-            titulo: titulo || `Novo ${docType}`,
-            corpo_template: editorRef.current?.innerHTML || 'Texto do template',
-            status: 'ativo',
-            versao: '1.0.0'
-          })
+      // 2. Preparar FormData para a Server Action
+      const formData = new FormData()
+      formData.append('titulo', titulo || `Novo ${docType}`)
+      formData.append('corpo_template', corpoHTML)
 
-        if (error) console.error('Erro ao salvar template:', error)
+      // Anexar arquivo de fundo se houver (Para Certificados)
+      if (selectedFile) {
+        formData.append('fundo_certificado', selectedFile)
       }
-    } catch (err) {
+
+      const varsToInsert = selectedTags.map(tag => ({
+        tag: tag,
+        label: tag.replace('{{', '').replace('}}', '').toUpperCase(),
+        tipo: 'Texto',
+        origem: 'manual'
+      }))
+      formData.append('variables', JSON.stringify(varsToInsert))
+
+      // 3. Chamar a Server Action (Segura e Independente de cookies client-side HttpOnly)
+      const result = await salvarTemplate(formData)
+
+      if (result && result.success) {
+        setShowSuccessModal(true)
+        setTimeout(() => {
+          router.push('/dashboard/templates')
+        }, 2200)
+      } else {
+        alert('❌ Erro inesperado ao salvar template.')
+      }
+    } catch (err: any) {
+      alert('❌ Erro Supabase: ' + err.message)
       console.error(err)
     }
-
-    setTimeout(() => {
-      router.push('/dashboard/templates')
-    }, 2000)
   }
+
+
 
 
 
@@ -271,7 +276,12 @@ export default function NovoTemplatePage() {
                     <select style={{ padding: '6px', background: '#e2e8f0', border: '1px solid #cbd5e1', borderRadius: '4px' }}><option>Fonte: Times</option></select>
                     <button style={{ padding: '6px 10px', background: '#e2e8f0', border: '1px solid #cbd5e1', borderRadius: '4px' }}>Tabela</button>
                   </div>
-                  <div contentEditable style={{ flex: 1, outline: 'none', fontFamily: 'times, serif', lineHeight: '1.6' }}>
+                  <div 
+                    ref={editorRef}
+                    contentEditable 
+                    style={{ flex: 1, outline: 'none', fontFamily: 'times, serif', lineHeight: '1.6' }}
+                  >
+
                     <p style={{ textAlign: 'center' }}><strong>CONTRATO DE PRESTAÇÃO DE SERVIÇOS EDUCACIONAIS</strong></p>
                     <p style={{ marginTop: '2rem' }}>Pelo presente instrumento particular, de um lado, <strong>FACULDADE INTERNACIONAL CIDADE VIVA</strong>, sediada em João Pessoa/PB...</p>
                     <p>E de outro lado, o Aluno(a) <strong>{"{{nome_aluno}}"}</strong>, portador do CPF <strong>{"{{cpf}}"}</strong>...</p>
@@ -338,9 +348,12 @@ export default function NovoTemplatePage() {
                     <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.5rem', color: 'var(--secondary)' }}>Título do Certificado:</label>
                     <input 
                       type="text" 
+                      value={titulo}
+                      onChange={(e) => setTitulo(e.target.value)}
                       placeholder="Ex: CERTIFICADO DE CONCLUSÃO"
                       style={{ width: '100%', padding: '0.85rem', background: 'var(--sidebar)', border: '1px solid var(--border)', borderRadius: '10px', color: 'white', fontFamily: 'system-ui, sans-serif', fontWeight: 'bold', textTransform: 'uppercase' }} 
                     />
+
                   </div>
 
                   {/* 3. Corpo do Texto (Rich Text) */}
@@ -576,8 +589,9 @@ export default function NovoTemplatePage() {
               </div>
             </div>
 
-            {isSaved && (
+            {showSuccessModal && (
               <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(6px)', zIndex: 99999 }}>
+
                 <div style={{ background: '#14171A', padding: '2.5rem', borderRadius: '24px', border: '1px solid #10b981', textAlign: 'center', maxWidth: '400px', boxShadow: '0 20px 50px rgba(16, 185, 129, 0.15)', animation: 'popUp 0.3s ease-out' }}>
                   <div style={{ width: '60px', height: '60px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
                     <CheckCircle size={32} style={{ color: '#10b981' }} />
