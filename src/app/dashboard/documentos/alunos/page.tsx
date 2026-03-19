@@ -59,19 +59,55 @@ export default function AlunosDocumentosPage() {
   }, [])
 
   const handleTestMoodle = async () => {
-    if (!testCourseId) return alert('Escolha um curso do Moodle!')
+    if (!cursoCategoria && !testCourseId) return alert('Escolha pelo menos uma categoria ou disciplina do Moodle!')
     setTestLoading(true)
+    setTestLogs(prev => [...prev, "🚀 Iniciando busca agregada de alunos..."])
     setTestLogs([])
     setTestVariables([])
     setMoodleUsers([])
 
-    const res = await testMoodleConnection(testCourseId, testDocType)
-    setTestLoading(false)
-    if (res.logs) setTestLogs(res.logs)
-    if (res.variables) setTestVariables(res.variables)
-    if (res.allUsers) {
-      setMoodleUsers(res.allUsers) // Salvar usuários reais para a tabela
-      setActiveTab('moodle') // Mudar aba para focar nos resultados
+    try {
+      let coursesToFetch: any[] = []
+      if (testCourseId) {
+        coursesToFetch = [{ id: testCourseId }]
+      } else {
+        coursesToFetch = moodleCourses.filter((c: any) => String(c.category) === cursoCategoria)
+      }
+
+      setTestLogs(prev => [...prev, `📂 Encontrado(s) ${coursesToFetch.length} curso(s) para carregar.`])
+
+      let aggregatedUsers: any[] = []
+      let aggregatedLogs: string[] = []
+      let sampleVariables: any[] = []
+
+      for (const course of coursesToFetch) {
+        aggregatedLogs.push(`🔄 Processando curso: ${course.fullname || course.id}`)
+        const res = await testMoodleConnection(String(course.id), testDocType)
+        if (res.success && res.allUsers) {
+          aggregatedUsers = [...aggregatedUsers, ...res.allUsers]
+          aggregatedLogs = [...aggregatedLogs, ...res.logs]
+          if (sampleVariables.length === 0 && res.variables) {
+            sampleVariables = res.variables
+          }
+        } else {
+          aggregatedLogs.push(`⚠️ Falha ao carregar curso ID: ${course.id}`)
+        }
+      }
+
+      setTestLoading(false)
+      setTestLogs(aggregatedLogs)
+      if (sampleVariables.length > 0) setTestVariables(sampleVariables)
+      
+      if (aggregatedUsers.length > 0) {
+        setMoodleUsers(aggregatedUsers) // Salvar usuários reais para a tabela
+        setActiveTab('moodle') // Mudar aba para focar nos resultados
+      } else {
+        alert('Nenhum aluno encontrado nos cursos selecionados.')
+      }
+
+    } catch (e: any) {
+      setTestLoading(false)
+      setTestLogs(prev => [...prev, `❌ Erro inesperado: ${e.message}`])
     }
   }
 
