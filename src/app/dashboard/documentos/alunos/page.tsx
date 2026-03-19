@@ -5,6 +5,7 @@ import styles from '../../dashboard.module.css'
 import Link from 'next/link'
 import { Trash2, Edit, Mail, Phone, FileDown, Filter, CheckSquare } from 'lucide-react'
 import { createClient } from '@/infrastructure/supabase/client'
+import { testMoodleConnection } from '@/app/actions'
 
 export default function AlunosDocumentosPage() {
   const [alunos, setAlunos] = useState<any[]>([])
@@ -12,6 +13,12 @@ export default function AlunosDocumentosPage() {
   const [loading, setLoading] = useState(true)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [docFilter, setDocFilter] = useState('')
+  const [testCourseId, setTestCourseId] = useState('')
+  const [testDocType, setTestDocType] = useState('historico')
+  const [testLogs, setTestLogs] = useState<string[]>([])
+  const [testVariables, setTestVariables] = useState<any[]>([])
+  const [testLoading, setTestLoading] = useState(false)
+  const [moodleCourses, setMoodleCourses] = useState<any[]>([])
 
   const supabase = createClient()
 
@@ -33,6 +40,27 @@ export default function AlunosDocumentosPage() {
     }
     fetchData()
   }, [])
+
+  // Carregar cursos do Moodle
+  useEffect(() => {
+    import('@/app/actions').then(m => {
+      m.getMoodleCourses().then(res => {
+        if (Array.isArray(res)) setMoodleCourses(res)
+      })
+    })
+  }, [])
+
+  const handleTestMoodle = async () => {
+    if (!testCourseId) return alert('Escolha um curso do Moodle!')
+    setTestLoading(true)
+    setTestLogs([])
+    setTestVariables([])
+
+    const res = await testMoodleConnection(testCourseId, testDocType)
+    setTestLoading(false)
+    if (res.logs) setTestLogs(res.logs)
+    if (res.variables) setTestVariables(res.variables)
+  }
 
   useEffect(() => {
     let result = alunos
@@ -74,8 +102,76 @@ export default function AlunosDocumentosPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Alunos e Documentos</h1>
-      <p className={styles.subtitle}>Gerenciamento de emissões em lote, históricos e certificados Cidade Viva.</p>
+      <h1 className={styles.title}>Integração Moodle</h1>
+      <p className={styles.subtitle}>Consulte variáveis, teste a API em tempo real e verifique integridade dos dados.</p>
+      <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: '16px' }}>
+        <h2 style={{ fontSize: '1rem', fontWeight: 'bold', color: 'white', marginBottom: '10px' }}>📡 Testar Integração com Moodle</h2>
+        <p style={{ color: 'var(--secondary)', fontSize: '0.82rem', marginBottom: '1.5rem' }}>Escolha um curso e o tipo de documento para ver as variáveis mapeadas do Moodle.</p>
+        
+        <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+          <div style={{ flex: 1, minWidth: '200px' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>Curso do Moodle:</label>
+            <select 
+              value={testCourseId}
+              onChange={e => setTestCourseId(e.target.value)}
+              style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#0a0a0b', border: '1px solid var(--border)', color: 'white' }}
+            >
+              <option value="">Selecione um curso...</option>
+              {moodleCourses.map((c: any) => (
+                <option key={c.id} value={c.id}>{c.fullname} (ID: {c.id})</option>
+              ))}
+            </select>
+          </div>
+
+          <div style={{ width: '180px' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>Tipo de Documento:</label>
+            <select 
+              value={testDocType}
+              onChange={e => setTestDocType(e.target.value)}
+              style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#0a0a0b', border: '1px solid var(--border)', color: 'white' }}
+            >
+              <option value="historico">Histórico</option>
+              <option value="certificado">Certificado</option>
+            </select>
+          </div>
+
+          <div style={{ alignSelf: 'flex-end' }}>
+            <button 
+              onClick={handleTestMoodle}
+              disabled={testLoading}
+              style={{ padding: '10px 20px', background: 'var(--primary)', color: 'black', fontWeight: 'bold', border: 'none', borderRadius: '8px', cursor: 'pointer', opacity: testLoading ? 0.6 : 1 }}
+            >
+              {testLoading ? 'Testando...' : 'Testar Agora'}
+            </button>
+          </div>
+        </div>
+
+        {testLogs.length > 0 && (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', background: '#0a0a0c', padding: '15px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)' }}>
+            <div>
+              <h3 style={{ fontSize: '0.85rem', color: 'white', fontWeight: 'bold', marginBottom: '8px' }}>Logs da API</h3>
+              <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '0.8rem', color: '#8892b0', fontFamily: 'monospace', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {testLogs.map((log, i) => (
+                  <div key={i}>{log}</div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 style={{ fontSize: '0.85rem', color: 'white', fontWeight: 'bold', marginBottom: '8px' }}>Variáveis Mapeadas</h3>
+              <div style={{ maxHeight: '200px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {testVariables.length === 0 ? <span style={{ fontSize: '0.8rem', color: 'var(--secondary)' }}>Nenhuma variável encontrada.</span> : 
+                  testVariables.map((v, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 10px', background: 'rgba(255,255,255,0.02)', borderRadius: '6px', fontSize: '0.8rem' }}>
+                      <code style={{ color: 'var(--primary)' }}>{v.chave_tag}</code>
+                      <span style={{ color: 'white' }}>{v.valor}</span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Barra de Ações & Filtros */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem', gap: '1rem', flexWrap: 'wrap' }}>

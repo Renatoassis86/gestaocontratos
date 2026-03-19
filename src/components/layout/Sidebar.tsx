@@ -28,13 +28,12 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
 
 
 
-  // Se for FICV, adicionar os Menus Acadêmicos no Topo
-  if (isFICV) {
-    menus.push(
-      { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
-      { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> }
-    )
-  }
+  // Menus Acadêmicos
+  menus.push(
+    { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
+    { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> },
+    { name: 'Integração Moodle', path: '/dashboard/documentos/alunos/relatorios', icon: <FileText size={20} /> }
+  )
 
 
 
@@ -69,9 +68,9 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
 
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.header} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '1.5rem' }}>
-        <img src="/logo-green.png" alt="Arkos" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
-        <span style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'white', letterSpacing: '0.5px' }}>ARKOS</span>
+      <div className={styles.header} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '1.5rem' }}>
+        <img src="/logo-green.svg" alt="Arkos" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+        <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#FFFFFF', letterSpacing: '0.5px', fontFamily: 'var(--sans)' }}>ARKOS</span>
       </div>
 
 

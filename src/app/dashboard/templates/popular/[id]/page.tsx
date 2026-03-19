@@ -1,10 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@/infrastructure/supabase/client'
 import { ArrowLeft, FileText, Check, Upload, Database, Users } from 'lucide-react'
 import Link from 'next/link'
+
+const CURSOS_FICV = [
+  "BACHARELADO EM TEOLOGIA EAD",
+  "BACHARELADO EM TEOLOGIA PRES",
+  "BACHARELADO EM DIREITO",
+  "PÓS-GRADUAÇÃO EM PSICOTEOLOGIA",
+  "PÓS-GRADUAÇÃO EM EDUCAÇÃO CRISTÃ CLÁSSICA",
+  "PÓS-GRADUAÇÃO EM TEOLOGIA SISTEMÁTICA",
+  "PÓS-GRADUAÇÃO EM GESTÃO ESCOLAR",
+  "PÓS-GRADUAÇÃO EM TEOLOGIA DO NOVO TESTAMENTO",
+  "PÓS-GRADUAÇÃO EM LIDERANÇA CRISTÃ",
+  "PÓS-GRADUAÇÃO EM FORMAÇÃO POLÍTICA",
+  "PÓS-GRADUAÇÃO EM MISSOLOGIA URBANA",
+  "PÓS-GRADUAÇÃO EM PSICOPEDAGOGIA",
+  "PÓS-GRADUAÇÃO EM HISTÓRIA DO CRISTIANISMO"
+]
 
 export default function PopularTemplatePage() {
   const { id } = useParams()
@@ -15,6 +31,42 @@ export default function PopularTemplatePage() {
   const [tab, setTab] = useState('manual') // manual, spreadsheet, moodle
   
   const [values, setValues] = useState<Record<string, string>>({})
+  const [selectedCourse, setSelectedCourse] = useState('')
+
+  // Campos para carregar do Banco de Dados Dinamicamente
+  const [dbCourses, setDbCourses] = useState<any[]>([])
+  const [selectedDbCourse, setSelectedDbCourse] = useState('')
+  const [dbDisciplines, setDbDisciplines] = useState<any[]>([])
+  const [discValues, setDiscValues] = useState<Record<string, string>>({})
+
+  const spreadsheetInputRef = useRef<HTMLInputElement>(null)
+
+  const handleDownloadTemplate = () => {
+    // Gerar um CSV simples com os cabeçalhos das variáveis do template
+    let headers = fields.map(f => f.rotulo)
+    
+    // Se houver disciplinas carregadas, adicioná-las aos cabeçalhos
+    if (dbDisciplines.length > 0) {
+      dbDisciplines.forEach(d => {
+        headers.push(`NOTA_${d.nome.toUpperCase().replace(/\s+/g, '_')}`)
+      })
+    }
+
+    const csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + "\n"
+    const encodedUri = encodeURI(csvContent)
+    const link = document.createElement("a")
+    link.setAttribute("href", encodedUri)
+    link.setAttribute("download", `modelo_${template?.titulo || 'documento'}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  const handleSpreadsheetUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      alert('✅ Planilha "' + e.target.files[0].name + '" carregada com sucesso! (Simulação de processamento)')
+    }
+  }
 
   useEffect(() => {
     async function loadData() {
@@ -27,6 +79,12 @@ export default function PopularTemplatePage() {
         .eq('id', id)
         .single()
 
+      // Carregar Cursos do Banco para o formulário
+      const { data: cData } = await supabase
+        .from('cursos')
+        .select('*')
+      if (cData) setDbCourses(cData)
+
       if (temp) {
         setTemplate(temp)
         
@@ -36,8 +94,22 @@ export default function PopularTemplatePage() {
           .select('*')
           .eq('template_id', id)
 
+        const standardFields = [
+          { chave_tag: '{{nome_aluno}}', rotulo: 'NOME DO ALUNO' },
+          { chave_tag: '{{cpf}}', rotulo: 'CPF' },
+          { chave_tag: '{{data_nascimento}}', rotulo: 'DATA DE NASCIMENTO' },
+          { chave_tag: '{{tipo_curso}}', rotulo: 'TIPO DE CURSO (EX: ESPECIALIZAÇÃO)' },
+          { chave_tag: '{{nome_curso}}', rotulo: 'NOME DO CURSO' },
+          { chave_tag: '{{carga_horaria}}', rotulo: 'CARGA HORÁRIA' },
+          { chave_tag: '{{data_inicio}}', rotulo: 'DATA DE INÍCIO' },
+          { chave_tag: '{{data_conclusao}}', rotulo: 'DATA DE CONCLUSÃO' },
+          { chave_tag: '{{data_expedicao}}', rotulo: 'DATA DE EXPEDIÇÃO' }
+        ]
+
+        let finalFields: any[] = []
+
         if (flds && flds.length > 0) {
-          setFields(flds)
+          finalFields = [...flds]
         } else {
           // Fallback: extrair variáveis do corpo se não houver
           const matches = temp.corpo_template.match(/\{\{([^}]+)\}\}/g) || []
@@ -45,14 +117,46 @@ export default function PopularTemplatePage() {
             chave_tag: tag,
             rotulo: tag.replace('{{', '').replace('}}', '').toUpperCase()
           }))
-          setFields(fallbackFields)
+          finalFields = [...fallbackFields]
         }
+
+        // Unificar com campos estáticos sem duplicar
+        const existingTags = new Set(finalFields.map(f => f.chave_tag.toLowerCase()))
+        
+        // Inserir os campos padrão no início de finalFields apenas se não existirem
+        standardFields.forEach(sf => {
+          if (!existingTags.has(sf.chave_tag.toLowerCase())) {
+            finalFields.unshift(sf)
+          }
+        })
+
+        setFields(finalFields)
       }
       setLoading(false)
     }
 
     if (id) loadData()
   }, [id])
+
+  // Efeito para carregar disciplinas do banco
+  useEffect(() => {
+    async function loadDisciplines() {
+      if (!selectedDbCourse) {
+        setDbDisciplines([])
+        return
+      }
+      const supabase = createClient()
+      const { data } = await supabase
+        .from('disciplinas')
+        .select('*')
+        .eq('curso_id', selectedDbCourse)
+      
+      if (data) {
+        setDbDisciplines(data)
+      }
+    }
+    loadDisciplines()
+  }, [selectedDbCourse])
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -103,8 +207,45 @@ export default function PopularTemplatePage() {
           <form onSubmit={handleManualSubmit} style={{ display: 'grid', gap: '1.2rem' }}>
             <h3 style={{ color: 'white', marginBottom: '10px' }}>Preencha os Campos do Documento</h3>
             
+            {/* Seletor de Curso para Disciplinas do Banco */}
+            <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border)', marginBottom: '1rem' }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--primary)', marginBottom: '8px', fontWeight: 'bold' }}>VINCULAR CURSO DO BANCO DE DADOS (OPCIONAL):</label>
+              <select 
+                value={selectedDbCourse}
+                onChange={(e) => setSelectedDbCourse(e.target.value)}
+                style={{ width: '100%', padding: '0.75rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white', marginBottom: '1rem' }}
+              >
+                <option value="">--- Selecione um curso cadastrado ---</option>
+                {dbCourses.map((c) => (
+                  <option key={c.id} value={c.id}>{c.nome}</option>
+                ))}
+              </select>
+
+              {dbDisciplines.length > 0 && (
+                <div style={{ marginTop: '1.2rem' }}>
+                  <h4 style={{ color: 'white', fontSize: '0.9rem', marginBottom: '10px' }}>Médias Finais das Disciplinas:</h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px', maxHeight: '200px', overflowY: 'auto', padding: '10px', background: '#0a0a0b', borderRadius: '8px' }}>
+                    {dbDisciplines.map((d) => (
+                      <div key={d.id} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <label style={{ fontSize: '0.75rem', color: 'var(--secondary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }} title={d.nome}>{d.nome}</label>
+                        <input 
+                          type="text" 
+                          placeholder="Média (Ex: 8.5)"
+                          value={discValues[d.id] || ''}
+                          onChange={(e) => setDiscValues({...discValues, [d.id]: e.target.value})}
+                          style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: '6px', color: 'white', fontSize: '0.85rem' }} 
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-              {fields.map((f) => (
+              {fields
+                .filter((f) => !selectedDbCourse || f.chave_tag.toLowerCase() !== '{{notas_disciplinas}}')
+                .map((f) => (
                 <div key={f.id || f.chave_tag}>
                   <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--secondary)', marginBottom: '5px' }}>{f.rotulo}:</label>
                   <input 
@@ -133,10 +274,25 @@ export default function PopularTemplatePage() {
               Baixe a planilha modelo contendo os cabeçalhos das variáveis, preencha os dados de todos os alunos e faça o upload novamente para gerar os certificados em massa.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px' }}>
-              <button style={{ padding: '0.75rem 1.2rem', background: 'transparent', border: '1px solid var(--border)', color: 'white', borderRadius: '8px', cursor: 'pointer' }}>
+              <input 
+                type="file" 
+                ref={spreadsheetInputRef} 
+                onChange={handleSpreadsheetUpload} 
+                accept=".csv, .xlsx, .xls" 
+                hidden 
+              />
+              <button 
+                type="button"
+                onClick={handleDownloadTemplate}
+                style={{ padding: '0.75rem 1.2rem', background: 'transparent', border: '1px solid var(--border)', color: 'white', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
                 ⬇️ Baixar Planilha Guia
               </button>
-              <button style={{ padding: '0.75rem 1.2rem', background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '8px', cursor: 'pointer' }}>
+              <button 
+                type="button"
+                onClick={() => spreadsheetInputRef.current?.click()}
+                style={{ padding: '0.75rem 1.2rem', background: 'var(--primary)', border: 'none', color: 'white', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
                 📂 Selecionar Arquivo
               </button>
             </div>
@@ -152,10 +308,15 @@ export default function PopularTemplatePage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--secondary)', marginBottom: '5px' }}>Selecione o Curso:</label>
-                <select style={{ width: '100%', padding: '0.75rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white' }}>
-                  <option>--- Selecione ---</option>
-                  <option>Pós-Graduação em Teologia Bíblica</option>
-                  <option>Graduação em Teologia</option>
+                <select 
+                  value={selectedCourse}
+                  onChange={(e) => setSelectedCourse(e.target.value)}
+                  style={{ width: '100%', padding: '0.75rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white' }}
+                >
+                  <option value="">--- Selecione ---</option>
+                  {CURSOS_FICV.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
                 </select>
               </div>
               <div>

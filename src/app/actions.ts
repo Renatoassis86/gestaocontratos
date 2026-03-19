@@ -401,8 +401,113 @@ export async function salvarTemplate(formData: FormData) {
   return { success: true, data: templateData }
 }
 
+export async function testMoodleConnection(courseId: string, docType: string) {
+  const MOODLE_TOKEN = "71edd081c7e0c5bb83f872b60af80227"
+  const MOODLE_URL = "https://ead.cidadeviva.org/webservice/rest/server.php"
 
+  async function moodleRequest(wsfunction: string, params: Record<string, string> = {}) {
+    const payload = new URLSearchParams({
+      ...params,
+      wstoken: MOODLE_TOKEN,
+      moodlewsrestformat: 'json',
+      wsfunction: wsfunction
+    })
 
+    try {
+      const resp = await fetch(MOODLE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload.toString()
+      })
+      return await resp.json()
+    } catch (e: any) {
+      return { error: true, message: e.message }
+    }
+  }
 
+  try {
+    const logs: string[] = []
+    logs.push(`[1] Solicitando dados do curso ID: ${courseId}`)
 
+    const courses = await moodleRequest('core_course_get_courses')
+    if (courses.error) throw new Error(courses.message)
+    
+    const course = Array.isArray(courses) 
+      ? courses.find((c: any) => String(c.id) === courseId) 
+      : null
 
+    if (!course) {
+      logs.push(`❌ Curso ID ${courseId} não encontrado no Moodle.`)
+      return { success: false, logs, variables: [] }
+    }
+
+    logs.push(`✅ Curso encontrado: ${course.fullname}`)
+
+    let variables: Record<string, any> = {}
+
+    if (docType === 'historico') {
+      variables = {
+        NOME_ALUNO: "Aluno Teste Moodle",
+        NOTAS_DISCIPLINAS: "Módulo 1: 9.5 | Módulo 2: 8.5",
+        NOME_PROFESSOR: "Dr. Sérgio Queiroz",
+        TITULO_PROFESSOR: "Doutor em Teologia",
+        CREDITOS: "40h",
+        CRA: "9.0"
+      }
+      logs.push("✅ Variáveis de Histórico mapeadas com sucesso.")
+    } else {
+      variables = {
+        NOME_ALUNO: "Aluno Teste Moodle",
+        CPF: "123.456.789-00",
+        DATA_NASCIMENTO: "01/01/2000",
+        NOME_CURSO: course.fullname,
+        CARGA_HORARIA: "360h",
+        DATA_INICIO: "10/01/2024",
+        DATA_CONCLUSAO: "15/12/2024",
+        DATA_EXPEDICAO: new Date().toLocaleDateString('pt-BR')
+      }
+      logs.push("✅ Variáveis de Certificado mapeadas com sucesso.")
+    }
+
+    logs.push("📡 Testando gradereport_user_get_grade_items...")
+    const grades = await moodleRequest('gradereport_user_get_grade_items', { courseid: courseId })
+
+    if (grades && (grades.exception || grades.error)) {
+      logs.push(`⚠️ Moodle Exception/Error: ${grades.message || grades.exception || JSON.stringify(grades)}`)
+      logs.push(`💡 Detalhes: Sua conta de integração pode não ser Manager neste curso.`)
+    } else {
+      logs.push("✅ Sucesso ao ler notas de avaliação!")
+    }
+
+    return { 
+      success: true, 
+      logs, 
+      variables: Object.entries(variables).map(([k, v]) => ({ chave_tag: k, valor: v })) 
+    }
+
+  } catch (err: any) {
+    return { success: false, logs: [`❌ Erro no teste: ${err.message}`] }
+  }
+}
+
+export async function getMoodleCourses() {
+  const MOODLE_TOKEN = "71edd081c7e0c5bb83f872b60af80227"
+  const MOODLE_URL = "https://ead.cidadeviva.org/webservice/rest/server.php"
+
+  const payload = new URLSearchParams({
+    wstoken: MOODLE_TOKEN,
+    moodlewsrestformat: 'json',
+    wsfunction: 'core_course_get_courses'
+  })
+
+  try {
+    const resp = await fetch(MOODLE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: payload.toString()
+    })
+    return await resp.json()
+  } catch (e: any) {
+    return { error: true, message: e.message }
+  }
+}

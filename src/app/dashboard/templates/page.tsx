@@ -2,6 +2,7 @@ import { createClient } from '@/infrastructure/supabase/server'
 import styles from '../dashboard.module.css'
 import { getValidatedCompanyId } from '@/application/services/TenantService'
 import Link from 'next/link'
+import TemplateActions from '@/components/templates/TemplateActions'
 
 export const dynamic = 'force-dynamic'
 
@@ -75,10 +76,8 @@ export default async function TemplatesPage() {
                           {t.status}
                         </span>
                       </td>
-                      <td style={{ padding: '0.75rem 0', textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                        <Link href={`/dashboard/templates/popular/${t.id}`} style={{ textDecoration: 'none', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}>Popular ✨</Link>
-                        <button style={{ background: 'transparent', border: 'none', color: '#10b981', fontSize: '0.75rem', cursor: 'pointer' }}>Editar</button>
-                        <button style={{ background: 'transparent', border: 'none', color: '#ef4444', fontSize: '0.75rem', cursor: 'pointer' }}>Excluir</button>
+                      <td style={{ padding: '0.75rem 0', textAlign: 'center' }}>
+                        <TemplateActions templateId={t.id} titulo={t.titulo} />
                       </td>
 
                     </tr>
