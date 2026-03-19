@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../../../dashboard.module.css'
 import { FileText, Table, RefreshCw, CheckCircle2, ArrowRight } from 'lucide-react'
 
@@ -8,21 +8,7 @@ import { FileText, Table, RefreshCw, CheckCircle2, ArrowRight } from 'lucide-rea
 
 
 
-const CURSOS_FICV = [
-  "BACHARELADO EM TEOLOGIA EAD",
-  "BACHARELADO EM TEOLOGIA PRES",
-  "BACHARELADO EM DIREITO",
-  "PÓS-GRADUAÇÃO EM PSICOTEOLOGIA",
-  "PÓS-GRADUAÇÃO EM EDUCAÇÃO CRISTÃ CLÁSSICA",
-  "PÓS-GRADUAÇÃO EM TEOLOGIA SISTEMÁTICA",
-  "PÓS-GRADUAÇÃO EM GESTÃO ESCOLAR",
-  "PÓS-GRADUAÇÃO EM TEOLOGIA DO NOVO TESTAMENTO",
-  "PÓS-GRADUAÇÃO EM LIDERANÇA CRISTÃ",
-  "PÓS-GRADUAÇÃO EM FORMAÇÃO POLÍTICA",
-  "PÓS-GRADUAÇÃO EM MISSOLOGIA URBANA",
-  "PÓS-GRADUAÇÃO EM PSICOPEDAGOGIA",
-  "PÓS-GRADUAÇÃO EM HISTÓRIA DO CRISTIANISMO"
-]
+import { getMoodleCourses, testMoodleConnection } from '@/app/actions'
 
 export default function EmitirCertificadosPage() {
   const [source, setSource] = useState<'manual' | 'planilha' | 'moodle' | null>(null)
@@ -32,27 +18,49 @@ export default function EmitirCertificadosPage() {
 
   // Estados para Sincronização Moodle
   const [syncedData, setSyncedData] = useState<any[]>([])
+  const [moodleCourses, setMoodleCourses] = useState<any[]>([])
   const [syncLoading, setSyncLoading] = useState(false)
   const [searchMoodle, setSearchMoodle] = useState('')
 
-  const handleSyncMoodle = () => {
-    setSyncLoading(true)
-    setTimeout(() => {
-      setSyncedData([
-        { id: 1, nome: 'Lucas Gabriel Sales', curso: selectedCourse, progresso: 100, media: 9.2, status: 'Aprovado' },
-        { id: 2, nome: 'Mariana Costa Pires', curso: selectedCourse, progresso: 95, media: 8.5, status: 'Em Curso' },
-        { id: 3, nome: 'Roberto Alves Lima', curso: selectedCourse, progresso: 100, media: 7.8, status: 'Aprovado' },
-        { id: 4, nome: 'Fernanda Rocha', curso: selectedCourse, progresso: 80, media: 6.5, status: 'Reprovado' },
-        { id: 5, nome: 'Pedro Henrique Silva', curso: selectedCourse, progresso: 100, media: 5.4, status: 'Reprovado' },
-        { id: 6, nome: 'Juliana Mendes', curso: selectedCourse, progresso: 100, media: 8.0, status: 'Aprovado' }
-      ])
+  // Estados para Planilha
+  const [spreadsheetData, setSpreadsheetData] = useState<any[]>([])
+  const [isReadingSheet, setIsReadingSheet] = useState(false)
 
+  useEffect(() => {
+    // Carregar cursos reais do Moodle
+    getMoodleCourses().then(res => {
+      if (res.success) {
+        setMoodleCourses(res.courses || [])
+      }
+    })
+  }, [])
+
+  const handleSyncMoodle = async () => {
+    if (!selectedCourse) return
+    setSyncLoading(true)
+    try {
+      const res = await testMoodleConnection(selectedCourse, 'historico')
+      if (res.success && res.allUsers) {
+        setSyncedData(res.allUsers.map((u: any) => ({
+          id: u.id,
+          nome: u.fullname,
+          curso: u.curso,
+          progresso: u.progresso || 0, // se vier do moodle
+          media: u.media_geral && u.media_geral !== '-' ? parseFloat(u.media_geral) : 10, // Default 10 ou calculo
+          status: u.progresso && u.progresso === 100 ? 'Finalizado' : 'Em Andamento',
+          phone: u.phone
+        })))
+      } else {
+        alert("Erro ao sincronizar dados. Verifique a integração.")
+      }
+    } catch (e) {
+      alert("Erro na requisição.")
+    } finally {
       setSyncLoading(false)
-    }, 1800)
+    }
   }
 
   const handleEmitir = async (e: React.FormEvent) => {
-
     e.preventDefault()
     setLoading(true)
     // Simular emissão
@@ -132,8 +140,8 @@ export default function EmitirCertificadosPage() {
                 style={{ padding: '12px', borderRadius: '12px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', color: 'white' }}
               >
                 <option value="" disabled>Selecione o Curso...</option>
-                {CURSOS_FICV.map((c, i) => (
-                  <option key={i} value={c} style={{ background: '#0A0C0F' }}>{c}</option>
+                {moodleCourses.map((c: any) => (
+                  <option key={c.id} value={c.id} style={{ background: '#0A0C0F' }}>{c.fullname} (ID: {c.id})</option>
                 ))}
               </select>
             </div>

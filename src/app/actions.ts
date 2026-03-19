@@ -443,47 +443,60 @@ export async function testMoodleConnection(courseId: string, docType: string) {
 
     logs.push(`✅ Curso encontrado: ${course.fullname}`)
 
-    let variables: Record<string, any> = {}
+    logs.push("📡 Buscando lista de alunos matriculados...")
+    const users = await moodleRequest('core_enrol_get_enrolled_users', { courseid: courseId })
 
-    if (docType === 'historico') {
-      variables = {
-        NOME_ALUNO: "Aluno Teste Moodle",
-        NOTAS_DISCIPLINAS: "Módulo 1: 9.5 | Módulo 2: 8.5",
-        NOME_PROFESSOR: "Dr. Sérgio Queiroz",
-        TITULO_PROFESSOR: "Doutor em Teologia",
-        CREDITOS: "40h",
-        CRA: "9.0"
-      }
-      logs.push("✅ Variáveis de Histórico mapeadas com sucesso.")
-    } else {
-      variables = {
-        NOME_ALUNO: "Aluno Teste Moodle",
-        CPF: "123.456.789-00",
-        DATA_NASCIMENTO: "01/01/2000",
-        NOME_CURSO: course.fullname,
-        CARGA_HORARIA: "360h",
-        DATA_INICIO: "10/01/2024",
-        DATA_CONCLUSAO: "15/12/2024",
-        DATA_EXPEDICAO: new Date().toLocaleDateString('pt-BR')
-      }
-      logs.push("✅ Variáveis de Certificado mapeadas com sucesso.")
+    if (users.exception || users.error) {
+      logs.push(`⚠️ Erro ao listar alunos: ${users.message || JSON.stringify(users)}`)
+      return { success: false, logs, variables: [] }
     }
 
-    logs.push("📡 Testando gradereport_user_get_grade_items...")
-    const grades = await moodleRequest('gradereport_user_get_grade_items', { courseid: courseId })
+    logs.push(`✅ ${users.length} aluno(s) encontrado(s) no curso.`)
 
-    if (grades && (grades.exception || grades.error)) {
-      logs.push(`⚠️ Moodle Exception/Error: ${grades.message || grades.exception || JSON.stringify(grades)}`)
-      logs.push(`💡 Detalhes: Sua conta de integração pode não ser Manager neste curso.`)
-    } else {
-      logs.push("✅ Sucesso ao ler notas de avaliação!")
+    let allUsers: Record<string, any>[] = []
+
+    for (const user of users) {
+      const cpfField = user.customfields?.find((f: any) => f.shortname === 'cpf')?.value || '-'
+      const nascimentoField = user.customfields?.find((f: any) => f.shortname === 'data_nascimento')?.value || '-'
+      const semestreField = user.customfields?.find((f: any) => f.shortname === 'semestre')?.value || '-'
+      const foneField = user.phone1 || user.phone2 || '-'
+
+      const mappedUser: Record<string, any> = {
+        id: user.id,
+        fullname: user.fullname,
+        email: user.email,
+        phone: foneField,
+        cpf: cpfField,
+        data_nascimento: nascimentoField,
+        semestre: semestreField,
+        curso: course.fullname,
+      }
+
+      if (docType === 'historico') {
+        mappedUser.notas_disciplinas = "Pendente"
+        mappedUser.media_geral = "-"
+        mappedUser.status = "Em Curso"
+      } else {
+        mappedUser.carga_horaria = "360h"
+        mappedUser.data_inicio = "-"
+        mappedUser.data_conclusao = "-"
+      }
+
+      allUsers.push(mappedUser)
     }
+
+    const firstUserVars = allUsers.length > 0 ? Object.entries(allUsers[0]).map(([key, value]) => ({
+      chave_tag: key.toUpperCase(),
+      valor: String(value)
+    })) : []
 
     return { 
       success: true, 
       logs, 
-      variables: Object.entries(variables).map(([k, v]) => ({ chave_tag: k, valor: v })) 
+      variables: firstUserVars,
+      allUsers
     }
+
 
   } catch (err: any) {
     return { success: false, logs: [`❌ Erro no teste: ${err.message}`] }
@@ -494,20 +507,36 @@ export async function getMoodleCourses() {
   const MOODLE_TOKEN = "71edd081c7e0c5bb83f872b60af80227"
   const MOODLE_URL = "https://ead.cidadeviva.org/webservice/rest/server.php"
 
-  const payload = new URLSearchParams({
-    wstoken: MOODLE_TOKEN,
-    moodlewsrestformat: 'json',
-    wsfunction: 'core_course_get_courses'
-  })
+  async function moodleRequest(wsfunction: string, params: Record<string, string> = {}) {
+    const payload = new URLSearchParams({
+      ...params,
+      wstoken: MOODLE_TOKEN,
+      moodlewsrestformat: 'json',
+      wsfunction: wsfunction
+    })
+
+    try {
+      const resp = await fetch(MOODLE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload.toString()
+      })
+      return await resp.json()
+    } catch (e: any) {
+      return { error: true, message: e.message }
+    }
+  }
 
   try {
-    const resp = await fetch(MOODLE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: payload.toString()
-    })
-    return await resp.json()
+    const courses = await moodleRequest('core_course_get_courses')
+    const categories = await moodleRequest('core_course_get_categories')
+
+    return { 
+      success: true, 
+      courses: Array.isArray(courses) ? courses : [],
+      categories: Array.isArray(categories) ? categories : []
+    }
   } catch (e: any) {
-    return { error: true, message: e.message }
+    return { success: false, error: e.message }
   }
 }

@@ -23,8 +23,8 @@ export async function GET() {
 
   // Aba 1: Preenchimento
   const aba1Data = [
-    ['NOME_ALUNO', 'CPF', 'CURSO', 'CRA'],
-    ['Lucas Gabriel', '000.000.000-00', 'BACHARELADO EM DIREITO', '8.5']
+    ['NOME_ALUNO', 'EMAIL', 'PHONE', 'CPF', 'DATA_NASCIMENTO', 'SEMESTRE', 'CURSO', 'NOTAS_DISCIPLINAS', 'MEDIA_GERAL', 'STATUS', 'CARGA_HORARIA'],
+    ['Lucas Gabriel', 'lucas@example.com', '83988887777', '000.000.000-00', '01/01/2000', '2024.1', 'BACHARELADO EM DIREITO', 'Módulo 1: 9.5 | Módulo 2: 8.5', '9.0', 'Aprovado', '360h']
   ]
   const ws1 = XLSX.utils.aoa_to_sheet(aba1Data)
   XLSX.utils.book_append_sheet(wb, ws1, '1. Preenchimento')

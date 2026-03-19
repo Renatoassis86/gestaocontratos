@@ -2,45 +2,93 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/infrastructure/supabase/client'
-import { FileText, Download, Filter, Check, ListFilter } from 'lucide-react'
+import { FileText, Download, Filter, Check, ListFilter, RefreshCw, AlertCircle } from 'lucide-react'
+import { getMoodleCourses, testMoodleConnection } from '@/app/actions'
 
 export default function RelatoriosPage() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [loadingCourses, setLoadingCourses] = useState(true)
   const [cursos, setCursos] = useState<any[]>([])
   const [alunos, setAlunos] = useState<any[]>([])
+  const [error, setError] = useState<string | null>(null)
 
   // Filtros
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [categories, setCategories] = useState<any[]>([])
   const [selectedCourse, setSelectedCourse] = useState('')
   const [selectedSemester, setSelectedSemester] = useState('')
 
-  // Colunas disponíveis
-  const availableColumns = [
-    { id: 'nome', label: 'Nome do Aluno' },
+  // Colunas/Variáveis Dinâmicas
+  const [availableColumns, setAvailableColumns] = useState<{ id: string, label: string }[]>([
+    { id: 'fullname', label: 'Nome Completo' },
     { id: 'email', label: 'E-mail' },
-    { id: 'cpf', label: 'CPF' },
-    { id: 'data_nascimento', label: 'Data de Nascimento' },
-    { id: 'curso', label: 'Curso' },
-    { id: 'semestre', label: 'Semestre' },
-    { id: 'media_geral', label: 'Média Geral' },
-    { id: 'status', label: 'Status' }
-  ]
-
-  const [selectedColumns, setSelectedColumns] = useState<string[]>(['nome', 'curso', 'media_geral', 'status'])
+  ])
+  const [selectedColumns, setSelectedColumns] = useState<string[]>(['fullname', 'email'])
 
   useEffect(() => {
-    async function loadData() {
-      const supabase = createClient()
-      const { data: cData } = await supabase.from('cursos').select('*')
-      if (cData) setCursos(cData)
+    async function loadCourses() {
+      try {
+        const result = await getMoodleCourses()
+        if (result.success) {
+          setCursos(result.courses || [])
+          setCategories(result.categories || [])
+        } else {
+          setError(result.error || 'Erro ao carregar cursos do Moodle')
+        }
+      } catch (err) {
+        setError('Erro de conexão ao carregar cursos.')
+      } finally {
+        setLoadingCourses(false)
+      }
+    }
+    loadCourses()
+  }, [])
 
-      // Remover simulação e chamar em tempo real se houver curso selecionado - Mas por enquanto, vamos apenas setar vazio e deixar claro se deu erro
-      setAlunos([])
-      setLoading(false)
+  const handleFetchData = async () => {
+    if (!selectedCourse) {
+      setError('Por favor, selecione um curso.')
+      return
+    }
 
+    setLoading(true)
+    setError(null)
+    setAlunos([])
+
+    try {
+      // Usaremos o testMoodleConnection que já criamos para puxar os dados brutos e mapear
+      const result = await testMoodleConnection(selectedCourse, 'historico')
+      
+      if (result.success && result.logs && result.logs.length > 0) {
+        // O result.logs ou result.variables podem conter os dados reais se a permissão estiver ok
+        // Vamos tentar extrair a lista de alunos de result.variables se houver uma estrutura
+        // Como o result.variables é um objeto mapeado para UM aluno de teste, vamos ajustar
+        // a Action para nos devolver a lista COMPLETA de usuários inscritos se quisermos relatórios.
+        
+        // Se a Action testMoodleConnection devolver um array de usuários em result.allUsers:
+        if (result.allUsers && result.allUsers.length > 0) {
+          setAlunos(result.allUsers)
+          
+          // Detectar colunas dinâmicas a partir do primeiro item
+          const firstItem = result.allUsers[0]
+          const keys = Object.keys(firstItem)
+          const dynColumns = keys.map(key => ({
+            id: key,
+            label: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')
+          }))
+          setAvailableColumns(dynColumns)
+          // Se houver novas colunas, podemos selecionar todas por padrão ou manter as atuais
+        } else {
+          setError('Conexão realizada, mas nenhum aluno retornado para este curso. Verifique as inscrições no Moodle.')
+        }
+      } else {
+        setError((result as any).error || 'Erro ao carregar dados do Moodle. Verifique os logs no painel de Diagnóstico.')
+      }
+    } catch (err: any) {
+      setError('Erro ao processar requisição: ' + err.message)
+    } finally {
       setLoading(false)
     }
-    loadData()
-  }, [])
+  }
 
   const toggleColumn = (id: string) => {
     if (selectedColumns.includes(id)) {
@@ -51,27 +99,30 @@ export default function RelatoriosPage() {
   }
 
   const filteredAlunos = alunos.filter(a => {
-    const matchCourse = !selectedCourse || a.curso_id === selectedCourse
-    const matchSem = !selectedSemester || a.semestre === selectedSemester
-    return matchCourse && matchSem
+    // Filtro de semestre se houver essa variável nos dados do aluno (ex: customfields)
+    const matchSem = !selectedSemester || (a.semestre === selectedSemester || a.customfields?.some((f: any) => f.shortname === 'semestre' && f.value === selectedSemester))
+    return matchSem
   })
 
-  // Função para exportar como CSV
   const handleExport = () => {
-    let csvContent = "data:text/csv;charset=utf-8,"
+    // Adicionar BOM (\uFEFF) para garantir que o Excel abra com codificação UTF-8 correta (sem acentos corrompidos)
+    let csvContent = "\uFEFFdata:text/csv;charset=utf-8,"
     
-    // Cabeçalhos
+    // Alinhar os títulos das colunas com os nomes das variáveis do Moodle
     const headers = availableColumns
       .filter(c => selectedColumns.includes(c.id))
-      .map(c => c.label)
+      .map(c => c.label.toUpperCase()) // Pode ser ajustado para c.id se quiserem a tag exata
       .join(",")
     csvContent += headers + "\n"
 
-    // Linhas
     filteredAlunos.forEach(aluno => {
       const row = availableColumns
         .filter(c => selectedColumns.includes(c.id))
-        .map(c => aluno[c.id] || '')
+        .map(c => {
+          const val = aluno[c.id]
+          if (typeof val === 'object') return `"${JSON.stringify(val).replace(/"/g, '""')}"`
+          return `"${String(val || '').replace(/"/g, '""')}"`
+        })
         .join(",")
       csvContent += row + "\n"
     })
@@ -79,28 +130,48 @@ export default function RelatoriosPage() {
     const encodedUri = encodeURI(csvContent)
     const link = document.createElement("a")
     link.setAttribute("href", encodedUri)
-    link.setAttribute("download", "relatorio_alunos_global.csv")
+    link.setAttribute("download", `relatorio_moodle_curso_${selectedCourse}.csv`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+    <div className="p-6 space-y-6">
+      <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 'bold', color: 'white' }}>Relatórios Dinâmicos</h1>
-          <p style={{ color: 'var(--secondary)', fontSize: '0.85rem' }}>Trabalhe os dados e atributos de alunos de forma global.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-white">Relatórios Dinâmicos (Moodle)</h1>
+          <p className="text-muted-foreground">Trabalhe os dados e atributos de alunos de forma global e monte sua tabela.</p>
         </div>
-        <button 
-          onClick={handleExport}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.75rem 1.2rem', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
-          <Download size={16} /> Exportar Planilha
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            onClick={handleFetchData}
+            className="bg-brand-green hover:bg-brand-green-hover text-zinc-950 font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-all shadow-lg hover:shadow-brand-green/20"
+            disabled={loading || !selectedCourse}
+            style={{ opacity: (loading || !selectedCourse) ? 0.6 : 1 }}
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            Carregar Dados
+          </button>
+
+          <button 
+            onClick={handleExport}
+            className="border border-zinc-800 hover:bg-zinc-900 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition-all"
+            disabled={filteredAlunos.length === 0}
+          >
+            <Download className="w-4 h-4" />
+            Exportar Planilha
+          </button>
+        </div>
       </div>
 
+      {error && (
+        <div style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', padding: '1rem', borderRadius: '12px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <AlertCircle size={20} /> {error}
+        </div>
+      )}
+
       <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '1.5rem', alignItems: 'start' }}>
-        
         {/* Painel de Filtros e Colunas */}
         <div style={{ background: 'var(--sidebar)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.5rem', display: 'grid', gap: '1.5rem' }}>
           <div>
@@ -109,17 +180,33 @@ export default function RelatoriosPage() {
             </span>
             <div style={{ display: 'grid', gap: '10px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '4px' }}>Curso:</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '4px' }}>Categoria ou Curso:</label>
+                <select 
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '6px', color: 'white', fontSize: '0.85rem' }}>
+                  <option value="">Todas as categorias...</option>
+                  {categories.map(cat => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '4px' }}>Disciplina / Módulo:</label>
                 <select 
                   value={selectedCourse}
                   onChange={(e) => setSelectedCourse(e.target.value)}
                   style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '6px', color: 'white', fontSize: '0.85rem' }}>
-                  <option value="">Todos</option>
-                  {cursos.map(c => (
-                    <option key={c.id} value={c.id}>{c.nome}</option>
+                  <option value="">Selecione...</option>
+                  {cursos
+                    .filter(c => !selectedCategory || String(c.category) === selectedCategory)
+                    .map(c => (
+                    <option key={c.id} value={c.id}>{c.fullname}</option>
                   ))}
                 </select>
               </div>
+
               <div>
                 <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '4px' }}>Semestre:</label>
                 <select 
@@ -127,10 +214,20 @@ export default function RelatoriosPage() {
                   onChange={(e) => setSelectedSemester(e.target.value)}
                   style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '6px', color: 'white', fontSize: '0.85rem' }}>
                   <option value="">Todos</option>
-                  <option value="2024.1">2024.1</option>
-                  <option value="2024.2">2024.2</option>
+                  {Array.from(new Set(alunos.map((a: any) => a.semestre).filter(Boolean))).map((sem: any, i) => (
+                    <option key={i} value={sem}>{sem}</option>
+                  ))}
                 </select>
               </div>
+
+              <button 
+                onClick={handleFetchData} 
+                disabled={loading || !selectedCourse}
+                style={{ width: '100%', padding: '12px', background: 'var(--primary)', color: 'black', fontWeight: 'bold', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: (loading || !selectedCourse) ? 0.6 : 1, marginTop: '5px' }}
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                {loading ? 'Consultando...' : 'Carregar Dados do Moodle'}
+              </button>
             </div>
           </div>
 
@@ -138,7 +235,7 @@ export default function RelatoriosPage() {
             <span style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
               <ListFilter size={16} /> EXIBIR COLUNAS
             </span>
-            <div style={{ display: 'grid', gap: '8px' }}>
+            <div style={{ display: 'grid', gap: '8px', maxHeight: '200px', overflowY: 'auto' }}>
               {availableColumns.map(col => (
                 <label key={col.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'white', fontSize: '0.85rem', cursor: 'pointer' }}>
                   <input 
@@ -161,7 +258,7 @@ export default function RelatoriosPage() {
           ) : (
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                <tr style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid var(--border)' }}>
                   {availableColumns.filter(c => selectedColumns.includes(c.id)).map(col => (
                     <th key={col.id} style={{ padding: '12px 16px', color: 'var(--secondary)', fontSize: '0.85rem', fontWeight: 600 }}>{col.label}</th>
                   ))}
@@ -185,7 +282,6 @@ export default function RelatoriosPage() {
             </table>
           )}
         </div>
-
       </div>
     </div>
   )
