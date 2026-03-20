@@ -28,13 +28,15 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
 
 
 
-  // Menus Acadêmicos
-  menus.push(
-    { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
-    { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> },
-    { name: 'Explorador Moodle', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> },
-    { name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileText size={20} /> },
-  )
+  // Menus Acadêmicos (Apenas para Faculdade - FICV)
+  if (isFICV) {
+    menus.push(
+      { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
+      { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> },
+      { name: 'Explorador Moodle', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> },
+      { name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileText size={20} /> },
+    )
+  }
 
 
 

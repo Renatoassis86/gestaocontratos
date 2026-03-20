@@ -214,6 +214,12 @@ export default function ExploradorMoodle() {
           <GraduationCap size={16} /> Notas e Médias
         </button>
         <button 
+          onClick={() => setActiveTab('cadastral')} 
+          className={`${styles.tabButton} ${activeTab === 'cadastral' ? styles.tabButtonActive : ''}`}
+        >
+          <Database size={16} /> Dados Cadastrais
+        </button>
+        <button 
           onClick={() => setActiveTab('ementas')} 
           className={`${styles.tabButton} ${activeTab === 'ementas' ? styles.tabButtonActive : ''}`}
         >
@@ -260,8 +266,8 @@ export default function ExploradorMoodle() {
           </div>
         )}
 
-        {/* ABA 2: NOTAS */}
-        {activeTab === 'notas' && (
+        {/* ABA 2: NOTAS E CADASTRAL */}
+        {(activeTab === 'notas' || activeTab === 'cadastral') && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div className={styles.filterBar} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem', alignItems: 'end' }}>
               {categoryChain.map((catId, idx) => {
@@ -411,10 +417,21 @@ export default function ExploradorMoodle() {
                     <tr>
                       <th className={styles.th}>Nome Completo</th>
                       <th className={styles.th}>CPF</th>
-                        <th className={styles.th}>Média</th>
-                        <th className={styles.th}>Status</th>
-                        <th className={styles.th}>Notas</th>
-                      </tr>
+                      {activeTab === 'notas' ? (
+                        <>
+                          <th className={styles.th}>Média</th>
+                          <th className={styles.th}>Status</th>
+                          <th className={styles.th}>Notas</th>
+                        </>
+                      ) : (
+                        <>
+                          <th className={styles.th}>Email</th>
+                          <th className={styles.th}>Telefone</th>
+                          <th className={styles.th}>Data Nasc.</th>
+                          <th className={styles.th}>Semestre</th>
+                        </>
+                      )}
+                    </tr>
                     </thead>
                     <tbody>
                       {filteredAlunos.length === 0 ? (
@@ -424,63 +441,74 @@ export default function ExploradorMoodle() {
                           <tr key={i} className={styles.tr}>
                             <td className={styles.td} style={{ fontWeight: 700 }}>{a.fullname}</td>
                             <td className={styles.td} style={{ color: 'var(--secondary)', fontFamily: 'var(--mono)', fontSize: '0.688rem' }}>{a.cpf}</td>
-                            <td className={styles.td} style={{ color: 'var(--primary)', fontWeight: 800 }}>{a.media_final || "N/D"}</td>
-                            <td className={styles.td}>
-                              {a.status === 'Aprovado' ? (
-                                <span className={`${styles.statusPill} ${styles.statusApproved}`}><CheckCircle2 size={12} /> Aprovado</span>
-                              ) : (
-                                <span className={`${styles.statusPill} ${styles.statusInCourse}`}>Em Curso</span>
-                              )}
-                            </td>
-                            <td className={styles.td} style={{ maxWidth: '400px' }}>
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                                {a.notas_disciplinas && a.notas_disciplinas !== '-' ? (
-                                  a.notas_disciplinas.split(' | ')
-                                    .filter((note: string) => {
-                                      if (selectedDisciplina === 'all') return true;
-                                      return note.toLowerCase().includes(selectedDisciplina.toLowerCase());
-                                    })
-                                    .map((note: string, idx: number) => {
-                                      const splitIndex = note.indexOf(':');
-                                      const name = splitIndex > -1 ? note.substring(0, splitIndex).trim() : note.trim();
-                                      const score = splitIndex > -1 ? note.substring(splitIndex + 1).trim() : '';
+                            {activeTab === 'notas' ? (
+                              <>
+                                <td className={styles.td} style={{ color: 'var(--primary)', fontWeight: 800 }}>{a.media_final || "N/D"}</td>
+                                <td className={styles.td}>
+                                  {a.status === 'Aprovado' ? (
+                                    <span className={`${styles.statusPill} ${styles.statusApproved}`}><CheckCircle2 size={12} /> Aprovado</span>
+                                  ) : (
+                                    <span className={`${styles.statusPill} ${styles.statusInCourse}`}>Em Curso</span>
+                                  )}
+                                </td>
+                                <td className={styles.td} style={{ maxWidth: '400px' }}>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                                    {a.notas_disciplinas && a.notas_disciplinas !== '-' ? (
+                                      a.notas_disciplinas.split(' | ')
+                                        .filter((note: string) => {
+                                          if (selectedDisciplina === 'all') return true;
+                                          return note.toLowerCase().includes(selectedDisciplina.toLowerCase());
+                                        })
+                                        .map((note: string, idx: number) => {
+                                          const splitIndex = note.indexOf(':');
+                                          const name = splitIndex > -1 ? note.substring(0, splitIndex).trim() : note.trim();
+                                          const score = splitIndex > -1 ? note.substring(splitIndex + 1).trim() : '';
 
-                                      return (
-                                        <div 
-                                          key={idx} 
-                                          style={{ 
-                                            display: 'flex', 
-                                            justifyContent: 'space-between', 
-                                            alignItems: 'center',
-                                            background: 'rgba(255,255,255,0.03)', 
-                                            padding: '0.35rem 0.625rem', 
-                                            borderRadius: '6px', 
-                                            border: '1px solid rgba(255,255,255,0.04)',
-                                            fontSize: '0.688rem',
-                                            gap: '1rem'
-                                          }}
-                                        >
-                                          <span style={{ color: 'var(--secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                            {name}
-                                          </span>
-                                          <span style={{ 
-                                            fontWeight: 800, 
-                                            color: score === '-' ? 'var(--secondary)' : parseFloat(score) >= 7 ? 'var(--primary)' : '#F59E0B',
-                                            background: 'rgba(0,0,0,0.15)',
-                                            padding: '0.15rem 0.4rem',
-                                            borderRadius: '4px',
-                                            fontFamily: 'var(--mono)'
-                                          }}>
-                                            {score}
-                                          </span>
-                                        </div>
-                                      );
-                                    })
-                                ) : (
-                                  <span style={{ color: 'var(--secondary)', fontSize: '0.688rem', fontStyle: 'italic' }}>-</span>
-                                )}
-                              </div>
-                            </td>
+                                          return (
+                                            <div 
+                                              key={idx} 
+                                              style={{ 
+                                                display: 'flex', 
+                                                justifyContent: 'space-between', 
+                                                alignItems: 'center',
+                                                background: 'rgba(255,255,255,0.03)', 
+                                                padding: '0.35rem 0.625rem', 
+                                                borderRadius: '6px', 
+                                                border: '1px solid rgba(255,255,255,0.04)',
+                                                fontSize: '0.688rem',
+                                                gap: '1rem'
+                                              }}
+                                            >
+                                              <span style={{ color: 'var(--secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                {name}
+                                              </span>
+                                              <span style={{ 
+                                                fontWeight: 800, 
+                                                color: score === '-' ? 'var(--secondary)' : parseFloat(score) >= 7 ? 'var(--primary)' : '#F59E0B',
+                                                background: 'rgba(0,0,0,0.15)',
+                                                padding: '0.15rem 0.4rem',
+                                                borderRadius: '4px',
+                                                fontFamily: 'var(--mono)'
+                                              }}>
+                                                {score}
+                                              </span>
+                                            </div>
+                                          );
+                                        })
+                                    ) : (
+                                      <span style={{ color: 'var(--secondary)', fontSize: '0.688rem', fontStyle: 'italic' }}>-</span>
+                                    )}
+                                  </div>
+                                </td>
+                              </>
+                            ) : (
+                              <>
+                                <td className={styles.td} style={{ color: 'var(--secondary)', fontSize: '0.75rem' }}>{a.email || '-'}</td>
+                                <td className={styles.td} style={{ color: 'var(--secondary)', fontSize: '0.75rem' }}>{a.phone || '-'}</td>
+                                <td className={styles.td} style={{ color: 'var(--secondary)', fontSize: '0.75rem' }}>{a.data_nascimento || '-'}</td>
+                                <td className={styles.td} style={{ color: 'var(--secondary)', fontSize: '0.75rem' }}>{a.semestre || '-'}</td>
+                              </>
+                            )}
                           </tr>
                         ))
                       )}
