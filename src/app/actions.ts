@@ -417,7 +417,8 @@ export async function testMoodleConnection(courseId: string, docType: string) {
       const resp = await fetch(MOODLE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: payload.toString()
+        body: payload.toString(),
+        cache: 'no-store'
       })
       return await resp.json()
     } catch (e: any) {
@@ -455,64 +456,73 @@ export async function testMoodleConnection(courseId: string, docType: string) {
 
     let allUsers: Record<string, any>[] = []
 
-    const userPromises = users.map(async (user: any) => {
-      const cpfField = user.customfields?.find((f: any) => f.shortname === 'cpf')?.value || '-'
-      const nascimentoField = user.customfields?.find((f: any) => f.shortname === 'data_nascimento')?.value || '-'
-      const semestreField = user.customfields?.find((f: any) => f.shortname === 'semestre')?.value || '-'
-      const foneField = user.phone1 || user.phone2 || '-'
+    // Ajustamos para lotes de 25 para acelerar a carga sem estourar o limite de sockets
+    const BATCH_SIZE = 25;
+    for (let i = 0; i < users.length; i += BATCH_SIZE) {
+      const batch = users.slice(i, i + BATCH_SIZE);
+      const batchPromises = batch.map(async (user: any) => {
+        const cpfField = user.customfields?.find((f: any) => f.shortname === 'cpf')?.value || '-'
+        const nascimentoField = user.customfields?.find((f: any) => f.shortname === 'data_nascimento')?.value || '-'
+        const semestreField = user.customfields?.find((f: any) => f.shortname === 'semestre')?.value || '-'
+        const foneField = user.phone1 || user.phone2 || '-'
 
-      const mappedUser: Record<string, any> = {
-        id: user.id,
-        fullname: user.fullname,
-        email: user.email,
-        phone: foneField,
-        cpf: cpfField,
-        data_nascimento: nascimentoField,
-        semestre: semestreField,
-        curso: course.fullname,
-      }
-
-      if (docType === 'historico') {
-        try {
-          const grades = await moodleRequest('gradereport_user_get_grade_items', { courseid: courseId, userid: String(user.id) })
-          const gradeItems = grades?.usergrades?.[0]?.gradeitems || []
-          
-          // Mapear todas as notas das disciplinas como uma string (Módulo 1: X | Módulo 2: Y)
-          // E calcular a média geral verdadeira
-          let totalNotes = 0;
-          let countNotes = 0;
-          const disciplineGrades = gradeItems
-            .filter((g: any) => g.itemtype === 'mod' || g.itemtype === 'course')
-            .map((g: any) => {
-              const cleanedName = g.itemname ? g.itemname.replace(/<[^>]*>?/gm, '') : 'Curso';
-              let gradeVal = g.graderaw !== undefined ? g.graderaw : '-';
-              
-              if (typeof gradeVal === 'number') {
-                totalNotes += gradeVal;
-                countNotes++;
-              }
-              return `${cleanedName}: ${typeof gradeVal === 'number' ? gradeVal.toFixed(1) : gradeVal}`;
-            });
-
-          mappedUser.notas_disciplinas = disciplineGrades.join(' | ') || '-'
-          mappedUser.media_geral = countNotes > 0 ? (totalNotes / countNotes).toFixed(1) : "-"
-          mappedUser.status = mappedUser.media_geral !== "-" ? (parseFloat(mappedUser.media_geral) >= 7 ? "Aprovado" : "Em Curso") : "Em Curso"
-
-        } catch (e) {
-          mappedUser.notas_disciplinas = "-"
-          mappedUser.media_geral = "-"
-          mappedUser.status = "Erro"
+        const mappedUser: Record<string, any> = {
+          id: user.id,
+          fullname: user.fullname,
+          email: user.email,
+          phone: foneField,
+          cpf: cpfField,
+          data_nascimento: nascimentoField,
+          semestre: semestreField,
+          curso: course.fullname,
         }
-      } else {
-        mappedUser.carga_horaria = "360h"
-        mappedUser.data_inicio = "-"
-        mappedUser.data_conclusao = "-"
-      }
 
-      return mappedUser;
-    });
+        if (docType === 'historico') {
+          try {
+            const grades = await moodleRequest('gradereport_user_get_grade_items', { courseid: courseId, userid: String(user.id) })
+            const gradeItems = grades?.usergrades?.[0]?.gradeitems || []
+            
+            let totalNotes = 0;
+            let countNotes = 0;
+            let courseTotalAverage: any = "-";
 
-    allUsers = await Promise.all(userPromises);
+            const disciplineGrades = gradeItems
+              .filter((g: any) => g.itemtype === 'mod' || g.itemtype === 'course')
+              .map((g: any) => {
+                const cleanedName = g.itemname ? g.itemname.replace(/<[^>]*>?/gm, '') : (g.itemtype === 'course' ? 'Total do Curso' : 'Curso');
+                let gradeVal = g.graderaw !== undefined ? g.graderaw : '-';
+                
+                if (g.itemtype === 'course') {
+                  courseTotalAverage = gradeVal;
+                } else if (typeof gradeVal === 'number') {
+                  totalNotes += gradeVal;
+                  countNotes++;
+                }
+                return `${cleanedName}: ${typeof gradeVal === 'number' ? gradeVal.toFixed(1) : gradeVal}`;
+              });
+
+            mappedUser.notas_disciplinas = disciplineGrades.join(' | ') || '-'
+            
+            if (typeof courseTotalAverage === 'number') {
+              mappedUser.media_final = courseTotalAverage.toFixed(1);
+            } else {
+              mappedUser.media_final = countNotes > 0 ? (totalNotes / countNotes).toFixed(1) : "-";
+            }
+
+            mappedUser.status = mappedUser.media_final !== "-" ? (parseFloat(mappedUser.media_final) >= 7 ? "Aprovado" : "Em Curso") : "Em Curso"
+
+          } catch (e) {
+            mappedUser.notas_disciplinas = "-"
+            mappedUser.media_final = "-"
+            mappedUser.status = "Erro"
+          }
+        }
+        return mappedUser;
+      });
+
+      const batchResults = await Promise.all(batchPromises);
+      allUsers.push(...batchResults);
+    }
 
     const firstUserVars = allUsers.length > 0 ? Object.entries(allUsers[0]).map(([key, value]) => ({
       chave_tag: key.toUpperCase(),
@@ -548,7 +558,8 @@ export async function getMoodleCourses() {
       const resp = await fetch(MOODLE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: payload.toString()
+        body: payload.toString(),
+        cache: 'no-store'
       })
       return await resp.json()
     } catch (e: any) {
@@ -559,6 +570,14 @@ export async function getMoodleCourses() {
   try {
     const courses = await moodleRequest('core_course_get_courses')
     const categories = await moodleRequest('core_course_get_categories')
+
+    if (courses.exception || categories.exception) {
+      throw new Error(courses.message || categories.message || "Erro retornado pela API Moodle")
+    }
+
+    if (courses.error || categories.error) {
+      throw new Error(courses.message || categories.message || "Falha na conexão Moodle")
+    }
 
     return { 
       success: true, 
@@ -620,5 +639,48 @@ export async function syncAllMoodleData() {
 
   } catch (err: any) {
     return { success: false, logs: [...logs, `❌ Erro na sincronização: ${err.message}`] }
+  }
+}
+
+export async function getCourseContents(courseId: string) {
+  const MOODLE_TOKEN = "71edd081c7e0c5bb83f872b60af80227"
+  const MOODLE_URL = "https://ead.cidadeviva.org/webservice/rest/server.php"
+
+  const payload = new URLSearchParams({
+    courseid: courseId,
+    wstoken: MOODLE_TOKEN,
+    moodlewsrestformat: 'json',
+    wsfunction: 'core_course_get_contents'
+  })
+
+  try {
+    const resp = await fetch(MOODLE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: payload.toString(),
+      cache: 'no-store'
+    })
+    const data = await resp.json()
+    if (data.exception || data.error) {
+       return { success: false, error: data.message || "Erro na API" }
+    }
+    return { success: true, contents: Array.isArray(data) ? data : [] }
+  } catch (e: any) {
+    return { success: false, error: e.message }
+  }
+}
+
+export async function getAvailableMoodleFunctions() {
+  try {
+    const fs = require('fs')
+    const path = require('path')
+    const filePath = path.join(process.cwd(), 'moodle_functions_available.json')
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath, 'utf-8')
+      return { success: true, list: JSON.parse(data) }
+    }
+    return { success: false, error: "Arquivo de mapeamento não encontrado." }
+  } catch (e: any) {
+    return { success: false, error: e.message }
   }
 }

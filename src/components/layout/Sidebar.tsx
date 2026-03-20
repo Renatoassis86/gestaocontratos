@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import styles from './sidebar.module.css'
-import { LayoutDashboard, Building2, Users, FileText, LifeBuoy, Settings, LogOut, FileCheck } from 'lucide-react'
+import { LayoutDashboard, Building2, Users, FileText, LifeBuoy, Settings, LogOut, FileCheck, Database } from 'lucide-react'
 
 interface SidebarProps {
   currentPath?: string; // Mantido por compatibilidade
@@ -32,11 +32,9 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
   menus.push(
     { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
     { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> },
-    { name: 'Integração Moodle', path: '/dashboard/documentos/alunos/relatorios', icon: <FileText size={20} /> },
-    { name: 'Explorador Moodle (Novo)', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> },
-    { name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileCheck size={20} /> }
+    { name: 'Explorador Moodle', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> },
+    { name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileText size={20} /> },
   )
-
 
 
 

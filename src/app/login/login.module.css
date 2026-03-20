@@ -48,6 +48,8 @@
   border-radius: 12px;
   font-size: 0.875rem;
   border: 1px solid rgba(239, 68, 68, 0.2);
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 
 .form {

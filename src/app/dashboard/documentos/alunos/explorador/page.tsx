@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getMoodleCourses, testMoodleConnection } from '../../../../actions'
+import { getMoodleCourses, testMoodleConnection, getCourseContents } from '../../../../actions'
+import styles from './explorador.module.css'
 import { 
   Database, 
   Users, 
@@ -11,7 +12,9 @@ import {
   Filter, 
   AlertCircle, 
   CheckCircle2, 
-  RefreshCw 
+  RefreshCw,
+  FolderOpen,
+  ArrowRight
 } from 'lucide-react'
 
 export default function ExploradorMoodle() {
@@ -19,16 +22,28 @@ export default function ExploradorMoodle() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
-  // Dados brutos
   const [cursos, setCursos] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])
   
-  // Dados de filtragem (Aba Notas)
   const [selectedCourse, setSelectedCourse] = useState<string>('')
   const [alunos, setAlunos] = useState<any[]>([])
   const [loadingAlunos, setLoadingAlunos] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<'all' | 'Aprovado' | 'Em Curso'>('all')
+  const [moodleLogs, setMoodleLogs] = useState<string[]>([])
+  
+  const [categoryChain, setCategoryChain] = useState<string[]>(['all'])
+  const [selectedDisciplina, setSelectedDisciplina] = useState<string>('all')
+  const [courseSearch, setCourseSearch] = useState<string>('')
+  const [courseSections, setCourseSections] = useState<any[]>([])
+  
+  const [selectedEmenta, setSelectedEmenta] = useState<any | null>(null)
+  const [loadingEmenta, setLoadingEmenta] = useState(false)
+  const [ementaContents, setEmentaContents] = useState<any[]>([])
+  const [ementaStudentsCount, setEmentaStudentsCount] = useState<number>(0)
+
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const coursesPerPage = 12
 
   useEffect(() => {
     async function loadInitial() {
@@ -42,10 +57,10 @@ export default function ExploradorMoodle() {
             setSelectedCourse(String(result.courses[0].id))
           }
         } else {
-          setError("Falha ao carregar metadados estruturais do Moodle.")
+          setError(result.error || "Falha ao carregar metadados estruturais do Moodle.")
         }
-      } catch (e) {
-        setError("Erro de conexão ao carregar dados do Moodle.")
+      } catch (e: any) {
+        setError(e.message || "Erro de conexão ao carregar dados do Moodle.")
       } finally {
         setLoading(false)
       }
@@ -53,17 +68,29 @@ export default function ExploradorMoodle() {
     loadInitial()
   }, [])
 
-  // Carregar alunos quando mudar o curso na Aba de Notas
   useEffect(() => {
-    if (activeTab === 'notas' && selectedCourse) {
-      loadCourseStudents(selectedCourse)
+    if (selectedCourse && selectedCourse !== 'all') {
+      const fetchSections = async () => {
+        try {
+          const res = await getCourseContents(selectedCourse)
+          setCourseSections(res.contents || [])
+        } catch (e) {
+          setCourseSections([])
+        }
+      }
+      fetchSections()
+    } else {
+      setCourseSections([])
     }
-  }, [selectedCourse, activeTab])
+    setSelectedDisciplina('all')
+  }, [selectedCourse])
 
   const loadCourseStudents = async (id: string) => {
     setLoadingAlunos(true)
+    setMoodleLogs([])
     try {
       const result = await testMoodleConnection(id, 'historico')
+      if (result.logs) setMoodleLogs(result.logs)
       if (result.success) {
         setAlunos(result.allUsers || [])
       } else {
@@ -76,7 +103,36 @@ export default function ExploradorMoodle() {
     }
   }
 
-  // Filtragem de Alunos
+  const handleOpenEmenta = async (course: any) => {
+    setSelectedEmenta(course)
+    setLoadingEmenta(true)
+    setEmentaContents([])
+    setEmentaStudentsCount(0)
+    try {
+      const result = await getCourseContents(String(course.id))
+      setEmentaContents(result.contents || [])
+      
+      const studentsData = await testMoodleConnection(String(course.id), 'historico')
+      if (studentsData.success) {
+        setEmentaStudentsCount(studentsData.allUsers?.length || 0)
+      }
+    } catch (e) {
+      setEmentaContents([])
+    } finally {
+      setLoadingEmenta(false)
+    }
+  }
+
+  // Função recursiva para obter todos os IDs de categorias descendentes (filhas, netas, etc.)
+  function getAllDescendantCategoryIds(catId: string, list: any[]): string[] {
+    let res = [catId];
+    const children = list.filter(c => String(c.parent) === catId).map(c => String(c.id));
+    for (const child of children) {
+      res = [...res, ...getAllDescendantCategoryIds(child, list)];
+    }
+    return res;
+  }
+
   const filteredAlunos = alunos.filter(a => {
     const matchSearch = a.fullname.toLowerCase().includes(searchQuery.toLowerCase()) || 
                         a.email.toLowerCase().includes(searchQuery.toLowerCase())
@@ -84,77 +140,119 @@ export default function ExploradorMoodle() {
     return matchSearch && matchStatus
   })
 
-  if (loading) return <div className="p-8 text-zinc-400">Sincronizando com Moodle...</div>
+  if (loading) return (
+    <div className={styles.loading}>
+      <div className={styles.spinner}></div>
+      <span>Consultando Moodle API em tempo real...</span>
+    </div>
+  )
 
-  // Métricas de Painel Geral
   const totalCursos = cursos.filter(c => c.visible === 1).length
   const totalCat = categories.length
 
   return (
-    <div className="p-6 space-y-6 text-white" style={{ fontFamily: 'var(--sans)' }}>
+    <div className={styles.page}>
       {/* Header */}
-      <div className="flex justify-between items-center mb-4 border-b border-zinc-800/40 pb-4">
+      <div className={styles.header}>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Database className="text-brand-green w-6 h-6" /> Explorador de Ingestão Moodle
+          <h1 className={styles.title}>
+            <Database className={styles.titleIcon} size={24} /> Explorador de Ingestão Moodle
           </h1>
-          <p className="text-zinc-400 text-sm">Navegação ao vivo por entidades relacionais, notas agregadas e auditoria documental.</p>
+          <p className={styles.subtitle}>Sincronização ao vivo para auditoria de ementas, tabelas relacionais e diagnósticos preditivos.</p>
         </div>
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl flex items-center gap-2 text-red-500">
+        <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#EF4444', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(239,68,68,0.2)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <AlertCircle size={20} /> {error}
         </div>
       )}
 
-      {/* Tabs / Abas */}
-      <div className="flex border-b border-zinc-800 gap-2">
+      {/* METRIC CARDS */}
+      {activeTab === 'geral' && (
+        <div className={styles.metricsGrid}>
+          <div className={styles.metricCard}>
+            <div>
+              <span className={styles.metricLabel}>Cursos Visíveis</span>
+              <h4 className={styles.metricValue}>{totalCursos}</h4>
+            </div>
+            <Database size={32} className={styles.iconOverlay} />
+          </div>
+
+          <div className={styles.metricCard}>
+            <div>
+              <span className={styles.metricLabel}>Categorias</span>
+              <h4 className={styles.metricValue}>{totalCat}</h4>
+            </div>
+            <FolderOpen size={32} className={styles.iconOverlay} />
+          </div>
+
+          <div className={styles.metricCard}>
+            <div>
+              <span className={styles.metricLabel}>Saúde da Integração</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--primary)', marginTop: '0.25rem', fontWeight: 800 }}>
+                Saudável <CheckCircle2 size={16} />
+              </div>
+            </div>
+            <RefreshCw size={32} className={styles.iconOverlay} />
+          </div>
+        </div>
+      )}
+
+      {/* Tabs */}
+      <div className={styles.tabs}>
         <button 
           onClick={() => setActiveTab('geral')} 
-          className={`py-2 px-4 font-semibold text-sm transition-all border-b-2 flex items-center gap-2 ${activeTab === 'geral' ? 'border-brand-green text-brand-green' : 'border-transparent text-zinc-400 hover:text-white'}`}
+          className={`${styles.tabButton} ${activeTab === 'geral' ? styles.tabButtonActive : ''}`}
         >
           <Database size={16} /> Visão Estrutural
         </button>
         <button 
           onClick={() => setActiveTab('notas')} 
-          className={`py-2 px-4 font-semibold text-sm transition-all border-b-2 flex items-center gap-2 ${activeTab === 'notas' ? 'border-brand-green text-brand-green' : 'border-transparent text-zinc-400 hover:text-white'}`}
+          className={`${styles.tabButton} ${activeTab === 'notas' ? styles.tabButtonActive : ''}`}
         >
           <GraduationCap size={16} /> Notas e Médias
         </button>
         <button 
           onClick={() => setActiveTab('ementas')} 
-          className={`py-2 px-4 font-semibold text-sm transition-all border-b-2 flex items-center gap-2 ${activeTab === 'ementas' ? 'border-brand-green text-brand-green' : 'border-transparent text-zinc-400 hover:text-white'}`}
+          className={`${styles.tabButton} ${activeTab === 'ementas' ? styles.tabButtonActive : ''}`}
         >
           <FileText size={16} /> NLP e Ementas
         </button>
       </div>
 
       {/* Content */}
-      <div className="pt-4">
+      <div style={{ marginTop: '0.5rem' }}>
         
-        {/* ABA 1: VISÃO GERAL */}
+        {/* ABA 1: ESTRUTURAL */}
         {activeTab === 'geral' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-zinc-950 border border-zinc-900 p-6 rounded-xl">
-              <h3 className="text-md font-bold mb-3 flex items-center gap-2 text-zinc-200"><Database size={18} /> Cursos Ativos ({totalCursos})</h3>
-              <div className="max-h-[300px] overflow-y-auto space-y-2">
+          <div className={styles.contentGrid}>
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>
+                <Database size={16} /> Coleção de Cursos ({totalCursos})
+              </h3>
+              <div className={styles.scrollList}>
                 {cursos.filter(c => c.visible === 1).map(c => (
-                  <div key={c.id} className="p-2 border-b border-zinc-900 text-xs text-zinc-300 flex justify-between">
-                    <span className="font-semibold">{c.fullname}</span>
-                    <span className="text-zinc-500">ID: {c.id}</span>
+                  <div key={c.id} className={styles.listItem}>
+                    <div>
+                      <div className={styles.listTextMain}>{c.fullname}</div>
+                      <div className={styles.listTextSub}>{c.shortname || "S/N"}</div>
+                    </div>
+                    <span className={styles.pill}>ID: {c.id}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-900 p-6 rounded-xl">
-              <h3 className="text-md font-bold mb-3 flex items-center gap-2 text-zinc-200"><Filter size={18} /> Categorias ({totalCat})</h3>
-              <div className="max-h-[300px] overflow-y-auto space-y-2">
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>
+                <Filter size={16} /> Mapeamento de Categorias ({totalCat})
+              </h3>
+              <div className={styles.scrollList}>
                 {categories.map(cat => (
-                  <div key={cat.id} className="p-2 border-b border-zinc-900 text-xs text-zinc-300 flex justify-between">
-                    <span>{cat.name}</span>
-                    <span className="text-zinc-500">ID: {cat.id}</span>
+                  <div key={cat.id} className={styles.listItem}>
+                    <div className={styles.listTextMain}>{cat.name}</div>
+                    <span className={styles.pill}>ID: {cat.id}</span>
                   </div>
                 ))}
               </div>
@@ -162,29 +260,111 @@ export default function ExploradorMoodle() {
           </div>
         )}
 
-        {/* ABA 2: NOTAS POR ALUNO */}
+        {/* ABA 2: NOTAS */}
         {activeTab === 'notas' && (
-          <div className="space-y-4">
-            <div className="flex gap-4 items-center bg-zinc-950 p-4 border border-zinc-900 rounded-xl flex-wrap">
-              <div className="flex-1">
-                <label className="block text-xs text-zinc-400 mb-1">Selecione o Curso:</label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div className={styles.filterBar} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem', alignItems: 'end' }}>
+              {categoryChain.map((catId, idx) => {
+                const parentId = idx === 0 ? 0 : Number(categoryChain[idx - 1]);
+                if (idx > 0 && categoryChain[idx - 1] === 'all') return null; 
+
+                const items = categories.filter(cat => Number(cat.parent) === parentId);
+                if (items.length === 0 && idx > 0) return null; 
+
+                return (
+                  <div className={styles.inputGroup} key={idx}>
+                    <label>
+                      {idx === 0 ? 'Unidade / Instituição:' : 
+                       idx === 1 ? 'Departamento / Escola:' : 
+                       idx === 2 ? 'Área / Núcleo:' : 
+                       `Nível ${idx + 1} (Sub-Categoria):`}
+                    </label>
+                    <select 
+                      value={catId} 
+                      onChange={(e) => { 
+                        const val = e.target.value;
+                        let newChain = [...categoryChain.slice(0, idx), val];
+                        if (val !== 'all') {
+                          const hasKids = categories.some(cat => Number(cat.parent) === Number(val));
+                          if (hasKids) newChain.push('all');
+                        }
+                        setCategoryChain(newChain);
+                        setSelectedCourse('all');
+                      }}
+                      className={styles.select}
+                    >
+                      <option value="all">{idx === 0 ? 'Ver Todas' : 'Todas'}</option>
+                      {items.map(cat => (
+                        <option key={cat.id} value={String(cat.id)}>{cat.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                )
+              })}
+
+              <div className={styles.inputGroup} style={{ maxWidth: '160px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  🔍 Filtrar Curso:
+                </label>
+                <input 
+                  type="text" 
+                  value={courseSearch} 
+                  onChange={e => setCourseSearch(e.target.value)} 
+                  placeholder="Nome do curso..." 
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '8px', padding: '0.55rem', fontSize: '0.813rem', color: 'var(--foreground)', height: '100%', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Curso:</label>
                 <select 
                   value={selectedCourse} 
                   onChange={(e) => setSelectedCourse(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-2 rounded-lg text-sm text-white"
+                  className={styles.select}
                 >
-                  {cursos.map(c => (
-                    <option key={c.id} value={c.id}>{c.fullname}</option>
+                  <option value="all">Selecione...</option>
+                  {cursos
+                    .filter(c => {
+                      const matchSearch = courseSearch === '' || c.fullname.toLowerCase().includes(courseSearch.toLowerCase());
+                      if (!matchSearch) return false;
+
+                      const activeCatId = categoryChain[categoryChain.length - 1] === 'all' 
+                        ? (categoryChain.length > 1 ? categoryChain[categoryChain.length - 2] : 'all') 
+                        : categoryChain[categoryChain.length - 1];
+
+                      if (activeCatId !== 'all') {
+                        const descendantIds = getAllDescendantCategoryIds(activeCatId, categories);
+                        return descendantIds.includes(String(c.categoryid));
+                      }
+                      return true;
+                    })
+                    .map(c => (
+                      <option key={c.id} value={c.id}>{c.fullname}</option>
+                    ))
+                  }
+                </select>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Disciplina / Tópico:</label>
+                <select 
+                  value={selectedDisciplina} 
+                  onChange={(e) => setSelectedDisciplina(e.target.value)}
+                  className={styles.select}
+                >
+                  <option value="all">Todas</option>
+                  {courseSections.map((s, idx) => (
+                    <option key={idx} value={s.name}>{s.name}</option>
                   ))}
                 </select>
               </div>
 
-              <div className="flex-1">
-                <label className="block text-xs text-zinc-400 mb-1">Status da Média:</label>
+              <div className={styles.inputGroup}>
+                <label>Status:</label>
                 <select 
                   value={statusFilter} 
                   onChange={(e: any) => setStatusFilter(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-2 rounded-lg text-sm text-white"
+                  className={styles.select}
                 >
                   <option value="all">Ver Todos</option>
                   <option value="Aprovado">Aprovado ({">= 7.0"})</option>
@@ -192,78 +372,248 @@ export default function ExploradorMoodle() {
                 </select>
               </div>
 
-              <div className="flex-[2]">
-                <label className="block text-xs text-zinc-400 mb-1">Buscar Aluno ou E-mail:</label>
-                <div className="relative">
-                  <Search size={16} className="absolute left-3 top-3 text-zinc-500" />
+              <div className={styles.inputGroup}>
+                <label>Buscar Aluno:</label>
+                <div className={styles.inputWrapper}>
+                  <Search size={16} className={styles.inputIcon} />
                   <input 
                     type="text" 
-                    placeholder="Nome completo..." 
+                    placeholder="Nome..." 
                     value={searchQuery} 
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-zinc-900 border border-zinc-800 pl-10 pr-4 py-2 rounded-lg text-sm text-white"
+                    className={`${styles.input} ${styles.inputWithIcon}`}
                   />
                 </div>
               </div>
+
+              <div className={styles.inputGroup}>
+                <button 
+                  className={styles.nlpButton} 
+                  style={{ width: '100%', padding: '0.625rem', justifyContent: 'center', background: selectedCourse === 'all' ? 'var(--secondary)' : 'var(--primary)', color: '#000', fontWeight: 800, opacity: selectedCourse === 'all' ? 0.3 : 1 }} 
+                  onClick={() => selectedCourse !== 'all' && loadCourseStudents(selectedCourse)}
+                  disabled={selectedCourse === 'all'}
+                >
+                  Carregar
+                </button>
+              </div>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-900 p-4 rounded-xl overflow-x-auto">
-              {loadingAlunos ? (
-                <div className="text-center p-8 text-zinc-400 flex items-center justify-center gap-2"><RefreshCw className="animate-spin" size={18} /> Consultando notas ao vivo...</div>
-              ) : (
-                <table className="w-full border-collapse text-left text-xs">
-                  <thead>
-                    <tr className="border-b border-zinc-800 bg-zinc-900/50">
-                      <th className="p-3">Nome</th>
-                      <th className="p-3">CPF</th>
-                      <th className="p-3">Média Geral</th>
-                      <th className="p-3">Status</th>
-                      <th className="p-3">Notas Variáveis (NLP/Split)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredAlunos.length === 0 ? (
-                      <tr><td colSpan={5} className="p-4 text-center text-zinc-500">Nenhum aluno encontrado ou sem notas lançadas.</td></tr>
-                    ) : (
-                      filteredAlunos.map((a: any, i) => (
-                        <tr key={i} className="border-b border-zinc-900/50 hover:bg-zinc-900/10">
-                          <td className="p-3 font-semibold text-white">{a.fullname}</td>
-                          <td className="p-3 text-zinc-400">{a.cpf}</td>
-                          <td className="p-3 font-bold text-sky-400">{a.media_final}</td>
-                          <td className="p-3">
-                            {a.status === 'Aprovado' ? (
-                              <span className="text-emerald-500 flex items-center gap-1"><CheckCircle2 size={14} /> Aprovado</span>
-                            ) : (
-                              <span className="text-amber-500">Em Curso</span>
-                            )}
-                          </td>
-                          <td className="p-3 text-zinc-400">{a.notas_disciplinas?.substring(0, 50)}...</td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ABA 3: NLP EMMENTAS */}
-        {activeTab === 'ementas' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {cursos.slice(0, 10).map(c => (
-              <div key={c.id} className="bg-zinc-950 border border-zinc-900 p-4 rounded-xl space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-xs font-semibold text-brand-green">{c.shortname}</span>
-                  <span className="text-xs text-zinc-500">Filtrado por regex (Strip)</span>
+            <div className={styles.tableWrapper} style={{ position: 'relative' }}>
+              {loadingAlunos && (
+                <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(0,0,0,0.5)', padding: '0.25rem 0.75rem', borderRadius: '20px', fontSize: '0.75rem', border: '1px solid var(--border)', backdropFilter: 'blur(4px)' }}>
+                  <div className={styles.spinner} style={{ width: 12, height: 12 }}></div> Certificando...
                 </div>
-                <h4 className="font-bold text-white text-md">{c.fullname}</h4>
-                <div className="text-xs text-zinc-400 leading-relaxed bg-zinc-900/40 p-2 rounded-lg border border-zinc-800/60 max-h-[100px] overflow-y-auto">
-                   {c.summary ? c.summary.replace(/<[^>]*>?/gm, ' ') : "Sem descrição estruturada de ementa."}
+              )}
+              
+              <div style={{ overflowX: 'auto' }}>
+                <table className={styles.table}>
+                  <thead className={styles.thead}>
+                    <tr>
+                      <th className={styles.th}>Nome Completo</th>
+                      <th className={styles.th}>CPF</th>
+                        <th className={styles.th}>Média</th>
+                        <th className={styles.th}>Status</th>
+                        <th className={styles.th}>Notas</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredAlunos.length === 0 ? (
+                        <tr><td colSpan={5} style={{ padding: '2rem', textAlign: 'center', color: 'var(--secondary)', fontStyle: 'italic' }}>Nenhum aluno encontrado ou sem notas para essa turma.</td></tr>
+                      ) : (
+                        filteredAlunos.map((a: any, i) => (
+                          <tr key={i} className={styles.tr}>
+                            <td className={styles.td} style={{ fontWeight: 700 }}>{a.fullname}</td>
+                            <td className={styles.td} style={{ color: 'var(--secondary)', fontFamily: 'var(--mono)', fontSize: '0.688rem' }}>{a.cpf}</td>
+                            <td className={styles.td} style={{ color: 'var(--primary)', fontWeight: 800 }}>{a.media_final || "N/D"}</td>
+                            <td className={styles.td}>
+                              {a.status === 'Aprovado' ? (
+                                <span className={`${styles.statusPill} ${styles.statusApproved}`}><CheckCircle2 size={12} /> Aprovado</span>
+                              ) : (
+                                <span className={`${styles.statusPill} ${styles.statusInCourse}`}>Em Curso</span>
+                              )}
+                            </td>
+                            <td className={styles.td} style={{ maxWidth: '400px' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                                {a.notas_disciplinas && a.notas_disciplinas !== '-' ? (
+                                  a.notas_disciplinas.split(' | ')
+                                    .filter((note: string) => {
+                                      if (selectedDisciplina === 'all') return true;
+                                      return note.toLowerCase().includes(selectedDisciplina.toLowerCase());
+                                    })
+                                    .map((note: string, idx: number) => {
+                                      const splitIndex = note.indexOf(':');
+                                      const name = splitIndex > -1 ? note.substring(0, splitIndex).trim() : note.trim();
+                                      const score = splitIndex > -1 ? note.substring(splitIndex + 1).trim() : '';
+
+                                      return (
+                                        <div 
+                                          key={idx} 
+                                          style={{ 
+                                            display: 'flex', 
+                                            justifyContent: 'space-between', 
+                                            alignItems: 'center',
+                                            background: 'rgba(255,255,255,0.03)', 
+                                            padding: '0.35rem 0.625rem', 
+                                            borderRadius: '6px', 
+                                            border: '1px solid rgba(255,255,255,0.04)',
+                                            fontSize: '0.688rem',
+                                            gap: '1rem'
+                                          }}
+                                        >
+                                          <span style={{ color: 'var(--secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                            {name}
+                                          </span>
+                                          <span style={{ 
+                                            fontWeight: 800, 
+                                            color: score === '-' ? 'var(--secondary)' : parseFloat(score) >= 7 ? 'var(--primary)' : '#F59E0B',
+                                            background: 'rgba(0,0,0,0.15)',
+                                            padding: '0.15rem 0.4rem',
+                                            borderRadius: '4px',
+                                            fontFamily: 'var(--mono)'
+                                          }}>
+                                            {score}
+                                          </span>
+                                        </div>
+                                      );
+                                    })
+                                ) : (
+                                  <span style={{ color: 'var(--secondary)', fontSize: '0.688rem', fontStyle: 'italic' }}>-</span>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {moodleLogs.length > 0 && (
+                <div style={{ background: 'rgba(0,0,0,0.15)', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '0.75rem', color: 'var(--secondary)', display: 'flex', flexDirection: 'column', gap: '0.25rem', fontFamily: 'var(--mono)' }}>
+                  <strong style={{ color: 'var(--foreground)', marginBottom: '0.25rem', fontSize: '0.688rem', textTransform: 'uppercase' }}>Log de Sincronização API:</strong>
+                  {moodleLogs.map((log, i) => (
+                    <div key={i} style={{ color: log.includes('❌') || log.includes('⚠️') ? '#EF4444' : log.includes('✅') ? 'var(--primary)' : 'inherit' }}>
+                      {log}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+        {activeTab === 'ementas' && (
+          <>
+            <div className={styles.nlpGrid}>
+              {cursos.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage).map(c => (
+                <div key={c.id} className={styles.nlpCard}>
+                  <div>
+                    <div className={styles.nlpHeader}>
+                      <span className={styles.nlpBadge}>{c.shortname || "EAD"}</span>
+                      {c.summary ? (
+                        <span style={{ fontSize: '0.625rem', color: 'var(--primary)', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          <span style={{ width: 6, height: 6, background: 'var(--primary)', borderRadius: '50%' }}></span> Ementa Ativa
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '0.625rem', color: 'var(--secondary)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                          <span style={{ width: 6, height: 6, background: 'var(--secondary)', borderRadius: '50%', opacity: 0.5 }}></span> Vazia
+                        </span>
+                      )}
+                    </div>
+                    <h4 className={styles.nlpTitle}>{c.fullname}</h4>
+                    <div className={styles.nlpText}>
+                      {c.summary ? c.summary.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ') : "Descrição de ementa vazia."}
+                    </div>
+                  </div>
+                  <div className={styles.nlpFooter}>
+                    <button className={styles.nlpButton} onClick={() => handleOpenEmenta(c)}>
+                      Ver Detalhes NLP <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* PAGINAÇÃO */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.25rem', padding: '0.75rem', background: 'rgba(0,0,0,0.15)', borderRadius: '12px', border: '1px solid var(--border)' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>
+                Mostrando <b>{Math.min(cursos.length, (currentPage - 1) * coursesPerPage + 1)} - {Math.min(cursos.length, currentPage * coursesPerPage)}</b> de <b>{cursos.length}</b> Cursos
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button 
+                  disabled={currentPage === 1} 
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  style={{ background: 'rgba(255,255,255,0.02)', color: currentPage === 1 ? 'var(--secondary)' : 'var(--foreground)', border: '1px solid var(--border)', padding: '0.375rem 0.75rem', borderRadius: '8px', fontSize: '0.75rem', cursor: currentPage === 1 ? 'not-allowed' : 'pointer', opacity: currentPage === 1 ? 0.4 : 1 }}
+                >
+                  &larr; Anterior
+                </button>
+                <button 
+                  disabled={currentPage * coursesPerPage >= cursos.length} 
+                  onClick={() => setCurrentPage(p => p + 1)}
+                  style={{ background: 'var(--primary)', color: '#000', border: 'none', padding: '0.375rem 0.75rem', borderRadius: '8px', fontSize: '0.75rem', cursor: currentPage * coursesPerPage >= cursos.length ? 'not-allowed' : 'pointer', fontWeight: 800, opacity: currentPage * coursesPerPage >= cursos.length ? 0.4 : 1 }}
+                >
+                  Próxima &rarr;
+                </button>
+              </div>
+            </div>
+
+            {/* MODAL DE EMENTAS NLP */}
+            {selectedEmenta && (
+              <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setSelectedEmenta(null)}>
+                <div style={{ background: 'var(--accent)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border)', maxWidth: '600px', width: '90%', maxHeight: '80vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', boxShadow: 'var(--card-shadow)' }} onClick={e => e.stopPropagation()}>
+                  <div>
+                    <span style={{ fontSize: '0.625rem', background: 'rgba(255,255,255,0.05)', padding: '0.25rem 0.5rem', borderRadius: '4px', color: 'var(--secondary)' }}>{selectedEmenta.shortname}</span>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--foreground)', marginTop: '0.5rem' }}>{selectedEmenta.fullname}</h2>
+                    
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                      <span style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38BDF8', padding: '0.375rem 0.75rem', borderRadius: '20px', fontSize: '0.688rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                         👥 {ementaStudentsCount} Alunos
+                      </span>
+                      <span style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--primary)', padding: '0.375rem 0.75rem', borderRadius: '20px', fontSize: '0.688rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                         📂 {ementaContents.length} Seções / Tópicos
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>
+                    <h4 style={{ fontSize: '0.75rem', color: 'var(--secondary)', textTransform: 'uppercase' }}>Sumário Cadastrado</h4>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--foreground)', marginTop: '0.25rem', lineHeight: 1.5 }}>
+                      {selectedEmenta.summary ? selectedEmenta.summary.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ') : "Sem descrição cadastrada."}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 style={{ fontSize: '0.75rem', color: 'var(--secondary)', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Tópicos da Disciplina (Conteúdo)</h4>
+                    
+                    {loadingEmenta ? (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--secondary)', fontSize: '0.813rem' }}>
+                        <div className={styles.spinner} style={{ width: 14, height: 14 }}></div> Carregando estrutura Moodle...
+                      </div>
+                    ) : ementaContents.length === 0 ? (
+                      <div style={{ fontSize: '0.813rem', color: 'var(--secondary)', fontStyle: 'italic' }}>Nenhum tópico ou módulo encontrado para este curso.</div>
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        {ementaContents.map((section, idx) => (
+                          <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', padding: '0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                            <div style={{ fontWeight: 700, fontSize: '0.813rem', color: 'var(--primary)' }}>{section.name}</div>
+                            {section.modules && section.modules.length > 0 && (
+                              <ul style={{ paddingLeft: '1.25rem', marginTop: '0.375rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                {section.modules.map((mod: any, mIdx: number) => (
+                                  <li key={mIdx} style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>
+                                    {mod.name}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
         )}
 
       </div>
