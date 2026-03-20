@@ -1,0 +1,742 @@
+[
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 6,
+    "username": "mauricio",
+    "fullname": "Mauricio Monteiro",
+    "email": "mauriciomonteiro@cidadeviva.org",
+    "cpf": "00000000037",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 8,
+    "username": "mauricio.monteirojr",
+    "fullname": "Maurício Monteiro",
+    "email": "mauricio.monteirojr@gmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 15,
+    "username": "ricardo",
+    "fullname": "Ricardo Oliveira",
+    "email": "ricardo@diversita.com.br",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 18,
+    "username": "andre.cruz",
+    "fullname": "Andre Graça Cruz",
+    "email": "andrecruz_bf@hotmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 19,
+    "username": "felipe.oliveira",
+    "fullname": "Felipe Soares de Oliveira",
+    "email": "felipesoaresdo@gmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 20,
+    "username": "marco.oliveira",
+    "fullname": "Marco Aurélio Fonseca de Oliveira",
+    "email": "mafo79@yahoo.com.br",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 21,
+    "username": "tatiana.reitz",
+    "fullname": "Tatiana Adriano de Oliveira Reitz",
+    "email": "tatianaufsc@gmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 22,
+    "username": "tiago.lima",
+    "fullname": "Tiago de Souza Pereira Lima",
+    "email": "tiagosouzagt7@gmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 23,
+    "username": "amandabragancadesigner@gmail.com",
+    "fullname": "Amanda Bragança",
+    "email": "amandabragancadesigner@gmail.com",
+    "cpf": "00789355205",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 15,
+    "course_name": "Panorama do Novo Testamento",
+    "course_summary_plain": "...",
+    "user_id": 24,
+    "username": "gilmar.junior",
+    "fullname": "Gilmar Lima da Silva Junior",
+    "email": "gilmarlima@outlook.com.br",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 6,
+    "username": "mauricio",
+    "fullname": "Mauricio Monteiro",
+    "email": "mauriciomonteiro@cidadeviva.org",
+    "cpf": "00000000037",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 8,
+    "username": "mauricio.monteirojr",
+    "fullname": "Maurício Monteiro",
+    "email": "mauricio.monteirojr@gmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 15,
+    "username": "ricardo",
+    "fullname": "Ricardo Oliveira",
+    "email": "ricardo@diversita.com.br",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 18,
+    "username": "andre.cruz",
+    "fullname": "Andre Graça Cruz",
+    "email": "andrecruz_bf@hotmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 19,
+    "username": "felipe.oliveira",
+    "fullname": "Felipe Soares de Oliveira",
+    "email": "felipesoaresdo@gmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 20,
+    "username": "marco.oliveira",
+    "fullname": "Marco Aurélio Fonseca de Oliveira",
+    "email": "mafo79@yahoo.com.br",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 21,
+    "username": "tatiana.reitz",
+    "fullname": "Tatiana Adriano de Oliveira Reitz",
+    "email": "tatianaufsc@gmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 22,
+    "username": "tiago.lima",
+    "fullname": "Tiago de Souza Pereira Lima",
+    "email": "tiagosouzagt7@gmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 24,
+    "username": "gilmar.junior",
+    "fullname": "Gilmar Lima da Silva Junior",
+    "email": "gilmarlima@outlook.com.br",
+    "cpf": "N/D",
+    "media_final": 10,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 10,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 10,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 14,
+    "course_name": " Panorama do Antigo Testamento ",
+    "course_summary_plain": "...",
+    "user_id": 25,
+    "username": "vitor.torres",
+    "fullname": "Vitor Bruno Cavalcanti Torres",
+    "email": "vitor_bruno@msn.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 6,
+    "username": "mauricio",
+    "fullname": "Mauricio Monteiro",
+    "email": "mauriciomonteiro@cidadeviva.org",
+    "cpf": "00000000037",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 8,
+    "username": "mauricio.monteirojr",
+    "fullname": "Maurício Monteiro",
+    "email": "mauricio.monteirojr@gmail.com",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 15,
+    "username": "ricardo",
+    "fullname": "Ricardo Oliveira",
+    "email": "ricardo@diversita.com.br",
+    "cpf": "N/D",
+    "media_final": "N/D",
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": null,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 18,
+    "username": "andre.cruz",
+    "fullname": "Andre Graça Cruz",
+    "email": "andrecruz_bf@hotmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 19,
+    "username": "felipe.oliveira",
+    "fullname": "Felipe Soares de Oliveira",
+    "email": "felipesoaresdo@gmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 21,
+    "username": "tatiana.reitz",
+    "fullname": "Tatiana Adriano de Oliveira Reitz",
+    "email": "tatianaufsc@gmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 22,
+    "username": "tiago.lima",
+    "fullname": "Tiago de Souza Pereira Lima",
+    "email": "tiagosouzagt7@gmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 24,
+    "username": "gilmar.junior",
+    "fullname": "Gilmar Lima da Silva Junior",
+    "email": "gilmarlima@outlook.com.br",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 25,
+    "username": "vitor.torres",
+    "fullname": "Vitor Bruno Cavalcanti Torres",
+    "email": "vitor_bruno@msn.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  },
+  {
+    "course_id": 12,
+    "course_name": "Introdução à Bíblia",
+    "course_summary_plain": "...",
+    "user_id": 26,
+    "username": "caio.paiva",
+    "fullname": "Caio Bruno Medeiros de Paiva",
+    "email": "caiobrunopaiva@hotmail.com",
+    "cpf": "N/D",
+    "media_final": 0,
+    "all_grades": [
+      {
+        "itemname": "REDAÇÃO",
+        "itemtype": "mod",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": false
+      },
+      {
+        "itemname": "Nota Geral",
+        "itemtype": "course",
+        "graderaw": 0,
+        "grademax": 10,
+        "is_course_total": true
+      }
+    ]
+  }
+]

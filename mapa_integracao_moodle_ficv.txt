@@ -1,0 +1,16 @@
+================================================================================
+        MAPA DE ARQUITETURA DE INTEGRAÇÃO MOODLE E SISTEMA LOCAL                   
+================================================================================
+
+### A. Estratégia de Ingestão
+- **Tipo**: Coleta incremental puxada (Pull-based via Cron Action).
+- **Frequência**: 1x por hora para Notas; 1x por dia para Cadastros de Usuário.
+
+### B. Proposta de Staging Area (Supabase)
+- Tabela `dados_moodle_cursos` (Atual já instalada).
+- Idealizar tabela `log_interacoes` para capturar 'lastaccess' dos Quizzes para dar tração aos dashboards de tempo-real.
+
+### C. Modelagem Relacional e Analítica (Star Schema)
+- **Tabela Fato**: `fato_desempenho` (id_aluno, id_curso, nota, data_coleta).
+- **Dimensões**: `dim_aluno` (id_moodle, nome, cpf, semestre), `dim_curso` (id, nome, categoria).
+

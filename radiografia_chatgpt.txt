@@ -1,0 +1,473 @@
+RADIOGRAFIA ANALÍTICA DE DADOS – MOODLE API (FICV)
+VERSÃO APRIMORADA COM BASE NA DOCUMENTAÇÃO INTERNA DA API
+
+1. RESUMO EXECUTIVO APRIMORADO
+
+O ambiente Moodle da FICV não oferece apenas dados cadastrais e acadêmicos básicos. A documentação interna mostra que o token atual expõe uma camada ampla de dados em pelo menos seis níveis:
+
+1. Dados mestres estruturados: usuários, cursos, categorias, matrículas, grupos, papéis, badges, eventos, notas, conclusão, calendários, blocos e arquivos.
+2. Dados semiestruturados: customfields, preferences, roles, groups, enrolledcourses, courseformatoptions, warnings, advancedfeatures, plugins, fileareas, editorfields, contents, dates, completiondata.
+3. Dados textuais não estruturados: descrições HTML de curso, textos de fóruns, blogs, tarefas discursivas, feedbacks docentes, conteúdo de workshops, campos de editor e mensagens.
+4. Dados de arquivos e documentos: anexos, URLs de download, mimetype, tamanho, data de modificação, arquivos externos e áreas de arquivos.
+5. Dados de engajamento e jornada: lastaccess, timeaccess, progress, hasprogress, isfavourite, overdue, completiondata, actionable, itens recentemente acessados.
+6. Dados de governança técnica do próprio serviço: lista de funções habilitadas, capacidade de upload/download, quota, tamanho máximo de upload, sessões concorrentes, política aceita, homepage do usuário e chave privada de acesso a arquivos.
+
+Conclusão executiva: o Moodle da FICV já está em um patamar em que a integração com seu sistema pode ir muito além de “cadastro + nota”. Dá para modelar uma base analítica institucional com dimensões de aluno, curso, professor, atividade, calendário, documentos, interações textuais, trilhas, badges, risco acadêmico e evidências documentais.
+
+2. CORREÇÕES E APRIMORAMENTOS DO RELATÓRIO ORIGINAL
+
+2.1. O item “dados estruturados” estava subestimado
+
+O relatório inicial focou em id, fullname, email, cpf, semestre e media_geral. Isso é válido, mas a documentação mostra muito mais campos estruturados úteis.
+
+USUÁRIOS
+Além de id, username, firstname, lastname, fullname e email, a API também pode retornar:
+- address
+- phone1, phone2
+- department
+- institution
+- idnumber
+- interests
+- firstaccess
+- lastaccess
+- auth
+- suspended
+- confirmed
+- lang
+- calendartype
+- theme
+- timezone
+- mailformat
+- trackforums
+- description
+- descriptionformat
+- city
+- country
+- profileimageurlsmall
+- profileimageurl
+
+CURSOS E CALENDÁRIO
+O ecossistema de cursos e eventos também traz:
+- startdate, enddate
+- visible
+- showactivitydates
+- showcompletionconditions
+- pdfexportfont
+- fullnamedisplay
+- viewurl
+- courseimage
+- progress
+- hasprogress
+- isfavourite
+- hidden
+- timeaccess
+- showshortname
+- coursecategory
+- overdue
+- formattedtime
+- formattedlocation
+- normalisedeventtype
+- normalisedeventtypetext
+- purpose
+- branded
+
+Isso significa que há um bloco de dados pronto para analytics de jornada, engajamento, alertas de atraso e painéis de experiência do aluno.
+
+3. NOVAS CLASSES DE DADOS QUE O RELATÓRIO DEVE INCORPORAR
+
+3.1. Metadados do próprio token e do ambiente
+
+A função core_webservice_get_site_info é mais estratégica do que parecia. Ela não só lista funções; ela informa:
+- sitename
+- username
+- userid
+- siteurl
+- functions
+- downloadfiles
+- uploadfiles
+- release
+- version
+- mobilecssurl
+- advancedfeatures
+- usercanmanageownfiles
+- userquota
+- usermaxuploadfilesize
+- userhomepage
+- userhomepageurl
+- userprivateaccesskey
+- siteid
+- sitecalendartype
+- usercalendartype
+- userissiteadmin
+- theme
+- limitconcurrentlogins
+- usersessionscount
+- policyagreed
+
+IMPLICAÇÃO PARA INTEGRAÇÃO
+Isso permite criar uma seção nova no relatório:
+Diagnóstico do ambiente e da capacidade do token
+- se pode baixar arquivos;
+- se pode subir arquivos;
+- quota disponível;
+- limites de upload;
+- se o usuário é admin;
+- quantas sessões concorrentes há;
+- se há aceite de política;
+- quais features avançadas estão ligadas.
+
+Isso é crítico para o desenho do robô, do ETL e da automação documental.
+
+3.2. Dados semiestruturados de perfil são mais ricos do que CPF
+
+A documentação confirma que customfields não é um único campo, mas uma lista de objetos com:
+- type
+- value
+- displayvalue
+- name
+- shortname
+
+E também mostra que o endpoint de cadastro/auth expõe profilefields com metadados como:
+- id
+- shortname
+- name
+- datatype
+- description
+- categoryid
+- categoryname
+- required
+- locked
+- visible
+- forceunique
+- signup
+- defaultdata
+- param1 a param5
+
+O QUE ISSO MUDA
+Há dois níveis:
+1. Definição dos campos personalizados
+2. Valor dos campos personalizados por usuário
+
+Ou seja, não basta extrair cpf; é possível construir um catálogo institucional de campos personalizados e depois um ETL genérico que captura qualquer novo campo que a FICV venha a criar no Moodle.
+
+3.3. Tarefas discursivas estão mais ricas do que “texto aberto”
+
+A documentação de submissões mostra que tarefas podem conter:
+- id
+- userid
+- attemptnumber
+- timecreated
+- timemodified
+- timestarted
+- status
+- groupid
+- assignment
+- latest
+- plugins
+- fileareas
+- files
+- editorfields
+- gradingstatus
+- submissiongroup
+- submissiongroupmemberswhoneedtosubmit
+- submissionsenabled
+- locked
+- graded
+- canedit
+- caneditowner
+
+E os editorfields ainda trazem:
+- name
+- description
+- text
+- format
+
+IMPLICAÇÃO ANALÍTICA
+Você não está diante apenas de “redações”.
+Você tem:
+- texto do aluno;
+- metadados da tentativa;
+- status de correção;
+- anexos;
+- estrutura por plugin;
+- indicadores de atraso e bloqueio.
+
+Isso é excelente para:
+- NLP em respostas abertas;
+- perfil de produtividade;
+- detecção de atraso;
+- modelos de risco;
+- trilhas de avaliação formativa;
+- auditoria de submissões.
+
+3.4. Eventos e calendário trazem sinais analíticos prontos
+
+Os endpoints de calendário não retornam apenas compromissos; eles devolvem objetos compostos com:
+- evento;
+- categoria;
+- curso;
+- subscription;
+- action;
+- flags como overdue, isactionevent, iscourseevent, iscategoryevent;
+- campos formatados como formattedtime, formattedlocation;
+- purpose, actionable, itemcount.
+
+ISSO PERMITE CRIAR
+- painel de prazos por curso;
+- monitor de tarefas vencidas;
+- rastreamento de carga acadêmica;
+- agenda operacional de tutorias;
+- classificação de eventos por propósito;
+- alertas automatizados no ARKOS.
+
+3.5. Conteúdo do curso tem estrutura de completion e datas
+
+A documentação também mostra módulos com:
+- completion
+- completiondata
+- state
+- timecompleted
+- overrideby
+- valueused
+- hascompletion
+- isautomatic
+- istrackeduser
+- uservisible
+- details
+- dates
+- downloadcontent
+- contents
+- fileurl
+
+ISSO É MUITO RELEVANTE
+Aqui há um caminho para modelar:
+- conclusão por atividade;
+- timestamps de conclusão;
+- motivos/condições da conclusão;
+- cronologia do curso;
+- conteúdo disponível para download.
+
+O relatório deve criar uma seção separada chamada:
+Dados de progresso instrucional e trilha de aprendizagem
+
+3.6. Blogs, fóruns e blocos ampliam a parte não estruturada
+
+A documentação mostra que blogs podem retornar:
+- subject
+- summary
+- content
+- summaryfiles
+- attachmentfiles
+- tags
+- publishstate
+- rating
+- created
+- lastmodified
+- canedit
+
+E blocos podem retornar:
+- contents.title
+- contents.content
+- footer
+- files
+- configs com valores JSON encoded
+
+CONSEQUÊNCIA
+O inventário de dados não estruturados precisa incluir:
+- blogs;
+- conteúdo de blocos;
+- textos HTML;
+- anexos;
+- configurações JSON de blocos;
+- taxonomias e tags.
+
+4. NOVA TAXONOMIA RECOMENDADA PARA O RELATÓRIO
+
+Em vez de apenas:
+- estruturado
+- semiestruturado
+- não estruturado
+
+Sugere-se usar 5 classes:
+
+A. Estruturado puro
+IDs, nomes, datas, flags, números, status, enums.
+
+B. Estruturado relacional enriquecido
+Papéis, grupos, matrículas, cursos relacionados, badges, categorias, calendários.
+
+C. Semiestruturado aninhado
+customfields, preferences, plugins, warnings, advancedfeatures, completiondata, dates, contents, configs.
+
+D. Não estruturado textual
+summary, description, content, editorfields.text, posts, mensagens, feedbacks, comentários.
+
+E. Não estruturado documental/binário
+Arquivos, anexos, imagens, PDFs, recursos, URLs de download, materiais enviados em tarefas.
+
+Essa classificação melhora muito a visão de engenharia de dados.
+
+5. RECOMENDAÇÕES DE ETL MAIS FORTES
+
+5.1. Criar uma arquitetura em 4 camadas
+
+CAMADA 1 — RAW INGESTION
+Salvar o JSON bruto de cada resposta da API.
+
+CAMADA 2 — STAGING NORMALIZADA
+Explodir arrays e objetos aninhados:
+- customfields
+- roles
+- groups
+- enrolledcourses
+- plugins
+- fileareas
+- files
+- editorfields
+- completiondata.details
+- dates
+- warnings
+
+CAMADA 3 — CORE RELACIONAL
+Tabelas centrais:
+- users
+- courses
+- course_categories
+- enrolments
+- user_roles
+- user_groups
+- grade_items
+- assign_submissions
+- calendar_events
+- badges
+- course_modules
+- course_completion
+- files_catalog
+
+CAMADA 4 — ANALYTICS / MARTS
+- fact_engagement_daily
+- fact_grade_events
+- fact_submission_events
+- fact_calendar_deadlines
+- fact_course_progress
+- dim_user
+- dim_course
+- dim_teacher
+- dim_activity
+- dim_time
+
+5.2. Criar um catálogo de arrays explodíveis
+
+O ETL precisa ver um módulo padrão para lidar com qualquer campo “lista de objetos”.
+
+Exemplos imediatos:
+- customfields
+- preferences
+- roles
+- groups
+- functions
+- advancedfeatures
+- warnings
+- summaryfiles
+- attachmentfiles
+- files
+- plugins
+- editorfields
+- dates
+- completiondata.details
+
+Isso evita retrabalho futuro.
+
+5.3. Preservar HTML e também criar texto limpo
+
+Como vários campos vêm com format (HTML, MOODLE, PLAIN, MARKDOWN), recomenda-se armazenar dois campos:
+- *_raw
+- *_plain_text
+
+Exemplo:
+- summary_raw
+- summary_text
+
+Assim se preserva a fidelidade e, ao mesmo tempo, se habilita NLP.
+
+5.4. Criar estratégia formal para arquivos
+
+Como há muitos fileurl, filepath, mimetype, filesize e timemodified, o relatório deve prever um ETL de documentos com:
+- catálogo de arquivos;
+- hash/assinatura do arquivo;
+- tipo MIME;
+- origem Moodle;
+- relação com curso/atividade/usuário;
+- política de download incremental.
+
+6. RECOMENDAÇÕES NOVAS DE CIÊNCIA DE DADOS
+
+6.1. Modelos preditivos mais ricos
+
+Além de churn/evasão, é possível modelar:
+- risco de inadimplência acadêmica-operacional usando atraso + ausência de submissão + baixa interação;
+- engajamento multimodal com acesso recente + progresso + favoritos + eventos vencidos + conclusão;
+- score de disciplina crítica com notas + atraso + tipo de atividade + textos do aluno;
+- perfil de aprendizagem com tempo de submissão, quantidade de tentativas e tipos de conteúdo acessados;
+- detecção de estagnação em usuário com matrícula ativa, mas sem progresso, sem conclusão e com calendário vencido.
+
+6.2. NLP mais bem definido
+
+Há evidência de que se pode aplicar NLP em:
+- posts e blogs;
+- fóruns;
+- descrições;
+- submissões discursivas (editorfields.text);
+- feedback do professor;
+- comentários;
+- conteúdo HTML limpo.
+
+Técnicas úteis:
+- limpeza HTML para texto puro;
+- embeddings;
+- clustering semântico;
+- classificação temática;
+- análise de sentimento;
+- extração de entidades;
+- sumarização;
+- detecção de risco em linguagem;
+- análise de dúvidas recorrentes.
+
+6.3. Learning analytics nativo
+
+Como há completiondata, progress, overdue, hasprogress, isactionevent, actionable e itemcount, o Moodle já está oferecendo sinais que alimentam diretamente um módulo de learning analytics no ARKOS.
+
+7. GAPS QUE PRECISAM ENTRAR NO RELATÓRIO
+
+GAPS TÉCNICOS
+- a lista de 425 funções não significa que todas são igualmente utilizáveis para extração massiva;
+- várias funções são voltadas a operação UI/AJAX, não necessariamente a bulk extraction;
+- algumas funções são de escrita/administração e não devem entrar no pipeline de ingestão;
+- a documentação mostra schema, mas não garante volume, paginação eficiente e custo computacional;
+- algumas funções dependem fortemente de permissão contextual.
+
+GAPS ARQUITETURAIS
+- nem tudo deve ser consumido por sync horário;
+- parte deve ser incremental por timestamp;
+- parte deve ser snapshot;
+- parte deve ser reativa por evento;
+- parte deve ser apenas consultiva.
+
+GAPS DE GOVERNANÇA
+- arquivos e textos podem conter dados pessoais e dados sensíveis;
+- o pipeline precisa respeitar LGPD;
+- campos livres e anexos precisam de classificação e política de retenção.
+
+8. CONCLUSÃO APRIMORADA
+
+A documentação interna prova que o Moodle da FICV é uma base muito mais ampla do que um simples LMS de notas. O ambiente expõe não só entidades acadêmicas centrais, mas também metadados de sistema, arquivos, progresso, calendários, preferências, profiles customizados, componentes aninhados, textos livres e indicadores operacionais que podem alimentar BI, learning analytics, automações contratuais e inteligência documental.
+
+EM TERMOS PRÁTICOS
+- extração direta: usuários, cursos, categorias, matrículas, notas agregadas, eventos, badges;
+- extração por composição: professor por disciplina, trilha de engajamento, histórico consolidado, painéis de progresso;
+- extração semiestruturada: customfields, roles, groups, plugins, files, completiondata;
+- extração não estruturada: blogs, fóruns, descrições, respostas discursivas, feedbacks e anexos;
+- potencial analítico real: churn, risco acadêmico, score de engajamento, monitoramento de prazos, mineração textual e governança documental.
+
+REDAÇÃO FINAL SUGERIDA
+A documentação interna da API do Moodle da FICV demonstra que o ambiente expõe não apenas dados cadastrais e acadêmicos tradicionais, mas também uma ampla camada de objetos aninhados, arquivos, textos livres, indicadores de progresso, sinais de engajamento e metadados do próprio serviço web. Assim, a integração com o ARKOS deve ser concebida em arquitetura multicamada, contemplando para ingestão bruta, normalização relacional, tratamento de semiestruturas, indexação documental e disponibilização analítica. O ecossistema já oferece insumos suficientes para ETL incremental, dashboards acadêmicos, workflows documentais e aplicações avançadas de ciência de dados, incluindo learning analytics e NLP em língua portuguesa.

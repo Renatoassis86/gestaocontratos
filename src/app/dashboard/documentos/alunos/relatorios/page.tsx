@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createClient } from '@/infrastructure/supabase/client'
+import { createClient } from '../../../../../infrastructure/supabase/client'
 import { FileText, Download, Filter, Check, ListFilter, RefreshCw, AlertCircle } from 'lucide-react'
-import { getMoodleCourses, testMoodleConnection } from '@/app/actions'
+import { getMoodleCourses, testMoodleConnection } from '../../../../actions'
 
 export default function RelatoriosPage() {
   const [loading, setLoading] = useState(false)
@@ -13,6 +13,8 @@ export default function RelatoriosPage() {
   const [error, setError] = useState<string | null>(null)
 
   // Filtros
+  const [selectedTipo, setSelectedTipo] = useState('') // Categoria Pai (Nível 1)
+  const [selectedCursoCat, setSelectedCursoCat] = useState('') // Categoria Filho (Nível 2)
   const [selectedCategory, setSelectedCategory] = useState('')
   const [categories, setCategories] = useState<any[]>([])
   const [selectedCourse, setSelectedCourse] = useState('')
@@ -45,8 +47,25 @@ export default function RelatoriosPage() {
   }, [])
 
   const handleFetchData = async () => {
-    if (!selectedCourse) {
-      setError('Por favor, selecione um curso.')
+    let coursesToFetch = []
+    
+    if (selectedCourse) {
+      coursesToFetch = cursos.filter(c => String(c.id) === selectedCourse)
+    } else if (selectedCursoCat) {
+      coursesToFetch = cursos.filter(c => String(c.category) === selectedCursoCat)
+    } else if (selectedTipo) {
+      // Se selecionou Tipo, pegar todas as subcategorias daquele tipo
+      const subCats = categories.filter(cat => String(cat.parent) === selectedTipo).map(cat => String(cat.id))
+      // Incluir a própria categoria pai
+      subCats.push(selectedTipo)
+      coursesToFetch = cursos.filter(c => subCats.includes(String(c.category)))
+    } else {
+      setError('Por favor, selecione uma Categoria ou Curso para prosseguir.')
+      return
+    }
+
+    if (coursesToFetch.length === 0) {
+      setError('Nenhum curso encontrado para os filtros selecionados.')
       return
     }
 
@@ -55,36 +74,31 @@ export default function RelatoriosPage() {
     setAlunos([])
 
     try {
-      // Usaremos o testMoodleConnection que já criamos para puxar os dados brutos e mapear
-      const result = await testMoodleConnection(selectedCourse, 'historico')
+      const promises = coursesToFetch.map(async (c: any) => {
+        const result = await testMoodleConnection(String(c.id), 'historico')
+        return result.success && result.allUsers ? result.allUsers : []
+      })
       
-      if (result.success && result.logs && result.logs.length > 0) {
-        // O result.logs ou result.variables podem conter os dados reais se a permissão estiver ok
-        // Vamos tentar extrair a lista de alunos de result.variables se houver uma estrutura
-        // Como o result.variables é um objeto mapeado para UM aluno de teste, vamos ajustar
-        // a Action para nos devolver a lista COMPLETA de usuários inscritos se quisermos relatórios.
+      const results = await Promise.all(promises)
+      const aggregatedAlunos = results.flat()
+
+      if (aggregatedAlunos.length > 0) {
+        setAlunos(aggregatedAlunos)
         
-        // Se a Action testMoodleConnection devolver um array de usuários em result.allUsers:
-        if (result.allUsers && result.allUsers.length > 0) {
-          setAlunos(result.allUsers)
-          
-          // Detectar colunas dinâmicas a partir do primeiro item
-          const firstItem = result.allUsers[0]
-          const keys = Object.keys(firstItem)
-          const dynColumns = keys.map(key => ({
+        // Colunas dinâmicas (Média Geral, Notas por Disciplina, etc)
+        const firstItem = aggregatedAlunos[0]
+        const dynColumns = Object.keys(firstItem)
+          .filter(k => k !== 'id')
+          .map(key => ({
             id: key,
             label: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')
           }))
-          setAvailableColumns(dynColumns)
-          // Se houver novas colunas, podemos selecionar todas por padrão ou manter as atuais
-        } else {
-          setError('Conexão realizada, mas nenhum aluno retornado para este curso. Verifique as inscrições no Moodle.')
-        }
+        setAvailableColumns(dynColumns)
       } else {
-        setError((result as any).error || 'Erro ao carregar dados do Moodle. Verifique os logs no painel de Diagnóstico.')
+        setError('Nenhum aluno encontrado para os cursos/disciplinas selecionadas.')
       }
     } catch (err: any) {
-      setError('Erro ao processar requisição: ' + err.message)
+      setError('Erro de conexão ao carregar dados.')
     } finally {
       setLoading(false)
     }

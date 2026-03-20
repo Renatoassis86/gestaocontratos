@@ -455,7 +455,7 @@ export async function testMoodleConnection(courseId: string, docType: string) {
 
     let allUsers: Record<string, any>[] = []
 
-    for (const user of users) {
+    const userPromises = users.map(async (user: any) => {
       const cpfField = user.customfields?.find((f: any) => f.shortname === 'cpf')?.value || '-'
       const nascimentoField = user.customfields?.find((f: any) => f.shortname === 'data_nascimento')?.value || '-'
       const semestreField = user.customfields?.find((f: any) => f.shortname === 'semestre')?.value || '-'
@@ -473,17 +473,46 @@ export async function testMoodleConnection(courseId: string, docType: string) {
       }
 
       if (docType === 'historico') {
-        mappedUser.notas_disciplinas = "Pendente"
-        mappedUser.media_geral = "-"
-        mappedUser.status = "Em Curso"
+        try {
+          const grades = await moodleRequest('gradereport_user_get_grade_items', { courseid: courseId, userid: String(user.id) })
+          const gradeItems = grades?.usergrades?.[0]?.gradeitems || []
+          
+          // Mapear todas as notas das disciplinas como uma string (Módulo 1: X | Módulo 2: Y)
+          // E calcular a média geral verdadeira
+          let totalNotes = 0;
+          let countNotes = 0;
+          const disciplineGrades = gradeItems
+            .filter((g: any) => g.itemtype === 'mod' || g.itemtype === 'course')
+            .map((g: any) => {
+              const cleanedName = g.itemname ? g.itemname.replace(/<[^>]*>?/gm, '') : 'Curso';
+              let gradeVal = g.graderaw !== undefined ? g.graderaw : '-';
+              
+              if (typeof gradeVal === 'number') {
+                totalNotes += gradeVal;
+                countNotes++;
+              }
+              return `${cleanedName}: ${typeof gradeVal === 'number' ? gradeVal.toFixed(1) : gradeVal}`;
+            });
+
+          mappedUser.notas_disciplinas = disciplineGrades.join(' | ') || '-'
+          mappedUser.media_geral = countNotes > 0 ? (totalNotes / countNotes).toFixed(1) : "-"
+          mappedUser.status = mappedUser.media_geral !== "-" ? (parseFloat(mappedUser.media_geral) >= 7 ? "Aprovado" : "Em Curso") : "Em Curso"
+
+        } catch (e) {
+          mappedUser.notas_disciplinas = "-"
+          mappedUser.media_geral = "-"
+          mappedUser.status = "Erro"
+        }
       } else {
         mappedUser.carga_horaria = "360h"
         mappedUser.data_inicio = "-"
         mappedUser.data_conclusao = "-"
       }
 
-      allUsers.push(mappedUser)
-    }
+      return mappedUser;
+    });
+
+    allUsers = await Promise.all(userPromises);
 
     const firstUserVars = allUsers.length > 0 ? Object.entries(allUsers[0]).map(([key, value]) => ({
       chave_tag: key.toUpperCase(),
@@ -538,5 +567,58 @@ export async function getMoodleCourses() {
     }
   } catch (e: any) {
     return { success: false, error: e.message }
+  }
+}
+
+export async function syncAllMoodleData() {
+  const { createClient } = await import('@/infrastructure/supabase/client')
+  const supabase = createClient()
+  const logs: string[] = []
+  
+  try {
+    logs.push("🚀 Iniciando Sincronização Global do Moodle...")
+    const coursesRes = await getMoodleCourses()
+    if (!coursesRes.success || !coursesRes.courses) {
+      throw new Error("Não foi possível carregar os cursos do Moodle.")
+    }
+
+    const courses = coursesRes.courses
+    logs.push(`📂 Encontrado(s) ${courses.length} curso(s) no Moodle.`)
+
+    let totalSaved = 0
+
+    for (const course of courses) {
+      logs.push(`🔄 Processando curso ID ${course.id}: ${course.fullname}`)
+      const usersRes = await testMoodleConnection(String(course.id), 'historico')
+      
+      if (usersRes.success && usersRes.allUsers) {
+        const users = usersRes.allUsers
+        for (const u of users) {
+          const { error } = await supabase
+            .from('dados_moodle_cursos')
+            .upsert({
+              curso: u.curso,
+              disciplina: u.curso,
+              professor: "Professor Moodle", 
+              titulacao_professor: u.titulacao_professor || "Geral",
+              carga_horaria: u.carga_horaria || "360h",
+              creditos: u.creditos || 2,
+              nota: parseFloat(u.media_geral) || 0
+            })
+
+          if (error) {
+            logs.push(`⚠️ Erro ao salvar aluno ${u.fullname} no banco: ${error.message}`)
+          } else {
+            totalSaved++
+          }
+        }
+      }
+    }
+
+    logs.push(`✅ Sincronização concluída! ${totalSaved} registros processados.`)
+    return { success: true, logs }
+
+  } catch (err: any) {
+    return { success: false, logs: [...logs, `❌ Erro na sincronização: ${err.message}`] }
   }
 }

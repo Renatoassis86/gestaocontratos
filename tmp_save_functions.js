@@ -17,15 +17,21 @@ async function moodleRequest(wsfunction, params = {}) {
         });
         return await response.json();
     } catch (e) {
-        console.error("Error connecting to Moodle:", e.message);
+        console.error("Erro na requisição:", e.message);
         return null;
     }
 }
 
 async function run() {
-    console.log("--- CURSOS ---");
-    const courses = await moodleRequest("core_course_get_courses");
-    console.log(JSON.stringify(courses, null, 2));
+    const result = await moodleRequest("core_webservice_get_site_info");
+    const fs = require('fs');
+    if (result && result.functions) {
+        fs.writeFileSync('moodle_functions_available.json', JSON.stringify(result.functions, null, 2));
+        console.log(`Salvas ${result.functions.length} funções em moodle_functions_available.json`);
+    } else {
+        console.log("Falha ao obter funções.");
+        console.log(result);
+    }
 }
 
 run();

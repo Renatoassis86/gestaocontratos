@@ -265,7 +265,9 @@ export default function AlunosDocumentosPage() {
                   <th style={{ padding: '0.8rem' }}>Nome Completo</th>
                   <th style={{ padding: '0.8rem' }}>E-mail</th>
                   <th style={{ padding: '0.8rem' }}>CPF</th>
-                  <th style={{ padding: '0.8rem' }}>Carga Horária</th>
+                  <th style={{ padding: '0.8rem' }}>Disciplina/Curso</th>
+                  <th style={{ padding: '0.8rem' }}>Média</th>
+                  <th style={{ padding: '0.8rem' }}>Status</th>
                   <th style={{ padding: '0.8rem' }}>Ações</th>
                 </tr>
               </thead>
@@ -274,11 +276,24 @@ export default function AlunosDocumentosPage() {
                   <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
                     <td style={{ padding: '0.8rem' }}><input type="checkbox" /></td>
                     <td style={{ padding: '0.8rem', fontWeight: 'bold', color: 'white' }}>{u.fullname}</td>
-                    <td style={{ padding: '0.8rem', color: 'var(--secondary)' }}>{u.email}</td>
+                    <td style={{ padding: '0.8rem', color: 'var(--secondary)', fontSize: '0.8rem' }}>{u.email}</td>
                     <td style={{ padding: '0.8rem' }}>{u.cpf || '-'}</td>
-                    <td style={{ padding: '0.8rem' }}>{u.carga_horaria || '360h'}</td>
+                    <td style={{ padding: '0.8rem', fontSize: '0.8rem', color: 'var(--secondary)' }}>{u.curso || '-'}</td>
+                    <td style={{ padding: '0.8rem', color: 'white' }}>{u.media_geral || '-'}</td>
+                    <td style={{ padding: '0.8rem' }}>
+                      <span style={{ 
+                        fontSize: '0.75rem', 
+                        background: u.status === 'Aprovado' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)', 
+                        color: u.status === 'Aprovado' ? '#10b981' : '#f59e0b', 
+                        padding: '4px 8px', 
+                        borderRadius: '6px', 
+                        fontWeight: 600 
+                      }}>
+                        {u.status || 'Em Curso'}
+                      </span>
+                    </td>
                     <td style={{ padding: '0.8rem', display: 'flex', gap: '0.6rem' }}>
-                      <button style={{ background: 'rgba(200, 245, 66, 0.1)', color: 'black', border: 'none', padding: '4px 8px', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}>Emitir</button>
+                      <button style={{ background: 'var(--primary)', color: 'black', border: 'none', padding: '6px 12px', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}>Emitir</button>
                     </td>
                   </tr>
                 ))}
