@@ -33,8 +33,15 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
     menus.push(
       { name: 'Alunos e Certificados', path: '/dashboard/documentos/alunos', icon: <Users size={20} /> },
       { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> },
-      { name: 'Explorador Moodle', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> },
       { name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileText size={20} /> },
+    )
+
+    if (isAdmin) {
+      menus.push({ name: 'Gestão de Usuários', path: '/dashboard/usuarios', icon: <Users size={20} /> })
+    }
+
+    menus.push(
+      { name: 'Explorador Moodle', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> }
     )
   }
 
