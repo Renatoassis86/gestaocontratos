@@ -26,8 +26,13 @@ export default async function TemplatesPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Documentos e Templates</h1>
-      <p className={styles.subtitle}>Gestão de modelos, certificados e conteúdos base pré-aprovados.</p>
+      <div style={{ marginBottom: '2rem' }}>
+        <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#F4F2ED', letterSpacing: '-0.025em' }}>Documentos e Templates</h1>
+        <p style={{ color: '#C8F542', fontSize: '0.75rem', fontWeight: 800, marginTop: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>🎯 Objetivo do Módulo</p>
+        <p style={{ color: '#8A8F99', fontSize: '0.875rem', marginTop: '0.2rem', maxWidth: '650px', lineHeight: '1.4' }}>
+          Criar, editar e padronizar modelos de documentos e minutas (Contratos, Certificados, Atas) utilizando variáveis de preenchimento automatizado e rastreamento de versões.
+        </p>
+      </div>
 
 
 
