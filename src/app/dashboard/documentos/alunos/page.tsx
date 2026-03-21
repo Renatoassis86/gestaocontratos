@@ -126,36 +126,46 @@ export default function AlunosDocumentosPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           
           {/* LINHA 1: Hierarquia de Categorias */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1rem' }}>
-            {categoryChain.map((catId, idx) => {
-              const parentId = idx === 0 ? 0 : Number(categoryChain[idx - 1]);
-              if (idx > 0 && categoryChain[idx - 1] === 'all') return null; 
-
-              const items = moodleCategories.filter(cat => Number(cat.parent) === parentId);
-              if (items.length === 0 && idx > 0) return null; 
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
+            {['Unidade / Instituição', 'Departamento / Escola', 'Área / Núcleo', 'Curso'].map((label, idx) => {
+              const catId = categoryChain[idx] || 'all';
+              const parentId = idx === 0 ? 0 : Number(categoryChain[idx - 1] || 'all');
+              
+              // Se o pai for 'all' e não for o primeiro nível, a lista fica vazia (usuário precisa selecionar o pai primeiro)
+              const items = (idx > 0 && parentId === 0) || (idx > 0 && categoryChain[idx - 1] === 'all')
+                ? [] 
+                : moodleCategories.filter(cat => Number(cat.parent) === parentId);
 
               return (
                 <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    {idx === 0 ? 'Unidade / Instituição' : 
-                     idx === 1 ? 'Departamento / Escola' : 
-                     idx === 2 ? 'Área / Núcleo' : 
-                     idx === 3 ? 'Curso' :
-                     `Nível ${idx + 1}`}
+                  <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    {label}
                   </label>
                   <select 
                     value={catId} 
+                    disabled={idx > 0 && (!categoryChain[idx - 1] || categoryChain[idx - 1] === 'all')}
                     onChange={(e) => { 
                       const val = e.target.value;
                       let newChain = [...categoryChain.slice(0, idx), val];
-                      if (val !== 'all') {
+                      if (val !== 'all' && idx < 3) {
                         const hasKids = moodleCategories.some(cat => Number(cat.parent) === Number(val));
                         if (hasKids) newChain.push('all');
                       }
                       setCategoryChain(newChain);
                       setSelectedCourse('all');
                     }}
-                    style={{ background: '#0A0C0F', color: '#F4F2ED', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.625rem', fontSize: '0.813rem', width: '100%', outline: 'none', cursor: 'pointer', transition: 'border-color 0.2s' }}
+                    style={{ 
+                      background: '#0A0C0F', 
+                      color: (idx > 0 && (!categoryChain[idx - 1] || categoryChain[idx - 1] === 'all')) ? '#8A8F99' : '#F4F2ED', 
+                      border: '1px solid #1F242D', 
+                      borderRadius: '10px', 
+                      padding: '0.625rem', 
+                      fontSize: '0.813rem', 
+                      width: '100%', 
+                      outline: 'none', 
+                      cursor: (idx > 0 && (!categoryChain[idx - 1] || categoryChain[idx - 1] === 'all')) ? 'not-allowed' : 'pointer', 
+                      opacity: (idx > 0 && (!categoryChain[idx - 1] || categoryChain[idx - 1] === 'all')) ? 0.4 : 1 
+                    }}
                   >
                     <option value="all">{idx === 0 ? 'Todas as Unidades' : 'Todas'}</option>
                     {items.map(cat => (
