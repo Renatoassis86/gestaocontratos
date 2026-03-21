@@ -499,9 +499,10 @@ export default function ExploradorMoodle() {
                                           return note.toLowerCase().includes(selectedDisciplina.toLowerCase());
                                         })
                                         .map((note: string, idx: number) => {
-                                          const splitIndex = note.indexOf(':');
-                                          const name = splitIndex > -1 ? note.substring(0, splitIndex).trim() : note.trim();
-                                          const score = splitIndex > -1 ? note.substring(splitIndex + 1).trim() : '';
+                                          const firstColon = note.indexOf(':');
+                                          const lastColon = note.lastIndexOf(':');
+                                          const name = firstColon > -1 ? note.substring(0, firstColon).trim() : note.trim();
+                                          const score = lastColon > -1 ? note.substring(lastColon + 1).trim() : '';
 
                                           return (
                                             <div 
