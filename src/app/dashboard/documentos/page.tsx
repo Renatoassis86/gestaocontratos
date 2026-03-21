@@ -57,7 +57,7 @@ export default function DocumentosModelosPage() {
 
   // Agrupamento Dinâmico por Tipo de Documento - EXCLUINDO Contratos
   const groupedTemplates = templates
-    .filter(t => !t.tipos_contrato?.titulo.toLowerCase().includes('contrato'))
+    .filter(t => !t.tipos_contrato?.titulo?.toLowerCase().includes('contrato'))
     .reduce((acc: any, t: any) => {
       const groupName = t.tipos_contrato?.titulo || 'Outros Modelos';
       if (!acc[groupName]) acc[groupName] = [];
@@ -99,9 +99,9 @@ export default function DocumentosModelosPage() {
                 </h2>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                 {items.map((t: any) => (
-                  <div key={t.id} style={{ background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.15s' }}>
+                  <div key={t.id} style={{ flex: '1 1 210px', maxWidth: '350px', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.15s' }}>
                     <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                       <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px' }}>
                         {groupName.toLowerCase().includes('histórico') || groupName.toLowerCase().includes('certificado') ? <GraduationCap size={18} /> : <FileText size={18} />}
