@@ -18,7 +18,7 @@ import {
 } from 'lucide-react'
 
 export default function ExploradorMoodle() {
-  const [activeTab, setActiveTab] = useState<'geral' | 'notas' | 'ementas'>('geral')
+  const [activeTab, setActiveTab] = useState<'geral' | 'notas' | 'cadastral' | 'ementas'>('geral')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
@@ -36,6 +36,7 @@ export default function ExploradorMoodle() {
   const [selectedDisciplina, setSelectedDisciplina] = useState<string>('all')
   const [courseSearch, setCourseSearch] = useState<string>('')
   const [courseSections, setCourseSections] = useState<any[]>([])
+  const [selectedAno, setSelectedAno] = useState<string>('all')
   
   const [selectedEmenta, setSelectedEmenta] = useState<any | null>(null)
   const [loadingEmenta, setLoadingEmenta] = useState(false)
@@ -96,6 +97,25 @@ export default function ExploradorMoodle() {
       } else {
         setAlunos([])
       }
+    } catch (e) {
+      setAlunos([])
+    } finally {
+      setLoadingAlunos(false)
+    }
+  }
+
+  const loadMultipleCourseStudents = async (ids: string[]) => {
+    setLoadingAlunos(true)
+    setMoodleLogs([])
+    let combined: any[] = []
+    try {
+      for (const id of ids) {
+        const result = await testMoodleConnection(id, 'historico')
+        if (result.success && result.allUsers) {
+          combined = [...combined, ...result.allUsers]
+        }
+      }
+      setAlunos(combined)
     } catch (e) {
       setAlunos([])
     } finally {
@@ -283,7 +303,8 @@ export default function ExploradorMoodle() {
                       {idx === 0 ? 'Unidade / Instituição:' : 
                        idx === 1 ? 'Departamento / Escola:' : 
                        idx === 2 ? 'Área / Núcleo:' : 
-                       `Nível ${idx + 1} (Sub-Categoria):`}
+                       idx === 3 ? 'Curso:' :
+                       `Nível ${idx + 1}:`}
                     </label>
                     <select 
                       value={catId} 
@@ -308,9 +329,24 @@ export default function ExploradorMoodle() {
                 )
               })}
 
+              <div className={styles.inputGroup}>
+                <label>Ano:</label>
+                <select 
+                  value={selectedAno} 
+                  onChange={(e) => setSelectedAno(e.target.value)}
+                  className={styles.select}
+                >
+                  <option value="all">Ver Todos</option>
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+
               <div className={styles.inputGroup} style={{ maxWidth: '160px' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  🔍 Filtrar Curso:
+                  🔍 Filtrar Disciplina:
                 </label>
                 <input 
                   type="text" 
@@ -322,7 +358,7 @@ export default function ExploradorMoodle() {
               </div>
 
               <div className={styles.inputGroup}>
-                <label>Curso:</label>
+                <label>Disciplina:</label>
                 <select 
                   value={selectedCourse} 
                   onChange={(e) => setSelectedCourse(e.target.value)}
@@ -340,9 +376,12 @@ export default function ExploradorMoodle() {
 
                       if (activeCatId !== 'all') {
                         const descendantIds = getAllDescendantCategoryIds(activeCatId, categories);
-                        return descendantIds.includes(String(c.categoryid));
+                        const matchCat = descendantIds.includes(String(c.categoryid));
+                        if (!matchCat) return false;
                       }
-                      return true;
+
+                      const matchYear = selectedAno === 'all' || c.fullname.includes(selectedAno);
+                      return matchYear;
                     })
                     .map(c => (
                       <option key={c.id} value={c.id}>{c.fullname}</option>
@@ -352,7 +391,7 @@ export default function ExploradorMoodle() {
               </div>
 
               <div className={styles.inputGroup}>
-                <label>Disciplina / Tópico:</label>
+                <label>Atividade / Tópico:</label>
                 <select 
                   value={selectedDisciplina} 
                   onChange={(e) => setSelectedDisciplina(e.target.value)}
