@@ -32,9 +32,11 @@ export default function ContratosPage() {
     if (!error) setTemplates(templates.filter(t => t.id !== id))
   }
 
+  // Filtrar Apenas Tipos que Contenham 'Contrato'
+  const contractTemplates = templates.filter(t => t.tipos_contrato?.titulo?.toLowerCase().includes('contrato'))
+
   // Agrupamento Dinâmico por Tipo de Contrato
   const groupedContracts = contractTemplates.reduce((acc: any, t: any) => {
-    // Agrupar pelo TIPO ou por palavra chave no título (ex: Autor, Professor)
     const groupName = t.tipos_contrato?.titulo || 'Geral';
     if (!acc[groupName]) acc[groupName] = [];
     acc[groupName].push(t);
