@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARKOS — A Infraestrutura de Inteligência da Nova Economia</title>
+<meta name="description" content="Do dado bruto à decisão executiva. A ARKOS é a infraestrutura de inteligência que conecta dados, analytics e gestão em uma única arquitetura operacional.">
+<meta property="og:title" content="ARKOS Intelligence">
+<meta property="og:description" content="A Infraestrutura de Inteligência da Nova Economia. Data · Intelligence · Decision.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --ob:    #0A0C0F;
+  --ob2:   #111318;
+  --ob3:   #1F242D;
+  --ob4:   #272D38;
+  --ob5:   #323844;
+  --sig:   #C8F542;
+  --sig2:  #A8D422;
+  --sig3:  #7FAA10;
+  --wht:   #F4F2ED;
+  --mut:   #8A8F99;
+  --mut2:  #5A5F6A;
+  --bdr:   rgba(255,255,255,0.07);
+  --bdr2:  rgba(255,255,255,0.12);
+  --serif: 'DM Serif Display', serif;
+  --mono:  'DM Mono', monospace;
+  --sans:  'Inter', sans-serif;
+}
+
+body {
+  background: var(--ob);
+  color: var(--wht);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ob); }
+::-webkit-scrollbar-thumb { background: var(--ob4); border-radius: 2px; }
+
+/* ── Grid bg ───────────────────────────────────────────── */
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+  background-image:
+    linear-gradient(rgba(200,245,66,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,245,66,0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(10,12,15,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--bdr);
+  transition: background 0.3s;
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none;
+}
+
+.nav-logo svg { flex-shrink: 0; }
+
+.nav-wordmark {
+  font-family: var(--mono); font-size: 15px; font-weight: 500;
+  letter-spacing: 0.18em; color: var(--wht);
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 0; list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.1em; color: var(--mut); text-decoration: none;
+  padding: 0 20px; height: 60px;
+  display: flex; align-items: center;
+  transition: color 0.2s;
+  text-transform: uppercase;
+}
+.nav-links a:hover { color: var(--wht); }
+
+.nav-cta {
+  background: var(--sig); color: var(--ob) !important;
+  font-weight: 500 !important;
+  padding: 0 24px !important; height: 36px !important;
+  border-radius: 4px; margin-left: 12px;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--sig2) !important; }
+
+/* ── HERO ──────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 120px 40px 80px;
+}
+
+.hero-signal-top {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--sig);
+}
+
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+}
+
+.hero-tag {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.22em; color: var(--sig);
+  text-transform: uppercase; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-tag::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--sig);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(42px, 5.5vw, 76px);
+  line-height: 1.02; color: var(--wht);
+  margin-bottom: 28px;
+}
+h1 em { font-style: italic; color: var(--sig); }
+
+.hero-sub {
+  font-size: 17px; font-weight: 300; color: var(--mut);
+  max-width: 460px; line-height: 1.75; margin-bottom: 44px;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--sig); color: var(--ob);
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+  padding: 16px 32px; border-radius: 4px;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--sig2); transform: translateY(-1px); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--wht);
+  font-family: var(--mono); font-size: 12px; font-weight: 400;
+  letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+  padding: 16px 32px; border-radius: 4px;
+  border: 1px solid var(--bdr2);
+  transition: border-color 0.2s, transform 0.15s;
+}
+.btn-secondary:hover { border-color: var(--mut); transform: translateY(-1px); }
+
+/* KPIs no hero */
+.hero-kpis {
+  display: flex; gap: 32px; margin-top: 56px;
+  padding-top: 40px; border-top: 1px solid var(--bdr);
+}
+.kpi-item {}
+.kpi-val {
+  font-family: var(--serif); font-size: 36px;
+  color: var(--sig); display: block; margin-bottom: 4px;
+}
+.kpi-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.12em; color: var(--mut2);
+  text-transform: uppercase;
+}
+
+/* Símbolo hero */
+.hero-symbol {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hero-symbol svg { max-width: 380px; width: 100%; }
+
+/* Halo ao redor do símbolo */
+.hero-symbol::before {
+  content: '';
+  position: absolute;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(200,245,66,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* ── DORES ─────────────────────────────────────────────── */
+#problema {
+  padding: 120px 40px;
+  position: relative;
+}
+
+.section-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+
+.section-tag {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.25em; color: var(--sig);
+  text-transform: uppercase; margin-bottom: 16px;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1; color: var(--wht);
+  margin-bottom: 20px;
+}
+
+.section-intro {
+  font-size: 16px; font-weight: 300; color: var(--mut);
+  max-width: 540px; line-height: 1.8;
+  border-left: 2px solid var(--sig);
+  padding-left: 20px; margin-bottom: 64px;
+}
+
+.dores-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--bdr);
+  border: 1px solid var(--bdr);
+  border-radius: 12px; overflow: hidden;
+}
+
+.dor-card {
+  background: var(--ob2);
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.dor-card:hover { background: var(--ob3); }
+
+.dor-num {
+  font-family: var(--serif);
+  font-size: 72px; line-height: 1;
+  color: var(--sig); opacity: 0.12;
+  position: absolute; top: 16px; right: 24px;
+  user-select: none;
+}
+
+.dor-title {
+  font-family: var(--serif); font-size: 22px;
+  color: var(--wht); margin-bottom: 16px;
+  position: relative;
+}
+
+.dor-body {
+  font-size: 14px; color: var(--mut); line-height: 1.75;
+  position: relative;
+}
+
+.dor-signal {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px; background: var(--sig);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.dor-card:hover .dor-signal { transform: scaleX(1); }
+
+/* Resultado */
+.resultado-box {
+  margin-top: 1px; background: var(--ob3);
+  border: 1px solid var(--bdr);
+  border-radius: 0 0 12px 12px;
+  padding: 28px 36px;
+  display: flex; align-items: center; gap: 20px;
+}
+.resultado-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.2em; color: var(--sig);
+  text-transform: uppercase; white-space: nowrap;
+}
+.resultado-text {
+  font-size: 15px; font-style: italic; color: var(--mut);
+}
+
+/* ── SOLUÇÃO ───────────────────────────────────────────── */
+#solucao {
+  padding: 120px 40px;
+  background: var(--ob2);
+  position: relative; overflow: hidden;
+}
+
+.solucao-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 100px; align-items: center;
+}
+
+.camadas {
+  display: flex; flex-direction: column; gap: 2px;
+}
+
+.camada {
+  display: flex; align-items: stretch;
+  cursor: default;
+}
+
+.camada-bar {
+  width: 4px; flex-shrink: 0;
+  background: var(--bdr2); border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.camada-content {
+  flex: 1; padding: 18px 24px;
+  background: var(--ob3);
+  border: 1px solid var(--bdr);
+  border-left: none;
+  transition: background 0.3s;
+}
+
+.camada:first-child .camada-content { border-radius: 0 8px 0 0; }
+.camada:last-child .camada-content { border-radius: 0 0 8px 0; }
+
+.camada:hover .camada-bar { background: var(--sig); }
+.camada:hover .camada-content { background: var(--ob4); }
+
+.camada-tag {
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.2em; color: var(--sig);
+  text-transform: uppercase; margin-bottom: 6px;
+}
+
+.camada-name {
+  font-size: 14px; font-weight: 500; color: var(--wht);
+  margin-bottom: 4px;
+}
+
+.camada-desc {
+  font-size: 12px; color: var(--mut); line-height: 1.5;
+}
+
+/* ── MÓDULOS ───────────────────────────────────────────── */
+#modulos {
+  padding: 120px 40px;
+  position: relative; overflow: hidden;
+}
+
+.modulos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-top: 64px;
+}
+
+.modulo-card {
+  background: var(--ob2);
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  padding: 32px 28px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.2s;
+  cursor: default;
+}
+.modulo-card:hover {
+  border-color: var(--bdr2);
+  transform: translateY(-3px);
+}
+
+.modulo-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--sig);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s;
+}
+.modulo-card:hover::before { transform: scaleX(1); }
+
+.modulo-icon {
+  width: 44px; height: 44px;
+  background: var(--ob3); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; font-size: 20px;
+}
+
+.modulo-title {
+  font-family: var(--serif); font-size: 20px;
+  color: var(--wht); margin-bottom: 12px;
+}
+
+.modulo-sub {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.15em; color: var(--sig);
+  text-transform: uppercase; margin-bottom: 14px;
+}
+
+.modulo-desc {
+  font-size: 13px; color: var(--mut); line-height: 1.7;
+}
+
+/* ── METODOLOGIA ───────────────────────────────────────── */
+#metodologia {
+  padding: 120px 40px;
+  background: var(--ob2); position: relative; overflow: hidden;
+}
+
+.metodo-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; margin-top: 64px;
+  background: var(--bdr);
+  border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden;
+}
+
+.metodo-step {
+  background: var(--ob2); padding: 36px 28px;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+}
+.metodo-step:hover { background: var(--ob3); }
+
+.step-num {
+  font-family: var(--serif); font-size: 56px; line-height: 1;
+  color: var(--sig); opacity: 0.15; margin-bottom: 12px;
+}
+
+.step-title {
+  font-family: var(--serif); font-size: 20px;
+  color: var(--wht); margin-bottom: 14px;
+}
+
+.step-desc {
+  font-size: 13px; color: var(--mut); line-height: 1.7;
+}
+
+.metodo-bottom {
+  margin-top: 2px;
+  background: var(--ob3); border: 1px solid var(--bdr);
+  border-radius: 0 0 12px 12px;
+  padding: 24px 36px;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+}
+
+/* ── ICP ───────────────────────────────────────────────── */
+#mercado { padding: 120px 40px; }
+
+.icp-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-top: 64px;
+}
+
+.icp-card {
+  background: var(--ob2); border: 1px solid var(--bdr);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.icp-card:hover { border-color: var(--bdr2); }
+
+.icp-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid var(--bdr);
+  position: relative;
+}
+.icp-header::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: var(--sig);
+}
+
+.icp-seg {
+  font-family: var(--serif); font-size: 26px; color: var(--wht);
+  margin-bottom: 8px;
+}
+
+.icp-ticket {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  color: var(--sig); letter-spacing: 0.08em;
+}
+
+.icp-body { padding: 24px 28px; }
+
+.icp-dor {
+  font-size: 13px; color: var(--mut); line-height: 1.7;
+  margin-bottom: 20px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.icp-journey {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--mut2); line-height: 1.9;
+}
+.icp-journey strong { color: var(--sig); }
+
+/* ── VANTAGEM ──────────────────────────────────────────── */
+#vantagem {
+  padding: 120px 40px;
+  background: var(--ob2); position: relative; overflow: hidden;
+}
+
+.vantagem-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start; margin-top: 64px;
+}
+
+.comp-table {
+  border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden;
+}
+.comp-header {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  background: var(--ob3); padding: 14px 20px;
+  border-bottom: 1px solid var(--bdr);
+}
+.comp-header span {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.18em; color: var(--sig);
+  text-transform: uppercase;
+}
+.comp-row {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  padding: 16px 20px; border-bottom: 1px solid var(--bdr);
+  transition: background 0.2s;
+}
+.comp-row:last-child { border-bottom: none; }
+.comp-row:hover { background: var(--ob3); }
+.comp-name { font-size: 13px; color: var(--wht); }
+.comp-limit { font-size: 12px; color: var(--mut); }
+
+.diffs { display: flex; flex-direction: column; gap: 20px; }
+
+.diff-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--ob3);
+  border: 1px solid var(--bdr); border-radius: 8px;
+  transition: border-color 0.3s;
+}
+.diff-item:hover { border-color: rgba(200,245,66,0.2); }
+
+.diff-bar {
+  width: 3px; flex-shrink: 0; border-radius: 2px;
+  background: var(--sig); margin-top: 2px;
+  align-self: stretch;
+}
+
+.diff-title {
+  font-family: var(--serif); font-size: 16px;
+  color: var(--wht); margin-bottom: 6px;
+}
+
+.diff-desc { font-size: 13px; color: var(--mut); line-height: 1.6; }
+
+/* ── KPIS GERAIS ───────────────────────────────────────── */
+#resultados {
+  padding: 120px 40px; position: relative; overflow: hidden;
+}
+
+.kpis-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--bdr);
+  border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden;
+  margin-top: 64px;
+}
+
+.kpi-big {
+  background: var(--ob2); padding: 44px 36px;
+  text-align: center; transition: background 0.3s;
+}
+.kpi-big:hover { background: var(--ob3); }
+
+.kpi-big-val {
+  font-family: var(--serif); font-size: 52px;
+  color: var(--sig); display: block; margin-bottom: 8px;
+  line-height: 1;
+}
+
+.kpi-big-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.15em; color: var(--mut2);
+  text-transform: uppercase; display: block;
+  margin-bottom: 12px;
+}
+
+.kpi-big-desc {
+  font-size: 12px; color: var(--mut); line-height: 1.5;
+}
+
+/* ── CTA FINAL ─────────────────────────────────────────── */
+#cta {
+  padding: 140px 40px 120px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+
+#cta .grid-bg { opacity: 0.6; }
+
+.cta-signal-line {
+  width: 64px; height: 2px; background: var(--sig);
+  margin: 0 auto 40px;
+}
+
+#cta h2 { margin-bottom: 20px; }
+
+#cta .section-intro {
+  border: none; padding: 0;
+  margin: 0 auto 56px; text-align: center; max-width: 520px;
+}
+
+.cta-steps {
+  display: flex; justify-content: center; gap: 0;
+  margin-bottom: 56px;
+  border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden;
+  max-width: 760px; margin-left: auto; margin-right: auto;
+  margin-bottom: 56px;
+}
+
+.cta-step {
+  flex: 1; padding: 28px 24px; background: var(--ob2);
+  border-right: 1px solid var(--bdr); text-align: left;
+}
+.cta-step:last-child { border-right: none; }
+
+.cta-step-num {
+  font-family: var(--serif); font-size: 28px;
+  color: var(--sig); display: block; margin-bottom: 8px;
+}
+
+.cta-step-text {
+  font-size: 13px; color: var(--mut); line-height: 1.5;
+}
+
+.cta-actions { display: flex; gap: 16px; justify-content: center; }
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer {
+  background: var(--ob2); border-top: 1px solid var(--bdr);
+  padding: 60px 40px 40px;
+}
+
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px; margin-bottom: 60px;
+}
+
+.footer-brand {}
+.footer-logo {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
+}
+.footer-wordmark {
+  font-family: var(--mono); font-size: 14px; font-weight: 500;
+  letter-spacing: 0.18em; color: var(--wht);
+}
+.footer-tagline {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.15em; color: var(--mut2);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.footer-desc { font-size: 13px; color: var(--mut); line-height: 1.7; }
+
+.footer-col h4 {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.18em; color: var(--sig);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a {
+  font-size: 13px; color: var(--mut); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--wht); }
+
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto;
+  padding-top: 32px; border-top: 1px solid var(--bdr);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.footer-copy {
+  font-family: var(--mono); font-size: 11px; color: var(--mut2);
+}
+
+.footer-legal {
+  display: flex; gap: 24px;
+}
+.footer-legal a {
+  font-family: var(--mono); font-size: 11px; color: var(--mut2);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-legal a:hover { color: var(--mut); }
+
+/* ── REVEAL ANIMATIONS ─────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+  .hero-symbol { display: none; }
+  .solucao-grid, .vantagem-grid { grid-template-columns: 1fr; gap: 48px; }
+  .modulos-grid { grid-template-columns: repeat(2, 1fr); }
+  .metodo-steps { grid-template-columns: repeat(2, 1fr); }
+  .kpis-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  #hero, #problema, #solucao, #modulos, #metodologia,
+  #mercado, #vantagem, #resultados, #cta { padding: 80px 20px; }
+  h1 { font-size: 38px; }
+  h2 { font-size: 30px; }
+  .dores-grid { grid-template-columns: 1fr; }
+  .icp-grid { grid-template-columns: 1fr; }
+  .modulos-grid { grid-template-columns: 1fr; }
+  .metodo-steps { grid-template-columns: 1fr; }
+  .kpis-grid { grid-template-columns: 1fr 1fr; }
+  .cta-steps { flex-direction: column; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .hero-kpis { flex-wrap: wrap; gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="28" height="31" viewBox="0 0 200 220" fill="none">
+      <line x1="100" y1="18" x2="28" y2="195" stroke="#F4F2ED" stroke-width="16" stroke-linecap="round"/>
+      <line x1="100" y1="18" x2="172" y2="195" stroke="#F4F2ED" stroke-width="16" stroke-linecap="round"/>
+      <line x1="50"  y1="130" x2="150" y2="130" stroke="#C8F542" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="100" cy="18" r="11" fill="#C8F542"/>
+    </svg>
+    <span class="nav-wordmark">ARKOS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#solucao">Solução</a></li>
+    <li><a href="#modulos">Módulos</a></li>
+    <li><a href="#metodologia">Metodologia</a></li>
+    <li><a href="#mercado">Mercado</a></li>
+    <li><a href="#cta" class="nav-cta">Diagnóstico Grátis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-signal-top"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag reveal">Infraestrutura de Inteligência · B2B SaaS</div>
+
+      <h1 class="reveal reveal-delay-1">
+        A Infraestrutura<br>
+        de <em>Inteligência</em><br>
+        da Nova Economia.
+      </h1>
+
+      <p class="hero-sub reveal reveal-delay-2">
+        Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional — transformando complexidade em clareza.
+      </p>
+
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#cta" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Diagnóstico Gratuito
+        </a>
+        <a href="#solucao" class="btn-secondary">Ver como funciona</a>
+      </div>
+
+      <div class="hero-kpis reveal reveal-delay-4">
+        <div class="kpi-item">
+          <span class="kpi-val">&gt;120%</span>
+          <span class="kpi-label">NRR Target</span>
+        </div>
+        <div class="kpi-item">
+          <span class="kpi-val">&gt;5×</span>
+          <span class="kpi-label">LTV/CAC</span>
+        </div>
+        <div class="kpi-item">
+          <span class="kpi-val">&lt;12m</span>
+          <span class="kpi-label">Payback</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-symbol reveal reveal-delay-2">
+      <svg viewBox="0 0 400 440" fill="none">
+        <!-- Glow effect -->
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C8F542" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#C8F542" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="200" cy="220" rx="200" ry="200" fill="url(#glow)"/>
+        <!-- Perna esquerda -->
+        <line x1="200" y1="40" x2="60"  y2="390" stroke="#F4F2ED" stroke-width="28" stroke-linecap="round"/>
+        <!-- Perna direita -->
+        <line x1="200" y1="40" x2="340" y2="390" stroke="#F4F2ED" stroke-width="28" stroke-linecap="round"/>
+        <!-- Barra de Sinal -->
+        <line x1="104" y1="256" x2="296" y2="256" stroke="#C8F542" stroke-width="22" stroke-linecap="round"/>
+        <!-- Ápice -->
+        <circle cx="200" cy="40" r="20" fill="#C8F542"/>
+        <!-- Linhas de anotação sutil -->
+        <line x1="296" y1="256" x2="360" y2="256" stroke="#C8F542" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+        <circle cx="364" cy="256" r="3" fill="#C8F542" opacity="0.4"/>
+        <line x1="200" y1="40"  x2="360" y2="40"  stroke="#C8F542" stroke-width="0.5" stroke-dasharray="4 4" opacity="0.4"/>
+        <circle cx="364" cy="40"  r="3" fill="#C8F542" opacity="0.4"/>
+        <!-- Labels -->
+        <text x="372" y="44"  font-family="monospace" font-size="11" fill="#C8F542" opacity="0.5">Princípio</text>
+        <text x="372" y="260" font-family="monospace" font-size="11" fill="#C8F542" opacity="0.5">Sinal</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <div class="section-inner">
+    <div class="section-tag reveal">O Problema</div>
+    <h2 class="reveal reveal-delay-1">Por que as empresas<br>perdem clareza</h2>
+    <p class="section-intro reveal reveal-delay-2">
+      3 dores estruturais que se repetem em todo negócio — independente do porte ou segmento.
+    </p>
+
+    <div class="dores-grid">
+      <div class="dor-card reveal">
+        <div class="dor-signal"></div>
+        <span class="dor-num">01</span>
+        <h3 class="dor-title">Informação Fragmentada</h3>
+        <p class="dor-body">Dados espalhados em planilhas, ERPs, CRMs e ferramentas digitais sem conexão entre si. A empresa enxerga pedaços do problema — nunca o todo.</p>
+      </div>
+      <div class="dor-card reveal reveal-delay-1">
+        <div class="dor-signal"></div>
+        <span class="dor-num">02</span>
+        <h3 class="dor-title">Baixa Capacidade Analítica</h3>
+        <p class="dor-body">Dados existem, mas não se transformam em entendimento. Times passam horas em relatórios manuais e ainda assim chegam a conclusões imprecisas.</p>
+      </div>
+      <div class="dor-card reveal reveal-delay-2">
+        <div class="dor-signal"></div>
+        <span class="dor-num">03</span>
+        <h3 class="dor-title">Decisão por Percepção</h3>
+        <p class="dor-body">Sem modelagem, a gestão reage ao passado em vez de prever o futuro. O ruído vence a evidência. A empresa investe mais e ainda assim não sabe o que está funcionando.</p>
+      </div>
+    </div>
+
+    <div class="resultado-box reveal">
+      <span class="resultado-label">Resultado</span>
+      <span class="resultado-text">A empresa investe mais, trabalha mais — e ainda assim não sabe exatamente o que está funcionando.</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUÇÃO -->
+<section id="solucao">
+  <div class="grid-bg" style="opacity:0.4"></div>
+  <div class="section-inner" style="position:relative;z-index:1">
+    <div class="section-tag reveal">03 — Como Funciona</div>
+    <h2 class="reveal reveal-delay-1">Do dado bruto à decisão<br>executiva em 5 camadas.</h2>
+    <p class="section-intro reveal reveal-delay-2">
+      A ARKOS substitui ilhas de software por uma camada unificadora de inteligência — integrando sistemas, dados, analytics e gestão em uma mesma lógica operacional.
+    </p>
+
+    <div class="solucao-grid">
+      <div class="camadas reveal reveal-delay-1">
+        <div class="camada">
+          <div class="camada-bar"></div>
+          <div class="camada-content" style="border-radius:0 8px 0 0">
+            <div class="camada-tag">Camada 1</div>
+            <div class="camada-name">Fontes</div>
+            <div class="camada-desc">ERP, CRM, financeiro, marketing, operações, pesquisas e dados externos</div>
+          </div>
+        </div>
+        <div class="camada">
+          <div class="camada-bar"></div>
+          <div class="camada-content">
+            <div class="camada-tag">Camada 2</div>
+            <div class="camada-name">Integração</div>
+            <div class="camada-desc">APIs, ETL, pipelines, governança, data lake e data warehouse</div>
+          </div>
+        </div>
+        <div class="camada">
+          <div class="camada-bar"></div>
+          <div class="camada-content">
+            <div class="camada-tag">Camada 3</div>
+            <div class="camada-name">Analytics</div>
+            <div class="camada-desc">Estatística, ML, text analytics, web analytics, previsão e segmentação</div>
+          </div>
+        </div>
+        <div class="camada">
+          <div class="camada-bar"></div>
+          <div class="camada-content">
+            <div class="camada-tag">Camada 4</div>
+            <div class="camada-name">Inteligência</div>
+            <div class="camada-desc">Dashboards, alertas, copilots e recomendações acionáveis</div>
+          </div>
+        </div>
+        <div class="camada">
+          <div class="camada-bar"></div>
+          <div class="camada-content" style="border-radius:0 0 8px 0">
+            <div class="camada-tag">Camada 5</div>
+            <div class="camada-name">Decisão</div>
+            <div class="camada-desc">Planejamento, execução, growth, eficiência e expansão</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="section-tag" style="margin-bottom:16px">O que nos diferencia</div>
+        <h3 style="font-family:var(--serif);font-size:28px;color:var(--wht);margin-bottom:20px;line-height:1.2">
+          Não vendemos software.<br>Vendemos infraestrutura.
+        </h3>
+        <p style="font-size:15px;color:var(--mut);line-height:1.8;margin-bottom:32px">
+          Segundo Davenport & Harris, a vantagem real não está na tecnologia — está na cultura, nos dados proprietários e na capacidade analítica integrada ao negócio.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 18px;background:var(--ob3);border-radius:6px;border:1px solid var(--bdr)">
+            <div style="width:3px;height:24px;background:var(--sig);border-radius:2px;flex-shrink:0"></div>
+            <span style="font-size:13px;color:var(--wht)">Operamos nas Eras 3.0 e 4.0 da análise — onde menos de 5% das empresas chegaram</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 18px;background:var(--ob3);border-radius:6px;border:1px solid var(--bdr)">
+            <div style="width:3px;height:24px;background:var(--sig);border-radius:2px;flex-shrink:0"></div>
+            <span style="font-size:13px;color:var(--wht)">Switching cost cresce com cada dado integrado — criando retenção estrutural</span>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:14px 18px;background:var(--ob3);border-radius:6px;border:1px solid var(--bdr)">
+            <div style="width:3px;height:24px;background:var(--sig);border-radius:2px;flex-shrink:0"></div>
+            <span style="font-size:13px;color:var(--wht)">Letramento contínuo gera autonomia — não dependência da ARKOS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULOS -->
+<section id="modulos">
+  <div class="section-inner">
+    <div class="section-tag reveal">04 — Suite de Produtos</div>
+    <h2 class="reveal reveal-delay-1">6 módulos.<br>1 ecossistema.</h2>
+    <p class="section-intro reveal reveal-delay-2">
+      Cada módulo resolve uma camada crítica. Juntos, formam uma arquitetura com alto switching cost e NRR crescente.
+    </p>
+
+    <div class="modulos-grid">
+      <div class="modulo-card reveal">
+        <div class="modulo-icon">⬡</div>
+        <div class="modulo-sub">Entrada · Wedge</div>
+        <h3 class="modulo-title">Marketing Intelligence</h3>
+        <p class="modulo-desc">Satisfação, mercado, digital, marca, growth e funil comercial. O módulo de entrada com ROI visível em semanas.</p>
+      </div>
+      <div class="modulo-card reveal reveal-delay-1">
+        <div class="modulo-icon">◈</div>
+        <div class="modulo-sub">Fundação Analítica</div>
+        <h3 class="modulo-title">Arkos Data</h3>
+        <p class="modulo-desc">Data warehouse, APIs, pipelines, modelagem e governança de dados. A fundação que sustenta todo o ecossistema.</p>
+      </div>
+      <div class="modulo-card reveal reveal-delay-2">
+        <div class="modulo-icon">⬙</div>
+        <div class="modulo-sub">Espinha Dorsal</div>
+        <h3 class="modulo-title">Arkos Systems</h3>
+        <p class="modulo-desc">ERP, CRM, contratos, documentos, estoque e logística integrados em uma única plataforma operacional.</p>
+      </div>
+      <div class="modulo-card reveal reveal-delay-1">
+        <div class="modulo-icon">◎</div>
+        <div class="modulo-sub">Automação Prescritiva</div>
+        <h3 class="modulo-title">Arkos AI</h3>
+        <p class="modulo-desc">Copilots executivos, previsão, alertas e automação baseada em padrões de comportamento e dados históricos.</p>
+      </div>
+      <div class="modulo-card reveal reveal-delay-2">
+        <div class="modulo-icon">⬡</div>
+        <div class="modulo-sub">Visão Estratégica</div>
+        <h3 class="modulo-title">Arkos Strategy</h3>
+        <p class="modulo-desc">Plano de negócio, planejamento estratégico e leitura de cenários. Clareza para decidir o próximo passo.</p>
+      </div>
+      <div class="modulo-card reveal reveal-delay-3">
+        <div class="modulo-icon">◈</div>
+        <div class="modulo-sub">Letramento & Retenção</div>
+        <h3 class="modulo-title">Arkos Academy</h3>
+        <p class="modulo-desc">Trilhas educacionais, certificação e formação de gestores orientados por dados. Autonomia como produto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METODOLOGIA -->
+<section id="metodologia">
+  <div class="grid-bg" style="opacity:0.3"></div>
+  <div class="section-inner" style="position:relative;z-index:1">
+    <div class="section-tag reveal">05 — Metodologia</div>
+    <h2 class="reveal reveal-delay-1">Letramento de Dados —<br>O Grande Diferencial</h2>
+    <p class="section-intro reveal reveal-delay-2">
+      Não entregamos apenas dashboards. Entregamos autonomia. O cliente aprende a ler seus próprios dados e tomar decisões sozinho.
+    </p>
+
+    <div class="metodo-steps">
+      <div class="metodo-step reveal">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Diagnóstico</h3>
+        <p class="step-desc">Mapeamos como o cliente capta dados hoje. Identificamos falhas, vazamentos e oportunidades de integração.</p>
+      </div>
+      <div class="metodo-step reveal reveal-delay-1">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Arquitetura</h3>
+        <p class="step-desc">Centralizamos todas as fontes em um Data Warehouse limpo, seguro, governado e documentado.</p>
+      </div>
+      <div class="metodo-step reveal reveal-delay-2">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Visualização</h3>
+        <p class="step-desc">Construímos o dashboard personalizado. Interface dark mode focada em usabilidade e clareza executiva.</p>
+      </div>
+      <div class="metodo-step reveal reveal-delay-3">
+        <div class="step-num">4</div>
+        <h3 class="step-title">Letramento</h3>
+        <p class="step-desc">Rituais de acompanhamento onde ensinamos o cliente a interpretar dados e extrair insights por conta própria.</p>
+      </div>
+    </div>
+
+    <div class="metodo-bottom reveal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8F542" stroke-width="2"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <p style="font-size:14px;font-style:italic;color:var(--mut)">
+        <strong style="color:var(--wht)">Objetivo final:</strong> o cliente não precisa mais de nós para entender o negócio dele. Esse é o nosso maior sucesso.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- MERCADO / ICP -->
+<section id="mercado">
+  <div class="section-inner">
+    <div class="section-tag reveal">06 — Mercado</div>
+    <h2 class="reveal reveal-delay-1">Quem compra<br>e por que compra</h2>
+    <p class="section-intro reveal reveal-delay-2">
+      A mesma tese atende diferentes portes com necessidades e tickets distintos. O cliente que começa raramente sai.
+    </p>
+
+    <div class="icp-grid">
+      <div class="icp-card reveal">
+        <div class="icp-header">
+          <h3 class="icp-seg">PMEs</h3>
+          <span class="icp-ticket">R$ 2k – 8k / mês</span>
+        </div>
+        <div class="icp-body">
+          <p class="icp-dor">Precisam estruturar gestão, dados, CRM, marketing e finanças com time interno reduzido e sem especialistas analíticos.</p>
+          <div class="icp-journey">
+            <div><strong>Entrada:</strong> Marketing Intelligence</div>
+            <div><strong>Expansão:</strong> Systems + Data</div>
+            <div><strong>Retenção:</strong> Academy + AI</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-card reveal reveal-delay-1">
+        <div class="icp-header">
+          <h3 class="icp-seg">Mid-Market</h3>
+          <span class="icp-ticket">R$ 8k – 25k / mês</span>
+        </div>
+        <div class="icp-body">
+          <p class="icp-dor">Precisam integrar sistemas legados, acelerar marketing e profissionalizar a tomada de decisão com dados de qualidade.</p>
+          <div class="icp-journey">
+            <div><strong>Entrada:</strong> Data + Dashboards</div>
+            <div><strong>Expansão:</strong> AI + Strategy</div>
+            <div><strong>Retenção:</strong> Academy + Systems</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-card reveal reveal-delay-2">
+        <div class="icp-header">
+          <h3 class="icp-seg">Enterprise</h3>
+          <span class="icp-ticket">R$ 25k+ / mês</span>
+        </div>
+        <div class="icp-body">
+          <p class="icp-dor">Precisam conectar áreas, melhorar governança de dados e adicionar IA a operações complexas e distribuídas.</p>
+          <div class="icp-journey">
+            <div><strong>Entrada:</strong> Systems + AI</div>
+            <div><strong>Expansão:</strong> Full Platform</div>
+            <div><strong>Retenção:</strong> Strategy + Academy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VANTAGEM -->
+<section id="vantagem">
+  <div class="section-inner">
+    <div class="section-tag reveal">07 — Vantagem Competitiva</div>
+    <h2 class="reveal reveal-delay-1">Por que a ARKOS é<br>difícil de substituir</h2>
+
+    <div class="vantagem-grid">
+      <div class="reveal reveal-delay-1">
+        <div class="comp-table">
+          <div class="comp-header">
+            <span>Concorrente</span>
+            <span>Limitação</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-name">Consultorias</span>
+            <span class="comp-limit">Têm estratégia, mas não têm produto</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-name">Softwares de BI</span>
+            <span class="comp-limit">Têm dados, mas não têm camada estratégica</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-name">Agências de Marketing</span>
+            <span class="comp-limit">Têm execução, mas não têm integração</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-name">ERPs / CRMs</span>
+            <span class="comp-limit">Têm sistemas, mas não têm analytics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="diffs reveal reveal-delay-2">
+        <div class="diff-item">
+          <div class="diff-bar"></div>
+          <div>
+            <div class="diff-title">Não vendemos software</div>
+            <div class="diff-desc">Vendemos inteligência analítica aplicada ao negócio do cliente — com resultado mensurável.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-bar"></div>
+          <div>
+            <div class="diff-title">Não entregamos relatórios</div>
+            <div class="diff-desc">Entregamos decisões fundamentadas em evidência — com recomendações acionáveis.</div>
+          </div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-bar"></div>
+          <div>
+            <div class="diff-title">Não geramos dependência</div>
+            <div class="diff-desc">Geramos letramento — o cliente aprende a decidir sozinho. Esse é o nosso maior diferencial.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="resultados">
+  <div class="section-inner">
+    <div class="section-tag reveal">Resultados Esperados</div>
+    <h2 class="reveal reveal-delay-1">Métricas que importam</h2>
+
+    <div class="kpis-grid">
+      <div class="kpi-big reveal">
+        <span class="kpi-big-val">↓15–25%</span>
+        <span class="kpi-big-label">CAC</span>
+        <p class="kpi-big-desc">Redução do custo de aquisição via otimização de funil baseada em dados reais</p>
+      </div>
+      <div class="kpi-big reveal reveal-delay-1">
+        <span class="kpi-big-val">↑20–40%</span>
+        <span class="kpi-big-label">ROAS</span>
+        <p class="kpi-big-desc">Melhora no retorno sobre investimento em mídia com atribuição precisa por canal</p>
+      </div>
+      <div class="kpi-big reveal reveal-delay-2">
+        <span class="kpi-big-val">Horas</span>
+        <span class="kpi-big-label">Tempo de Decisão</span>
+        <p class="kpi-big-desc">De dias para horas. Gestores passam a tomar decisões com dados atualizados em tempo real</p>
+      </div>
+      <div class="kpi-big reveal reveal-delay-3">
+        <span class="kpi-big-val">Zero</span>
+        <span class="kpi-big-label">Dependência Externa</span>
+        <p class="kpi-big-desc">Eliminação da dependência de agências para análises. O time decide sozinho, com autonomia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="grid-bg"></div>
+  <div class="section-inner" style="position:relative;z-index:1">
+    <div class="cta-signal-line reveal"></div>
+    <div class="section-tag reveal" style="text-align:center;justify-content:center;display:flex">Próximos Passos</div>
+    <h2 class="reveal reveal-delay-1" style="text-align:center">
+      Construindo a camada de<br>inteligência da sua empresa.
+    </h2>
+    <p class="section-intro reveal reveal-delay-2" style="text-align:center;border:none;padding:0;margin:0 auto 56px">
+      Começamos com um diagnóstico gratuito de 30 minutos. Sem compromisso, sem pitch genérico — só análise do seu contexto específico.
+    </p>
+
+    <div class="cta-steps reveal reveal-delay-2">
+      <div class="cta-step">
+        <span class="cta-step-num">1</span>
+        <div class="cta-step-text">Diagnóstico gratuito de 30 min com análise do seu contexto atual</div>
+      </div>
+      <div class="cta-step">
+        <span class="cta-step-num">2</span>
+        <div class="cta-step-text">Proposta personalizada com escopo, cronograma e investimento</div>
+      </div>
+      <div class="cta-step">
+        <span class="cta-step-num">3</span>
+        <div class="cta-step-text">Piloto com módulo de entrada e ROI visível em até 8 semanas</div>
+      </div>
+    </div>
+
+    <div class="cta-actions reveal reveal-delay-3">
+      <a href="mailto:contato@arkosintelligence.com" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        contato@arkosintelligence.com
+      </a>
+      <a href="https://wa.me/55XXXXXXXXXXX" class="btn-secondary">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg width="24" height="26" viewBox="0 0 200 220" fill="none">
+          <line x1="100" y1="18" x2="28"  y2="195" stroke="#F4F2ED" stroke-width="16" stroke-linecap="round"/>
+          <line x1="100" y1="18" x2="172" y2="195" stroke="#F4F2ED" stroke-width="16" stroke-linecap="round"/>
+          <line x1="50"  y1="130" x2="150" y2="130" stroke="#C8F542" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="100" cy="18" r="11" fill="#C8F542"/>
+        </svg>
+        <span class="footer-wordmark">ARKOS</span>
+      </div>
+      <div class="footer-tagline">Data · Intelligence · Decision</div>
+      <p class="footer-desc">A infraestrutura de inteligência da nova economia. B2B SaaS · Enterprise Analytics · Marketing Intelligence.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Produto</h4>
+      <ul>
+        <li><a href="#modulos">Marketing Intelligence</a></li>
+        <li><a href="#modulos">Arkos Data</a></li>
+        <li><a href="#modulos">Arkos Systems</a></li>
+        <li><a href="#modulos">Arkos AI</a></li>
+        <li><a href="#modulos">Arkos Strategy</a></li>
+        <li><a href="#modulos">Arkos Academy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Sobre</a></li>
+        <li><a href="#">Metodologia</a></li>
+        <li><a href="#">Time</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Parceiros</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@arkosintelligence.com">contato@arkosintelligence.com</a></li>
+        <li><a href="#">arkosintelligence.com</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 ARKOS Intelligence. Todos os direitos reservados.</span>
+    <div class="footer-legal">
+      <a href="#">Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Reveal on scroll ──────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// Hero elements start visible
+document.querySelectorAll('#hero .reveal').forEach(el => {
+  setTimeout(() => el.classList.add('visible'), 100);
+});
+
+// ── Nav scroll effect ─────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 20) {
+    nav.style.background = 'rgba(10,12,15,0.97)';
+  } else {
+    nav.style.background = 'rgba(10,12,15,0.85)';
+  }
+});
+
+// ── Smooth anchor scroll ──────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>

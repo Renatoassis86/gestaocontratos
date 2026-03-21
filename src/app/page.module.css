@@ -188,5 +188,67 @@
   width: 100%; padding: 12px; background: #1E293B; border-radius: 12px;
   border: none; color: #E2E8F0; font-weight: 700; font-size: 0.875rem;
   cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
 }
 .cardBtn:hover { background: var(--primary); color: #000; font-weight: 800; }
+
+/* ── NOVAS SEÇÕES (DORES) ─────────────────────────────────── */
+.section {
+  max-width: 1200px; margin: 0 auto; padding: 120px 40px;
+}
+
+.sectionHeader {
+  text-align: center; margin-bottom: 64px;
+}
+
+.doresGrid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.dorCard {
+  background: rgba(255,255,255,0.01); padding: 40px;
+  position: relative; overflow: hidden; transition: background 0.3s;
+}
+.dorCard:hover { background: rgba(255,255,255,0.03); }
+
+.dorNum {
+  font-family: var(--serif); font-size: 72px; line-height: 1;
+  color: var(--primary); opacity: 0.1;
+  position: absolute; top: 16px; right: 24px; user-select: none;
+}
+
+.dorTitle {
+  font-family: var(--serif); font-size: 1.5rem; color: #F4F2ED; margin-bottom: 12px;
+}
+
+.dorBody {
+  font-size: 0.875rem; color: #8A8F99; line-height: 1.7;
+}
+
+.btnSecondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #F4F2ED;
+  font-family: var(--mono); font-size: 13px; font-weight: 400;
+  letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: border-color 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+.btnSecondary:hover { border-color: var(--primary); transform: translateY(-1px); }
+
+/* ── MEDIA QUERIES RESPONSIVAS ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .doresGrid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .header { padding: 0 20px; }
+  .heroH1 { font-size: 2.8rem; }
+  .grid { grid-template-columns: 1fr; }
+  .section, .modulesWrapper { padding: 80px 20px; }
+  .btnSecondary { width: 100%; justify-content: center; }
+}
