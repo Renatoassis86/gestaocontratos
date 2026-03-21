@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARKOS — Kit de Assinaturas de E-mail</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111318; font-family: 'Inter', sans-serif; color: #F4F2ED; padding: 0; }
+
+  :root {
+    --ob: #0A0C0F; --ob2: #111318; --ob3: #1F242D; --ob4: #272D38;
+    --sig: #C8F542; --wht: #F4F2ED; --mut: #8A8F99; --mut2: #5A5F6A;
+  }
+
+  /* ── Interface de preview ── */
+  .page { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+
+  .page-header {
+    text-align: center; margin-bottom: 56px;
+    padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .page-header h1 {
+    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.22em; color: var(--sig); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .page-header p { font-size: 13px; color: var(--mut); }
+
+  .sig-section { margin-bottom: 64px; }
+
+  .sig-label {
+    font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.2em; color: var(--sig); text-transform: uppercase;
+    margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .sig-label::after {
+    content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07);
+  }
+
+  .sig-preview {
+    background: #ffffff; border-radius: 8px; padding: 32px;
+    margin-bottom: 16px;
+  }
+
+  .sig-preview-dark {
+    background: #0A0C0F; border-radius: 8px; padding: 32px;
+    margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ob3); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--mut); font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 10px 20px; border-radius: 4px; cursor: pointer;
+    transition: all 0.2s; margin-bottom: 8px; margin-right: 8px;
+  }
+  .copy-btn:hover { background: var(--ob4); color: var(--wht); }
+  .copy-btn.copied { background: rgba(200,245,66,0.1); color: var(--sig); border-color: rgba(200,245,66,0.3); }
+
+  .instructions {
+    background: var(--ob3); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px; padding: 24px; margin-top: 48px;
+  }
+  .instructions h3 {
+    font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.2em; color: var(--sig); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .instructions ol { padding-left: 20px; }
+  .instructions li { font-size: 13px; color: var(--mut); margin-bottom: 8px; line-height: 1.6; }
+  .instructions code {
+    background: var(--ob); padding: 2px 8px; border-radius: 3px;
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--sig);
+  }
+
+  /* ── Código oculto para cópia ── */
+  .sig-code { display: none; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Kit de Assinaturas de E-mail · ARKOS 2026</h1>
+    <p>4 variações (uma por co-fundador) · Versão clara e escura · Compatível com Gmail, Outlook e Apple Mail</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- ASSINATURA 1 — RENATO ASSIS -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="sig-section">
+    <div class="sig-label">Renato Assis — Co-Founder · Strategy & Data Science</div>
+
+    <!-- Preview fundo claro (e-mail padrão) -->
+    <div class="sig-preview" id="preview-renato-light">
+
+      <!-- ASSINATURA CLARA — COPIE TUDO DENTRO DESTA DIV -->
+      <div id="sig-renato-light" style="font-family:Arial,sans-serif;max-width:480px;">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+          <tr>
+            <!-- Barra sinal esquerda -->
+            <td style="width:3px;background:#C8F542;border-radius:2px;">&nbsp;</td>
+            <td style="width:16px;">&nbsp;</td>
+            <!-- Conteúdo -->
+            <td>
+              <!-- Logo + nome empresa -->
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+                <tr>
+                  <!-- Símbolo inline SVG -->
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <svg width="20" height="22" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <line x1="100" y1="18" x2="28" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="100" y1="18" x2="172" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="50" y1="130" x2="150" y2="130" stroke="#7FAA10" stroke-width="14" stroke-linecap="round"/>
+                      <circle cx="100" cy="18" r="12" fill="#7FAA10"/>
+                    </svg>
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:bold;letter-spacing:3px;color:#0A0C0F;">ARKOS</span>
+                  </td>
+                </tr>
+              </table>
+              <!-- Nome -->
+              <div style="font-family:Arial,sans-serif;font-size:15px;font-weight:600;color:#0A0C0F;margin-bottom:3px;">Renato Assis</div>
+              <!-- Cargo -->
+              <div style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;letter-spacing:1px;margin-bottom:12px;">CO-FOUNDER · STRATEGY &amp; DATA SCIENCE</div>
+              <!-- Divisor -->
+              <div style="height:1px;background:#E8E6E0;margin-bottom:12px;max-width:280px;"></div>
+              <!-- Contatos -->
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;padding-right:16px;">
+                    <a href="mailto:renato@arkosintelligence.com" style="color:#7FAA10;text-decoration:none;">renato@arkosintelligence.com</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;padding-top:4px;">
+                    <a href="https://arkosintelligence.com" style="color:#5A5F6A;text-decoration:none;">arkosintelligence.com</a>
+                    &nbsp;·&nbsp;
+                    <a href="https://linkedin.com/company/arkosintelligence" style="color:#5A5F6A;text-decoration:none;">LinkedIn</a>
+                  </td>
+                </tr>
+              </table>
+              <!-- Tagline -->
+              <div style="margin-top:12px;font-family:'Courier New',monospace;font-size:9px;color:#AAAAAA;letter-spacing:2px;">DATA · INTELLIGENCE · DECISION</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Preview fundo escuro -->
+    <div class="sig-preview-dark" id="preview-renato-dark">
+
+      <!-- ASSINATURA ESCURA -->
+      <div id="sig-renato-dark" style="font-family:Arial,sans-serif;max-width:480px;">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+          <tr>
+            <td style="width:3px;background:#C8F542;border-radius:2px;">&nbsp;</td>
+            <td style="width:16px;">&nbsp;</td>
+            <td>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <svg width="20" height="22" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <line x1="100" y1="18" x2="28" y2="196" stroke="#F4F2ED" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="100" y1="18" x2="172" y2="196" stroke="#F4F2ED" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="50" y1="130" x2="150" y2="130" stroke="#C8F542" stroke-width="14" stroke-linecap="round"/>
+                      <circle cx="100" cy="18" r="12" fill="#C8F542"/>
+                    </svg>
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:bold;letter-spacing:3px;color:#F4F2ED;">ARKOS</span>
+                  </td>
+                </tr>
+              </table>
+              <div style="font-size:15px;font-weight:600;color:#F4F2ED;margin-bottom:3px;">Renato Assis</div>
+              <div style="font-family:'Courier New',monospace;font-size:10px;color:#5A5F6A;letter-spacing:1px;margin-bottom:12px;">CO-FOUNDER · STRATEGY &amp; DATA SCIENCE</div>
+              <div style="height:1px;background:#272D38;margin-bottom:12px;max-width:280px;"></div>
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="font-family:'Courier New',monospace;font-size:10px;">
+                    <a href="mailto:renato@arkosintelligence.com" style="color:#C8F542;text-decoration:none;">renato@arkosintelligence.com</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family:'Courier New',monospace;font-size:10px;color:#5A5F6A;padding-top:4px;">
+                    <a href="https://arkosintelligence.com" style="color:#5A5F6A;text-decoration:none;">arkosintelligence.com</a>
+                    &nbsp;·&nbsp;
+                    <a href="https://linkedin.com/company/arkosintelligence" style="color:#5A5F6A;text-decoration:none;">LinkedIn</a>
+                  </td>
+                </tr>
+              </table>
+              <div style="margin-top:12px;font-family:'Courier New',monospace;font-size:9px;color:#272D38;letter-spacing:2px;">DATA · INTELLIGENCE · DECISION</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <button class="copy-btn" onclick="copySig('sig-renato-light', this)">⎘ Copiar versão clara</button>
+    <button class="copy-btn" onclick="copySig('sig-renato-dark', this)">⎘ Copiar versão escura</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- ASSINATURAS 2, 3, 4 — demais co-fundadores -->
+  <!-- ════════════════════════════════════════════════ -->
+
+  <!-- Função geradora para os outros -->
+  <div class="sig-section">
+    <div class="sig-label">Emmanuel Peixoto — Co-Founder · Technology & Architecture</div>
+    <div class="sig-preview" id="preview-emmanuel">
+      <div id="sig-emmanuel" style="font-family:Arial,sans-serif;max-width:480px;">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+          <tr>
+            <td style="width:3px;background:#C8F542;border-radius:2px;">&nbsp;</td>
+            <td style="width:16px;">&nbsp;</td>
+            <td>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <svg width="20" height="22" viewBox="0 0 200 220" fill="none">
+                      <line x1="100" y1="18" x2="28" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="100" y1="18" x2="172" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="50" y1="130" x2="150" y2="130" stroke="#7FAA10" stroke-width="14" stroke-linecap="round"/>
+                      <circle cx="100" cy="18" r="12" fill="#7FAA10"/>
+                    </svg>
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:bold;letter-spacing:3px;color:#0A0C0F;">ARKOS</span>
+                  </td>
+                </tr>
+              </table>
+              <div style="font-size:15px;font-weight:600;color:#0A0C0F;margin-bottom:3px;">Emmanuel Peixoto</div>
+              <div style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;letter-spacing:1px;margin-bottom:12px;">CO-FOUNDER · TECHNOLOGY &amp; ARCHITECTURE</div>
+              <div style="height:1px;background:#E8E6E0;margin-bottom:12px;max-width:280px;"></div>
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="font-family:'Courier New',monospace;font-size:10px;"><a href="mailto:emmanuel@arkosintelligence.com" style="color:#7FAA10;text-decoration:none;">emmanuel@arkosintelligence.com</a></td></tr>
+                <tr><td style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;padding-top:4px;"><a href="https://arkosintelligence.com" style="color:#5A5F6A;text-decoration:none;">arkosintelligence.com</a>&nbsp;·&nbsp;<a href="https://linkedin.com/company/arkosintelligence" style="color:#5A5F6A;text-decoration:none;">LinkedIn</a></td></tr>
+              </table>
+              <div style="margin-top:12px;font-family:'Courier New',monospace;font-size:9px;color:#AAAAAA;letter-spacing:2px;">DATA · INTELLIGENCE · DECISION</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button class="copy-btn" onclick="copySig('sig-emmanuel', this)">⎘ Copiar assinatura</button>
+  </div>
+
+  <div class="sig-section">
+    <div class="sig-label">Gabriel Mamede — Co-Founder · Analytics & Modelagem</div>
+    <div class="sig-preview" id="preview-gabriel">
+      <div id="sig-gabriel" style="font-family:Arial,sans-serif;max-width:480px;">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+          <tr>
+            <td style="width:3px;background:#C8F542;border-radius:2px;">&nbsp;</td>
+            <td style="width:16px;">&nbsp;</td>
+            <td>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <svg width="20" height="22" viewBox="0 0 200 220" fill="none">
+                      <line x1="100" y1="18" x2="28" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="100" y1="18" x2="172" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="50" y1="130" x2="150" y2="130" stroke="#7FAA10" stroke-width="14" stroke-linecap="round"/>
+                      <circle cx="100" cy="18" r="12" fill="#7FAA10"/>
+                    </svg>
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:bold;letter-spacing:3px;color:#0A0C0F;">ARKOS</span>
+                  </td>
+                </tr>
+              </table>
+              <div style="font-size:15px;font-weight:600;color:#0A0C0F;margin-bottom:3px;">Gabriel Mamede</div>
+              <div style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;letter-spacing:1px;margin-bottom:12px;">CO-FOUNDER · ANALYTICS &amp; MODELAGEM</div>
+              <div style="height:1px;background:#E8E6E0;margin-bottom:12px;max-width:280px;"></div>
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="font-family:'Courier New',monospace;font-size:10px;"><a href="mailto:gabriel@arkosintelligence.com" style="color:#7FAA10;text-decoration:none;">gabriel@arkosintelligence.com</a></td></tr>
+                <tr><td style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;padding-top:4px;"><a href="https://arkosintelligence.com" style="color:#5A5F6A;text-decoration:none;">arkosintelligence.com</a>&nbsp;·&nbsp;<a href="https://linkedin.com/company/arkosintelligence" style="color:#5A5F6A;text-decoration:none;">LinkedIn</a></td></tr>
+              </table>
+              <div style="margin-top:12px;font-family:'Courier New',monospace;font-size:9px;color:#AAAAAA;letter-spacing:2px;">DATA · INTELLIGENCE · DECISION</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button class="copy-btn" onclick="copySig('sig-gabriel', this)">⎘ Copiar assinatura</button>
+  </div>
+
+  <div class="sig-section">
+    <div class="sig-label">Julio Cesar — Co-Founder · Inteligência de Mercado</div>
+    <div class="sig-preview" id="preview-julio">
+      <div id="sig-julio" style="font-family:Arial,sans-serif;max-width:480px;">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+          <tr>
+            <td style="width:3px;background:#C8F542;border-radius:2px;">&nbsp;</td>
+            <td style="width:16px;">&nbsp;</td>
+            <td>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <svg width="20" height="22" viewBox="0 0 200 220" fill="none">
+                      <line x1="100" y1="18" x2="28" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="100" y1="18" x2="172" y2="196" stroke="#0A0C0F" stroke-width="18" stroke-linecap="round"/>
+                      <line x1="50" y1="130" x2="150" y2="130" stroke="#7FAA10" stroke-width="14" stroke-linecap="round"/>
+                      <circle cx="100" cy="18" r="12" fill="#7FAA10"/>
+                    </svg>
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:bold;letter-spacing:3px;color:#0A0C0F;">ARKOS</span>
+                  </td>
+                </tr>
+              </table>
+              <div style="font-size:15px;font-weight:600;color:#0A0C0F;margin-bottom:3px;">Julio Cesar</div>
+              <div style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;letter-spacing:1px;margin-bottom:12px;">CO-FOUNDER · INTELIGÊNCIA DE MERCADO</div>
+              <div style="height:1px;background:#E8E6E0;margin-bottom:12px;max-width:280px;"></div>
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="font-family:'Courier New',monospace;font-size:10px;"><a href="mailto:julio@arkosintelligence.com" style="color:#7FAA10;text-decoration:none;">julio@arkosintelligence.com</a></td></tr>
+                <tr><td style="font-family:'Courier New',monospace;font-size:10px;color:#8A8F99;padding-top:4px;"><a href="https://arkosintelligence.com" style="color:#5A5F6A;text-decoration:none;">arkosintelligence.com</a>&nbsp;·&nbsp;<a href="https://linkedin.com/company/arkosintelligence" style="color:#5A5F6A;text-decoration:none;">LinkedIn</a></td></tr>
+              </table>
+              <div style="margin-top:12px;font-family:'Courier New',monospace;font-size:9px;color:#AAAAAA;letter-spacing:2px;">DATA · INTELLIGENCE · DECISION</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button class="copy-btn" onclick="copySig('sig-julio', this)">⎘ Copiar assinatura</button>
+  </div>
+
+  <!-- INSTRUÇÕES -->
+  <div class="instructions">
+    <h3>Como instalar no Gmail</h3>
+    <ol>
+      <li>Clique em <code>⎘ Copiar assinatura</code> acima — o HTML da assinatura vai para o clipboard.</li>
+      <li>Abra o <strong>Gmail</strong> → clique na engrenagem → <strong>Ver todas as configurações</strong>.</li>
+      <li>Role até <strong>Assinatura</strong> → clique em <strong>Criar nova</strong>.</li>
+      <li>No editor de assinatura, clique nos três pontos <code>⋮</code> → <strong>Editar HTML</strong>.</li>
+      <li>Cole o HTML copiado e clique em <strong>Salvar alterações</strong>.</li>
+    </ol>
+    <br>
+    <h3>Como instalar no Outlook</h3>
+    <ol>
+      <li>Copie a assinatura acima clicando no botão.</li>
+      <li>Abra o <strong>Outlook</strong> → <strong>Arquivo</strong> → <strong>Opções</strong> → <strong>Email</strong> → <strong>Assinaturas</strong>.</li>
+      <li>Clique em <strong>Nova</strong>, nomeie a assinatura e cole no campo de texto.</li>
+      <li>Clique em <strong>OK</strong> para salvar.</li>
+    </ol>
+    <br>
+    <h3 style="color:#5A5F6A">Importante</h3>
+    <ol>
+      <li>Substitua os e-mails <code>[nome]@arkosintelligence.com</code> pelos e-mails reais de cada fundador.</li>
+      <li>Atualize o link do LinkedIn com o perfil pessoal de cada um.</li>
+      <li>Teste enviando um e-mail para si mesmo antes de usar oficialmente.</li>
+    </ol>
+  </div>
+
+</div>
+
+<script>
+function copySig(id, btn) {
+  const el = document.getElementById(id);
+  const html = el.innerHTML;
+
+  // Tenta clipboard API moderna
+  if (navigator.clipboard && window.ClipboardItem) {
+    const blob = new Blob([html], { type: 'text/html' });
+    const item = new ClipboardItem({ 'text/html': blob });
+    navigator.clipboard.write([item]).then(() => {
+      btn.textContent = '✓ Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = btn.textContent.includes('clara') ? '⎘ Copiar versão clara' :
+                          btn.textContent.includes('escura') ? '⎘ Copiar versão escura' : '⎘ Copiar assinatura';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  } else {
+    // Fallback: cria elemento temporário e executa copy
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '⎘ Copiar assinatura';
+      btn.classList.remove('copied');
+    }, 2500);
+  }
+}
+</script>
+</body>
+</html>

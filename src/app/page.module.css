@@ -227,28 +227,72 @@
   font-size: 0.875rem; color: #8A8F99; line-height: 1.7;
 }
 
+.sectionSubtitle {
+  color: #8A8F99; font-size: 1rem; max-width: 600px; margin: 0.5rem auto 0; line-height: 1.6;
+}
+
+/* ── ECO GRID ─────────────────────────────────────────────── */
+.ecoGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.ecoCard {
+  background: #111318; border: 1px solid #1F242D; border-radius: 16px; padding: 32px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.ecoIcon {
+  width: fit-content; padding: 12px; border-radius: 12px;
+}
+.ecoCard h3 { font-size: 1.125rem; fontWeight: 800; color: #F4F2ED; }
+.ecoCard p { font-size: 0.813rem; color: #8A8F99; line-height: 1.6; }
+
+/* ── TIMELINE ─────────────────────────────────────────────── */
+.timeline {
+  display: flex; flex-direction: column; gap: 40px; max-width: 800px; margin: 0 auto;
+}
+.timeItem {
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.timeBadge {
+  background: rgba(200, 245, 66, 0.05); color: var(--primary); 
+  border: 1px solid rgba(200, 245, 66, 0.1); 
+  width: 44px; height: 44px; border-radius: 50%; 
+  display: flex; align-items: center; justify-content: center; 
+  font-weight: 800; font-family: var(--mono);
+}
+.timeItem h4 { font-size: 1.125rem; color: #F4F2ED; margin-bottom: 4px; }
+.timeItem p { font-size: 0.875rem; color: #8A8F99; line-height: 1.6; }
+
+/* ── MESH BG ──────────────────────────────────────────────── */
+.meshBg {
+  position: absolute; top: 0; left: 0; right: 0; height: 100vh; overflow: hidden; z-index: -2; opacity: 0.4;
+}
+.heroMesh {
+  width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6);
+}
+
 .btnSecondary {
   display: inline-flex; align-items: center; gap: 8px;
   background: transparent; color: #F4F2ED;
-  font-family: var(--mono); font-size: 13px; font-weight: 400;
-  letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
   padding: 14px 28px; border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.12);
-  transition: border-color 0.2s, transform 0.15s;
+  transition: all 0.2s;
   cursor: pointer;
 }
-.btnSecondary:hover { border-color: var(--primary); transform: translateY(-1px); }
+.btnSecondary:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
 
 /* ── MEDIA QUERIES RESPONSIVAS ─────────────────────────────── */
 @media (max-width: 1024px) {
   .doresGrid { grid-template-columns: 1fr; }
   .grid { grid-template-columns: repeat(2, 1fr); }
+  .ecoGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .header { padding: 0 20px; }
   .heroH1 { font-size: 2.8rem; }
   .grid { grid-template-columns: 1fr; }
+  .ecoGrid { grid-template-columns: 1fr; }
   .section, .modulesWrapper { padding: 80px 20px; }
   .btnSecondary { width: 100%; justify-content: center; }
 }

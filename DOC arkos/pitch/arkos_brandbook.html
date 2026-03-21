@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ob: #0A0C0F;
+    --ob2: #111318;
+    --ob3: #181C22;
+    --ob4: #1F242D;
+    --ob5: #272D38;
+    --signal: #C8F542;
+    --signal2: #A8D422;
+    --signal3: #7FAA10;
+    --white: #F4F2ED;
+    --muted: #8A8F99;
+    --muted2: #5A5F6A;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --serif: 'DM Serif Display', serif;
+    --sans: 'Inter', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body {
+    background: var(--ob);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,12,15,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 32px;
+    height: 52px;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--signal);
+    margin-right: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+  }
+
+  .nav-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 16px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--white);
+    border-bottom-color: var(--signal);
+  }
+
+  /* SECTIONS */
+  .section {
+    display: none;
+    padding: 80px 0 0;
+    min-height: 100vh;
+  }
+
+  .section.active {
+    display: block;
+  }
+
+  /* COVER */
+  .cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-grid {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(200,245,66,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,245,66,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .cover-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--signal);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .cover-title {
+    font-family: var(--serif);
+    font-size: clamp(52px, 7vw, 96px);
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .cover-title em {
+    font-style: italic;
+    color: var(--signal);
+  }
+
+  .cover-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 48px;
+    font-family: var(--mono);
+  }
+
+  .cover-divider {
+    width: 64px;
+    height: 1px;
+    background: var(--signal);
+    margin-bottom: 32px;
+  }
+
+  .cover-desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 440px;
+    line-height: 1.8;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px 120px;
+  }
+
+  .chapter-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--signal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .chapter-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--white);
+  }
+
+  .chapter-intro {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 620px;
+    margin-bottom: 56px;
+    border-left: 2px solid var(--signal);
+    padding-left: 20px;
+  }
+
+  .divider-line {
+    height: 1px;
+    background: var(--border);
+    margin: 56px 0;
+  }
+
+  /* LOGO SHOWCASE */
+  .logo-canvas {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .logo-canvas.light {
+    background: #F4F2ED;
+  }
+
+  .logo-canvas.signal {
+    background: var(--signal);
+  }
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  /* SYMBOL ANATOMY */
+  .anatomy-wrap {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    margin-bottom: 48px;
+  }
+
+  /* COLORS */
+  .color-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    height: 120px;
+  }
+
+  .color-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;
+  }
+
+  .color-name {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+
+  .color-hex {
+    font-family: var(--mono);
+    font-size: 9px;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+
+  .palette-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .palette-card {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .palette-swatch {
+    height: 80px;
+  }
+
+  .palette-info {
+    padding: 12px 16px;
+    background: var(--ob2);
+  }
+
+  .palette-label {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .palette-hex {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* TYPE */
+  .type-specimen {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 16px;
+  }
+
+  .type-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .specimen-serif {
+    font-family: var(--serif);
+    font-size: 48px;
+    line-height: 1.05;
+    color: var(--white);
+  }
+
+  .specimen-serif em {
+    color: var(--signal);
+    font-style: italic;
+  }
+
+  .specimen-sans {
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 16px;
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  .specimen-mono {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--signal);
+    margin-top: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* APPLICATIONS */
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .app-card {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .app-mockup {
+    padding: 32px;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .app-label {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* BUSINESS CARD MOCKUP */
+  .bcard {
+    width: 280px;
+    height: 160px;
+    background: var(--ob);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bcard::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(200,245,66,0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .bcard-logo {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--white);
+  }
+
+  .bcard-logo span {
+    color: var(--signal);
+  }
+
+  .bcard-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .bcard-name {
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .bcard-role {
+    font-size: 9px;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+  }
+
+  .bcard-contact {
+    text-align: right;
+  }
+
+  .bcard-email {
+    font-size: 8px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* EMAIL SIGNATURE */
+  .esig {
+    background: var(--ob3);
+    border-radius: 12px;
+    padding: 24px 28px;
+    border-left: 3px solid var(--signal);
+    width: 320px;
+  }
+
+  .esig-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .esig-role {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-family: var(--mono);
+  }
+
+  .esig-divider {
+    height: 1px;
+    background: var(--border2);
+    margin-bottom: 12px;
+  }
+
+  .esig-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--signal);
+  }
+
+  .esig-tag {
+    font-size: 9px;
+    color: var(--muted2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ICON BADGE */
+  .icon-badge {
+    width: 88px;
+    height: 88px;
+    background: var(--ob);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border2);
+  }
+
+  /* FAVICON */
+  .favicon-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .favicon {
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ob);
+    border: 1px solid var(--border2);
+  }
+
+  /* HEADLINE CARD */
+  .headline-card {
+    background: var(--ob3);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .headline-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(200,245,66,0.06), transparent 70%);
+    pointer-events: none;
+  }
+
+  .hc-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--signal);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .hc-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hc-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 380px;
+  }
+
+  .hc-signal {
+    position: absolute;
+    bottom: 24px;
+    right: 28px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--signal);
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  /* TAGLINE */
+  .tagline-display {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .tagline-main {
+    font-family: var(--serif);
+    font-size: 36px;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .tagline-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--signal);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  /* RULE CARD */
+  .rule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .rule-card {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+  }
+
+  .rule-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--signal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .rule-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* DO/DONT */
+  .dodont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .do-box {
+    border: 1px solid rgba(200,245,66,0.25);
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(200,245,66,0.03);
+  }
+
+  .dont-box {
+    border: 1px solid rgba(200,80,80,0.25);
+    border-radius: 12px;
+    padding: 20px;
+    background: rgba(200,80,80,0.03);
+  }
+
+  .do-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--signal);
+    margin-bottom: 8px;
+  }
+
+  .dont-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #E05050;
+    margin-bottom: 8px;
+  }
+
+  .dodont-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* LINKEDIN BANNER */
+  .linkedin-banner {
+    width: 100%;
+    height: 120px;
+    background: var(--ob3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .lb-grid {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(200,245,66,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,245,66,0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .lb-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .lb-logo {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--white);
+  }
+
+  .lb-logo span {
+    color: var(--signal);
+  }
+
+  .lb-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* FOOTER */
+  .section-footer {
+    background: var(--ob2);
+    border-top: 1px solid var(--border);
+    padding: 32px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sf-logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--signal);
+  }
+
+  .sf-text {
+    font-size: 11px;
+    color: var(--muted2);
+    font-family: var(--mono);
+  }
+
+  /* VOICE SECTION */
+  .voice-block {
+    background: var(--ob2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+  }
+
+  .voice-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--signal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .voice-quote {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .voice-alt {
+    font-size: 12px;
+    color: var(--muted2);
+    font-family: var(--mono);
+    text-decoration: line-through;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .logo-grid, .app-grid, .rule-grid, .dodont, .palette-grid { grid-template-columns: 1fr; }
+    .anatomy-wrap { flex-direction: column; gap: 40px; padding: 32px; }
+    .cover { padding: 0 32px; }
+    .content { padding: 40px 24px 80px; }
+    .color-strip { grid-template-columns: repeat(3, 1fr); height: auto; }
+    .color-cell { padding: 8px; }
+    .nav-link { padding: 0 8px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">ARKOS · BrandBook 2026</div>
+  <div class="nav-links">
+    <div class="nav-link active" onclick="show('conceito')">Conceito</div>
+    <div class="nav-link" onclick="show('identidade')">Identidade</div>
+    <div class="nav-link" onclick="show('cores')">Cores</div>
+    <div class="nav-link" onclick="show('tipografia')">Tipografia</div>
+    <div class="nav-link" onclick="show('voz')">Voz</div>
+    <div class="nav-link" onclick="show('aplicacoes')">Aplicações</div>
+  </div>
+</nav>
+
+<!-- CONCEITO -->
+<section class="section active" id="conceito">
+  <div class="cover">
+    <div class="cover-grid"></div>
+    <div class="cover-tag">ARKOS · Brandbook 2026 · Identidade Visual</div>
+    <h1 class="cover-title">O Princípio<br><em>que Organiza</em><br>o Caos.</h1>
+    <div class="cover-sub">DATA · INTELLIGENCE · DECISION</div>
+    <div class="cover-divider"></div>
+    <p class="cover-desc">Este brandbook documenta a fundação visual da ARKOS — cada decisão de design conectada à estratégia, ao produto e ao mercado que a empresa escolheu transformar.</p>
+  </div>
+
+  <div class="content">
+    <div class="chapter-tag">01 — Gênese da Marca</div>
+    <h2 class="chapter-title">Por Que Esta Identidade</h2>
+    <p class="chapter-intro">
+      A maioria dos SaaS de dados adota o roxo como cor de categoria. A ARKOS não é maioria. Ela é infraestrutura — e infraestrutura não pede permissão para existir.
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 48px;">
+      <div class="rule-card">
+        <div class="rule-label">O Nome</div>
+        <div class="rule-text">Do grego <em>archê</em> — princípio, origem, fundamento. A marca visual nasce dessa mesma ideia: o ponto de partida, a estrutura que precede tudo.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">O Problema</div>
+        <div class="rule-text">Dados fragmentados, análise rasa, decisão por percepção. A ARKOS é a linha que conecta o caos à clareza executiva — isso precisa aparecer na marca.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">A Decisão</div>
+        <div class="rule-text">Abandonar o roxo genérico de tech. Construir uma identidade que transmite precisão, profundidade mineral e o sinal de inteligência ativa.</div>
+      </div>
+    </div>
+
+    <div class="tagline-display">
+      <div class="tagline-main">Onde os dados encontram<br>quem sabe o que fazer com eles.</div>
+      <div class="tagline-sub" style="margin-top: 20px;">Verdade · Confiança · Evidência</div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="chapter-tag">O Conceito Central</div>
+    <h2 class="chapter-title">Obsidiana Técnica</h2>
+    <p class="chapter-intro">
+      A pedra obsidiana é formada sob pressão extrema — é escura, densa e incrivelmente precisa em suas arestas. É exatamente o que a ARKOS faz com os dados: aplica pressão analítica e produz clareza cortante.
+    </p>
+
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="rule-label">Fundo Obsidiana</div>
+        <div class="rule-text">O escuro não é ausência — é a imensidão dos dados brutos. Profundo, denso, cheio de possibilidade oculta.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Sinal Verde-Citrus</div>
+        <div class="rule-text">O acento que representa o insight emergindo do ruído. Não é decoração: é o ponto exato onde o dado vira decisão.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Tipografia Mineral</div>
+        <div class="rule-text">Serifa italiana para autoridade e permanência. Mono técnico para precisão. Sem serifa leve para leitura limpa.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Grid Estrutural</div>
+        <div class="rule-text">A grelha sutil que aparece em fundos e fundos de apresentação representa a arquitetura invisível que organiza tudo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTIDADE -->
+<section class="section" id="identidade">
+  <div class="content" style="padding-top: 100px;">
+    <div class="chapter-tag">02 — Símbolo e Logotipo</div>
+    <h2 class="chapter-title">A Anatomia da Marca</h2>
+    <p class="chapter-intro">
+      O símbolo da ARKOS é uma leitura estrutural da letra A — mas não qualquer A. É o <strong style="color: var(--white);">A arquitetônico</strong>: formado por três elementos que se tornam um sistema. Cada traço tem função e origem conceitual.
+    </p>
+
+    <!-- SYMBOL ANATOMY SVG -->
+    <div class="anatomy-wrap">
+      <svg width="200" height="220" viewBox="0 0 200 220">
+        <!-- Left leg -->
+        <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+        <!-- Right leg -->
+        <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+        <!-- Crossbar signal -->
+        <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="8" stroke-linecap="round"/>
+        <!-- Apex dot -->
+        <circle cx="100" cy="20" r="7" fill="#C8F542"/>
+        <!-- Annotation lines -->
+        <line x1="170" y1="190" x2="200" y2="200" stroke="#C8F542" stroke-width="0.5" stroke-dasharray="3 3"/>
+        <line x1="145" y1="130" x2="200" y2="130" stroke="#C8F542" stroke-width="0.5" stroke-dasharray="3 3"/>
+        <line x1="100" y1="20" x2="200" y2="20" stroke="#C8F542" stroke-width="0.5" stroke-dasharray="3 3"/>
+        <circle cx="200" cy="200" r="2" fill="#C8F542"/>
+        <circle cx="200" cy="130" r="2" fill="#C8F542"/>
+        <circle cx="200" cy="20" r="2" fill="#C8F542"/>
+      </svg>
+
+      <div style="max-width: 320px;">
+        <div style="margin-bottom: 24px;">
+          <div class="rule-label">▲ Ápice — O Princípio</div>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">O ponto de origem. Representa o archê grego — o fundamento que precede toda análise. O ponto de onde tudo emerge.</p>
+        </div>
+        <div style="margin-bottom: 24px;">
+          <div class="rule-label" style="color: var(--signal);">— Barra de Sinal — O Insight</div>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">A travessa horizontal em verde-sinal é o único elemento cromático do símbolo. Representa o dado transformado em decisão — o momento do insight.</p>
+        </div>
+        <div>
+          <div class="rule-label">◣ Pernas — A Arquitetura</div>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">As duas diagonais são estruturas que se apoiam mutuamente — como dados e inteligência se sustentam para chegar à decisão.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGO VERSIONS -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">Versões da Marca</div>
+
+    <div class="logo-grid">
+      <!-- Dark -->
+      <div>
+        <div class="logo-canvas" style="flex-direction: column; gap: 20px;">
+          <svg width="52" height="58" viewBox="0 0 200 220">
+            <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+            <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+            <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="100" cy="20" r="7" fill="#C8F542"/>
+          </svg>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+            <div style="font-family: var(--mono); font-size: 24px; font-weight: 500; letter-spacing: 0.22em; color: #F4F2ED;">ARKOS</div>
+            <div style="font-family: var(--mono); font-size: 8px; letter-spacing: 0.25em; color: #8A8F99; text-transform: uppercase;">DATA · INTELLIGENCE · DECISION</div>
+          </div>
+        </div>
+        <div class="app-label">Versão Primária — Fundo Escuro</div>
+      </div>
+
+      <!-- Light -->
+      <div>
+        <div class="logo-canvas light" style="flex-direction: column; gap: 20px;">
+          <svg width="52" height="58" viewBox="0 0 200 220">
+            <line x1="100" y1="20" x2="30" y2="190" stroke="#0A0C0F" stroke-width="12" stroke-linecap="round"/>
+            <line x1="100" y1="20" x2="170" y2="190" stroke="#0A0C0F" stroke-width="12" stroke-linecap="round"/>
+            <line x1="55" y1="130" x2="145" y2="130" stroke="#7FAA10" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="100" cy="20" r="7" fill="#7FAA10"/>
+          </svg>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+            <div style="font-family: var(--mono); font-size: 24px; font-weight: 500; letter-spacing: 0.22em; color: #0A0C0F;">ARKOS</div>
+            <div style="font-family: var(--mono); font-size: 8px; letter-spacing: 0.25em; color: #5A5F6A; text-transform: uppercase;">DATA · INTELLIGENCE · DECISION</div>
+          </div>
+        </div>
+        <div class="app-label" style="background: #E8E6E0; border-color: rgba(0,0,0,0.1); color: #5A5F6A;">Versão Clara — Fundo Claro</div>
+      </div>
+
+      <!-- Signal -->
+      <div>
+        <div class="logo-canvas signal" style="flex-direction: column; gap: 20px;">
+          <svg width="52" height="58" viewBox="0 0 200 220">
+            <line x1="100" y1="20" x2="30" y2="190" stroke="#0A0C0F" stroke-width="12" stroke-linecap="round"/>
+            <line x1="100" y1="20" x2="170" y2="190" stroke="#0A0C0F" stroke-width="12" stroke-linecap="round"/>
+            <line x1="55" y1="130" x2="145" y2="130" stroke="rgba(0,0,0,0.5)" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="100" cy="20" r="7" fill="rgba(0,0,0,0.5)"/>
+          </svg>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+            <div style="font-family: var(--mono); font-size: 24px; font-weight: 500; letter-spacing: 0.22em; color: #0A0C0F;">ARKOS</div>
+            <div style="font-family: var(--mono); font-size: 8px; letter-spacing: 0.25em; color: rgba(0,0,0,0.5); text-transform: uppercase;">DATA · INTELLIGENCE · DECISION</div>
+          </div>
+        </div>
+        <div class="app-label" style="background: #A8D422; border-color: rgba(0,0,0,0.1); color: #3A5000;">Versão Sinal — Uso Especial</div>
+      </div>
+
+      <!-- Icon only -->
+      <div>
+        <div class="logo-canvas" style="gap: 32px;">
+          <div class="icon-badge">
+            <svg width="44" height="48" viewBox="0 0 200 220">
+              <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+              <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+              <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="100" cy="20" r="7" fill="#C8F542"/>
+            </svg>
+          </div>
+          <div style="font-family: var(--mono); font-size: 36px; font-weight: 500; letter-spacing: 0.22em; color: #F4F2ED;">ARKOS</div>
+        </div>
+        <div class="app-label">Símbolo Isolado + Logotipo Horizontal</div>
+      </div>
+    </div>
+
+    <!-- FAVICON SIZES -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">Ícone App / Favicon</div>
+    <div class="favicon-row">
+      <div class="favicon" style="width:64px;height:64px;border-radius:14px;">
+        <svg width="36" height="40" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div class="favicon" style="width:48px;height:48px;border-radius:10px;">
+        <svg width="26" height="30" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div class="favicon" style="width:32px;height:32px;border-radius:7px;">
+        <svg width="18" height="20" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div class="favicon" style="width:20px;height:20px;border-radius:4px;">
+        <svg width="11" height="13" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div style="font-size: 12px; color: var(--muted); font-family: var(--mono); margin-left: 8px;">64px · 48px · 32px · 16px</div>
+    </div>
+
+    <!-- DO/DONT -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">Uso Correto da Marca</div>
+    <div class="dodont">
+      <div class="do-box">
+        <div class="do-label">✓ Use assim</div>
+        <ul style="font-size: 13px; color: var(--muted); line-height: 2; list-style: none;">
+          <li>→ Símbolo + logotipo juntos como padrão</li>
+          <li>→ Símbolo isolado acima de 24px</li>
+          <li>→ Acento verde apenas na barra e no ápice</li>
+          <li>→ Versão clara em fundos brancos/claros</li>
+          <li>→ Espaço de respiro mínimo de 1× a altura do A</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <div class="dont-label">✗ Nunca faça</div>
+        <ul style="font-size: 13px; color: var(--muted); line-height: 2; list-style: none;">
+          <li>→ Trocar o verde por qualquer outra cor</li>
+          <li>→ Alterar proporções ou espessuras</li>
+          <li>→ Colocar sobre fundos coloridos saturados</li>
+          <li>→ Adicionar sombra ou efeito ao símbolo</li>
+          <li>→ Rotacionar ou distorcer o símbolo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CORES -->
+<section class="section" id="cores">
+  <div class="content" style="padding-top: 100px;">
+    <div class="chapter-tag">03 — Paleta Cromática</div>
+    <h2 class="chapter-title">Obsidiana e Sinal</h2>
+    <p class="chapter-intro">
+      A paleta da ARKOS é construída em dois mundos: o escuro mineral da obsidiana — que representa a profundidade dos dados — e o verde-citrus do sinal — que representa o insight emergindo. Não existe roxo. Não existe azul tech. Existe precisão.
+    </p>
+
+    <!-- COLOR STRIP -->
+    <div class="color-strip">
+      <div class="color-cell" style="background: #0A0C0F;">
+        <div class="color-name" style="color: #5A5F6A;">Obsidiana</div>
+        <div class="color-hex" style="color: #3A3F4A;">#0A0C0F</div>
+      </div>
+      <div class="color-cell" style="background: #111318;">
+        <div class="color-name" style="color: #5A5F6A;">Grafite</div>
+        <div class="color-hex" style="color: #3A3F4A;">#111318</div>
+      </div>
+      <div class="color-cell" style="background: #1F242D;">
+        <div class="color-name" style="color: #6A6F7A;">Ardósia</div>
+        <div class="color-hex" style="color: #4A4F5A;">#1F242D</div>
+      </div>
+      <div class="color-cell" style="background: #8A8F99;">
+        <div class="color-name" style="color: #3A3F4A;">Névoa</div>
+        <div class="color-hex" style="color: #5A5F6A;">#8A8F99</div>
+      </div>
+      <div class="color-cell" style="background: #F4F2ED;">
+        <div class="color-name" style="color: #5A5F6A;">Pergaminho</div>
+        <div class="color-hex" style="color: #8A8F99;">#F4F2ED</div>
+      </div>
+      <div class="color-cell" style="background: #C8F542;">
+        <div class="color-name" style="color: #3A5000;">Sinal</div>
+        <div class="color-hex" style="color: #5A7000;">#C8F542</div>
+      </div>
+    </div>
+
+    <div class="palette-grid">
+      <div class="palette-card">
+        <div class="palette-swatch" style="background: #0A0C0F; display: flex; align-items: center; justify-content: center;">
+          <svg width="32" height="36" viewBox="0 0 200 220">
+            <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+            <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+            <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+          </svg>
+        </div>
+        <div class="palette-info">
+          <div class="palette-label">Obsidiana Primária</div>
+          <div class="palette-hex">#0A0C0F · Fundo principal</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5;">Base de toda a comunicação. Representa a imensidão e profundidade dos dados.</div>
+        </div>
+      </div>
+
+      <div class="palette-card">
+        <div class="palette-swatch" style="background: #C8F542; display: flex; align-items: center; justify-content: center;">
+          <div style="font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; color: #3A5000;">INSIGHT</div>
+        </div>
+        <div class="palette-info">
+          <div class="palette-label">Verde Sinal</div>
+          <div class="palette-hex">#C8F542 · Acento único</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5;">O único acento cromático da marca. Representa o momento em que o dado vira decisão.</div>
+        </div>
+      </div>
+
+      <div class="palette-card">
+        <div class="palette-swatch" style="background: #F4F2ED; display: flex; align-items: center; justify-content: center;">
+          <div style="font-family: var(--mono); font-size: 22px; font-weight: 500; letter-spacing: 0.2em; color: #0A0C0F;">ARKOS</div>
+        </div>
+        <div class="palette-info">
+          <div class="palette-label">Pergaminho</div>
+          <div class="palette-hex">#F4F2ED · Texto principal</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5;">Branco quente — evita o contraste agressivo do branco puro e remete à qualidade editorial.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <!-- USAGE -->
+    <div class="chapter-tag">Proporções de Uso</div>
+    <div style="display: flex; gap: 0; border-radius: 10px; overflow: hidden; margin-bottom: 32px; height: 64px;">
+      <div style="flex: 6; background: #0A0C0F; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: #5A5F6A;">60% — Obsidiana</div>
+      <div style="flex: 3; background: #272D38; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: #6A6F7A;">30% — Tons escuros</div>
+      <div style="flex: 1; background: #C8F542; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; color: #3A5000;">10%</div>
+    </div>
+    <div style="font-size: 12px; color: var(--muted); font-family: var(--mono); text-align: center; margin-bottom: 48px;">O verde é escasso porque sinal escasso vale mais.</div>
+
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="rule-label">Verde Sinal — Quando Usar</div>
+        <div class="rule-text">Barra do símbolo, CTAs primários, highlights de métricas, ícones de destaque, separadores editoriais, links ativos.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Verde Sinal — Quando Não Usar</div>
+        <div class="rule-text">Nunca em textos longos. Nunca em fundos inteiros. Nunca como cor de warning ou erro — o verde é reservado para insight positivo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOGRAFIA -->
+<section class="section" id="tipografia">
+  <div class="content" style="padding-top: 100px;">
+    <div class="chapter-tag">04 — Sistema Tipográfico</div>
+    <h2 class="chapter-title">Três Vozes, Uma Arquitetura</h2>
+    <p class="chapter-intro">
+      A ARKOS usa três famílias tipográficas com funções precisas. Cada uma representa uma dimensão da empresa: a autoridade que fundamenta, a clareza que comunica, e a precisão que executa.
+    </p>
+
+    <div class="type-specimen">
+      <div class="type-label">DM Serif Display — Autoridade Editorial</div>
+      <div class="specimen-serif">A Infraestrutura<br>de <em>Inteligência</em><br>da Nova Economia.</div>
+      <div class="specimen-sans">Usada em headlines principais, capas de apresentação e títulos de seção. A serifa italiana confere permanência e autoridade — o tipo que grandes jornais financeiros e firmas de consultoria usam por uma razão.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">Inter Light / Regular — Clareza Funcional</div>
+      <div style="font-family: var(--sans); font-weight: 300; font-size: 16px; color: var(--white); line-height: 1.7; margin-bottom: 12px;">A ARKOS não entrega apenas dashboards. Entrega autonomia. O cliente aprende a ler seus próprios dados, tomar decisões com segurança e transformar análise em vantagem competitiva real.</div>
+      <div style="font-family: var(--sans); font-size: 12px; color: var(--muted);">Corpo de texto, parágrafos, interface, documentação. Peso 300 para textos longos, 400 para UI, 500 para labels e destaques.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-label">DM Mono — Precisão Técnica</div>
+      <div class="specimen-mono">DATA · INTELLIGENCE · DECISION</div>
+      <div class="specimen-mono" style="font-size: 11px; color: var(--muted); margin-top: 8px;">NRR: 120%  ·  LTV/CAC: 5×  ·  PAYBACK: &lt;12m</div>
+      <div class="specimen-mono" style="font-size: 11px; color: var(--muted2); margin-top: 4px;">contato@arkosintelligence.com</div>
+      <div style="font-family: var(--sans); font-size: 12px; color: var(--muted); margin-top: 16px;">Taglines, métricas, labels de interface, e-mail, código, dados. A mono comunica rigor técnico e associa a marca ao mundo de dados que ela habita.</div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="chapter-tag">Hierarquia Tipográfica</div>
+    <div class="type-specimen">
+      <div style="font-family: var(--serif); font-size: 40px; color: var(--white); margin-bottom: 8px;">H1 — 40px DM Serif Display</div>
+      <div style="font-family: var(--serif); font-size: 28px; color: var(--white); margin-bottom: 8px;">H2 — 28px DM Serif Display</div>
+      <div style="font-family: var(--sans); font-weight: 500; font-size: 18px; color: var(--white); margin-bottom: 8px;">H3 — 18px Inter Medium</div>
+      <div style="font-family: var(--sans); font-weight: 400; font-size: 15px; color: var(--muted); margin-bottom: 8px;">Corpo — 15px Inter Regular · Cor: Névoa</div>
+      <div style="font-family: var(--mono); font-size: 11px; color: var(--signal); letter-spacing: 0.15em; text-transform: uppercase;">LABEL — 11px DM Mono · Tracking 0.15em · Verde Sinal</div>
+    </div>
+  </div>
+</section>
+
+<!-- VOZ -->
+<section class="section" id="voz">
+  <div class="content" style="padding-top: 100px;">
+    <div class="chapter-tag">05 — Tom de Voz e Mensagem</div>
+    <h2 class="chapter-title">A Marca que Fala Como Dados</h2>
+    <p class="chapter-intro">
+      A ARKOS não fala como uma startup animada nem como uma consultoria engessada. Fala como um analista sênior que respeita demais seu interlocutor para simplificar o que não deve ser simplificado.
+    </p>
+
+    <div class="voice-block">
+      <div class="voice-label">Pilar — Verdade Sem Ornamento</div>
+      <div class="voice-quote">"Seu funil perde 68% dos leads entre o anúncio e o checkout. Aqui está onde."</div>
+      <div class="voice-alt">Alternativa genérica: "Ajudamos sua empresa a crescer com dados e insights poderosos!"</div>
+    </div>
+
+    <div class="voice-block">
+      <div class="voice-label">Pilar — Autoridade Fundamentada</div>
+      <div class="voice-quote">"Menos de 5% das empresas brasileiras operam nas eras analíticas 3.0 e 4.0. Nós vivemos aqui."</div>
+      <div class="voice-alt">Alternativa genérica: "Somos líderes em analytics e inteligência artificial para empresas!"</div>
+    </div>
+
+    <div class="voice-block">
+      <div class="voice-label">Pilar — Clareza que Empodera</div>
+      <div class="voice-quote">"Nosso maior sucesso é quando você não precisa mais de nós para entender seu negócio."</div>
+      <div class="voice-alt">Alternativa genérica: "Atendimento personalizado e suporte dedicado para sua empresa."</div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="chapter-tag">A ARKOS é / Não é</div>
+    <div class="dodont">
+      <div class="do-box">
+        <div class="do-label">A marca ARKOS é</div>
+        <ul style="font-size: 13px; color: var(--muted); line-height: 2.2; list-style: none;">
+          <li>→ Precisa e cirúrgica</li>
+          <li>→ Intelectualmente honesta</li>
+          <li>→ Confiante sem arrogância</li>
+          <li>→ Técnica sem ser hermética</li>
+          <li>→ Sóbria com profundidade</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <div class="dont-label">A marca ARKOS nunca é</div>
+        <ul style="font-size: 13px; color: var(--muted); line-height: 2.2; list-style: none;">
+          <li>→ Entusiasta ou hype</li>
+          <li>→ Informal ou coloquial demais</li>
+          <li>→ Vaga ou cheia de buzzwords</li>
+          <li>→ Agressiva ou intimidadora</li>
+          <li>→ Decorativa ou superficial</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tagline-display">
+      <div style="font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;">Taglines Oficiais</div>
+      <div class="tagline-main">"Do dado bruto à decisão executiva."</div>
+      <div style="height: 1px; background: var(--border); margin: 24px 0;"></div>
+      <div class="tagline-main" style="font-size: 28px;">"Infraestrutura de inteligência para quem decide com evidência."</div>
+      <div style="height: 1px; background: var(--border); margin: 24px 0;"></div>
+      <div class="tagline-main" style="font-size: 22px;">"Você não precisa de mais dados. Precisa entender os que já tem."</div>
+    </div>
+  </div>
+</section>
+
+<!-- APLICAÇÕES -->
+<section class="section" id="aplicacoes">
+  <div class="content" style="padding-top: 100px;">
+    <div class="chapter-tag">06 — Aplicações de Marca</div>
+    <h2 class="chapter-title">A Marca no Mundo Real</h2>
+    <p class="chapter-intro">
+      A identidade ARKOS é projetada para escalar sem perder força — de um favicon de 16px a um painel de conferência de 3 metros. Cada aplicação segue os mesmos princípios: obsidiana como base, sinal como acento, mono como voz técnica.
+    </p>
+
+    <!-- CARTÃO DE VISITA -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">Cartão de Visita — Serigrafia UV Spot no Símbolo</div>
+    <div class="app-grid" style="margin-bottom: 48px;">
+      <div class="app-card">
+        <div class="app-mockup" style="background: var(--ob3); justify-content: center;">
+          <div class="bcard">
+            <div class="bcard-logo">ARK<span>◆</span>S</div>
+            <div class="bcard-bottom">
+              <div>
+                <div class="bcard-name">Renato Assis</div>
+                <div class="bcard-role">Co-Founder · Strategy & Data Science</div>
+              </div>
+              <div class="bcard-contact">
+                <div class="bcard-email">renato@arkosintelligence.com</div>
+                <div class="bcard-email" style="margin-top:3px;">arkosintelligence.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-label">Frente — Papel Duplex 600g · UV Spot no símbolo</div>
+      </div>
+      <div class="app-card">
+        <div class="app-mockup" style="background: #C8F542; justify-content: center;">
+          <div style="text-align: center;">
+            <svg width="40" height="44" viewBox="0 0 200 220">
+              <line x1="100" y1="20" x2="30" y2="190" stroke="#0A0C0F" stroke-width="14" stroke-linecap="round"/>
+              <line x1="100" y1="20" x2="170" y2="190" stroke="#0A0C0F" stroke-width="14" stroke-linecap="round"/>
+              <line x1="55" y1="130" x2="145" y2="130" stroke="rgba(0,0,0,0.5)" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="100" cy="20" r="9" fill="rgba(0,0,0,0.5)"/>
+            </svg>
+            <div style="font-family: var(--mono); font-size: 10px; color: #3A5000; letter-spacing: 0.2em; margin-top: 12px; text-transform: uppercase;">DATA · INTELLIGENCE · DECISION</div>
+          </div>
+        </div>
+        <div class="app-label" style="background: #A8D422; border-color: rgba(0,0,0,0.1); color: #3A5000;">Verso — Sinal · Símbolo Embossed</div>
+      </div>
+    </div>
+
+    <!-- ASSINATURA DE EMAIL -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">Assinatura de E-mail</div>
+    <div class="app-grid" style="margin-bottom: 48px;">
+      <div class="app-card">
+        <div class="app-mockup" style="background: var(--ob3);">
+          <div class="esig">
+            <div class="esig-name">Emmanuel Peixoto</div>
+            <div class="esig-role">Co-Founder · Technology & Architecture</div>
+            <div class="esig-divider"></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <svg width="16" height="18" viewBox="0 0 200 220">
+                <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+                <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+                <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+                <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+              </svg>
+              <div>
+                <div class="esig-logo">ARKOS</div>
+                <div class="esig-tag">Data · Intelligence · Decision</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-label">Assinatura Dark — E-mail Corporativo</div>
+      </div>
+
+      <!-- LINKEDIN BANNER -->
+      <div class="app-card">
+        <div class="app-mockup" style="background: #E8E6E0; padding: 24px; flex-direction: column; gap: 12px; justify-content: center; align-items: stretch;">
+          <div class="linkedin-banner">
+            <div class="lb-grid"></div>
+            <div class="lb-content">
+              <div class="lb-logo">ARK<span>◆</span>S</div>
+              <div class="lb-tag">Data · Intelligence · Decision · B2B SaaS · Brazil</div>
+            </div>
+          </div>
+          <div style="background: white; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: #333;">
+            <div style="width: 40px; height: 40px; background: #0A0C0F; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="22" viewBox="0 0 200 220">
+                <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+                <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="14" stroke-linecap="round"/>
+                <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="10" stroke-linecap="round"/>
+                <circle cx="100" cy="20" r="9" fill="#C8F542"/>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600;">ARKOS Intelligence</div>
+              <div style="font-size: 11px; color: #666;">B2B SaaS · Enterprise Analytics</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-label">LinkedIn — Banner + Perfil da Empresa</div>
+      </div>
+    </div>
+
+    <!-- EDITORIAL CARD -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">Cards Editoriais — Social / Apresentações</div>
+    <div class="app-grid" style="margin-bottom: 48px;">
+      <div class="app-card">
+        <div class="app-mockup" style="padding: 0; align-items: stretch; justify-content: stretch; min-height: 280px;">
+          <div class="headline-card" style="border-radius: 0; flex: 1; display: flex; flex-direction: column; justify-content: center; margin: 0;">
+            <div class="hc-tag">Arkos · Insight Report</div>
+            <div class="hc-title">Menos de 5% das empresas operam nas eras analíticas onde a ARKOS vive.</div>
+            <div class="hc-body">Davenport & Harris, Competing on Analytics — a referência que fundamenta nossa metodologia.</div>
+            <div class="hc-signal">arkosintelligence.com</div>
+          </div>
+        </div>
+        <div class="app-label">Post Editorial — LinkedIn / Apresentação</div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-mockup" style="padding: 0; min-height: 280px;">
+          <div style="background: #C8F542; flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 32px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px); background-size: 24px 24px;"></div>
+            <div style="position: relative; z-index: 1; text-align: center;">
+              <svg width="48" height="54" viewBox="0 0 200 220" style="margin-bottom: 16px;">
+                <line x1="100" y1="20" x2="30" y2="190" stroke="#0A0C0F" stroke-width="12" stroke-linecap="round"/>
+                <line x1="100" y1="20" x2="170" y2="190" stroke="#0A0C0F" stroke-width="12" stroke-linecap="round"/>
+                <line x1="55" y1="130" x2="145" y2="130" stroke="rgba(0,0,0,0.5)" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="100" cy="20" r="7" fill="rgba(0,0,0,0.5)"/>
+              </svg>
+              <div style="font-family: var(--serif); font-size: 20px; color: #0A0C0F; line-height: 1.2;">Do dado bruto<br>à decisão executiva.</div>
+              <div style="font-family: var(--mono); font-size: 9px; color: #3A5000; letter-spacing: 0.2em; margin-top: 12px; text-transform: uppercase;">Data · Intelligence · Decision</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-label">Card Sinal — Destaque / Capa de Relatório</div>
+      </div>
+    </div>
+
+    <!-- ICON APP STORE -->
+    <div style="margin-bottom: 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;">App Mobile / Dashboard — Ícone</div>
+    <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 48px; flex-wrap: wrap;">
+      <div style="width: 120px; height: 120px; background: linear-gradient(135deg, #111318, #0A0C0F); border-radius: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border2);">
+        <svg width="60" height="66" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="7" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div style="width: 80px; height: 80px; background: #0A0C0F; border-radius: 18px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border2);">
+        <svg width="40" height="44" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="7" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div style="width: 60px; height: 60px; background: #0A0C0F; border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border2);">
+        <svg width="30" height="34" viewBox="0 0 200 220">
+          <line x1="100" y1="20" x2="30" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+          <line x1="100" y1="20" x2="170" y2="190" stroke="#F4F2ED" stroke-width="12" stroke-linecap="round"/>
+          <line x1="55" y1="130" x2="145" y2="130" stroke="#C8F542" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="100" cy="20" r="7" fill="#C8F542"/>
+        </svg>
+      </div>
+      <div style="font-size: 12px; color: var(--muted); font-family: var(--mono); line-height: 1.8;">
+        Ícone App · 120px · 80px · 60px<br>
+        <span style="color: var(--muted2);">iOS · Android · Web App</span>
+      </div>
+    </div>
+
+    <!-- SERIGRAPHIC NOTE -->
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="rule-label">Aplicação Serigrafia</div>
+        <div class="rule-text">Fundo preto fosco, logotipo em silk branco, barra sinal em verde fluorescente. Em camisetas e brindes, a barra pode receber UV ou relevo.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Aplicação Impressa</div>
+        <div class="rule-text">Pantone Black U + Pantone 382 C (verde limão). Em hot stamping, preferir prata metalizada no símbolo com a barra em verde-sinal.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Aplicação Digital</div>
+        <div class="rule-text">#0A0C0F base, #C8F542 sinal, #F4F2ED texto. Modo escuro nativo — não existe versão clara do dashboard ARKOS.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-label">Aplicação Apresentações</div>
+        <div class="rule-text">Fundo obsidiana, tipografia DM Serif nos títulos, DM Mono nas labels e métricas, Inter no corpo. Grid sutil como marca d'água em slides de capa.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <div class="sf-logo">ARKOS · BrandBook 2026</div>
+    <div class="sf-text">Identidade Visual Confidencial · Todos os direitos reservados</div>
+  </div>
+</section>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const links = document.querySelectorAll('.nav-link');
+  const ids = ['conceito','identidade','cores','tipografia','voz','aplicacoes'];
+  const idx = ids.indexOf(id);
+  if(idx >= 0) links[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

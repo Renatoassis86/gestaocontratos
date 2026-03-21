@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARKOS — Kit de Posts LinkedIn</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0A0C0F; font-family: 'Inter', sans-serif; color: #F4F2ED; }
+
+:root {
+  --ob: #0A0C0F; --ob2: #111318; --ob3: #1F242D; --ob4: #272D38;
+  --sig: #C8F542; --sig3: #7FAA10; --wht: #F4F2ED; --mut: #8A8F99; --mut2: #5A5F6A;
+  --serif: 'DM Serif Display', serif; --mono: 'DM Mono', monospace; --sans: 'Inter', sans-serif;
+}
+
+.header {
+  background: #111318; border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 32px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.header-left h1 {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.22em; color: var(--sig); text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.header-left p { font-size: 13px; color: var(--mut); }
+
+.header-stats {
+  display: flex; gap: 32px;
+}
+.stat { text-align: center; }
+.stat-val { font-family: var(--serif); font-size: 28px; color: var(--sig); display: block; }
+.stat-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; color: var(--mut2); text-transform: uppercase; }
+
+/* Grid */
+.main { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+
+.posts-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+}
+
+.post-card {
+  background: var(--ob2); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.post-card:hover { border-color: rgba(255,255,255,0.14); }
+
+.post-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+}
+
+.post-meta { display: flex; flex-direction: column; gap: 6px; }
+
+.post-num {
+  font-family: var(--mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.2em; color: var(--sig); text-transform: uppercase;
+}
+
+.post-type {
+  display: inline-block;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  color: var(--mut2); text-transform: uppercase;
+  background: var(--ob3); padding: 3px 10px; border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.post-theme {
+  font-family: var(--serif); font-size: 16px; color: var(--wht);
+  line-height: 1.3;
+}
+
+.copy-post-btn {
+  flex-shrink: 0;
+  background: var(--ob3); border: 1px solid rgba(255,255,255,0.08);
+  color: var(--mut); font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 14px; border-radius: 4px; cursor: pointer;
+  transition: all 0.2s; white-space: nowrap;
+}
+.copy-post-btn:hover { background: var(--ob4); color: var(--wht); }
+.copy-post-btn.copied { background: rgba(200,245,66,0.08); color: var(--sig); border-color: rgba(200,245,66,0.2); }
+
+.post-body {
+  padding: 20px 24px;
+}
+
+.post-text {
+  font-size: 13px; color: var(--mut); line-height: 1.8;
+  white-space: pre-wrap; font-family: var(--sans);
+  max-height: 280px; overflow-y: auto;
+}
+
+/* Scrollbar interna do texto */
+.post-text::-webkit-scrollbar { width: 3px; }
+.post-text::-webkit-scrollbar-track { background: transparent; }
+.post-text::-webkit-scrollbar-thumb { background: var(--ob4); }
+
+.post-footer {
+  padding: 12px 24px 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.post-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.tag {
+  font-family: var(--mono); font-size: 9px; color: var(--mut2);
+  background: var(--ob3); padding: 3px 8px; border-radius: 3px;
+}
+
+/* Semana indicators */
+.week-header {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 16px;
+  margin: 16px 0 4px;
+}
+.week-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; color: var(--sig); text-transform: uppercase;
+  white-space: nowrap;
+}
+.week-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+
+.instructions-box {
+  grid-column: 1 / -1;
+  background: var(--ob3); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 28px 32px; margin-top: 24px;
+}
+.instructions-box h3 {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; color: var(--sig); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.instructions-box .tip {
+  display: flex; gap: 12px; margin-bottom: 14px;
+}
+.tip-num {
+  font-family: var(--serif); font-size: 20px; color: var(--sig);
+  opacity: 0.5; flex-shrink: 0; line-height: 1;
+}
+.tip-text { font-size: 13px; color: var(--mut); line-height: 1.6; }
+.tip-text strong { color: var(--wht); }
+
+@media (max-width: 768px) {
+  .posts-grid { grid-template-columns: 1fr; }
+  .header { flex-direction: column; gap: 24px; }
+  .header-stats { flex-wrap: wrap; gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Kit de Posts LinkedIn · ARKOS 2026</h1>
+    <p>10 posts editoriais prontos para publicar · Calendário de 30 dias</p>
+  </div>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-val">10</span><span class="stat-label">Posts prontos</span></div>
+    <div class="stat"><span class="stat-val">4</span><span class="stat-label">Semanas</span></div>
+    <div class="stat"><span class="stat-val">5</span><span class="stat-label">Temas</span></div>
+  </div>
+</div>
+
+<div class="main">
+<div class="posts-grid">
+
+<!-- SEMANA 1 -->
+<div class="week-header">
+  <span class="week-label">Semana 1 — Autoridade e Posicionamento</span>
+  <div class="week-line"></div>
+</div>
+
+<!-- POST 1 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 01</span>
+      <span class="post-type">Provocação / Abertura</span>
+      <div class="post-theme">O problema que ninguém quer admitir</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post1', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post1">Sua empresa tem dados. Muitos dados.
+
+ERP, CRM, Google Analytics, Meta Ads, planilhas do financeiro, relatórios da agência.
+
+O problema não é falta de dado.
+
+É que esses dados não conversam entre si.
+É que ninguém na empresa consegue ler tudo junto.
+É que quando a reunião começa, cada área chega com um número diferente para a mesma métrica.
+
+Isso tem nome: fragmentação analítica.
+
+E ela custa mais caro do que qualquer software de gestão.
+
+Custa decisões erradas.
+Custa campanhas otimizadas para a métrica errada.
+Custa produtos desenvolvidos com base no que o gestor acha — não no que o cliente quer.
+
+A ARKOS nasceu para resolver exatamente isso.
+
+Não somos um software. Somos a arquitetura que faz seus dados falarem a mesma língua.
+
+→ Se você reconheceu sua empresa aqui, vale uma conversa de 30 minutos.
+
+#dados #analytics #businessintelligence #decisao #gestao</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#dados</span><span class="tag">#analytics</span><span class="tag">#gestao</span><span class="tag">#BI</span>
+    </div>
+  </div>
+</div>
+
+<!-- POST 2 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 02</span>
+      <span class="post-type">Educacional / Davenport</span>
+      <div class="post-theme">As 4 eras da análise — e onde sua empresa está</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post2', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post2">Davenport & Harris mapearam 4 eras da análise empresarial.
+
+A maioria das empresas brasileiras ainda vive na Era 1.0.
+
+Veja onde você está:
+
+ERA 1.0 — Análise Descritiva
+"O que aconteceu?"
+Relatórios históricos. Excel. Reunião de segunda com o dashboard de sexta.
+→ 70% das empresas estão aqui.
+
+ERA 2.0 — Big Data
+Dados massivos, experimentação em escala.
+Análise como produto (Google, Amazon fizeram isso).
+→ 20% das empresas chegaram aqui.
+
+ERA 3.0 — Análise Operacional
+Dados integrados aos processos em tempo real.
+Decisão na velocidade do negócio.
+→ 8% chegaram aqui.
+
+ERA 4.0 — Análise Autônoma
+Machine learning, IA cognitiva.
+Modelos que criam hipóteses sem humanos.
+→ Menos de 2% das empresas estão aqui.
+
+A ARKOS opera nas Eras 3.0 e 4.0.
+
+Não porque é tendência.
+Porque é onde a vantagem competitiva real está sendo construída agora.
+
+Em qual era está sua empresa?
+
+#analytics #datadriven #inteligenciaartificial #gestao #estrategia</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#datadriven</span><span class="tag">#estrategia</span><span class="tag">#IA</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 2 -->
+<div class="week-header">
+  <span class="week-label">Semana 2 — Produto e Metodologia</span>
+  <div class="week-line"></div>
+</div>
+
+<!-- POST 3 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 03</span>
+      <span class="post-type">Metodologia / Diferencial</span>
+      <div class="post-theme">O relatório que você não consegue ler</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post3', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post3">"Recebi o relatório, mas não sei o que fazer com ele."
+
+Essa frase me chegou de um gestor de uma empresa com R$40M de faturamento.
+
+Eles tinham uma agência entregando 80 slides por mês.
+Tinham um software de BI com 12 dashboards.
+Tinham uma planilha de performance que ninguém mais atualizava.
+
+O problema não era falta de dado.
+Era falta de letramento.
+
+Ninguém havia ensinado o gestor a ler seus próprios dados.
+
+Essa é a diferença entre relatório e inteligência:
+
+Relatório → o que aconteceu
+Inteligência → por que aconteceu e o que fazer agora
+
+A ARKOS não entrega dashboards. Entrega autonomia.
+
+Nossa metodologia tem 4 etapas:
+1. Diagnóstico (o que você tem hoje)
+2. Arquitetura (centralizar tudo num lugar)
+3. Visualização (dashboard que o gestor entende)
+4. Letramento (ensinar a ler, interpretar e decidir)
+
+O objetivo final: o cliente não precisa mais de nós para entender o negócio dele.
+
+Esse é o nosso maior sucesso.
+
+#letramento #dados #analytics #gestao #decisao</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#letramento</span><span class="tag">#dados</span><span class="tag">#decisao</span>
+    </div>
+  </div>
+</div>
+
+<!-- POST 4 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 04</span>
+      <span class="post-type">Case / Storytelling</span>
+      <div class="post-theme">68% dos leads sumindo — e ninguém sabia onde</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post4', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post4">Um cliente chegou com uma queixa simples:
+
+"Estamos investindo mais em marketing mas as vendas não crescem na mesma proporção."
+
+Clássico.
+
+Primeira coisa que fizemos: mapear o funil inteiro.
+Do clique no anúncio até o fechamento.
+
+O que encontramos:
+
+→ 100 leads gerados por mês pelos anúncios
+→ 68 não chegavam nem ao CRM (problema de integração)
+→ Dos 32 que chegavam, 18 eram classificados errado
+→ Dos 14 restantes, apenas 6 recebiam follow-up no prazo
+
+Taxa de conversão aparente: 8%
+Taxa de conversão real: menos de 1%
+
+O problema não era o marketing.
+Era a arquitetura de dados entre marketing e vendas.
+
+Em 6 semanas:
+→ Integramos Meta Ads + Google + CRM + WhatsApp Business
+→ Construímos o dashboard do funil unificado
+→ Criamos alertas automáticos de lead sem contato
+
+Resultado no primeiro trimestre: CAC caiu 31%.
+
+Sem mudar uma linha de copy.
+Sem aumentar verba.
+Só enxergando o que já estava acontecendo.
+
+Dados não mentem. Mas precisam ser lidos certo.
+
+#marketing #vendas #funil #crm #analytics</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#marketing</span><span class="tag">#vendas</span><span class="tag">#funil</span><span class="tag">#CAC</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 3 -->
+<div class="week-header">
+  <span class="week-label">Semana 3 — Mercado e Posicionamento Estratégico</span>
+  <div class="week-line"></div>
+</div>
+
+<!-- POST 5 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 05</span>
+      <span class="post-type">Opinião / Mercado</span>
+      <div class="post-theme">Por que consultoria, BI e agência não resolvem</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post5', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post5">Existe um gap enorme no mercado brasileiro.
+
+De um lado: consultorias estratégicas.
+Têm o diagnóstico. Não têm o produto para implementar.
+
+Do outro: softwares de BI (Power BI, Tableau, Looker).
+Têm a ferramenta. Não têm a camada de interpretação e estratégia.
+
+No meio: agências de marketing.
+Têm a execução. Não têm integração com o resto do negócio.
+
+E os ERPs e CRMs?
+Têm os sistemas. Não têm analytics nem camada de decisão.
+
+O resultado: a empresa contrata tudo isso separado.
+Paga 4 fornecedores.
+Tem 4 versões diferentes da verdade.
+E ainda assim não tem clareza.
+
+A ARKOS foi desenhada para fechar esse gap.
+
+Não somos consultoria.
+Não somos software de BI.
+Não somos agência.
+Não somos ERP.
+
+Somos a camada de inteligência que conecta tudo isso numa única arquitetura operacional.
+
+Um fornecedor. Uma visão. Uma decisão.
+
+Esse é o posicionamento que o mercado precisava.
+
+#saas #analytics #estrategia #tecnologia #startups</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#saas</span><span class="tag">#estrategia</span><span class="tag">#tecnologia</span>
+    </div>
+  </div>
+</div>
+
+<!-- POST 6 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 06</span>
+      <span class="post-type">Dado / Estatística</span>
+      <div class="post-theme">5× mais chances — o número que muda tudo</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post6', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post6">Davenport descobriu algo que poucas empresas levam a sério:
+
+Empresas de alto desempenho têm 5× mais chances de usar análise estrategicamente do que empresas de baixo desempenho.
+
+5 vezes.
+
+Não é marginal. É estrutural.
+
+O que separa as que chegam lá (Modelo DELTA de Davenport):
+
+D — Dados integrados e de alta qualidade
+E — Análise gerenciada como recurso estratégico corporativo
+L — Liderança comprometida com decisões baseadas em fatos
+T — Foco nos alvos que geram diferenciação competitiva real
+A — Talentos analíticos cultivados e retidos
+
+A maioria das empresas brasileiras falha no D e no L.
+
+Os dados existem mas não estão integrados.
+E a liderança ainda decide mais pelo instinto do que pela evidência.
+
+Não porque os gestores são ruins.
+Mas porque ninguém construiu a infraestrutura que tornaria a decisão por dado mais fácil do que a decisão por instinto.
+
+Esse é exatamente o problema que a ARKOS resolve.
+
+Qual letra do DELTA é o gargalo da sua empresa?
+
+#dados #lideranca #analytics #performance #gestao</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#lideranca</span><span class="tag">#performance</span><span class="tag">#analytics</span>
+    </div>
+  </div>
+</div>
+
+<!-- POST 7 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 07</span>
+      <span class="post-type">Produto / Feature</span>
+      <div class="post-theme">O dashboard que o gestor consegue usar</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post7', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post7">Quer saber qual é o erro mais comum em dashboards corporativos?
+
+Ter 47 métricas na mesma tela.
+
+Eu vi isso acontecer em empresas de todos os tamanhos.
+
+O time de dados trabalha semanas para construir.
+O gestor abre, olha 10 segundos, fecha.
+E volta para o Excel.
+
+Um dashboard não é uma demonstração de capacidade técnica.
+É uma conversa entre os dados e o gestor.
+
+O dashboard ARKOS foi desenhado com 3 princípios:
+
+1. HIERARQUIA VISUAL CLARA
+O que importa aparece primeiro.
+4 KPIs em destaque no topo. Leitura em 5 segundos.
+
+2. SEM MÉTRICAS DE VAIDADE
+Só métricas que conectam com uma decisão.
+Cada número tem um "e daí?" associado.
+
+3. LETRAMENTO EMBUTIDO
+Cada gráfico tem uma explicação.
+O cliente aprende o que é ROAS, CAC, LTV enquanto usa.
+
+O resultado: gestores que antes não olhavam para os dados passam a abrir o dashboard toda manhã.
+
+Não porque foram obrigados.
+Mas porque finalmente faz sentido.
+
+Interface não é detalhe. É o produto.
+
+#produto #ux #dashboard #dados #design</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#dashboard</span><span class="tag">#ux</span><span class="tag">#produto</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 4 -->
+<div class="week-header">
+  <span class="week-label">Semana 4 — Fundadores, Cultura e CTA</span>
+  <div class="week-line"></div>
+</div>
+
+<!-- POST 8 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 08</span>
+      <span class="post-type">Fundador / Origem</span>
+      <div class="post-theme">Por que fundamos a ARKOS</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post8', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post8">Durante anos trabalhamos com empresas de diferentes portes e segmentos.
+
+E um padrão se repetia sem parar:
+
+Empresas inteligentes, com times competentes e produtos bons.
+Mas tomando decisões com base em dados fragmentados, relatórios defasados e percepção de mercado.
+
+Não por falta de dados. Por falta de arquitetura.
+
+Os dados existiam. A capacidade de transformá-los em decisão, não.
+
+Foi aí que entendemos o problema real:
+
+O mercado oferecia pedaços da solução.
+Consultorias tinham a estratégia mas não o produto.
+Softwares tinham a ferramenta mas não a interpretação.
+Agências tinham a execução mas não a visão.
+
+Ninguém estava conectando tudo.
+
+Fundamos a ARKOS para ser essa conexão.
+
+O nome vem do grego arkhós — princípio, fundamento, aquele que lidera.
+
+Porque acreditamos que o próximo passo de qualquer negócio começa com uma pergunta simples:
+
+O que os dados estão dizendo?
+
+Estamos construindo a infraestrutura de inteligência da nova economia.
+
+E estamos só começando.
+
+#startup #fundadores #arkos #dados #inteligencia</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#startup</span><span class="tag">#fundadores</span><span class="tag">#origem</span>
+    </div>
+  </div>
+</div>
+
+<!-- POST 9 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 09</span>
+      <span class="post-type">Provocação / Verdade</span>
+      <div class="post-theme">Você não precisa de mais dados</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post9', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post9">Vou dizer algo que vai contra o que todo mundo fala:
+
+Você não precisa de mais dados.
+
+Precisa entender os que já tem.
+
+A maioria das empresas tem dados suficientes para:
+→ Saber qual campanha realmente traz cliente bom
+→ Identificar quais produtos têm margem real vs margem ilusória
+→ Prever churn antes do cliente cancelar
+→ Entender qual vendedor fecha mais porque é bom ou porque pega os leads mais quentes
+
+Mas esses dados estão fragmentados.
+Isolados em ferramentas que não conversam.
+Interpretados por pessoas que não têm contexto do negócio todo.
+
+O problema de analytics na maioria das empresas não é coleta.
+É integração. É interpretação. É letramento.
+
+Antes de contratar mais uma ferramenta de dados, pergunte:
+
+"Estou usando bem o que já tenho?"
+
+Quase sempre a resposta é não.
+
+E quando a resposta é não, o próximo passo não é mais dado.
+É mais clareza.
+
+#dados #analytics #marketing #gestao #decisao</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#clareza</span><span class="tag">#analytics</span><span class="tag">#gestao</span>
+    </div>
+  </div>
+</div>
+
+<!-- POST 10 -->
+<div class="post-card">
+  <div class="post-header">
+    <div class="post-meta">
+      <span class="post-num">Post 10</span>
+      <span class="post-type">CTA / Encerramento</span>
+      <div class="post-theme">30 minutos que podem mudar como você decide</div>
+    </div>
+    <button class="copy-post-btn" onclick="copyPost('post10', this)">⎘ Copiar</button>
+  </div>
+  <div class="post-body">
+    <div class="post-text" id="post10">Se você chegou até aqui, provavelmente se identificou com alguma coisa que falei nas últimas semanas.
+
+Talvez os dados fragmentados.
+Talvez a decisão por percepção.
+Talvez o relatório que ninguém consegue ler.
+
+Não precisa continuar assim.
+
+Nos próximos 30 dias, a ARKOS vai abrir 5 diagnósticos gratuitos para empresas que querem entender de verdade onde estão os gargalos analíticos do negócio.
+
+O que a gente faz no diagnóstico:
+→ Mapeamos as fontes de dados que você já tem
+→ Identificamos onde estão as perdas (funil, margem, churn)
+→ Mostramos o que seria possível enxergar com uma arquitetura integrada
+→ Sem pitch. Sem proposta forçada.
+
+Se fizer sentido para você, a gente avança.
+Se não fizer, você sai com um mapa claro do seu cenário analítico.
+
+De graça.
+
+Interessado? Comenta aqui ou me manda uma DM com a palavra DIAGNÓSTICO.
+
+5 vagas. Primeira a chegar, primeira a ser atendida.
+
+Data · Inteligência · Decisão — esse é o ciclo que transforma empresas.
+
+#analytics #dados #gestao #marketing #diagnostico</div>
+  </div>
+  <div class="post-footer">
+    <div class="post-tags">
+      <span class="tag">#diagnostico</span><span class="tag">#cta</span><span class="tag">#analytics</span>
+    </div>
+  </div>
+</div>
+
+<!-- INSTRUÇÕES -->
+<div class="instructions-box">
+  <h3>Como usar este kit</h3>
+
+  <div class="tip">
+    <div class="tip-num">1</div>
+    <div class="tip-text"><strong>Frequência recomendada:</strong> 2-3 posts por semana. Terças e quintas têm melhor alcance orgânico no LinkedIn B2B. Nunca publique mais de 1 post por dia.</div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-num">2</div>
+    <div class="tip-text"><strong>Personalização:</strong> Cada post está no tom ARKOS mas deve ser publicado pelo fundador como voz pessoal. Adicione um detalhe pessoal ou uma experiência real da semana para autenticidade.</div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-num">3</div>
+    <div class="tip-text"><strong>Imagem:</strong> Posts sem imagem performam bem no LinkedIn quando o texto é forte. Mas considere criar um card visual para os posts 01, 02 e 10 usando o template de card editorial do brandbook.</div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-num">4</div>
+    <div class="tip-text"><strong>Engajamento:</strong> Responda todos os comentários nas primeiras 2 horas após publicação. O algoritmo do LinkedIn prioriza posts com engajamento rápido. Perguntas finais nos posts são deliberadas — elas geram comentários.</div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-num">5</div>
+    <div class="tip-text"><strong>Rotação de autores:</strong> Distribua os posts entre os 4 co-fundadores. Posts do <strong>Renato</strong> focam em estratégia/dados. <strong>Emmanuel</strong> em tecnologia/arquitetura. <strong>Gabriel</strong> em analytics/modelos. <strong>Julio</strong> em mercado/ICP.</div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-num">6</div>
+    <div class="tip-text"><strong>Hashtags:</strong> Use no máximo 5 hashtags por post. As hashtags já estão selecionadas para cada post. Não adicione mais — o LinkedIn penaliza excesso de hashtags.</div>
+  </div>
+</div>
+
+</div><!-- /posts-grid -->
+</div><!-- /main -->
+
+<script>
+function copyPost(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText || el.textContent;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '⎘ Copiar';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '⎘ Copiar'; btn.classList.remove('copied'); }, 2500);
+  }
+}
+</script>
+</body>
+</html>

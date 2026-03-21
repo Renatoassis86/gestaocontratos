@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARKOS — Estratégia de Conteúdo 90 Dias</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0A0C0F; font-family: 'Inter', sans-serif; color: #F4F2ED; -webkit-font-smoothing: antialiased; }
+
+:root {
+  --ob: #0A0C0F; --ob2: #111318; --ob3: #1F242D; --ob4: #272D38;
+  --sig: #C8F542; --sig3: #7FAA10; --wht: #F4F2ED; --mut: #8A8F99; --mut2: #5A5F6A;
+  --serif: 'DM Serif Display', serif; --mono: 'DM Mono', monospace;
+}
+
+.page { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+
+/* Header */
+.page-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 56px; gap: 40px;
+}
+.page-header-left {}
+.tag { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.22em; color: var(--sig); text-transform: uppercase; margin-bottom: 12px; }
+h1 { font-family: var(--serif); font-size: 42px; color: var(--wht); line-height: 1.1; margin-bottom: 16px; }
+h1 em { font-style: italic; color: var(--sig); }
+.intro { font-size: 15px; color: var(--mut); max-width: 480px; line-height: 1.75; border-left: 2px solid var(--sig); padding-left: 18px; }
+
+.header-stats { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; flex-shrink: 0; }
+.stat-row { display: flex; align-items: baseline; gap: 8px; }
+.stat-val { font-family: var(--serif); font-size: 36px; color: var(--sig); }
+.stat-label { font-family: var(--mono); font-size: 10px; color: var(--mut2); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* Nav tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.tab {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; color: var(--mut); text-transform: uppercase;
+  padding: 12px 24px; cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab:hover { color: var(--wht); }
+.tab.active { color: var(--wht); border-bottom-color: var(--sig); }
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* Pilares */
+.pilares-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 48px; }
+.pilar-card {
+  background: var(--ob2); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 20px 16px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.pilar-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.pilar-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+.pilar-name { font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: 0.15em; color: var(--sig); text-transform: uppercase; margin-bottom: 8px; }
+.pilar-title { font-family: var(--serif); font-size: 16px; color: var(--wht); margin-bottom: 10px; }
+.pilar-desc { font-size: 11px; color: var(--mut); line-height: 1.6; }
+.pilar-freq { font-family: var(--mono); font-size: 9px; color: var(--mut2); margin-top: 10px; }
+
+/* Calendário */
+.cal-month { margin-bottom: 48px; }
+.cal-month-header {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+}
+.cal-month-title { font-family: var(--serif); font-size: 24px; color: var(--wht); }
+.cal-month-tag { font-family: var(--mono); font-size: 9px; color: var(--sig); letter-spacing: 0.15em; text-transform: uppercase; background: rgba(200,245,66,0.1); padding: 3px 10px; border-radius: 3px; }
+.cal-objective { font-size: 13px; color: var(--mut); font-style: italic; }
+
+.cal-weeks { display: flex; flex-direction: column; gap: 8px; }
+.cal-week {
+  display: grid; grid-template-columns: 100px 1fr 1fr 1fr;
+  gap: 8px; align-items: start;
+}
+.cal-week-label {
+  font-family: var(--mono); font-size: 9px; color: var(--mut2);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding-top: 14px; text-align: right; padding-right: 8px;
+}
+.cal-post {
+  background: var(--ob2); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 12px 14px;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.cal-post:hover { background: var(--ob3); border-color: rgba(255,255,255,0.12); }
+.cal-post.empty {
+  background: transparent; border-color: rgba(255,255,255,0.03);
+  cursor: default;
+}
+.cal-post-day { font-family: var(--mono); font-size: 9px; color: var(--mut2); margin-bottom: 6px; }
+.cal-post-type {
+  display: inline-block; font-family: var(--mono); font-size: 8px;
+  letter-spacing: 0.08em; padding: 2px 8px; border-radius: 3px;
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.cal-post-title { font-size: 12px; color: var(--wht); line-height: 1.4; margin-bottom: 6px; }
+.cal-post-canal { font-family: var(--mono); font-size: 9px; color: var(--mut2); }
+.cal-post-author { font-family: var(--mono); font-size: 9px; color: var(--sig); margin-top: 4px; }
+
+/* Tipo de post colors */
+.type-autoridade  { background: rgba(200,245,66,0.1);  color: var(--sig); }
+.type-educacional { background: rgba(74,158,255,0.1); color: #4A9EFF; }
+.type-case        { background: rgba(62,207,178,0.1); color: #3ECFB2; }
+.type-produto     { background: rgba(255,179,64,0.1); color: #FFB340; }
+.type-fundador    { background: rgba(200,245,66,0.07); color: #8A8F99; }
+.type-cta         { background: rgba(200,245,66,0.15); color: var(--sig); }
+
+/* KPI targets */
+.kpi-targets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+.kpi-target-card {
+  background: var(--ob2); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 20px;
+}
+.kpi-target-month { font-family: var(--mono); font-size: 9px; color: var(--sig); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+.kpi-target-metric { font-size: 12px; color: var(--mut); margin-bottom: 4px; }
+.kpi-target-val { font-family: var(--serif); font-size: 22px; color: var(--wht); margin-bottom: 8px; }
+.kpi-progress { height: 3px; background: var(--ob4); border-radius: 2px; overflow: hidden; }
+.kpi-progress-fill { height: 100%; background: var(--sig); border-radius: 2px; transition: width 1s ease; }
+
+/* Diretrizes */
+.diretrizes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.diretriz-card {
+  background: var(--ob2); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 24px 28px;
+}
+.diretriz-num { font-family: var(--serif); font-size: 36px; color: var(--sig); opacity: 0.2; margin-bottom: 8px; }
+.diretriz-title { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: var(--sig); text-transform: uppercase; margin-bottom: 12px; }
+.diretriz-body { font-size: 13px; color: var(--mut); line-height: 1.75; }
+.diretriz-body strong { color: var(--wht); }
+
+/* Section title */
+.section-title {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; color: var(--sig); text-transform: uppercase;
+  margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="tag">ARKOS · Estratégia de Conteúdo</div>
+      <h1>Plano Editorial<br><em>90 Dias</em></h1>
+      <p class="intro">Calendário estratégico de conteúdo para LinkedIn, com posts prontos, temas por semana e métricas de acompanhamento.</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-row"><span class="stat-val">36</span><span class="stat-label">Posts planejados</span></div>
+      <div class="stat-row"><span class="stat-val">5</span><span class="stat-label">Pilares temáticos</span></div>
+      <div class="stat-row"><span class="stat-val">4</span><span class="stat-label">Autores</span></div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="showPanel('pilares',this)">Pilares de Conteúdo</div>
+    <div class="tab" onclick="showPanel('calendario',this)">Calendário 90 Dias</div>
+    <div class="tab" onclick="showPanel('metas',this)">Metas & KPIs</div>
+    <div class="tab" onclick="showPanel('diretrizes',this)">Diretrizes de Tom</div>
+  </div>
+
+  <!-- PANEL: PILARES -->
+  <div class="panel active" id="panel-pilares">
+    <div class="section-title">Os 5 pilares temáticos</div>
+    <div class="pilares-grid">
+      <div class="pilar-card" style="border-top:3px solid #C8F542">
+        <span class="pilar-icon">◈</span>
+        <div class="pilar-name">Pilar 1</div>
+        <div class="pilar-title">Autoridade Analítica</div>
+        <p class="pilar-desc">Dados do mercado, pesquisas, estatísticas e referências como Davenport que fundamentam o posicionamento da ARKOS.</p>
+        <div class="pilar-freq">2× por mês · Terças</div>
+      </div>
+      <div class="pilar-card" style="border-top:3px solid #4A9EFF">
+        <span class="pilar-icon">⬡</span>
+        <div class="pilar-name">Pilar 2</div>
+        <div class="pilar-title">Educação de Mercado</div>
+        <p class="pilar-desc">Conceitos de analytics, data literacy, BI — ensinando o ICP a ver valor no que a ARKOS entrega.</p>
+        <div class="pilar-freq">3× por mês · Quintas</div>
+      </div>
+      <div class="pilar-card" style="border-top:3px solid #3ECFB2">
+        <span class="pilar-icon">◎</span>
+        <div class="pilar-name">Pilar 3</div>
+        <div class="pilar-title">Cases & Resultados</div>
+        <p class="pilar-desc">Histórias reais (anonimizadas) de clientes com problema, solução e resultado mensurável. Prova social de alto impacto.</p>
+        <div class="pilar-freq">2× por mês · Quintas</div>
+      </div>
+      <div class="pilar-card" style="border-top:3px solid #FFB340">
+        <span class="pilar-icon">⬙</span>
+        <div class="pilar-name">Pilar 4</div>
+        <div class="pilar-title">Produto & Metodologia</div>
+        <p class="pilar-desc">Como a ARKOS funciona, o que entrega, como é a jornada — posts que convertem curiosidade em demanda.</p>
+        <div class="pilar-freq">2× por mês · Terças</div>
+      </div>
+      <div class="pilar-card" style="border-top:3px solid #8A8F99">
+        <span class="pilar-icon">◐</span>
+        <div class="pilar-name">Pilar 5</div>
+        <div class="pilar-title">Fundadores & Cultura</div>
+        <p class="pilar-desc">Perspectivas pessoais, aprendizados da construção, visão de mundo — humanizando a marca e criando conexão.</p>
+        <div class="pilar-freq">1× por mês · Terças ou Quintas</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:8px">Distribuição por formato</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:48px">
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px;text-align:center">
+        <div style="font-family:var(--serif);font-size:32px;color:var(--sig);margin-bottom:8px">60%</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--mut2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px">Texto Longo</div>
+        <div style="font-size:12px;color:var(--mut);line-height:1.5">Posts de 800-1500 caracteres com profundidade editorial</div>
+      </div>
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px;text-align:center">
+        <div style="font-family:var(--serif);font-size:32px;color:var(--sig);margin-bottom:8px">20%</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--mut2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px">Card Visual</div>
+        <div style="font-size:12px;color:var(--mut);line-height:1.5">Posts com imagem editorial no padrão visual ARKOS</div>
+      </div>
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px;text-align:center">
+        <div style="font-family:var(--serif);font-size:32px;color:var(--sig);margin-bottom:8px">15%</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--mut2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px">Carrossel</div>
+        <div style="font-size:12px;color:var(--mut);line-height:1.5">Série de slides para posts educacionais e frameworks</div>
+      </div>
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px;text-align:center">
+        <div style="font-family:var(--serif);font-size:32px;color:var(--sig);margin-bottom:8px">5%</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--mut2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px">Vídeo Curto</div>
+        <div style="font-size:12px;color:var(--mut);line-height:1.5">Reels / Stories de até 60s com insight rápido</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: CALENDÁRIO -->
+  <div class="panel" id="panel-calendario">
+
+    <!-- MÊS 1 -->
+    <div class="cal-month">
+      <div class="cal-month-header">
+        <h2 class="cal-month-title">Mês 1</h2>
+        <span class="cal-month-tag">Autoridade e Posicionamento</span>
+        <span class="cal-objective">Objetivo: Estabelecer presença e voz da marca</span>
+      </div>
+      <div class="cal-weeks">
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 1</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 2</div>
+            <span class="cal-post-type type-autoridade">Autoridade</span>
+            <div class="cal-post-title">O problema que ninguém quer admitir: fragmentação analítica</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 4</div>
+            <span class="cal-post-type type-educacional">Educacional</span>
+            <div class="cal-post-title">As 4 eras da análise — e onde sua empresa está (Davenport)</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 2</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 9</div>
+            <span class="cal-post-type type-produto">Produto</span>
+            <div class="cal-post-title">O relatório que você não consegue ler — metodologia de letramento</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Gabriel Mamede</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 11</div>
+            <span class="cal-post-type type-case">Case</span>
+            <div class="cal-post-title">68% dos leads sumindo no funil — como encontramos o vazamento</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Julio Cesar</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 3</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 16</div>
+            <span class="cal-post-type type-autoridade">Autoridade</span>
+            <div class="cal-post-title">Por que consultoria, BI e agência não resolvem o mesmo problema</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 18</div>
+            <span class="cal-post-type type-educacional">Educacional</span>
+            <div class="cal-post-title">O modelo DELTA — o que separa empresas analíticas das demais</div>
+            <div class="cal-post-canal">LinkedIn · Carrossel</div>
+            <div class="cal-post-author">Gabriel Mamede</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 4</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 23</div>
+            <span class="cal-post-type type-produto">Produto</span>
+            <div class="cal-post-title">O dashboard que o gestor consegue usar — princípios de design</div>
+            <div class="cal-post-canal">LinkedIn · Card visual</div>
+            <div class="cal-post-author">Emmanuel Peixoto</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 25</div>
+            <span class="cal-post-type type-fundador">Fundador</span>
+            <div class="cal-post-title">Por que fundamos a ARKOS — o gap que vimos no mercado</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Sábado · Dia 27</div>
+            <span class="cal-post-type type-cta">CTA</span>
+            <div class="cal-post-title">Você não precisa de mais dados — 5 vagas de diagnóstico gratuito</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Qualquer co-fundador</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MÊS 2 -->
+    <div class="cal-month">
+      <div class="cal-month-header">
+        <h2 class="cal-month-title">Mês 2</h2>
+        <span class="cal-month-tag">Aprofundamento e Cases</span>
+        <span class="cal-objective">Objetivo: Gerar leads qualificados e converter seguidores em oportunidades</span>
+      </div>
+      <div class="cal-weeks">
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 5</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 30</div>
+            <span class="cal-post-type type-educacional">Educacional</span>
+            <div class="cal-post-title">O que é data literacy e por que seu time precisa disso agora</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Gabriel Mamede</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 32</div>
+            <span class="cal-post-type type-case">Case</span>
+            <div class="cal-post-title">E-commerce aumentou ROAS 40% sem mudar verba — só enxergando melhor</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Julio Cesar</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 6</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 37</div>
+            <span class="cal-post-type type-produto">Produto</span>
+            <div class="cal-post-title">Como funciona o módulo Marketing Intelligence — da fonte à decisão</div>
+            <div class="cal-post-canal">LinkedIn · Carrossel</div>
+            <div class="cal-post-author">Emmanuel Peixoto</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 39</div>
+            <span class="cal-post-type type-autoridade">Autoridade</span>
+            <div class="cal-post-title">5× mais chances de alta performance — o que o dado diz sobre dados</div>
+            <div class="cal-post-canal">LinkedIn · Card visual</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 7</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 44</div>
+            <span class="cal-post-type type-educacional">Educacional</span>
+            <div class="cal-post-title">CAC, LTV, ROAS — como calcular e o que fazer com esses números</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Gabriel Mamede</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 46</div>
+            <span class="cal-post-type type-case">Case</span>
+            <div class="cal-post-title">Clínica de saúde reduziu churn 25% prevendo cancelamento antes de acontecer</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Julio Cesar</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 8</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 51</div>
+            <span class="cal-post-type type-fundador">Fundador</span>
+            <div class="cal-post-title">O que aprendi errando na leitura de dados — 3 erros que todo gestor comete</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 53</div>
+            <span class="cal-post-type type-produto">Produto</span>
+            <div class="cal-post-title">Arkos AI Copilot — como um executivo começa o dia com recomendações automáticas</div>
+            <div class="cal-post-canal">LinkedIn · Vídeo curto</div>
+            <div class="cal-post-author">Emmanuel Peixoto</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Sábado · Dia 55</div>
+            <span class="cal-post-type type-cta">CTA</span>
+            <div class="cal-post-title">Resultado do mês 1 — o que geramos para os clientes do diagnóstico gratuito</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MÊS 3 -->
+    <div class="cal-month">
+      <div class="cal-month-header">
+        <h2 class="cal-month-title">Mês 3</h2>
+        <span class="cal-month-tag">Escala e Conversão</span>
+        <span class="cal-objective">Objetivo: Converter pipeline, anunciar expansão e consolidar autoridade de categoria</span>
+      </div>
+      <div class="cal-weeks">
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 9</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 58</div>
+            <span class="cal-post-type type-educacional">Educacional</span>
+            <div class="cal-post-title">O que é data warehouse e por que toda empresa precisa de um</div>
+            <div class="cal-post-canal">LinkedIn · Carrossel</div>
+            <div class="cal-post-author">Emmanuel Peixoto</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 60</div>
+            <span class="cal-post-type type-case">Case</span>
+            <div class="cal-post-title">Indústria integrou 7 sistemas em um dashboard — decisão passou de semanas para horas</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Julio Cesar</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 10</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 65</div>
+            <span class="cal-post-type type-autoridade">Autoridade</span>
+            <div class="cal-post-title">Análise prescritiva vs descritiva — onde está o valor real</div>
+            <div class="cal-post-canal">LinkedIn · Card visual</div>
+            <div class="cal-post-author">Gabriel Mamede</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 67</div>
+            <span class="cal-post-type type-produto">Produto</span>
+            <div class="cal-post-title">Arkos Academy — formando gestores orientados por dados</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 11</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 72</div>
+            <span class="cal-post-type type-educacional">Educacional</span>
+            <div class="cal-post-title">Como estruturar um comitê de dados na sua empresa — passo a passo</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 74</div>
+            <span class="cal-post-type type-case">Case</span>
+            <div class="cal-post-title">SaaS B2B aumentou LTV 35% identificando padrão de expansão em 60 dias</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Julio Cesar</div>
+          </div>
+          <div class="cal-post empty"></div>
+        </div>
+
+        <div class="cal-week">
+          <div class="cal-week-label">Semana 12</div>
+          <div class="cal-post">
+            <div class="cal-post-day">Terça · Dia 79</div>
+            <span class="cal-post-type type-fundador">Fundador</span>
+            <div class="cal-post-title">90 dias de ARKOS — o que construímos, o que aprendemos, o que vem a seguir</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo</div>
+            <div class="cal-post-author">Todos os fundadores</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Quinta · Dia 81</div>
+            <span class="cal-post-type type-autoridade">Autoridade</span>
+            <div class="cal-post-title">A infraestrutura de inteligência que as empresas brasileiras ainda não têm</div>
+            <div class="cal-post-canal">LinkedIn · Card visual</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+          <div class="cal-post">
+            <div class="cal-post-day">Sábado · Dia 83</div>
+            <span class="cal-post-type type-cta">CTA</span>
+            <div class="cal-post-title">Q4 chegando — sua empresa vai decidir com dados ou percepção?</div>
+            <div class="cal-post-canal">LinkedIn · Texto longo + CTA</div>
+            <div class="cal-post-author">Renato Assis</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: METAS -->
+  <div class="panel" id="panel-metas">
+    <div class="section-title">Metas por mês</div>
+    <div class="kpi-targets">
+      <div class="kpi-target-card">
+        <div class="kpi-target-month">Mês 1</div>
+        <div class="kpi-target-metric">Seguidores novos</div>
+        <div class="kpi-target-val">+200</div>
+        <div class="kpi-progress"><div class="kpi-progress-fill" style="width:0%" data-target="60"></div></div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Impressões</div>
+          <div class="kpi-target-val">15k</div>
+          <div class="kpi-progress"><div class="kpi-progress-fill" style="width:0%" data-target="40"></div></div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Leads via DM</div>
+          <div class="kpi-target-val">5–8</div>
+        </div>
+      </div>
+      <div class="kpi-target-card">
+        <div class="kpi-target-month">Mês 2</div>
+        <div class="kpi-target-metric">Seguidores novos</div>
+        <div class="kpi-target-val">+400</div>
+        <div class="kpi-progress"><div class="kpi-progress-fill" style="width:0%" data-target="75"></div></div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Impressões</div>
+          <div class="kpi-target-val">35k</div>
+          <div class="kpi-progress"><div class="kpi-progress-fill" style="width:0%" data-target="55"></div></div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Leads via DM</div>
+          <div class="kpi-target-val">12–18</div>
+        </div>
+      </div>
+      <div class="kpi-target-card">
+        <div class="kpi-target-month">Mês 3</div>
+        <div class="kpi-target-metric">Seguidores novos</div>
+        <div class="kpi-target-val">+700</div>
+        <div class="kpi-progress"><div class="kpi-progress-fill" style="width:0%" data-target="90"></div></div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Impressões</div>
+          <div class="kpi-target-val">70k</div>
+          <div class="kpi-progress"><div class="kpi-progress-fill" style="width:0%" data-target="70"></div></div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Leads via DM</div>
+          <div class="kpi-target-val">20–30</div>
+        </div>
+      </div>
+      <div class="kpi-target-card" style="border-color:rgba(200,245,66,0.2)">
+        <div class="kpi-target-month" style="color:var(--sig)">Acumulado 90d</div>
+        <div class="kpi-target-metric">Total seguidores</div>
+        <div class="kpi-target-val">+1.300</div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Total impressões</div>
+          <div class="kpi-target-val">120k+</div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Pipeline gerado</div>
+          <div class="kpi-target-val">35–55 leads</div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="kpi-target-metric">Conversão esperada</div>
+          <div class="kpi-target-val">4–8 clientes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Métricas de acompanhamento semanal</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--sig);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px">Alcance & Visibilidade</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:12px;color:var(--mut)">→ Impressões por post</li>
+          <li style="font-size:12px;color:var(--mut)">→ Alcance único</li>
+          <li style="font-size:12px;color:var(--mut)">→ Crescimento de seguidores</li>
+          <li style="font-size:12px;color:var(--mut)">→ Perfis que visitaram a página</li>
+        </ul>
+      </div>
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--sig);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px">Engajamento</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:12px;color:var(--mut)">→ Taxa de engajamento (%)</li>
+          <li style="font-size:12px;color:var(--mut)">→ Comentários por post</li>
+          <li style="font-size:12px;color:var(--mut)">→ Compartilhamentos</li>
+          <li style="font-size:12px;color:var(--mut)">→ Salvamentos</li>
+        </ul>
+      </div>
+      <div style="background:var(--ob2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:20px">
+        <div style="font-family:var(--mono);font-size:9px;color:var(--sig);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px">Conversão</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:12px;color:var(--mut)">→ DMs recebidas</li>
+          <li style="font-size:12px;color:var(--mut)">→ Leads qualificados</li>
+          <li style="font-size:12px;color:var(--mut)">→ Diagnósticos agendados</li>
+          <li style="font-size:12px;color:var(--mut)">→ Propostas abertas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL: DIRETRIZES -->
+  <div class="panel" id="panel-diretrizes">
+    <div class="section-title">Tom de voz e boas práticas</div>
+    <div class="diretrizes-grid">
+      <div class="diretriz-card">
+        <div class="diretriz-num">01</div>
+        <div class="diretriz-title">Verdade antes de Persuasão</div>
+        <p class="diretriz-body">Todo post deve entregar valor real antes de qualquer tentativa de venda. <strong>A regra: 80% educação, 20% CTA.</strong> Se o leitor não aprender nada, o post não serve. O LinkedIn pune conteúdo que parece propaganda — e o algoritmo rebaixa posts com CTAs explícitos nas primeiras linhas.</p>
+      </div>
+      <div class="diretriz-card">
+        <div class="diretriz-num">02</div>
+        <div class="diretriz-title">Primeira Linha é Tudo</div>
+        <p class="diretriz-body">O LinkedIn mostra apenas 2-3 linhas antes do "ver mais". <strong>A primeira linha precisa criar uma tensão ou provocação</strong> que force o clique. Exemplos que funcionam: uma contradição, um número surpreendente, uma afirmação controversa, ou uma pergunta direta. Nunca comece com "Olá," ou "Hoje quero falar sobre."</p>
+      </div>
+      <div class="diretriz-card">
+        <div class="diretriz-num">03</div>
+        <div class="diretriz-title">Quebre em Blocos Curtos</div>
+        <p class="diretriz-body">Posts com parágrafos longos são ignorados. <strong>Máximo 2-3 linhas por bloco.</strong> Uma linha de respiro entre blocos. Listas com "→" performam melhor que bullets. O objetivo é criar ritmo de leitura — o leitor precisa sentir que está avançando rapidamente pelo texto.</p>
+      </div>
+      <div class="diretriz-card">
+        <div class="diretriz-num">04</div>
+        <div class="diretriz-title">Especificidade Gera Credibilidade</div>
+        <p class="diretriz-body">"Uma empresa aumentou vendas" não convence. <strong>"Uma empresa de R$8M de faturamento reduziu CAC em 31% em 6 semanas"</strong> convence. Números específicos, segmentos reais (mesmo anonimizados) e timeframes precisos são a diferença entre um post genérico e um post que gera DMs.</p>
+      </div>
+      <div class="diretriz-card">
+        <div class="diretriz-num">05</div>
+        <div class="diretriz-title">Termine com uma Pergunta</div>
+        <p class="diretriz-body">Posts que terminam com uma pergunta direta ao leitor geram 3-4× mais comentários. <strong>A pergunta deve ser fácil de responder</strong> com uma palavra ou frase curta — não uma pergunta aberta que exige reflexão longa. Comentários nas primeiras 2h são o sinal mais forte para o algoritmo ampliar o alcance.</p>
+      </div>
+      <div class="diretriz-card">
+        <div class="diretriz-num">06</div>
+        <div class="diretriz-title">Cadência é Mais Importante que Perfeição</div>
+        <p class="diretriz-body">Um post mediano publicado toda semana bate um post excelente publicado uma vez por mês. <strong>O algoritmo do LinkedIn prioriza consistência.</strong> Nunca pule duas semanas seguidas. Se a semana estiver corrida, publique um post curto de 3-4 parágrafos com um insight rápido — é melhor que o silêncio.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showPanel(id, tab) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  tab.classList.add('active');
+
+  // Animar progress bars quando aba metas é aberta
+  if (id === 'metas') {
+    setTimeout(() => {
+      document.querySelectorAll('.kpi-progress-fill').forEach(el => {
+        el.style.width = el.dataset.target + '%';
+      });
+    }, 100);
+  }
+}
+</script>
+</body>
+</html>
