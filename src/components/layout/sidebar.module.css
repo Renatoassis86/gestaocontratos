@@ -30,6 +30,20 @@
 
 .nav {
   flex: 1;
+  overflow-y: auto;
+  padding-right: 4px; /* margem para o scroll */
+}
+
+/* Esconder barra de rolagem padrão para estética (opcional) */
+.nav::-webkit-scrollbar {
+  width: 4px;
+}
+.nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+.nav:hover::-webkit-scrollbar-thumb {
+  background: rgba(200,245,66,0.3);
 }
 
 .nav ul, .footer ul {
