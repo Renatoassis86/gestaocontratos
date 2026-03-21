@@ -31,7 +31,7 @@ export default function AlunosDocumentosPage() {
   const [selectedAno, setSelectedAno] = useState('all')
   const [courseSearch, setCourseSearch] = useState('')
   const [selectedCourse, setSelectedCourse] = useState('all')
-  const [tipoDocumento, setTipoDocumento] = useState('all')
+  const [tipoDocumento, setTipoDocumento] = useState<string[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [moodleUsers, setMoodleUsers] = useState<any[]>([])
   
@@ -111,151 +111,179 @@ export default function AlunosDocumentosPage() {
       </p>
 
       {/* BLOCO DE FILTROS - SEQUÊNCIA SOLICITADA */}
-      <div className={styles.panel} style={{ marginBottom: '1.5rem', background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.5rem' }}>
-        <h3 style={{ fontSize: '1rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Filter size={18} style={{ color: 'var(--primary)' }} /> Filtrar e Selecionar Público
+      <div style={{ 
+        marginBottom: '1.5rem', 
+        background: '#111318', 
+        border: '1px solid #1F242D', 
+        borderRadius: '16px', 
+        padding: '1.5rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+      }}>
+        <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#F4F2ED', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Filter size={18} style={{ color: '#C8F542' }} /> Filtrar e Selecionar Público
         </h3>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem', alignItems: 'end' }}>
-          {categoryChain.map((catId, idx) => {
-            const parentId = idx === 0 ? 0 : Number(categoryChain[idx - 1]);
-            if (idx > 0 && categoryChain[idx - 1] === 'all') return null; 
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          
+          {/* LINHA 1: Hierarquia de Categorias */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1rem' }}>
+            {categoryChain.map((catId, idx) => {
+              const parentId = idx === 0 ? 0 : Number(categoryChain[idx - 1]);
+              if (idx > 0 && categoryChain[idx - 1] === 'all') return null; 
 
-            const items = moodleCategories.filter(cat => Number(cat.parent) === parentId);
-            if (items.length === 0 && idx > 0) return null; 
+              const items = moodleCategories.filter(cat => Number(cat.parent) === parentId);
+              if (items.length === 0 && idx > 0) return null; 
 
-            return (
-              <div className={styles.inputGroup} key={idx}>
-                <label>
-                  {idx === 0 ? 'Unidade / Instituição:' : 
-                   idx === 1 ? 'Departamento / Escola:' : 
-                   idx === 2 ? 'Área / Núcleo:' : 
-                   idx === 3 ? 'Curso:' :
-                   `Nível ${idx + 1}:`}
-                </label>
-                <select 
-                  value={catId} 
-                  onChange={(e) => { 
-                    const val = e.target.value;
-                    let newChain = [...categoryChain.slice(0, idx), val];
-                    if (val !== 'all') {
-                      const hasKids = moodleCategories.some(cat => Number(cat.parent) === Number(val));
-                      if (hasKids) newChain.push('all');
-                    }
-                    setCategoryChain(newChain);
-                    setSelectedCourse('all');
-                  }}
-                  className={styles.select}
-                >
-                  <option value="all">{idx === 0 ? 'Ver Todas' : 'Todas'}</option>
-                  {items.map(cat => (
-                    <option key={cat.id} value={String(cat.id)}>{cat.name}</option>
-                  ))}
-                </select>
+              return (
+                <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    {idx === 0 ? 'Unidade / Instituição' : 
+                     idx === 1 ? 'Departamento / Escola' : 
+                     idx === 2 ? 'Área / Núcleo' : 
+                     idx === 3 ? 'Curso' :
+                     `Nível ${idx + 1}`}
+                  </label>
+                  <select 
+                    value={catId} 
+                    onChange={(e) => { 
+                      const val = e.target.value;
+                      let newChain = [...categoryChain.slice(0, idx), val];
+                      if (val !== 'all') {
+                        const hasKids = moodleCategories.some(cat => Number(cat.parent) === Number(val));
+                        if (hasKids) newChain.push('all');
+                      }
+                      setCategoryChain(newChain);
+                      setSelectedCourse('all');
+                    }}
+                    style={{ background: '#0A0C0F', color: '#F4F2ED', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.625rem', fontSize: '0.813rem', width: '100%', outline: 'none', cursor: 'pointer', transition: 'border-color 0.2s' }}
+                  >
+                    <option value="all">{idx === 0 ? 'Todas as Unidades' : 'Todas'}</option>
+                    {items.map(cat => (
+                      <option key={cat.id} value={String(cat.id)}>{cat.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* LINHA 2: Dependentes e Pesquisa */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', alignItems: 'end' }}>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>1. Ano</label>
+              <select 
+                value={selectedAno} 
+                onChange={(e) => setSelectedAno(e.target.value)}
+                style={{ background: '#0A0C0F', color: '#F4F2ED', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.625rem', fontSize: '0.813rem', width: '100%', outline: 'none', cursor: 'pointer' }}
+              >
+                <option value="all">Ver Todos</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+
+            {/* Documentos de múltipla escolha */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minWidth: '320px' }}>
+              <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>2. Tipo de Documento</label>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.55rem', minHeight: '38px', alignItems: 'center' }}>
+                {[
+                  { value: 'historico', label: 'Histórico' },
+                  { value: 'certificado', label: 'Certificado' },
+                  { value: 'atestado', label: 'Atestado' },
+                  { value: 'declaracao', label: 'Declaração' },
+                  { value: 'evento', label: 'Evento' }
+                ].map(doc => {
+                  const isChecked = tipoDocumento.includes(doc.value);
+                  return (
+                    <label key={doc.value} style={{ display: 'flex', alignItems: 'center', gap: '4px', color: isChecked ? '#C8F542' : '#F4F2ED', cursor: 'pointer', fontSize: '0.75rem', fontWeight: isChecked ? 700 : 400, transition: 'color 0.15s' }}>
+                      <input 
+                        type="checkbox" 
+                        checked={isChecked} 
+                        onChange={() => {
+                          if (isChecked) {
+                            setTipoDocumento(tipoDocumento.filter(t => t !== doc.value));
+                          } else {
+                            setTipoDocumento([...tipoDocumento, doc.value]);
+                          }
+                        }} 
+                        style={{ accentColor: '#C8F542' }} 
+                      />
+                      {doc.label}
+                    </label>
+                  )
+                })}
               </div>
-            )
-          })}
+            </div>
 
-          <div className={styles.inputGroup}>
-            <label>Ano:</label>
-            <select 
-              value={selectedAno} 
-              onChange={(e) => setSelectedAno(e.target.value)}
-              className={styles.select}
-            >
-              <option value="all">Ver Todos</option>
-              <option value="2026">2026</option>
-              <option value="2025">2025</option>
-              <option value="2024">2024</option>
-              <option value="2023">2023</option>
-            </select>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>3. Disciplina</label>
+              <select 
+                value={selectedCourse} 
+                onChange={(e) => setSelectedCourse(e.target.value)}
+                style={{ background: '#0A0C0F', color: '#F4F2ED', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.625rem', fontSize: '0.813rem', width: '100%', outline: 'none', cursor: 'pointer' }}
+              >
+                <option value="all">Selecione...</option>
+                {moodleCourses
+                  .filter(c => {
+                    const activeCatId = categoryChain[categoryChain.length - 1] === 'all' 
+                      ? (categoryChain.length > 1 ? categoryChain[categoryChain.length - 2] : 'all') 
+                      : categoryChain[categoryChain.length - 1];
+
+                    if (activeCatId !== 'all') {
+                      const descendantIds = getAllDescendantCategoryIds(activeCatId, moodleCategories);
+                      const matchCat = descendantIds.includes(String(c.category));
+                      if (!matchCat) return false;
+                    }
+
+                    const matchYear = selectedAno === 'all' || c.fullname.includes(selectedAno);
+                    return matchYear;
+                  })
+                  .map(c => (
+                    <option key={c.id} value={c.id}>{c.fullname}</option>
+                  ))
+                }
+              </select>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                <Search size={14} /> 4. Buscar Aluno
+              </label>
+              <input 
+                type="text" 
+                value={searchQuery} 
+                onChange={e => setSearchQuery(e.target.value)} 
+                placeholder="Nome do aluno..." 
+                style={{ background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.625rem', fontSize: '0.813rem', color: '#F4F2ED', outline: 'none' }}
+              />
+            </div>
+
+            <div>
+              <button 
+                style={{ 
+                  width: '100%', 
+                  padding: '0.688rem', 
+                  borderRadius: '10px',
+                  background: selectedCourse === 'all' ? '#1F242D' : '#C8F542', 
+                  color: selectedCourse === 'all' ? '#8A8F99' : '#0A0C0F', 
+                  fontWeight: 800, 
+                  border: 'none',
+                  cursor: selectedCourse === 'all' ? 'not-allowed' : 'pointer', 
+                  opacity: selectedCourse === 'all' ? 0.6 : 1,
+                  transition: 'all 0.2s',
+                  boxShadow: selectedCourse === 'all' ? 'none' : '0 0 16px rgba(200, 245, 66, 0.2)'
+                }} 
+                onClick={handleCarregarAlunos}
+                disabled={selectedCourse === 'all' || loadingAlunos}
+              >
+                {loadingAlunos ? 'Carregando...' : 'Carregar'}
+              </button>
+            </div>
           </div>
 
-          <div className={styles.inputGroup} style={{ maxWidth: '160px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              🔍 Filtrar Disciplina:
-            </label>
-            <input 
-              type="text" 
-              value={courseSearch} 
-              onChange={e => setCourseSearch(e.target.value)} 
-              placeholder="Nome..." 
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '8px', padding: '0.55rem', fontSize: '0.813rem', color: 'var(--foreground)', height: '100%', boxSizing: 'border-box' }}
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label>Disciplina:</label>
-            <select 
-              value={selectedCourse} 
-              onChange={(e) => setSelectedCourse(e.target.value)}
-              className={styles.select}
-            >
-              <option value="all">Selecione...</option>
-              {moodleCourses
-                .filter(c => {
-                  const matchSearch = courseSearch === '' || c.fullname.toLowerCase().includes(courseSearch.toLowerCase());
-                  if (!matchSearch) return false;
-
-                  const activeCatId = categoryChain[categoryChain.length - 1] === 'all' 
-                    ? (categoryChain.length > 1 ? categoryChain[categoryChain.length - 2] : 'all') 
-                    : categoryChain[categoryChain.length - 1];
-
-                  if (activeCatId !== 'all') {
-                    const descendantIds = getAllDescendantCategoryIds(activeCatId, moodleCategories);
-                    const matchCat = descendantIds.includes(String(c.category));
-                    if (!matchCat) return false;
-                  }
-
-                  const matchYear = selectedAno === 'all' || c.fullname.includes(selectedAno);
-                  return matchYear;
-                })
-                .map(c => (
-                  <option key={c.id} value={c.id}>{c.fullname}</option>
-                ))
-              }
-            </select>
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label>Tipo de Documento:</label>
-            <select 
-              value={tipoDocumento} 
-              onChange={(e) => setTipoDocumento(e.target.value)}
-              className={styles.select}
-            >
-              <option value="all">Selecionar Tipo...</option>
-              <option value="historico">Histórico Acadêmico</option>
-              <option value="certificado">Certificado de Conclusão</option>
-              <option value="atestado">Atestado de Matrícula</option>
-              <option value="declaracao">Declaração</option>
-              <option value="evento">Certificado de Evento</option>
-            </select>
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <Search size={14} /> Buscar Aluno:
-            </label>
-            <input 
-              type="text" 
-              value={searchQuery} 
-              onChange={e => setSearchQuery(e.target.value)} 
-              placeholder="Nome do aluno..." 
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '8px', padding: '0.55rem', fontSize: '0.813rem', color: 'var(--foreground)', height: '100%', boxSizing: 'border-box' }}
-            />
-          </div>
-
-          <div className={styles.inputGroup}>
-            <button 
-              className={styles.nlpButton} 
-              style={{ width: '100%', padding: '0.625rem', justifyContent: 'center', background: selectedCourse === 'all' ? 'var(--secondary)' : 'var(--primary)', color: '#000', fontWeight: 800, opacity: selectedCourse === 'all' ? 0.3 : 1 }} 
-              onClick={handleCarregarAlunos}
-              disabled={selectedCourse === 'all' || loadingAlunos}
-            >
-              {loadingAlunos ? 'Carregando...' : 'Carregar'}
-            </button>
-          </div>
         </div>
       </div>
 

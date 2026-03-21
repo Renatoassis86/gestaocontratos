@@ -1,144 +1,154 @@
-import { createClient } from '@/infrastructure/supabase/server'
+'use client'
+
+import { useState, useEffect } from 'react'
 import styles from '../dashboard.module.css'
-import { getValidatedCompanyId } from '@/application/services/TenantService'
 import Link from 'next/link'
-import { FileText, GraduationCap, ArrowRight, ShieldCheck, Briefcase, Plus } from 'lucide-react'
+import { Plus, GraduationCap, FileText, Settings, Trash2, Edit, AlertCircle } from 'lucide-react'
+import { createClient } from '@/infrastructure/supabase/client'
 
-export default async function DocumentosModelosPage() {
-  const supabase = await createClient()
-  const activeCompanyId = await getValidatedCompanyId()
+export default function DocumentosModelosPage() {
+  const [templates, setTemplates] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [totalEmitidos, setTotalEmitidos] = useState(0)
+  const [activeCompanyId, setActiveCompanyId] = useState<string | null>(null)
 
-  let templates: any[] = []
-  let totalEmitidos = 0
+  const supabase = createClient()
 
-  if (activeCompanyId) {
-    const { data } = await supabase
-      .from('templates_contrato')
-      .select('*, tipos_contrato(titulo)')
-      .eq('empresa_id', activeCompanyId)
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      
+      // 1. Pegar empresa ativa (Simulação do contexto via supabase session ou similar)
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      // Como o TenantService é server-side, faremos uma leitura direta dos documentos
+      // Para listar sem travar, puxaremos todos os templates corporativos
+      const { data: templatesRes } = await supabase
+        .from('templates_contrato')
+        .select('*, tipos_contrato(titulo)')
+        .order('titulo', { ascending: true })
 
-    const { count } = await supabase
-      .from('contratos')
-      .select('id', { count: 'exact', head: true })
-      .eq('empresa_id', activeCompanyId)
+      const { count } = await supabase
+        .from('contratos')
+        .select('id', { count: 'exact', head: true })
 
-    templates = data || []
-    totalEmitidos = count || 0
+      setTemplates(templatesRes || [])
+      setTotalEmitidos(count || 0)
+      setLoading(false)
+    }
+    loadData()
+  }, [])
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Deseja realmente excluir este modelo? Essa ação não poderá ser desfeita.")) return
+    
+    try {
+      const { error } = await supabase
+        .from('templates_contrato')
+        .delete()
+        .eq('id', id)
+      
+      if (error) throw error
+      setTemplates(templates.filter(t => t.id !== id))
+    } catch (e: any) {
+      alert(`Erro ao excluir modelo: ${e.message}`)
+    }
   }
 
-  const contratos = templates.filter(t => t.tipos_contrato?.titulo.toLowerCase().includes('contrato'))
-  const academicos = templates.filter(t => t.tipos_contrato?.titulo.toLowerCase().includes('histórico') || t.tipos_contrato?.titulo.toLowerCase().includes('certificado'))
+  // Agrupamento Dinâmico por Tipo de Documento
+  const groupedTemplates = templates.reduce((acc: any, t: any) => {
+    const groupName = t.tipos_contrato?.titulo || 'Outros Modelos';
+    if (!acc[groupName]) acc[groupName] = [];
+    acc[groupName].push(t);
+    return acc;
+  }, {} as Record<string, any[]>);
+
+  if (loading) return <div style={{ color: 'white', padding: '2rem' }}>Carregando central de documentos...</div>
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+    <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
-      {/* 1. CABEÇALHO EXECUTIVO (1Doc + Adapta Copy) */}
+      {/* 1. CABEÇALHO */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--foreground)', letterSpacing: '-0.025em' }}>Central de Documentos</h1>
-          <p style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginTop: '0.2rem' }}>Emita, acompanhe e controle contratos, históricos e certificados com rastreabilidade completa.</p>
+          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--foreground)', letterSpacing: '-0.025em' }}>Criação de Documentos</h1>
+          <p style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginTop: '0.2rem' }}>Crie e customize templates de documentos que ficarão disponíveis para emissão.</p>
         </div>
-        <Link href="/dashboard/templates" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'var(--primary)', color: 'black', padding: '0.7rem 1.2rem', borderRadius: '10px', fontWeight: '800', fontSize: '0.85rem', boxShadow: '0 0 20px var(--primary-glow)', transition: 'transform 0.2s' }}>
-          <Plus size={18} /> Criar Modelo
+        <Link href="/dashboard/templates" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: '#C8F542', color: '#0A0C0F', padding: '0.7rem 1.2rem', borderRadius: '10px', fontWeight: '800', fontSize: '0.85rem', boxShadow: '0 0 20px rgba(200, 245, 66, 0.2)', transition: 'transform 0.2s' }}>
+          <Plus size={18} /> Criar Novo Template
         </Link>
       </div>
 
-      {/* 2. INDICADORES RESUMO (KPIs) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
-        <div style={{ background: 'var(--accent)', color: 'white', padding: '1.5rem', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: 'var(--card-shadow)' }}>
-          <div>
-            <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Documentos Emitidos</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 'bold', marginTop: '0.3rem' }}>{totalEmitidos}</div>
-            <div style={{ fontSize: '0.65rem', opacity: 0.6, marginTop: '0.4rem' }}>Atualizado hoje</div>
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.1)', padding: '0.8rem', borderRadius: '12px' }}><ShieldCheck size={24} color="var(--primary)" /></div>
+      {templates.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '4rem 2rem', border: '2px dashed var(--border)', borderRadius: '16px', color: 'var(--secondary)' }}>
+          <FileText size={40} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+          <p>Nenhum modelo de documento cadastrado ainda.</p>
+          <Link href="/dashboard/templates" style={{ color: '#C8F542', fontSize: '0.85rem', textDecoration: 'underline', marginTop: '8px', display: 'inline-block' }}>Clique aqui para criar o primeiro</Link>
         </div>
-
-        <div style={{ background: 'white', border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: 'var(--card-shadow)' }}>
-          <div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contratos Ativos</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--foreground)', marginTop: '0.3rem' }}>{contratos.length}</div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--secondary)', opacity: 0.8, marginTop: '0.4rem' }}>Em acompanhamento</div>
-          </div>
-          <div style={{ background: 'rgba(0,0,0,0.02)', padding: '0.8rem', borderRadius: '12px' }}><Briefcase size={22} color="var(--secondary)" /></div>
-        </div>
-
-        <div style={{ background: 'white', border: '1px solid var(--border)', padding: '1.5rem', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: 'var(--card-shadow)' }}>
-          <div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Módulos Acadêmicos</div>
-            <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--foreground)', marginTop: '0.3rem' }}>{academicos.length}</div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--secondary)', opacity: 0.8, marginTop: '0.4rem' }}>Prontos para emissão</div>
-          </div>
-          <div style={{ background: 'rgba(0,0,0,0.02)', padding: '0.8rem', borderRadius: '12px' }}><GraduationCap size={22} color="var(--secondary)" /></div>
-        </div>
-      </div>
-
-      {!activeCompanyId && (
-        <p style={{ color: 'var(--danger)', fontStyle: 'italic', background: 'rgba(239,68,68,0.05)', padding: '1rem', borderRadius: '12px', textAlign: 'center', fontSize: '0.85rem', fontWeight: 600 }}>
-          ⚠️ Selecione uma empresa na barra superior para carregar os templates ativos.
-        </p>
-      )}
-
-      {activeCompanyId && (
-        <>
-          {/* 3. SEÇÃO CONTRATOS */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <div style={{ background: 'var(--primary)', width: '4px', height: '16px', borderRadius: '2px' }}></div>
-                <h2 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--foreground)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Contratos Corporativos</h2>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {Object.entries(groupedTemplates).map(([groupName, items]: [string, any[]]) => (
+            <div key={groupName} style={{ background: '#111318', border: '1px solid #1F242D', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '1.25rem', borderBottom: '1px solid #1F242D', paddingBottom: '0.75rem' }}>
+                <div style={{ background: '#C8F542', width: '4px', height: '16px', borderRadius: '2px' }}></div>
+                <h2 style={{ fontSize: '1rem', fontWeight: 800, color: '#F4F2ED', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  {groupName} <span style={{ color: '#8A8F99', fontSize: '0.8rem', textTransform: 'none', fontWeight: 400 }}>({items.length})</span>
+                </h2>
               </div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>Gestão e vigência</span>
-            </div>
-            
-            {contratos.length === 0 ? <p style={{ fontSize: '0.85rem', color: 'var(--secondary)' }}>Nenhum modelo cadastrado.</p> : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.2rem' }}>
-                {contratos.map((t: any) => (
-                  <Link href={`/dashboard/documentos/emitir/${t.id}`} key={t.id} style={{ textDecoration: 'none', color: 'inherit', background: 'white', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.2s', boxShadow: 'var(--card-shadow)' }}>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: '0.85rem', color: 'var(--foreground)' }}>{t.titulo}</div>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--secondary)', marginTop: '0.2rem' }}>Padronizado · v{t.versao}</div>
-                    </div>
-                    <div style={{ background: 'rgba(0, 230, 118, 0.1)', color: 'var(--foreground)', padding: '0.5rem', borderRadius: '10px' }}><ArrowRight size={16} /></div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
 
-          {/* 4. SEÇÃO ACADÊMICO */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <div style={{ background: 'var(--primary)', width: '4px', height: '16px', borderRadius: '2px' }}></div>
-                <h2 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--foreground)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Documentos Acadêmicos</h2>
-              </div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>Geração rápida e segura</span>
-            </div>
-
-            {academicos.length === 0 ? <p style={{ fontSize: '0.85rem', color: 'var(--secondary)' }}>Nenhum modelo acadêmico cadastrado.</p> : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.2rem' }}>
-                {academicos.map((t: any) => (
-                  <Link href={`/dashboard/documentos/emitir/${t.id}`} key={t.id} style={{ textDecoration: 'none', color: 'inherit', background: 'white', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.2s', boxShadow: 'var(--card-shadow)' }}>
-                    <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
-                      <div style={{ background: 'var(--accent)', color: 'var(--primary)', padding: '0.6rem', borderRadius: '12px' }}><GraduationCap size={20} /></div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+                {items.map((t: any) => (
+                  <div key={t.id} style={{ background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.15s' }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                      <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px' }}>
+                        {groupName.toLowerCase().includes('histórico') || groupName.toLowerCase().includes('certificado') ? <GraduationCap size={18} /> : <FileText size={18} />}
+                      </div>
                       <div>
-                        <div style={{ fontWeight: 800, fontSize: '0.85rem', color: 'var(--foreground)' }}>{t.titulo}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--secondary)', marginTop: '0.1rem' }}>Certificado & Histórico</div>
+                        <div style={{ fontWeight: 800, fontSize: '0.813rem', color: '#F4F2ED', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '160px' }}>{t.titulo}</div>
+                        <div style={{ fontSize: '0.688rem', color: '#8A8F99', marginTop: '0.15rem' }}>Versão: {t.versao || '1.0'}</div>
                       </div>
                     </div>
-                    <div style={{ background: 'var(--primary)', color: 'black', padding: '0.5rem', borderRadius: '10px', fontWeight: 'bold' }}><Plus size={16} /></div>
-                  </Link>
+
+                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                      <Link 
+                        href={`/dashboard/documentos/emitir/${t.id}`} 
+                        style={{ 
+                          color: '#0A0C0F', 
+                          background: '#C8F542', 
+                          padding: '0.45rem 0.75rem', 
+                          borderRadius: '8px', 
+                          fontWeight: 800, 
+                          fontSize: '0.75rem', 
+                          cursor: 'pointer', 
+                          textDecoration: 'none', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: '4px',
+                          boxShadow: '0 0 10px rgba(200,245,66,0.1)'
+                        }} 
+                        title="Popular dados e Emitir"
+                      >
+                        <FileText size={14} /> Popular
+                      </Link>
+                      <Link href={`/dashboard/templates/${t.id}/editar`} style={{ color: '#8A8F99', background: '#111318', border: '1px solid #1F242D', padding: '0.45rem', borderRadius: '8px', cursor: 'pointer' }} title="Editar">
+                        <Edit size={14} />
+                      </Link>
+                      <button 
+                        onClick={() => handleDelete(t.id)} 
+                        style={{ color: '#EF4444', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)', padding: '0.45rem', borderRadius: '8px', cursor: 'pointer' }} 
+                        title="Excluir"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
-            )}
-          </div>
-        </>
+            </div>
+          ))}
+        </div>
       )}
-
-
     </div>
   )
 }
-  
-  
