@@ -168,9 +168,9 @@ export default function AlunosDocumentosPage() {
           </div>
 
           {/* LINHA 2: Dependentes e Pesquisa */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', alignItems: 'end' }}>
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'end', flexWrap: 'wrap' }}>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', flex: '1 1 140px' }}>
               <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>1. Ano</label>
               <select 
                 value={selectedAno} 
@@ -186,9 +186,9 @@ export default function AlunosDocumentosPage() {
             </div>
 
             {/* Documentos de múltipla escolha */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', minWidth: '320px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', flex: '2 1 320px' }}>
               <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>2. Tipo de Documento</label>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.55rem', minHeight: '38px', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '10px', padding: '0.6rem', minHeight: '38px', alignItems: 'center' }}>
                 {[
                   { value: 'historico', label: 'Histórico' },
                   { value: 'certificado', label: 'Certificado' },
@@ -198,7 +198,7 @@ export default function AlunosDocumentosPage() {
                 ].map(doc => {
                   const isChecked = tipoDocumento.includes(doc.value);
                   return (
-                    <label key={doc.value} style={{ display: 'flex', alignItems: 'center', gap: '4px', color: isChecked ? '#C8F542' : '#F4F2ED', cursor: 'pointer', fontSize: '0.75rem', fontWeight: isChecked ? 700 : 400, transition: 'color 0.15s' }}>
+                    <label key={doc.value} style={{ display: 'flex', alignItems: 'center', gap: '4px', color: isChecked ? '#C8F542' : '#F4F2ED', cursor: 'pointer', fontSize: '0.75rem', fontWeight: isChecked ? 800 : 400, transition: 'color 0.15s' }}>
                       <input 
                         type="checkbox" 
                         checked={isChecked} 
@@ -209,7 +209,7 @@ export default function AlunosDocumentosPage() {
                             setTipoDocumento([...tipoDocumento, doc.value]);
                           }
                         }} 
-                        style={{ accentColor: '#C8F542' }} 
+                        style={{ accentColor: '#C8F542', cursor: 'pointer' }} 
                       />
                       {doc.label}
                     </label>
@@ -218,7 +218,7 @@ export default function AlunosDocumentosPage() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', flex: '1 1 180px' }}>
               <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>3. Disciplina</label>
               <select 
                 value={selectedCourse} 
@@ -248,7 +248,7 @@ export default function AlunosDocumentosPage() {
               </select>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', flex: '1 1 180px' }}>
               <label style={{ fontSize: '0.75rem', color: '#8A8F99', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                 <Search size={14} /> 4. Buscar Aluno
               </label>
@@ -301,8 +301,14 @@ export default function AlunosDocumentosPage() {
         </div>
       )}
 
+      {moodleUsers.length > 0 && (
+        <p style={{ color: '#8A8F99', fontSize: '0.75rem', marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          💡 <span style={{ color: '#C8F542', fontWeight: 800 }}>Dica:</span> Selecione alunos individualmente ou clique no topo da tabela para marcar todos para emissão em massa.
+        </p>
+      )}
+
       {/* TABELA DE ALUNOS */}
-      <div className={styles.tableWrapper} style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)', borderRadius: '16px', padding: '1.25rem', overflowX: 'auto' }}>
+      <div className={styles.tableWrapper} style={{ background: '#111318', border: '1px solid #1F242D', borderRadius: '16px', padding: '1.25rem', overflowX: 'auto' }}>
         {moodleUsers.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--secondary)' }}>
             Nenhum aluno carregado. Preencha os filtros acima para carregar o quadro.
