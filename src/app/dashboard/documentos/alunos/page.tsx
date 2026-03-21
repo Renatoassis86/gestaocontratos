@@ -62,20 +62,58 @@ export default function AlunosDocumentosPage() {
   }, [])
 
   const handleCarregarAlunos = async () => {
-    if (selectedCourse === 'all') return
+    // Pegar a categoria ativa do chain
+    const activeCatId = categoryChain[categoryChain.length - 1] === 'all' 
+      ? (categoryChain.length > 1 ? categoryChain[categoryChain.length - 2] : 'all') 
+      : categoryChain[categoryChain.length - 1];
+
+    if (selectedCourse === 'all' && (activeCatId === 'all' || !activeCatId)) {
+      alert('Por favor, selecione pelo menos uma Categoria ou Disciplina.');
+      return;
+    }
+
     setLoadingAlunos(true)
     setMoodleUsers([])
     setSelectedIds([])
 
     try {
-      const res = await testMoodleConnection(selectedCourse, 'historico')
-      if (res.success && res.allUsers) {
-        setMoodleUsers(res.allUsers)
+      let coursesToLoad: string[] = [];
+      if (selectedCourse !== 'all') {
+        coursesToLoad = [selectedCourse];
       } else {
-        alert('Falha ao carregar os dados dos alunos.')
+        const descendantIds = getAllDescendantCategoryIds(String(activeCatId), moodleCategories);
+        coursesToLoad = moodleCourses
+          .filter(c => descendantIds.includes(String(c.category)))
+          .map(c => String(c.id));
       }
+
+      if (coursesToLoad.length === 0) {
+        setLoadingAlunos(false);
+        return;
+      }
+
+      const promises = coursesToLoad.map(cId => testMoodleConnection(cId, 'historico'));
+      const results = await Promise.all(promises);
+      
+      let allMergedUsers: any[] = [];
+      results.forEach(res => {
+        if (res.success && res.allUsers) {
+          allMergedUsers = [...allMergedUsers, ...res.allUsers];
+        }
+      });
+
+      // Dedup por id
+      const dedupedUsers = allMergedUsers.reduce((acc: any[], current: any) => {
+        if (!acc.find(u => String(u.id) === String(current.id))) {
+          acc.push(current);
+        }
+        return acc;
+      }, []);
+
+      setMoodleUsers(dedupedUsers);
+
     } catch (e) {
-      alert('Erro inesperado ao carregar alunos.')
+      alert('Erro inesperado ao carregar alunos.');
     } finally {
       setLoadingAlunos(false)
     }
@@ -272,25 +310,34 @@ export default function AlunosDocumentosPage() {
             </div>
 
             <div>
-              <button 
-                style={{ 
-                  width: '100%', 
-                  padding: '0.688rem', 
-                  borderRadius: '10px',
-                  background: selectedCourse === 'all' ? '#1F242D' : '#C8F542', 
-                  color: selectedCourse === 'all' ? '#8A8F99' : '#0A0C0F', 
-                  fontWeight: 800, 
-                  border: 'none',
-                  cursor: selectedCourse === 'all' ? 'not-allowed' : 'pointer', 
-                  opacity: selectedCourse === 'all' ? 0.6 : 1,
-                  transition: 'all 0.2s',
-                  boxShadow: selectedCourse === 'all' ? 'none' : '0 0 16px rgba(200, 245, 66, 0.2)'
-                }} 
-                onClick={handleCarregarAlunos}
-                disabled={selectedCourse === 'all' || loadingAlunos}
-              >
-                {loadingAlunos ? 'Carregando...' : 'Carregar'}
-              </button>
+              {(() => {
+                const activeCatId = categoryChain[categoryChain.length - 1] === 'all' 
+                  ? (categoryChain.length > 1 ? categoryChain[categoryChain.length - 2] : 'all') 
+                  : categoryChain[categoryChain.length - 1];
+                const isButtonActive = activeCatId !== 'all';
+
+                return (
+                  <button 
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.688rem', 
+                      borderRadius: '10px',
+                      background: !isButtonActive ? '#1F242D' : '#C8F542', 
+                      color: !isButtonActive ? '#8A8F99' : '#0A0C0F', 
+                      fontWeight: 800, 
+                      border: 'none',
+                      cursor: !isButtonActive ? 'not-allowed' : 'pointer', 
+                      opacity: !isButtonActive ? 0.6 : 1,
+                      transition: 'all 0.2s',
+                      boxShadow: !isButtonActive ? 'none' : '0 0 16px rgba(200, 245, 66, 0.2)'
+                    }} 
+                    onClick={handleCarregarAlunos}
+                    disabled={!isButtonActive || loadingAlunos}
+                  >
+                    {loadingAlunos ? 'Carregando...' : 'Carregar'}
+                  </button>
+                )
+              })()}
             </div>
           </div>
 
