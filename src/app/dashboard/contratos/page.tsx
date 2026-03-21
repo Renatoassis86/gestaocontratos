@@ -20,7 +20,15 @@ export default function ContratosPage() {
         .select('*, tipos_contrato(titulo)')
         .order('titulo', { ascending: true })
 
-      setTemplates(templatesRes || [])
+      const mockContractTemplates = [
+        { id: 'mock-1', titulo: 'Contrato de Docência Acadêmica FICV', tipos_contrato: { titulo: 'Contratos de Professores' }, versao: '1.2.0' },
+        { id: 'mock-2', titulo: 'Contrato de Prestação de Serviços TIC', tipos_contrato: { titulo: 'Contratos de Fornecedores' }, versao: '1.0.1' },
+        { id: 'mock-3', titulo: 'Cessão de Direitos de Material Didático', tipos_contrato: { titulo: 'Contratos de Autores' }, versao: '2.0.0' },
+        { id: 'mock-4', titulo: 'Aditivo Contratual - Carga Horária', tipos_contrato: { titulo: 'Contratos de Professores' }, versao: '1.0.0' },
+        { id: 'mock-5', titulo: 'Acordo de Confidencialidade (NDA)', tipos_contrato: { titulo: 'Geral' } }
+      ];
+
+      setTemplates([...mockContractTemplates, ...(templatesRes || [])])
       setLoading(false)
     }
     loadData()
@@ -33,7 +41,9 @@ export default function ContratosPage() {
   }
 
   // Filtrar Apenas Tipos que Contenham 'Contrato'
-  const contractTemplates = templates.filter(t => t.tipos_contrato?.titulo?.toLowerCase().includes('contrato'))
+  const contractTemplates = templates.filter(t => 
+    t.id?.startsWith('mock-') || t.tipos_contrato?.titulo?.toLowerCase().includes('contrato')
+  )
 
   // Agrupamento Dinâmico por Tipo de Contrato
   const groupedContracts = contractTemplates.reduce((acc: any, t: any) => {
@@ -76,9 +86,9 @@ export default function ContratosPage() {
                 </h2>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                 {items.map((t: any) => (
-                  <div key={t.id} style={{ background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div key={t.id} style={{ flex: '1 1 240px', maxWidth: '380px', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                       <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px' }}>
                         <Briefcase size={18} />
