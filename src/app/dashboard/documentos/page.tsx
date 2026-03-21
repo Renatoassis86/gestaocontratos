@@ -55,13 +55,15 @@ export default function DocumentosModelosPage() {
     }
   }
 
-  // Agrupamento Dinâmico por Tipo de Documento
-  const groupedTemplates = templates.reduce((acc: any, t: any) => {
-    const groupName = t.tipos_contrato?.titulo || 'Outros Modelos';
-    if (!acc[groupName]) acc[groupName] = [];
-    acc[groupName].push(t);
-    return acc;
-  }, {} as Record<string, any[]>);
+  // Agrupamento Dinâmico por Tipo de Documento - EXCLUINDO Contratos
+  const groupedTemplates = templates
+    .filter(t => !t.tipos_contrato?.titulo.toLowerCase().includes('contrato'))
+    .reduce((acc: any, t: any) => {
+      const groupName = t.tipos_contrato?.titulo || 'Outros Modelos';
+      if (!acc[groupName]) acc[groupName] = [];
+      acc[groupName].push(t);
+      return acc;
+    }, {} as Record<string, any[]>);
 
   if (loading) return <div style={{ color: 'white', padding: '2rem' }}>Carregando central de documentos...</div>
 
