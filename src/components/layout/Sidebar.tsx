@@ -35,14 +35,6 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
       { name: 'Explorador Moodle', path: '/dashboard/documentos/alunos/explorador', icon: <LayoutDashboard size={20} /> },
       { name: 'Emitir Histórico em Lote', path: '/dashboard/documentos/alunos/emitir', icon: <FileText size={20} /> },
     )
-
-    if (isAdmin) {
-      menus.push({ name: 'Gestão de Usuários', path: '/dashboard/usuarios', icon: <Users size={20} /> })
-    }
-
-    menus.push(
-      { name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileText size={20} /> }
-    )
   }
 
 
@@ -62,13 +54,17 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
   if (indexPlanos !== -1) menus[indexPlanos].name = 'Documentos e Templates';
 
 
-  // Menus Administrativos Finais
+  // Menus Administrativos e Manutenção Finais
   if (isAdmin) {
+    menus.push({ name: 'Gestão de Usuários', path: '/dashboard/usuarios', icon: <Users size={20} /> })
     menus.push({ name: 'Empresas', path: '/dashboard/empresas', icon: <Building2 size={20} /> })
   }
   
-  menus.push({ name: 'Pessoas', path: '/dashboard/pessoas', icon: <Users size={20} /> })
+  menus.push({ name: 'Fornecedores', path: '/dashboard/pessoas', icon: <Users size={20} /> })
 
+  if (isFICV) {
+    menus.push({ name: 'Manual API Moodle', path: '/dashboard/documentos/alunos/manual', icon: <FileText size={20} /> })
+  }
 
   const BottomMenus = [
     { name: 'Configurações', path: '/dashboard/settings', icon: <Settings size={20} /> },
