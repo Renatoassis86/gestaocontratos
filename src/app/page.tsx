@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
 import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2 } from 'lucide-react'
+import DiagnosticoHub from '@/components/DiagnosticoHub'
+import CompetidoresSeccion from '@/components/CompetidoresSeccion'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -117,6 +119,7 @@ export default function Home() {
           <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Solução</span></Link>
           <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Ecossistema</span></Link>
           <Link href="#aplicativos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Hub Arkos</span></Link>
+          <Link href="#diagnostico" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diagnóstico</span></Link>
           <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferencial</span></Link>
         </nav>
 
@@ -253,6 +256,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── DIAGNÓSTICO HUB ── */}
+      <section id="diagnostico">
+        <DiagnosticoHub />
+      </section>
+
+      {/* ── COMPETIDORES ANALÍTICOS (CASO NETFLIX) ── */}
+      <CompetidoresSeccion />
 
       {/* ── 2. SOLUÇÃO ─────────────────────────────────────────── */}
       <section id="solucao" className={styles.section} style={{ background: '#090a0c' }}>
@@ -571,7 +582,7 @@ export default function Home() {
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>VETOR DE IMPLANTAÇÃO</div>
             <h3 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#F4F2ED' }}>O Modelo DELTA como Combustível</h3>
-            <p style={{ color: '#8A8F99', fontSize: '0.9rem', maxWidth: '600px', margin: '12px auto 0 auto' }}>Para sustentar a escalada aos Níveis 4 e 5, Davenport descreve cinco pilares fundacionais indispensáveis. A ARKOS preenche cada um deles nativamente:</p>
+            <p style={{ color: '#8A8F99', fontSize: '0.9rem', maxWidth: '600px', margin: '12px auto 0 auto' }}>Para sustentar a escalada aos Níveis 4 e 5, Thomas H. Davenport e Jeanne G. Harris descrevem cinco pilares fundacionais indispensáveis. A ARKOS preenche cada um deles nativamente:</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '24px' }}>

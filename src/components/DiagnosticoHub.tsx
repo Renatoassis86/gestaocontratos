@@ -1,0 +1,405 @@
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight, CheckCircle2, Award, Zap, Building2, UserCircle2, Mail, Users, Compass, ShieldCheck } from 'lucide-react'
+import { saveDiagnostico } from '@/app/actions/save-diagnostico'
+import styles from './DiagnosticoHub.module.css'
+
+export default function DiagnosticoHub() {
+  const [step, setStep] = useState<'intro' | 'lead' | 'quiz' | 'loading' | 'result'>('intro')
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [lead, setLead] = useState({ nome: '', empresa: '', email: '', whatsapp: '' })
+  const [scoreData, setScoreData] = useState<any>(null)
+
+  // 1. Array de Perguntas (20)
+  const perguntas = [
+    // Bloco 1: LIDERANÇA (L)
+    { id: 1, block: 'LIDERANÇA', text: 'Em grandes decisões estratégicas, qual é a atitude do CEO ou Diretoria?', options: [
+      { id: 'A', text: 'Decidem puramente baseados em instinto e experiência passada.' },
+      { id: 'B', text: 'Pedem relatórios, mas cada diretor defende os números do seu próprio silo.' },
+      { id: 'C', text: 'Exigem dados corporativos consistentes, mas a TI demora a entregá-lo.' },
+      { id: 'D', text: 'Agem como "farejadores de dados", usando dashboards para decisões rápidas e preditivas.' }
+    ]},
+    { id: 2, block: 'LIDERANÇA', text: 'Quando um dado analítico contraria a opinião de um gerente experiente, o que ocorre?', options: [
+      { id: 'A', text: 'O dado é ignorado e a intuição vence.' },
+      { id: 'B', text: 'Há ceticismo e o dado é torturado até confessar o que o gerente quer.' },
+      { id: 'C', text: 'O dado é aceito, mas a mudança real na operação é muito lenta.' },
+      { id: 'D', text: 'A empresa tem uma cultura ágil de "teste e aprendizado" e muda a rota na hora.' }
+    ]},
+    { id: 3, block: 'LIDERANÇA', text: 'Qual a visão da empresa sobre investimentos em Inteligência e Dados?', options: [
+      { id: 'A', text: 'Um custo que deve ser mantido ao mínimo.' },
+      { id: 'B', text: 'Um projeto da TI que o negócio não entende muito bem.' },
+      { id: 'C', text: 'Uma necessidade, mas ainda sofre para provar seu ROI.' },
+      { id: 'D', text: 'O pilar da vantagem competitiva, com patrocínio apaixonado do alto escalão.' }
+    ]},
+    { id: 4, block: 'LIDERANÇA', text: 'Os líderes da sua empresa promovem uma cultura meritocrática baseada em números?', options: [
+      { id: 'A', text: 'Não, avaliações são subjetivas e políticas.' },
+      { id: 'B', text: 'Apenas em áreas óbvias, como metas de vendas isoladas.' },
+      { id: 'C', text: 'Sim, mas faltam indicadores claros que unam a empresa toda.' },
+      { id: 'D', text: 'Sim, métricas guiam bônus, promoções e a gestão implacável da operação.' }
+    ]},
+    
+    // Bloco 2: Empreendimento (E)
+    { id: 5, block: 'EMPREENDIMENTO', text: 'Como os dados fluem pela empresa (Finanças, Vendas, RH, Logística)?', options: [
+      { id: 'A', text: 'Temos "ilhas de dados". Os departamentos não se falam.' },
+      { id: 'B', text: 'Planilhas (geralmente com erros) são trocadas por e-mail.' },
+      { id: 'C', text: 'Temos sistemas robustos, mas os dados ainda precisam de conciliação manual.' },
+      { id: 'D', text: 'Possuímos uma "única versão da verdade", gerida com uma perspectiva empresarial.' }
+    ]},
+    { id: 6, block: 'EMPREENDIMENTO', text: 'Quando há um problema complexo (margem caindo), como ele é investigado?', options: [
+      { id: 'A', text: 'No escuro. Descobrimos tarde demais.' },
+      { id: 'B', text: 'Cada departamento apresenta sua versão e a culpa é transferida.' },
+      { id: 'C', text: 'Um comitê se reúne para tentar cruzar dados de diferentes bases.' },
+      { id: 'D', text: 'Plataformas visuais mostram a raiz do problema quase em tempo real.' }
+    ]},
+    { id: 7, block: 'EMPREENDIMENTO', text: 'O financiamento de tecnologia na sua empresa é feito como?', options: [
+      { id: 'A', text: 'Quando quebra, a gente compra.' },
+      { id: 'B', text: 'Cada área compra seus softwares, gerando fragmentação.' },
+      { id: 'C', text: 'Centralizado na TI, mas sem grande alinhamento com a estratégia.' },
+      { id: 'D', text: 'TI e Negócios operam lado a lado, investindo em vantagem competitiva.' }
+    ]},
+    { id: 8, block: 'EMPREENDIMENTO', text: 'Qual o nível de automação das decisões táticas diárias?', options: [
+      { id: 'A', text: 'Zero. Tudo depende de aprovação humana manual.' },
+      { id: 'B', text: 'Apenas em aprovações financeiras básicas de sistema.' },
+      { id: 'C', text: 'Algumas regras de negócio alertam gestores sobre exceções.' },
+      { id: 'D', text: 'Algoritmos tomam decisões automatizadas e integradas (Ex: preços e rotas).' }
+    ]},
+
+    // Bloco 3: Dados (D)
+    { id: 9, block: 'DADOS', text: 'Qual a qualidade atual da base de dados da empresa?', options: [
+      { id: 'A', text: 'Inconsistente, cheia de duplicidades e falta de padrão.' },
+      { id: 'B', text: 'Requer semanas de limpeza manual (processo doloroso).' },
+      { id: 'C', text: 'Organizada, mas presa dentro dos sistemas de origem (ERP/CRM).' },
+      { id: 'D', text: 'Dados integrados, precisos e disponíveis em repositórios corporativos.' }
+    ]},
+    { id: 10, block: 'DADOS', text: 'O que vocês fazem com o gigantesco volume de dados gerado?', options: [
+      { id: 'A', text: 'Não armazenamos, ou só guardamos por obrigação fiscal.' },
+      { id: 'B', text: 'Criamos relatórios para ver "o que aconteceu" no passado.' },
+      { id: 'C', text: 'Tentamos responder "por que aconteceu" com cruzamento de dados.' },
+      { id: 'D', text: 'Usamos algoritmos para saber "o que vai acontecer" (Análise Preditiva).' }
+    ]},
+    { id: 11, block: 'DADOS', text: 'Como vocês utilizam dados não-estruturados e informações externas?', options: [
+      { id: 'A', text: 'Nunca usamos.' },
+      { id: 'B', text: 'De forma pontual, lendo notícias ou relatórios esporádicos.' },
+      { id: 'C', text: 'Compramos dados de terceiros, mas não integramos aos nossos.' },
+      { id: 'D', text: 'Vasculhamos o mercado e cruzamos variáveis externas o tempo todo.' }
+    ]},
+    { id: 12, block: 'DADOS', text: 'Quem em sua empresa tem facilidade de acessar insights nos dados?', options: [
+      { id: 'A', text: 'Ninguém confia nos dados atuais.' },
+      { id: 'B', text: 'Apenas especialistas de TI que extraem os relatórios.' },
+      { id: 'C', text: 'Gerentes que recebem dashboards padronizados.' },
+      { id: 'D', text: 'Gestores da linha de frente possuem "análise de autoatendimento" em tempo real.' }
+    ]},
+
+    // Bloco 4: Alvos (T)
+    { id: 13, block: 'ALVOS', text: 'Ao traçar a estratégia, onde a empresa aplica seus maiores esforços de análise?', options: [
+      { id: 'A', text: 'Atiramos para todos os lados sem alvo definido.' },
+      { id: 'B', text: 'Tentamos melhorar atividades funcionais desconexas.' },
+      { id: 'C', text: 'Escolhemos métricas-chave, mas reagimos em vez de antecipar.' },
+      { id: 'D', text: 'Focamos pesadamente na nossa competência distintiva para dominar o mercado.' }
+    ]},
+    { id: 14, block: 'ALVOS', text: 'Na hora de gerir clientes, qual é o nível de precisão?', options: [
+      { id: 'A', text: 'Tratamos todos os clientes exatamente da mesma forma.' },
+      { id: 'B', text: 'Dividimos em blocos demográficos amplos.' },
+      { id: 'C', text: 'Identificamos os mais rentáveis e focamos neles.' },
+      { id: 'D', text: 'Calculamos propensão de compra e LTV para ofertas hiperpersonalizadas.' }
+    ]},
+    { id: 15, block: 'ALVOS', text: 'Como vocês precificam produtos ou serviços?', options: [
+      { id: 'A', text: 'Baseado no custo mais uma margem, ou copiando o concorrente.' },
+      { id: 'B', text: 'Fazemos descontos quando as vendas caem.' },
+      { id: 'C', text: 'Usamos planilhas que sugerem faixas de preços sazonais.' },
+      { id: 'D', text: 'Otimização algorítmica: precificação dinâmica ajustada à demanda.' }
+    ]},
+    { id: 16, block: 'ALVOS', text: 'Na hora de inovar, lançar um produto, qual é a base da decisão?', options: [
+      { id: 'A', text: 'Palpite do dono ou cópia do mercado.' },
+      { id: 'B', text: 'Pesquisas tradicionais e longas reuniões de comitê.' },
+      { id: 'C', text: 'Observamos o histórico do que deu certo antes.' },
+      { id: 'D', text: 'Simulações profundas, modelagem preditiva e testes rigorosos.' }
+    ]},
+
+    // Bloco 5: Analistas (A)
+    { id: 17, block: 'ANALISTAS', text: 'Quem é o responsável por gerar inteligência competitiva hoje?', options: [
+      { id: 'A', text: 'Não temos essa função.' },
+      { id: 'B', text: 'Funcionários usando Excel que perdem 80% do tempo arrumando planilhas.' },
+      { id: 'C', text: 'Analistas que estão ilhados em departamentos específicos.' },
+      { id: 'D', text: 'Um CDAO e equipe centralizada de cientistas de dados altamente capacitados.' }
+    ]},
+    { id: 18, block: 'ANALISTAS', text: 'Como é o treinamento para letramento em dados (data literacy) da sua equipe?', options: [
+      { id: 'A', text: 'Inexistente.' },
+      { id: 'B', text: 'Restrito a ensinar a equipe a apertar os botões do sistema.' },
+      { id: 'C', text: 'Gestores são treinados para ler indicadores de performance.' },
+      { id: 'D', text: 'Constante. Exigimos habilidades numéricas e experimentais desde o recrutamento.' }
+    ]},
+    { id: 19, block: 'ANALISTAS', text: 'Quais ferramentas a equipe de estratégia utiliza no dia a dia?', options: [
+      { id: 'A', text: 'Calculadoras, cadernos e instinto.' },
+      { id: 'B', text: 'Excel e funções matemáticas.' },
+      { id: 'C', text: 'Ferramentas de Business Intelligence (BI) para relatórios visuais.' },
+      { id: 'D', text: 'Softwares predíticos, aprendizado de máquina, R ou Python.' }
+    ]},
+    { id: 20, block: 'ANALISTAS', text: 'O que acontece quando os dados apresentam um cenário "fora da caixa"?', options: [
+      { id: 'A', text: 'Geram desconfiança e são rapidamente engavetados.' },
+      { id: 'B', text: 'Acham interessante, mas a empresa não sabe como executar.' },
+      { id: 'C', text: 'O RH ou a TI são culpados pelos números.' },
+      { id: 'D', text: 'A liderança confia no modelo, ajusta a estratégia e cria novos testes.' }
+    ]}
+  ]
+
+  const totalQuestions = perguntas.length
+  const currentProgress = ((currentQuestion) / totalQuestions) * 100
+
+  const handleAnswerSelect = (optId: string) => {
+    setAnswers(prev => ({ ...prev, [perguntas[currentQuestion].id]: optId }))
+    
+    setTimeout(() => {
+      if (currentQuestion < totalQuestions - 1) {
+        setCurrentQuestion(prev => prev + 1)
+      } else {
+        handleSubmit()
+      }
+    }, 200)
+  }
+
+  const handleSubmit = async () => {
+    setStep('loading')
+    const result = await saveDiagnostico(lead, answers)
+    if (result.success) {
+      setScoreData(result.data)
+      setStep('result')
+    } else {
+      alert('Erro ao salvar. Tente novamente.')
+      setStep('quiz')
+    }
+  }
+
+  const getEstagioNome = (lvl: number) => {
+    const list = [
+      'Deficientes Analíticos',
+      'Empresas de Análise Localizada',
+      'Aspirantes Analíticos',
+      'Empresas Analíticas',
+      'Competidores Analíticos'
+    ]
+    return list[lvl - 1] || 'Deficientes Analíticos'
+  }
+
+  return (
+    <div className={styles.container}>
+      {/* ── SEÇÃO 1: MATURIDADE ── */}
+      {step === 'intro' && (
+        <section className={styles.section}>
+          <div className={styles.mediaWrapper}>
+             <img src="/estagios_maturidade_legivel.png" alt="Maturidade" className={styles.media} />
+             <div className={styles.imageOverlay} />
+          </div>
+          <div className={styles.content}>
+            <div className={styles.tag}>Os 5 Estágios de Maturidade</div>
+            <h2 className={styles.title} style={{ fontSize: '2rem' }}>O Caminho para a Competitividade</h2>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '10px' }}>
+              {[
+                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' },
+                { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
+                { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados em repositórios centrais.' },
+                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.' },
+                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio. 👉 Este é o estágio que a ARKOS quer que sua empresa alcance em termos de gestão baseada em evidências.', highlight: true }
+              ].map((item) => (
+                <div 
+                  key={item.lvl} 
+                  className={styles.statCard} 
+                  style={{ 
+                    borderLeft: item.highlight ? '4px solid #C8F542' : '4px solid rgba(255,255,255,0.1)',
+                    background: item.highlight ? 'rgba(200,245,66,0.02)' : '#111318'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                    <span style={{ fontWeight: 800, color: item.highlight ? '#C8F542' : '#8A8F99', fontSize: '0.85rem' }}>NÍVEL {item.lvl}</span>
+                  </div>
+                  <div style={{ fontWeight: 700, fontSize: '1rem', color: '#F4F2ED', marginBottom: '4px' }}>{item.t}</div>
+                  <div style={{ fontSize: '0.8rem', color: '#8A8F99', lineHeight: '1.4' }}>{item.d}</div>
+                </div>
+              ))}
+            </div>
+
+            <button className={styles.btnPrimary} onClick={() => setStep('lead')} style={{ marginTop: '10px' }}>
+              Descubra o Nível da sua Empresa <ArrowRight size={18} />
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* ── SEÇÃO 2: DELTA (Light Mode inserido no Scroll) ── */}
+      {step === 'intro' && (
+        <div className={styles.sectionLight}>
+          <div className={styles.sectionLightInner}>
+            <div className={styles.mediaWrapper}>
+               <img src="/modelo_delta_dark_en.png" alt="Modelo DELTA" className={styles.media} />
+            </div>
+            <div className={styles.content}>
+              <div className={styles.tag} style={{ background: '#0A0C0F', color: '#C8F542' }}>Estrutura DELTA</div>
+              <h2 className={styles.title} style={{ color: '#0A0C0F' }}>A Infraestrutura da Inteligência Comercial</h2>
+              <p style={{ color: '#5A5F6A', fontSize: '0.9rem', marginBottom: '20px' }}>Segundo <strong>Thomas H. Davenport</strong> e <strong>Jeanne G. Harris</strong> no clássico <em>"Competição Analítica"</em>, estes cinco pilares sustentam a escalada aos Níveis 4 e 5.</p>
+              <div className={styles.deltaGrid}>
+                {[
+                  { l: 'D', t: 'DATA (Dados)', d: 'Dados integrados, precisos e limpos como o principal ativo estratégico invisível.' },
+                  { l: 'E', t: 'ENTERPRISE (Empreendimento)', d: 'A quebra de silos departamentais unificando a tecnologia unificadamente.' },
+                  { l: 'L', t: 'LEADERSHIP (Liderança)', d: 'Executivos que exigem decisões baseadas em fatos em vez de intuições.' },
+                  { l: 'T', t: 'TARGETS (Alvos)', d: 'Foco estratégico onde algoritmos direcionam para o maior ROI competitivo.' },
+                  { l: 'A', t: 'ANALYSTS (Analistas)', d: 'Combinação entre ciência de dados e talento executivo ágil.' }
+                ].map((d) => (
+                  <div key={d.l} className={styles.deltaItem}>
+                    <div className={styles.deltaLetter}>{d.l}</div>
+                    <div>
+                      <div className={styles.deltaTitle}>{d.t}</div>
+                      <div className={styles.deltaDesc}>{d.d}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── SEÇÃO 3: QUIZ OU LEAD ── */}
+      {(step === 'lead' || step === 'quiz' || step === 'loading') && (
+        <section className={styles.quizSection}>
+          <div className={styles.quizContainer}>
+            <div className={styles.progressBar} style={{ width: `${currentProgress}%` }} />
+            <AnimatePresence mode='wait'>
+              {step === 'lead' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <h3 className={styles.title} style={{ fontSize: '1.5rem', textAlign: 'center' }}>Qualificação do Negócio</h3>
+                  <p className={styles.description} style={{ textAlign: 'center' }}>Preencha os dados e entenda seu nível de maturidade analítica.</p>
+                  
+                  <input className={styles.input} placeholder="Nome Completo" value={lead.nome} onChange={e => setLead(p => ({ ...p, nome: e.target.value }))} />
+                  <input className={styles.input} placeholder="Nome da Empresa" value={lead.empresa} onChange={e => setLead(p => ({ ...p, empresa: e.target.value }))} />
+                  <input className={styles.input} placeholder="E-mail Corporativo" value={lead.email} onChange={e => setLead(p => ({ ...p, email: e.target.value }))} />
+                  <input className={styles.input} placeholder="WhatsApp" value={lead.whatsapp} onChange={e => setLead(p => ({ ...p, whatsapp: e.target.value }))} />
+
+                  <button className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center' }} onClick={() => setStep('quiz')}>
+                    Iniciar Diagnóstico
+                  </button>
+                </motion.div>
+              )}
+
+              {step === 'quiz' && (
+                <motion.div key={currentQuestion} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'monospace', color: '#C8F542', fontSize: '0.75rem' }}>
+                    <span>{perguntas[currentQuestion].block}</span>
+                    <span>{currentQuestion + 1} / {totalQuestions}</span>
+                  </div>
+                  
+                  {/* Mensagens Motivacionais */}
+                  {currentQuestion === 4 && <div style={{ background: 'rgba(200,245,66,0.1)', padding: '8px', borderRadius: '4px', fontSize: '0.8rem', color: '#C8F542', textAlign: 'center' }}>🔥 Mandando bem! A cultura é o primeiro passo.</div>}
+                  {currentQuestion === 8 && <div style={{ background: 'rgba(200,245,66,0.1)', padding: '8px', borderRadius: '4px', fontSize: '0.8rem', color: '#C8F542', textAlign: 'center' }}>🚀 Desvendando os silos corporativos!</div>}
+                  {currentQuestion === 12 && <div style={{ background: 'rgba(200,245,66,0.1)', padding: '8px', borderRadius: '4px', fontSize: '0.8rem', color: '#C8F542', textAlign: 'center' }}>📊 Passamos da metade! Seus dados ganhando forma.</div>}
+                  {currentQuestion === 16 && <div style={{ background: 'rgba(200,245,66,0.1)', padding: '8px', borderRadius: '4px', fontSize: '0.8rem', color: '#C8F542', textAlign: 'center' }}>⚡ Quase lá! Só mais um pouco para o diagnóstico final.</div>}
+
+                  <h4 style={{ fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.4 }}>{perguntas[currentQuestion].text}</h4>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {perguntas[currentQuestion].options.map((opt) => (
+                      <button 
+                        key={opt.id} 
+                        className={`${styles.optionCard} ${answers[perguntas[currentQuestion].id] === opt.id ? styles.optionCardActive : ''}`}
+                        onClick={() => handleAnswerSelect(opt.id)}
+                      >
+                        <span style={{ color: '#C8F542', fontWeight: 800, marginRight: '8px' }}>{opt.id})</span> {opt.text}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {step === 'loading' && (
+                <div style={{ padding: '60px 0', textAlign: 'center' }}>
+                  <div style={{ border: '4px solid #1F242D', borderTopColor: '#C8F542', width: '40px', height: '40px', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 20px auto' }} />
+                  <p className={styles.description}>Processando inteligência analítica com Davenport e Harris...</p>
+                </div>
+              )}
+            </AnimatePresence>
+          </div>
+        </section>
+      )}
+
+      {/* ── VISÃO DO RESULTADO ── */}
+      {step === 'result' && scoreData && (
+        <section className={styles.quizSection}>
+          <div className={styles.quizContainer} style={{ maxWidth: '800px', textAlign: 'center' }}>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', alignItems: 'center', textAlign: 'left' }}>
+              <div>
+                <div className={styles.pulseMeter} style={{ margin: '0 0 20px 0' }}>
+                  {scoreData.score.toFixed(1)}
+                </div>
+                <h2 className={styles.title} style={{ color: '#C8F542', fontSize: '1.8rem' }}>{getEstagioNome(scoreData.estagio)}</h2>
+                <p className={styles.description} style={{ marginBottom: '20px' }}>O algoritmo calculou a postura de dados da sua empresa e localizou o seu nível.</p>
+              </div>
+
+              {/* Fake Radar via SVG simples */}
+              <div style={{ width: '100%', height: '220px', position: 'relative', display: 'flex', alignItems: 'center', justifySelf: 'center' }}>
+                <svg width="220" height="220" viewBox="0 0 220 220" style={{ margin: '0 auto' }}>
+                  <polygon points="110,20 190,70 160,160 60,160 30,70" fill="transparent" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+                  <polygon points="110,40 170,80 145,150 75,150 50,80" fill="transparent" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                  <polygon points="110,60 150,90 130,135 90,135 70,90" fill="transparent" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                  
+                  {/* Linhas de Eixos */}
+                  <line x1="110" y1="110" x2="110" y2="20" stroke="rgba(255,255,255,0.08)" />
+                  <line x1="110" y1="110" x2="190" y2="70" stroke="rgba(255,255,255,0.08)" />
+                  <line x1="110" y1="110" x2="160" y2="160" stroke="rgba(255,255,255,0.08)" />
+                  <line x1="110" y1="110" x2="60" y2="160" stroke="rgba(255,255,255,0.08)" />
+                  <line x1="110" y1="110" x2="30" y2="70" stroke="rgba(255,255,255,0.08)" />
+
+                  {/* Pontuação Radar */}
+                  <polygon points="110,48 165,85 140,145 80,135 60,78" fill="rgba(200,245,66,0.15)" stroke="#C8F542" strokeWidth="2" />
+                  
+                  <text x="110" y="12" fill="#8A8F99" fontSize="8" textAnchor="middle">L</text>
+                  <text x="198" y="74" fill="#8A8F99" fontSize="8">E</text>
+                  <text x="165" y="172" fill="#8A8F99" fontSize="8">D</text>
+                  <text x="45" y="172" fill="#8A8F99" fontSize="8">T</text>
+                  <text x="18" y="74" fill="#8A8F99" fontSize="8">A</text>
+                </svg>
+              </div>
+            </div>
+
+            <div className={styles.statsGrid} style={{ marginTop: '30px' }}>
+              <div className={styles.statCard} style={{ borderLeft: '4px solid #C8F542' }}>
+                <div style={{ color: '#C8F542', fontWeight: 800 }}>Ponto Focal de Risco</div>
+                <div style={{ color: '#FFF', fontSize: '1.2rem', fontWeight: 700, margin: '8px 0' }}>{scoreData.area_dor}</div>
+              </div>
+              <div className={styles.statCard}>
+                <div>Status do Resultado</div>
+                <div style={{ color: '#C8F542', fontSize: '0.9rem', marginTop: '8px', fontWeight: 700 }}>📩 E-mail de Diagnóstico Enviado</div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '30px', background: '#111318', padding: '24px', borderRadius: '12px', textAlign: 'left', border: '1px solid rgba(255,255,255,0.03)' }}>
+              <h4 style={{ color: '#C8F542', fontWeight: 800, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}> <ShieldCheck size={18} /> Recomendação Estratégica ARKOS para sua maior dor:</h4>
+              
+              <div style={{ background: '#1F242D', padding: '16px', borderRadius: '8px', borderLeft: '3px solid #C8F542' }}>
+                <div style={{ color: '#C8F542', fontWeight: 800, fontSize: '1rem', marginBottom: '4px' }}>
+                  {scoreData.area_dor === 'DADOS' && 'Arkos Platform & Arkos Data'}
+                  {(scoreData.area_dor === 'EMPREENDIMENTO' || scoreData.area_dor === 'ALVOS') && 'Arkos Systems & Arkos Market Intelligence'}
+                  {(scoreData.area_dor === 'LIDERANÇA' || scoreData.area_dor === 'ANALISTAS') && 'Arkos Academy & Arkos Strategy'}
+                </div>
+                <p style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                  {scoreData.area_dor === 'DADOS' && 'Seu gargalo é infraestrutura. Nós integramos seus ERPs/CRMs em um ecossistema de dados unificado, eliminando inconsistências nativamente.'}
+                  {(scoreData.area_dor === 'EMPREENDIMENTO' || scoreData.area_dor === 'ALVOS') && 'Sua empresa opera em silos ou sem foco direcionado. Nossos sistemas centralizados trarão o domínio integrado e estratégico da operação.'}
+                  {(scoreData.area_dor === 'LIDERANÇA' || scoreData.area_dor === 'ANALISTAS') && 'Falta cultura de evidências no alto escalão ou capacitação analítica. Capacitamos seus executivos em Ciências de Dados aplicadas a Negócios.'}
+                </p>
+              </div>
+
+              <button className={styles.btnPrimary} style={{ marginTop: '24px', width: '100%', justifyContent: 'center' }} onClick={() => window.open('https://wa.me/5583981957737')}>
+                Agende agora uma mentoria com nossos engenheiros de negócio e descubra o plano de ação
+              </button>
+            </div>
+
+          </div>
+        </section>
+      )}
+
+    </div>
+  )
+}
