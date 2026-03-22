@@ -709,7 +709,7 @@ export default function Home() {
 
         </div>
         
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', fontSize: '12px', color: '#8A8F99', marginTop: '60px', gap: '20px' }} className={styles.footerBottomBar}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', fontSize: '11px', color: '#5A5F6A', marginTop: '60px', gap: '16px' }} className={styles.footerBottomBar}>
           
           {/* Esquerda: Privacidade */}
           <div style={{ textAlign: 'left' }}>
@@ -717,16 +717,14 @@ export default function Home() {
           </div>
 
           {/* Centro: Direitos Autorais */}
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>
             &copy; 2026 Arkos Intelligence. Todos os direitos reservados.
           </div>
           
           {/* Direita: Criado por */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', fontSize: '11px' }}>
-            <span style={{ color: '#5A5F6A' }}>Criado por</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-               <img src="/arkos-logomarca-vertical.png" alt="Arkos" style={{ height: '36px', width: 'auto', display: 'block', flexShrink: 0, objectFit: 'contain' }} />
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px' }}>
+            <span>Criado por</span>
+            <img src="/arkos-logomarca-vertical.png" alt="Arkos Intelligence" style={{ height: '30px', width: 'auto', display: 'block', flexShrink: 0 }} />
           </div>
         </div>
       </footer>
