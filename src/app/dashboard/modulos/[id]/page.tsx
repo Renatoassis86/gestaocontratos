@@ -6,7 +6,7 @@ import { ArrowLeft, CheckCircle, MessageCircle } from 'lucide-react'
 
 const moduleDetails: Record<string, { title: string, desc: string, benefits: string[], banner: string }> = {
   crm: { 
-    title: 'Arkos CRM Matrix', 
+    title: 'Arkos Client Matrix', 
     desc: 'Otimize funil de vendas, propostas comerciais e conversões em tempo real. Uma visão 360º do seu cliente que previne o churn e antecipa necessidades.', 
     benefits: [
       'Gestão de Leads em tempo real com score preditivo',
@@ -94,7 +94,7 @@ const moduleDetails: Record<string, { title: string, desc: string, benefits: str
     banner: '/arkos_corporate_boardroom_1774143669395.png'
   },
   infra: { 
-    title: 'Arkos IT & Infra', 
+    title: 'Arkos Tech Management', 
     desc: 'Infraestrutura blindada com monitoramento 24h para suportar ecossistemas de dados auditáveis.', 
     benefits: [
       'Compartilhamento de TI síncrono e segurança lógica de API',

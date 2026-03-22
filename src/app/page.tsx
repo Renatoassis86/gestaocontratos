@@ -76,7 +76,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       
-      {/* ── BACKGROUNDS & DECORATIONS ─────────────────────────── */}
+      {/* ── BACKGROUNDS E DECORATIONS ─────────────────────────── */}
       <div className={styles.meshBg}></div>
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
@@ -352,18 +352,18 @@ export default function Home() {
             <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. Ou seja: criamos uma central única que organiza todas as informações da sua empresa. Isso elimina planilhas soltas e garante que você tome decisões baseadas em números reais, e não em achismos.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTÃO DE RELACIONAMENTO & VENDAS</div>
-            <h3 className={styles.moduloTitle}>Arkos CRM Matrix</h3>
+            <div className={styles.moduloSub}>GESTÃO DE RELACIONAMENTO E VENDAS</div>
+            <h3 className={styles.moduloTitle}>Arkos Client Matrix</h3>
             <p className={styles.moduloDesc}>Rastreia toda a jornada do cliente, desde o primeiro contato até o pós-venda. Alimenta o Data Lake com taxas de conversão, velocidade do funil e comportamento de compra. Estes dados permitem que os algoritmos da Arkos prevejam fluxos de caixa futuros e antecipem oportunidades comerciais com precisão científica.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTAO OPERACIONAL & FINANCEIRA</div>
-            <h3 className={styles.moduloTitle}>Arkos ERP Matrix</h3>
+            <div className={styles.moduloSub}>GESTAO OPERACIONAL E FINANCEIRA</div>
+            <h3 className={styles.moduloTitle}>Arkos Operation Matrix</h3>
             <p className={styles.moduloDesc}>Centraliza a espinha dorsal financeira e física do negócio: faturamento, contas a pagar, gestão de fornecedores, suprimentos e contratos. É o gerador supremo de dados de custos e margens de lucro, fornecendo a base histórica sólida para as modelagens e auditorias econométricas do ecossistema.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTÃO DE TALENTOS & PERFORMANCE</div>
-            <h3 className={styles.moduloTitle}>Arkos HRMS (Recursos Humanos)</h3>
+            <div className={styles.moduloSub}>GESTÃO DE TALENTOS E PERFORMANCE</div>
+            <h3 className={styles.moduloTitle}>Arkos Talent Intelligence</h3>
             <p className={styles.moduloDesc}>Automatiza o funil de recrutamento, onboarding e departamento pessoal. Mapeia a demografia e rotinas corporativas para gerar **Previsão de Turnover** (saída de funcionários) e insights de produtividade, permitindo que a liderança retenha talentos de forma científica.</p>
           </div>
           <div className={styles.moduloCard}>
@@ -373,7 +373,7 @@ export default function Home() {
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>VENDAS DIGITAIS</div>
-            <h3 className={styles.moduloTitle}>Arkos Commerce & SaaS</h3>
+            <h3 className={styles.moduloTitle}>Arkos Commerce Suite</h3>
             <p className={styles.moduloDesc}>Motor financeiro robusto B2B integrado à gestão para e-commerce, recorrência, subscrições de produtos e integrações bancárias diretas.</p>
           </div>
           <div className={styles.moduloCard}>
@@ -383,7 +383,7 @@ export default function Home() {
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>PLANEJAMENTO ESTRATÉGICO</div>
-            <h3 className={styles.moduloTitle}>Arkos Strategy Planner</h3>
+            <h3 className={styles.moduloTitle}>Arkos Strategy Master</h3>
             <p className={styles.moduloDesc}>Formulação completa e acompanhamento de planejamento estratégico. Oferecemos duas vias: através de um sistema autônomo e visual que orienta todos os passos, desde a identidade organizacional até a operação tática; ou via nossa consultoria especializada (remota ou presencial) para estruturar todo o plano junto à sua equipe.</p>
           </div>
           <div className={styles.moduloCard}>
@@ -393,7 +393,7 @@ export default function Home() {
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>GESTAO TECNOLÓGICA</div>
-            <h3 className={styles.moduloTitle}>Arkos IT & Infra</h3>
+            <h3 className={styles.moduloTitle}>Arkos Tech Management</h3>
             <p className={styles.moduloDesc}>Gestão compartilhada de TI a distância. Atuamos como seu departamento de ponta, elevando a eficiência de empresas que possuem setores legados ou que só operam o básico. Cuidamos desde a segurança da infraestrutura de servidores até a administração web e atualizações complexas da sua operação digital.</p>
           </div>
         </div>
@@ -522,7 +522,7 @@ export default function Home() {
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Lucas Machado</h3>
-              <span className={styles.equipeRole}>Inovação & IA Algorithms</span>
+              <span className={styles.equipeRole}>Inovação E IA Algorithms</span>
               <p className={styles.equipeBio}>Integra fluxos de Inteligência Artificial generativa e processamento automatizado, reduzindo o volume de cliques da equipe técnica ao limite mínimo.</p>
             </div>
           </div>
@@ -534,7 +534,7 @@ export default function Home() {
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Williams Calado</h3>
-              <span className={styles.equipeRole}>Engenheiro de Integrações & Infraestrutura</span>
+              <span className={styles.equipeRole}>Engenheiro de Integrações E Infraestrutura</span>
               <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
             </div>
           </div>
@@ -546,7 +546,7 @@ export default function Home() {
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
-              <span className={styles.equipeRole}>Arquiteto Estratégico & Data Scientist</span>
+              <span className={styles.equipeRole}>Arquiteto Estratégico E Data Scientist</span>
               <p className={styles.equipeBio}>Pesquisador e Economista responsável pela concepção das mecânicas avançadas da Arkos. Lidera a união das premissas econômicas reais com o Big Data da nova economia.</p>
             </div>
           </div>
@@ -617,19 +617,19 @@ export default function Home() {
             </div>
 
             <div className={styles.compMegaRow}>
-              <div className={styles.compMegaTag}>Sistemas de Jurídico & CLM</div>
+              <div className={styles.compMegaTag}>Sistemas de Jurídico E CLM</div>
               <div className={styles.compMegaLimit}>Comportam-se como pastas de rede glorificadas. Apenas guardam PDFs ou requerem edição massiva em templates engessados com pouca validade negocial inteligente.</div>
               <div className={styles.compMegaArkos}>Smart Contracts integrados aos negócios. Os documentos são nutridos estruturalmente pelo banco de dados: variáveis ajustam valores e enviam alertas sobre reajustes indexadores automaticamente.</div>
             </div>
 
             <div className={styles.compMegaRow}>
-              <div className={styles.compMegaTag}>Serviços de Analytics & AI</div>
+              <div className={styles.compMegaTag}>Serviços de Analytics E AI</div>
               <div className={styles.compMegaLimit}>Fabricam algoritmos 'caixa-preta' puramente estatística sem compreender a teoria econômica que rege os mercados dos seus clientes — e a diretoria ignora e abandona a tecnologia.</div>
               <div className={styles.compMegaArkos}>Construído por analistas econômicos. Nossos tensores levam em conta as premissas econométricas reais do mercado antes de realizar regressões ingênuas.</div>
             </div>
 
             <div className={styles.compMegaRow}>
-              <div className={styles.compMegaTag}>LMS & Plataformas EaD</div>
+              <div className={styles.compMegaTag}>LMS E Plataformas EaD</div>
               <div className={styles.compMegaLimit}>Alugam a prateleira virtual. Entregam vídeoclass para o aluno e um diploma, incapazes de ler o envolvimento preditivo dos alunos frente à sua evasão (Churn).</div>
               <div className={styles.compMegaArkos}>Arkos Academy White Label. Monitoramos telemetria em tempo-real para prever alunos em risco nos 30 dias que antecedem a matrícula e avaliamos a formação interna dos seus funcionários.</div>
             </div>
@@ -760,7 +760,7 @@ export default function Home() {
           
           {/* Esquerda: Privacidade */}
           <div style={{ textAlign: 'left' }}>
-            <Link href="/privacidade" style={{ color: '#C8F542', textDecoration: 'none', fontWeight: 600 }}>Privacidade & Termos</Link>
+            <Link href="/privacidade" style={{ color: '#C8F542', textDecoration: 'none', fontWeight: 600 }}>Privacidade E Termos</Link>
           </div>
 
           {/* Centro: Direitos Autorais */}

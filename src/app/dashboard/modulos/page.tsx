@@ -125,7 +125,7 @@ export default function ModulosSelector() {
             },
             {
               id: 'commerce',
-              titulo: 'Arkos Commerce & SaaS',
+              titulo: 'Arkos Commerce Suite',
               tag: 'COMM',
               desc: 'Motor financeiro B2B robusto integrado à gestão para e-commerce e recorrência.',
               link: '#',
@@ -209,7 +209,7 @@ export default function ModulosSelector() {
             },
             {
               id: 'infra',
-              titulo: 'Arkos IT & Infra',
+              titulo: 'Arkos Tech Management',
               tag: 'ITIF',
               desc: 'Gestão compartilhada de TI, segurança de servidores e otimização de redes corporativas.',
               link: '#',
