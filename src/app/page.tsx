@@ -441,25 +441,6 @@ export default function Home() {
         </div>
 
         <div className={styles.vantagemGrid}>
-          <div className={styles.compTable}>
-            <div className={styles.compHeader}>
-              <span>CONCORRENTE</span>
-              <span>LIMITAÇÃO</span>
-            </div>
-            <div className={styles.compRow}>
-              <span>Consultorias</span>
-              <span style={{ color: '#8A8F99' }}>Têm estratégia, mas não têm produto escalável</span>
-            </div>
-            <div className={styles.compRow}>
-              <span>BI Softwares</span>
-              <span style={{ color: '#8A8F99' }}>Têm dados montados, mas não têm visões de negócio</span>
-            </div>
-            <div className={styles.compRow}>
-              <span>ERPs / CRMs</span>
-              <span style={{ color: '#8A8F99' }}>Têm inserção pontual, mas não têm analytics preditivo</span>
-            </div>
-          </div>
-
           <div className={styles.diffs}>
             <div className={styles.diffItem}>
               <div className={styles.diffBar}></div>
@@ -476,25 +457,145 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <div className={styles.compMegaTable}>
+            <div className={styles.compMegaHeader}>
+              <div className={styles.compMegaCol}>CENÁRIO TRADICIONAL (CONCORRENTES)</div>
+              <div className={styles.compMegaCol}>A LIMITAÇÃO</div>
+              <div className={styles.compMegaColArkos}><Sparkles size={14} /> NA ARKOS (NOVA ECONOMIA)</div>
+            </div>
+            
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Consultorias de Gestão Clássicas</div>
+              <div className={styles.compMegaLimit}>Desenham estratégias excelentes no papel, mas não possuem um produto de tecnologia escalável que aplique a tese no dia a dia da empresa de forma orgânica.</div>
+              <div className={styles.compMegaArkos}>Produto SaaS embarcado com estratégia. Nós modelamos as regras de negócio e a própria infraestrutura corporativa roda e evolui 24/7 de forma algorítmica.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Softwares de BI (PowerBI, Tableau)</div>
+              <div className={styles.compMegaLimit}>Exibem gráficos complexos, mas exigem analistas caros para interpretar continuamente. Eles não dizem o que o gestor deve fazer, apenas o que já passou.</div>
+              <div className={styles.compMegaArkos}>Analytics Prescritivo. Nossos agentes de IA cruzam dados de todas as áreas simultaneamente e inferem as variáveis, recomendando a próxima ação tática para o líder.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>ERPs Tradicionais</div>
+              <div className={styles.compMegaLimit}>São essenciais para emitir notas fiscais e contabilidade fiscal, mas não foram arquitetados com estatística avançada para modelar cenários.</div>
+              <div className={styles.compMegaArkos}>Agregadores de ecossistema. Consumimos a base passiva do seu ERP via APIs e injetamos uma inteligência ativa que simula sua operação e prevê rupturas de caixa.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Plataformas de CRM Isoladas</div>
+              <div className={styles.compMegaLimit}>Focam restritivamente na aquisição de vendas, funcionando como silos míopes: não conhecem o limite de orçamento do marketing nem as amarras logísticas do estoque.</div>
+              <div className={styles.compMegaArkos}>Visibilidade correlacional. O módulo de funil comercial Arkos simula automaticamente o respectivo impacto sobre os suprimentos e capacidade de entrega futura.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Agências de Marketing (Growth)</div>
+              <div className={styles.compMegaLimit}>Perseguem métricas superficiais (Cliques, Leads) e inflacionam campanhas sem o vínculo irrestrito à rentabilidade real ou Lifetime Value (LTV) da organização.</div>
+              <div className={styles.compMegaArkos}>Marketing Intelligence de Fato. Os algoritmos bloqueiam ou aceleram canais de aquisição se a matemática do negócio demonstrar viabilidade real final.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Sistemas de Jurídico & CLM</div>
+              <div className={styles.compMegaLimit}>Comportam-se como pastas de rede glorificadas. Apenas guardam PDFs ou requerem edição massiva em templates engessados com pouca validade negocial inteligente.</div>
+              <div className={styles.compMegaArkos}>Smart Contracts integrados aos negócios. Os documentos são nutridos estruturalmente pelo banco de dados: variáveis ajustam valores e enviam alertas sobre reajustes indexadores automaticamente.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Serviços de Analytics & AI</div>
+              <div className={styles.compMegaLimit}>Fabricam algoritmos 'caixa-preta' puramente estatística sem compreender a teoria econômica que rege os mercados dos seus clientes — e a diretoria ignora e abandona a tecnologia.</div>
+              <div className={styles.compMegaArkos}>Construído por analistas econômicos. Nossos tensores levam em conta as premissas econométricas reais do mercado antes de realizar regressões ingênuas.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>LMS & Plataformas EaD</div>
+              <div className={styles.compMegaLimit}>Alugam a prateleira virtual. Entregam vídeoclass para o aluno e um diploma, incapazes de ler o envolvimento preditivo dos alunos frente à sua evasão (Churn).</div>
+              <div className={styles.compMegaArkos}>Arkos Academy White Label. Monitoramos telemetria em tempo-real para prever alunos em risco nos 30 dias que antecedem a matrícula e avaliamos a formação interna dos seus funcionários.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>SaaS Genéricos (Sistemas Comuns)</div>
+              <div className={styles.compMegaLimit}>Focam no baixo custo padronizando as regras e forçando todas as empresas do Brasil a perderem sua vantagem competitiva para se adaptar a eles.</div>
+              <div className={styles.compMegaArkos}>Modelagem Customizada Data Lake Node. Fundamos uma arquitetura Enterprise-Grade extremamente sólida, porém infinitamente moldável por nós ao diferencial peculiar de cada cliente.</div>
+            </div>
+
+            <div className={styles.compMegaRow}>
+              <div className={styles.compMegaTag}>Pequenas Startups Fragmentadas</div>
+              <div className={styles.compMegaLimit}>Resolvem nichos microscópicos isolados gerando 'app fatigue' na empresa, onde o CEO precisa usar 12 programas diferentes para rodar o negócio diário.</div>
+              <div className={styles.compMegaArkos}>O "Operating System" Corporativo. Desenhamos a Arkos para engolir gradualmente as demandas complexas e cruciais dentro de uma única suíte premium auditada.</div>
+            </div>
+            
+          </div>
         </div>
       </section>
 
       {/* ── 7. RESULTADOS ───────────────────────────────────────── */}
       <section className={styles.section} style={{ background: '#090a0c', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '2.25rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '40px' }}>Métricas de Ativação e Operações</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
-          <div style={{ padding: '32px', background: '#111318', borderRadius: '12px' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px' }}>↓25%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#8A8F99', textTransform: 'uppercase' }}>Redução de CAC</div>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px' }}>Impacto Projetado na Operação</h2>
+        <p style={{ color: '#8A8F99', fontSize: '1rem', marginBottom: '60px', maxWidth: '600px', margin: '0 auto 60px auto' }}>Métricas médias de rentabilidade e eficiência entregues na jornada das empresas que adotam a infraestrutura ARKOS.</p>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', textAlign: 'left' }}>
+          
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↓ 25%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Redução de CAC</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Otimização direta do Custo de Aquisição de Clientes, bloqueando investimentos de marketing sem ROI real.</p>
           </div>
-          <div style={{ padding: '32px', background: '#111318', borderRadius: '12px' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px' }}>↑40%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#8A8F99', textTransform: 'uppercase' }}>Eficiência Analítica</div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↑ 40%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Eficiência Analítica</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Fim do trabalho manual e repetitivo. O RH e Financeiro focam em aprovar estratégias em vez de montar planilhas.</p>
           </div>
-          <div style={{ padding: '32px', background: '#111318', borderRadius: '12px' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px' }}>Horas</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#8A8F99', textTransform: 'uppercase' }}>Tempo de Decisão</div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>8h → 3s</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Aceleração de Resposta</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> O tempo necessário para a diretoria compilar o fechamento de caixa ou vendas vs. a resposta no painel inteligenteizado.</p>
           </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↑ 30%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Crescimento de LTV</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Lifetime Value. Algoritmos predizem produtos que o cliente quer comprar e notificam o comercial (Up-sell e Cross-sell).</p>
+          </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>99,9%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Precisão Operacional</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Fim dos cálculos errados, contratos defasados não reajustados pela inflação ou perda de vigência jurídica.</p>
+          </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↓ 18%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Redução de Opex</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Redução nas despesas operacionais da empresa devida à consolidação de ferramentas de software avulsas em um hub unificado.</p>
+          </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>360°</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Abolição de Silos</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Financeiro, Marketing e Suprimentos lendo a mesma fonte da verdade. O fim dos "meus dados vs. os seus dados".</p>
+          </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>D-0</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Preditibilidade de Caixa</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Modulação antecipada (predictive cashflow). O sistema simula calotes antes de ocorrerem no caixa financeiro.</p>
+          </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>- 45%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Mitigação de Churn</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> No braço acadêmico, identifica a probabilidade de um aluno evadir 60 dias antes dele deixar de pagar a mensalidade.</p>
+          </div>
+
+          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>100%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Autonomia de Capital</div>
+            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Letramento do time e posse total (Data Ownership). O ativo e a modelagem matemática ficam retidos e capitalizada para a empresa líder.</p>
+          </div>
+
         </div>
       </section>
 
@@ -510,10 +611,14 @@ export default function Home() {
           </div>
 
           <div className={styles.footerCol}>
-            <h4>Sistemas</h4>
-            <Link href="#modulos">Marketing Intelligence</Link>
-            <Link href="#modulos">Arkos Data Base</Link>
-            <Link href="#modulos">Arkos Operations</Link>
+            <h4>Ecossistema Hub</h4>
+            <Link href="#modulos">Arkos C-Level (Operação Diária)</Link>
+            <Link href="#modulos">Arkos Data Lake Node (Datalake Próprio)</Link>
+            <Link href="#modulos">Arkos Growth Intelligence</Link>
+            <Link href="#modulos">Arkos Smart Contracts</Link>
+            <Link href="#modulos">Arkos Financial Intelligence</Link>
+            <Link href="#modulos">Arkos CRM / Pipeline</Link>
+            <Link href="#modulos">Arkos RH / Performance</Link>
             <Link href="#modulos">Arkos Academy</Link>
           </div>
 

@@ -319,26 +319,47 @@
 
 /* ── VANTAGEM / COMPARE ──────────────────────────────────── */
 .vantagemGrid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  display: flex; flex-direction: column; gap: 40px; align-items: stretch;
 }
 
-.compTable {
+.compMegaTable {
   border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden;
+  background: rgba(255,255,255,0.01);
 }
 
-.compHeader {
-  display: grid; grid-template-columns: 1fr 1fr; background: rgba(255,255,255,0.02);
-  padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
-  font-family: monospace; font-size: 0.688rem; color: var(--sig); letter-spacing: 0.1em;
+.compMegaHeader {
+  display: grid; grid-template-columns: 1fr 1.5fr 2fr; background: rgba(255,255,255,0.03);
+  padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 24px;
 }
 
-.compRow {
-  display: grid; grid-template-columns: 1fr 1fr; padding: 16px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.813rem;
+.compMegaCol {
+  font-family: monospace; font-size: 0.688rem; color: var(--mut); letter-spacing: 0.1em; font-weight: 700;
 }
-.compRow:last-child { border-bottom: none; }
+.compMegaColArkos {
+  font-family: monospace; font-size: 0.688rem; color: var(--sig); letter-spacing: 0.1em; font-weight: 800;
+  display: flex; align-items: center; gap: 6px;
+}
 
-.diffs { display: flex; flex-direction: column; gap: 16px; }
+.compMegaRow {
+  display: grid; grid-template-columns: 1fr 1.5fr 2fr; padding: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.03); align-items: center; gap: 24px;
+  transition: background 0.2s;
+}
+.compMegaRow:last-child { border-bottom: none; }
+.compMegaRow:hover { background: rgba(255,255,255,0.02); }
+
+.compMegaTag {
+  font-size: 0.938rem; font-weight: 600; color: var(--wht); display: flex; align-items: center; gap: 8px;
+}
+.compMegaLimit {
+  font-size: 0.813rem; color: var(--mut); line-height: 1.6;
+}
+.compMegaArkos {
+  font-size: 0.813rem; color: #FFF; line-height: 1.6; font-weight: 400; padding: 12px 16px; 
+  background: rgba(200,245,66,0.05); border-radius: 8px; border: 1px solid rgba(200,245,66,0.1);
+}
+
+.diffs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 
 .diffItem {
   display: flex; gap: 16px; padding: 20px; background: var(--ob2);
