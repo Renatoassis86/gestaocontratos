@@ -124,6 +124,30 @@ export default function ModulosSelector() {
               foto: '/arkos_data_dashboard_holo_1774143471858.png'
             },
             {
+              id: 'commerce',
+              titulo: 'Arkos Commerce & SaaS',
+              tag: 'COMM',
+              desc: 'Motor financeiro B2B robusto integrado à gestão para e-commerce e recorrência.',
+              link: '#',
+              externo: false,
+              icon: <ShoppingCart size={22} />,
+              color: '#F43F5E',
+              hasAccess: false,
+              foto: '/arkos_laptop_mockup_1774143172389.png'
+            },
+            {
+              id: 'growth',
+              titulo: 'Arkos Growth Agency',
+              tag: 'GRWT',
+              desc: 'Squads avançados operando desenvolvimento de tráfego pago escalável.',
+              link: '#',
+              externo: false,
+              icon: <BarChart2 size={22} />,
+              color: '#2DD4BF',
+              hasAccess: false,
+              foto: '/arkos_real_executive_dashboard_1774143584596.png'
+            },
+            {
               id: 'marketing',
               titulo: 'Marketing Intelligence',
               tag: 'MKTI',
@@ -277,7 +301,7 @@ export default function ModulosSelector() {
 
         {/* Footer Cta section */}
         <div style={{
-          marginTop: '60px',
+          margin: '60px auto 40px auto',
           padding: '24px 32px',
           background: 'rgba(255,255,255,0.02)',
           border: '1px solid rgba(255,255,255,0.05)',
@@ -288,8 +312,7 @@ export default function ModulosSelector() {
           gap: '12px',
           maxWidth: '500px',
           width: '100%',
-          textAlign: 'center',
-          marginBottom: '40px'
+          textAlign: 'center'
         }}>
           <p style={{ color: '#8A8F99', fontSize: '0.875rem', margin: 0, fontWeight: 500 }}>
             Precisa de um módulo exclusivo ou suporte dedicado?

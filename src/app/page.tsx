@@ -126,7 +126,7 @@ export default function Home() {
             className={styles.heroVideoElement}
             style={{ opacity: activeVideo === 0 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
-            <source src="/hero-main-arkos.mp4" type="video/mp4" />
+            <source src="/hero-arkos-video.mp4" type="video/mp4" />
           </video>
           <video
             ref={videoRefs[1]}
@@ -142,7 +142,7 @@ export default function Home() {
             className={styles.heroVideoElement}
             style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
-            <source src="/hero-arkos-video.mp4" type="video/mp4" />
+            <source src="/hero-main-arkos.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroVideoOverlay}></div>
         </div>
