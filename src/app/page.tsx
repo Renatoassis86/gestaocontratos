@@ -222,7 +222,7 @@ export default function Home() {
             <div className={styles.videoArchContainer}>
               {/* O vídeo deve ser adicionado na pasta public/ com o nome "hero-arkos-video.mp4" */}
               <video 
-                autoPlay loop muted defaultMuted playsInline 
+                autoPlay loop muted playsInline 
                 className={styles.videoPlayer}
                 poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
               >
