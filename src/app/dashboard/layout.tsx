@@ -9,6 +9,8 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/infrastructure/supabase/server'
 
 
+import { DashboardLayoutClient } from './DashboardLayoutClient'
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -22,8 +24,6 @@ export default async function DashboardLayout({
     redirect('/login')
   }
 
-
-
   // 2. Obter Detalhes do Perfil
   const { data: perfil } = await supabase
     .from('perfis')
@@ -31,15 +31,12 @@ export default async function DashboardLayout({
     .eq('id', user.id)
     .single()
 
-  // 3. Obter Empresas que o usuário pertence (Bypass de todas para renato086@gmail.com)
+  // 3. Obter Empresas (Bypass para admin)
   const isAdmin = user.email === 'renato086@gmail.com';
   let empresas: any[] = []
 
   if (isAdmin) {
-    const { data: todasEmpresas } = await supabase
-      .from('empresas')
-      .select('id, razao_social, nome_fantasia')
-    
+    const { data: todasEmpresas } = await supabase.from('empresas').select('id, razao_social, nome_fantasia')
     empresas = todasEmpresas?.map((e: any) => ({
       id: e.id,
       razaoSocial: e.razao_social,
@@ -58,40 +55,18 @@ export default async function DashboardLayout({
     })) || []
   }
 
-
   // 4. Resolver Empresa Ativa de Cookie
   const cookieStore = await cookies()
   const activeCompanyId = cookieStore.get('active_company_id')?.value
-
   const activeCompany = empresas.find(e => e.id === activeCompanyId) || empresas[0]
 
   return (
-    <div className={styles.layout}>
-      <Sidebar currentPath="/dashboard" activeCompany={activeCompany} isAdmin={isAdmin} />
-
-
-      
-      <div className={styles.content}>
-        <header className={styles.header}>
-          <div className={styles.companySwitcher}>
-            <CompanySwitcher empresas={empresas} activeCompany={activeCompany} />
-          </div>
- 
-
-
-          
-          <div className={styles.userMenu}>
-            <div className={styles.perfilIcon}>
-              {perfil?.nome.charAt(0).toUpperCase()}
-            </div>
-            <span>{perfil?.nome || user.email}</span>
-          </div>
-        </header>
-
-        <main className={styles.main}>
-          {children}
-        </main>
-      </div>
-    </div>
+    <DashboardLayoutClient 
+      activeCompany={activeCompany} 
+      isAdmin={isAdmin} 
+      perfilName={perfil?.nome || user.email}
+    >
+      {children}
+    </DashboardLayoutClient>
   )
 }

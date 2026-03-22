@@ -177,15 +177,26 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* 3. TERMO DE INTEGRAÇÃO METODOLÓGICA */}
-      <div style={{ background: '#111318', border: '1px solid #1F242D', padding: '1.5rem', borderRadius: '16px', display: 'flex', gap: '16px', alignItems: 'center', marginTop: '1rem' }}>
-        <div style={{ background: 'rgba(200,245,66,0.05)', padding: '12px', borderRadius: '12px', color: '#C8F542' }}>
-          <ArrowRight size={24} style={{ transform: 'rotate(-45deg)' }} />
+      {/* 3. TERMO DE INTEGRAÇÃO METODOLÓGICA CTA */}
+      <div style={{ background: 'linear-gradient(135deg, rgba(200,245,66,0.05) 0%, rgba(13,14,18,0.4) 100%)', border: '1px solid rgba(200,245,66,0.15)', padding: '2rem', borderRadius: '20px', display: 'flex', gap: '24px', alignItems: 'center', justifyContent: 'space-between', marginTop: '2rem', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <div style={{ background: '#C8F542', padding: '14px', borderRadius: '14px', color: '#0A0C0F' }}>
+            <Shield size={24} />
+          </div>
+          <div>
+            <h4 style={{ color: '#F4F2ED', fontSize: '1rem', fontWeight: 800, marginBottom: '6px' }}>Letramento e Organização Plena</h4>
+            <p style={{ color: '#8A8F99', fontSize: '0.875rem', lineHeight: '1.6', maxWidth: '650px' }}>
+              Cada empresa pode contratar funcionalidades avulsas, porém, a metodologia de análise e previsibilidade 
+              <strong style={{ color: '#C8F542' }}> ARKOS se dá de forma plena apenas quando todos os módulos operam integrados</strong>.
+            </p>
+          </div>
         </div>
-        <div>
-          <h4 style={{ color: '#F4F2ED', fontSize: '0.938rem', fontWeight: 800, marginBottom: '4px' }}>Letramento e Organização Plena</h4>
-          <p style={{ color: '#8A8F99', fontSize: '0.813rem', lineHeight: '1.5' }}>Cada empresa pode contratar funcionalidades avulsas, porém, a metodologia de análise e previsibilidade **ARKOS se dá de forma plena apenas quando todos os módulos operam integrados**.</p>
-        </div>
+
+        <Link href="https://wa.me/5583981957737" target="_blank" style={{ textDecoration: 'none' }}>
+          <button style={{ background: '#C8F542', color: '#0A0C0F', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: 800, fontSize: '0.813rem', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 4px 12px rgba(200,245,66,0.2)' }}>
+            Expandir Funcionalidades <ArrowRight size={16} />
+          </button>
+        </Link>
       </div>
 
     </div>
