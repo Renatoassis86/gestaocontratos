@@ -23,8 +23,8 @@ export default function LoginPage({
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1>Contratos<span className={styles.accent}>SaaS</span></h1>
-          <p>Gestão Inteligente de Ciclo de Vida Contratual</p>
+          <h1>Arkos<span className={styles.accent}>Suite</span></h1>
+          <p style={{ maxWidth: '400px', margin: '8px auto', color: '#8A8F99' }}>Acesse o Hub de Inteligência Arkos e seus módulos contratados.</p>
         </div>
 
         {errorMsg && (
