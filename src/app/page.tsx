@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2, Cloud, Video, Globe, Handshake, Workflow, Calendar } from 'lucide-react'
 import DiagnosticoHub from '@/components/DiagnosticoHub'
 import CompetidoresSeccion from '@/components/CompetidoresSeccion'
 
@@ -428,19 +428,24 @@ export default function Home() {
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
           {[
-            { tag: 'Arkos Cloud', icon: '☁️', desc: 'Armazenamento interno seguro como "Drive" para salvar, classificar e auditar entregáveis da sua empresa.', title: 'Bancos de Arquivos' },
-            { tag: 'Arkos Rooms', icon: '🎥', desc: 'Aplicativo interno para salas de reunião remotas com mecanismo que transcreve falas automaticamente via Inteligência Artificial e gera atas em PDFs.', title: 'Reuniões Remotas' },
-            { tag: 'Arkos LiveTranslate', icon: '🌐', desc: 'Tradutor instantâneo e robusto embarcado para calls, acompanhando a prospecção da empresa globalmente de forma nativa e confidencial.', title: 'Call Translator' },
-            { tag: 'Arkos Connect', icon: '🤝', desc: 'Rede social interna fechada da companhia para compartilhamento de informações confidenciais, boletins, murais de avisos e rituais de times', title: 'Feed Corporativo Gamificado' },
-            { tag: 'Arkos Flow', icon: '🔄', desc: 'Gestão ágil de projetos com Scrum e Kanban nativos. Cada área da empresa gerencia suas ações, tarefas e entregas em painéis visuais. O gestor acompanha o andamento de cada setor em tempo real, garantindo execução disciplinada das metas estratégicas.', title: 'Projetos e Processos' },
-            { tag: 'Arkos Smart Booking', icon: '📅', desc: 'Links de reunião e formulários de prospecção autônomos por sistema web que despacham lembretes e agendamentos pelo WhatsApp automaticamente.', title: 'Agendamentos Inteligentes' },
-          ].map((app, idx) => (
-            <div key={idx} style={{ background: '#111318', border: '1px solid rgba(255,255,255,0.03)', padding: '32px', borderRadius: '12px' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '16px' }}>{app.icon}</div>
-              <h4 style={{ color: '#F4F2ED', fontSize: '1.25rem', marginBottom: '8px', fontWeight: 700 }}>{app.tag}</h4>
-              <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6' }}>{app.desc}</p>
-            </div>
-          ))}
+            { tag: 'Arkos Cloud', icon: Cloud, desc: 'Armazenamento interno seguro como "Drive" para salvar, classificar e auditar entregáveis da sua empresa.', title: 'Bancos de Arquivos' },
+            { tag: 'Arkos Rooms', icon: Video, desc: 'Aplicativo interno para salas de reunião remotas com mecanismo que transcreve falas automaticamente via Inteligência Artificial e gera atas em PDFs.', title: 'Reuniões Remotas' },
+            { tag: 'Arkos LiveTranslate', icon: Globe, desc: 'Tradutor instantâneo e robusto embarcado para calls, acompanhando a prospecção da empresa globalmente de forma nativa e confidencial.', title: 'Call Translator' },
+            { tag: 'Arkos Connect', icon: Handshake, desc: 'Rede social interna fechada da companhia para compartilhamento de informações confidenciais, boletins, murais de avisos e rituais de times', title: 'Feed Corporativo Gamificado' },
+            { tag: 'Arkos Flow', icon: Workflow, desc: 'Gestão ágil de projetos com Scrum e Kanban nativos. Cada área da empresa gerencia suas ações, tarefas e entregas em painéis visuais. O gestor acompanha o andamento de cada setor em tempo real, garantindo execução disciplinada das metas estratégicas.', title: 'Projetos e Processos' },
+            { tag: 'Arkos Smart Booking', icon: Calendar, desc: 'Links de reunião e formulários de prospecção autônomos por sistema web que despacham lembretes e agendamentos pelo WhatsApp automaticamente.', title: 'Agendamentos Inteligentes' },
+          ].map((app, idx) => {
+            const Icon = app.icon;
+            return (
+              <div key={idx} style={{ background: '#111318', border: '1px solid rgba(255,255,255,0.03)', padding: '32px', borderRadius: '12px' }}>
+                <div style={{ marginBottom: '16px' }}>
+                  <Icon size={28} color="#C8F542" />
+                </div>
+                <h4 style={{ color: '#F4F2ED', fontSize: '1.25rem', marginBottom: '8px', fontWeight: 700 }}>{app.tag}</h4>
+                <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6' }}>{app.desc}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 
