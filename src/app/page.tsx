@@ -351,7 +351,7 @@ export default function Home() {
           {/* Emanuel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_emanuel_1774147017168.png" alt="Emanuel Peixoto" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Emanuel Peixoto" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Emanuel Peixoto</h3>
@@ -363,7 +363,7 @@ export default function Home() {
           {/* Gabriel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_gabriel_1774147038283.png" alt="Gabriel Mamede" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=800&q=80" alt="Gabriel Mamede" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Gabriel Mamede</h3>
@@ -372,22 +372,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Julio */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_julio_1774147056369.png" alt="Julio César" className={styles.equipeImage} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Julio César</h3>
-              <span className={styles.equipeRole}>Analista de Marketing</span>
-              <p className={styles.equipeBio}>Analista de Marketing Digital com foco em Growth Hacking e Funil Analítico Estruturado. Atua em otimização de campanhas baseadas em dados.</p>
-            </div>
-          </div>
-
           {/* Lucas */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_lucas_ai_1774147056369_1774147074921.png" alt="Lucas Batista" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Lucas Batista" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Lucas Batista</h3>
@@ -399,8 +387,7 @@ export default function Home() {
           {/* Renato */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              {/* Fotos ilustrativas carregadas do catalog para o deployment robusto */}
-              <img src="/arkos_team_emanuel_1774147017168.png" style={{ filter: 'grayscale(100%) opacity(0.4)' }} alt="Renato Silva de Assis" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Renato Silva de Assis" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
@@ -412,7 +399,7 @@ export default function Home() {
           {/* Williams */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_gabriel_1774147038283.png" style={{ filter: 'grayscale(100%) opacity(0.4)' }} alt="Williams Calado" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80" alt="Williams Calado" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Williams Calado</h3>
