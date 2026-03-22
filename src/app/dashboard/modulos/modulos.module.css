@@ -86,15 +86,15 @@
 }
 
 .cardActive {
-  border: 1px solid rgba(200, 245, 66, 0.25) !important;
-  box-shadow: 0 0 20px rgba(200, 245, 66, 0.04);
+  border: 2px solid #C8F542 !important;
+  box-shadow: 0 0 30px rgba(200, 245, 66, 0.15);
   opacity: 1;
   cursor: pointer;
 }
 
 .cardActive:hover {
-  border-color: rgba(200, 245, 66, 0.5) !important;
-  box-shadow: 0 15px 35px rgba(200, 245, 66, 0.12);
+  border-color: #D4FF55 !important;
+  box-shadow: 0 15px 35px rgba(200, 245, 66, 0.25);
 }
 
 .cardInactive {

@@ -18,7 +18,7 @@ export function DashboardLayoutClient({ children, activeCompany, empresas, isAdm
           <div className={styles.leftHeader} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {isHub && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <img src="/arkos_logo.png" alt="Arkos" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+                <img src="/logo-high-res.svg" alt="Arkos" style={{ height: '32px', objectFit: 'contain' }} />
               </div>
             )}
             {!isHub && <CompanySwitcher empresas={empresas} activeCompany={activeCompany} />}
