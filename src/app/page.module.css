@@ -104,22 +104,44 @@
   line-height: 1.7; font-weight: 300;
 }
 
-/* ── LAPTOP CONTAINER ────────────────────────────────────── */
+/* ── BANNER CAROUSEL ────────────────────────────────────── */
 .laptopContainer {
-  width: 100%; max-width: 960px; margin: 40px auto 0 auto;
-  position: relative; border-radius: 12px 12px 0 0;
-  background: #000; padding: 12px 12px 0 12px;
+  width: 100%; max-width: 1200px; margin: 40px auto 0 auto;
+  position: relative; border-radius: 12px;
+  background: #000; overflow: hidden;
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 -20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(200,245,66,0.05);
 }
 
-.laptopInnerShadow {
-  position: absolute; top: 12px; left: 12px; right: 12px; bottom: 0;
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.8); z-index: 1; pointer-events: none;
+.carouselTrack {
+  display: flex; transition: transform 0.5s ease-in-out; width: 300%; height: 500px;
 }
 
-.laptopImage {
-  width: 100%; height: auto; display: block; border-radius: 6px 6px 0 0;
+.carouselSlide {
+  width: 33.333%; height: 100%; position: relative; flex-shrink: 0;
+}
+
+.carouselImage {
+  width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;
+}
+
+.carouselInnerShadow {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.8); z-index: 1; pointer-events: none;
+}
+
+.carouselNav {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 10;
+}
+
+.carouselDot {
+  width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2);
+  border: none; cursor: pointer; padding: 0; transition: background 0.2s, width 0.2s;
+}
+
+.carouselDotActive {
+  background: var(--sig); width: 24px; border-radius: 4px;
 }
 
 /* ── LOGOBAR ─────────────────────────────────────────────── */
@@ -389,6 +411,7 @@
   .doresGrid { grid-template-columns: 1fr; }
   .modulosGrid { grid-template-columns: 1fr; }
   .equipeGrid { grid-template-columns: 1fr; }
+  .carouselTrack { height: 260px; }
   
   .streamLine { left: 16px; }
   .streamItem { gap: 16px; }

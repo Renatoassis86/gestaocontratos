@@ -1,10 +1,19 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
 import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users } from 'lucide-react'
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <div className={styles.page}>
       
@@ -82,12 +91,33 @@ export default function Home() {
 
         {/* IMAGE: MOCKUP DO LAPTOP COM LOCAL PUBLIC APP PATH */}
         <div className={styles.laptopContainer}>
-          <div className={styles.laptopInnerShadow}></div>
-          <img 
-            src="/arkos_dashboard_decision_1774133572097.png" 
-            alt="Dashboard Ágil Arkos Executivo" 
-            className={styles.laptopImage} 
-          />
+          <div className={styles.carouselTrack} style={{ transform: `translateX(-${(currentSlide * 100) / 3}%)` }}>
+            {/* Slide 1 */}
+            <div className={styles.carouselSlide}>
+              <div className={styles.carouselInnerShadow}></div>
+              <img src="/arkos_dashboard_decision_1774133572097.png" alt="Dashboard Ágil Arkos 1" className={styles.carouselImage} />
+            </div>
+            {/* Slide 2 */}
+            <div className={styles.carouselSlide}>
+              <div className={styles.carouselInnerShadow}></div>
+              <img src="/arkos_real_executive_dashboard_1774143584596.png" alt="Dashboard Ágil Arkos 2" className={styles.carouselImage} />
+            </div>
+            {/* Slide 3 */}
+            <div className={styles.carouselSlide}>
+              <div className={styles.carouselInnerShadow}></div>
+              <img src="/arkos_corporate_presenting_1774143639165.png" alt="Dashboard Ágil Arkos 3" className={styles.carouselImage} />
+            </div>
+          </div>
+
+          <div className={styles.carouselNav}>
+            {[0, 1, 2].map((idx) => (
+              <button 
+                key={idx}
+                className={`${styles.carouselDot} ${currentSlide === idx ? styles.carouselDotActive : ''}`}
+                onClick={() => setCurrentSlide(idx)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
