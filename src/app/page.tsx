@@ -724,7 +724,14 @@ export default function Home() {
           {/* Direita: Criado por */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px' }}>
             <span>Criado por</span>
-            <img src="/arkos-logomarca-vertical.png" alt="Arkos Intelligence" style={{ height: '30px', width: 'auto', display: 'block', flexShrink: 0 }} />
+            <svg viewBox="0 0 560 100" style={{ height: '24px', width: 'auto', display: 'block', flexShrink: 0 }}>
+              <line x1="50" y1="10" x2="10"  y2="90" stroke="#F4F2ED" strokeWidth="11" strokeLinecap="round"/>
+              <line x1="50" y1="10" x2="90"  y2="90" stroke="#F4F2ED" strokeWidth="11" strokeLinecap="round"/>
+              <line x1="24" y1="58" x2="76"  y2="58" stroke="#C8F542" strokeWidth="8"  strokeLinecap="round"/>
+              <circle cx="50" cy="10" r="7"           fill="#C8F542"/>
+              <line x1="118" y1="22" x2="118" y2="78" stroke="#272D38" strokeWidth="1"/>
+              <text x="136" y="63" fontFamily="'Courier New', monospace" fontWeight="600" fontSize="42" letterSpacing="14" fill="#F4F2ED">ARKOS</text>
+            </svg>
           </div>
         </div>
       </footer>
