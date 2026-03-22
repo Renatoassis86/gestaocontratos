@@ -259,14 +259,14 @@ export default function Home() {
 
         <div className={styles.modulosGrid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>WEDGE ENTRADA</div>
+            <div className={styles.moduloSub}>ENTRADA VISUAL E DECISÓRIA</div>
             <h3 className={styles.moduloTitle}>Marketing Intelligence</h3>
-            <p className={styles.moduloDesc}>Satisfação, mercado, digital e funil comercial. O módulo de entrada com ROI visível em semanas.</p>
+            <p className={styles.moduloDesc}>O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda: pesquisas quantitativas e qualitativas de mercado, NPS, testes de lançamentos e preços, monitoramento de menções e análise de sentimento nas redes sociais. Tudo convertido em inteligência para a sua tomada de decisão.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>DADOS NATIVOS</div>
             <h3 className={styles.moduloTitle}>Arkos Data</h3>
-            <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. A fundação da sua esteira analítica.</p>
+            <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. Ou seja: criamos uma central única que organiza todas as informações da sua empresa. Isso elimina planilhas soltas e garante que você tome decisões baseadas em números reais, e não em achismos.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>GESTÃO GLOBAL</div>
