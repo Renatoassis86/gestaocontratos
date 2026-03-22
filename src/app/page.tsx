@@ -457,34 +457,34 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Julio */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_julio.png" alt="Júlio César" className={styles.equipeImage} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Júlio César</h3>
-              <span className={styles.equipeRole}>Planejador e Analista de Mercado</span>
-              <p className={styles.equipeBio}>Com background rigoroso em modelagem, ajuda a identificar nichos de eficiência, construindo as lógicas que os algoritmos da Arkos precisam processar no dia a dia.</p>
-            </div>
-          </div>
-
           {/* Lucas */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_lucas_ai.png" alt="Lucas Silva" className={styles.equipeImage} />
+              <img src="/arkos_team_lucas_ai.png" alt="Lucas Machado" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Lucas</h3>
+              <h3 className={styles.equipeName}>Lucas Machado</h3>
               <span className={styles.equipeRole}>Inovação & IA Algorithms</span>
               <p className={styles.equipeBio}>Integra fluxos de Inteligência Artificial generativa e processamento automatizado, reduzindo o volume de cliques da equipe técnica ao limite mínimo.</p>
+            </div>
+          </div>
+
+          {/* Williams */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=800&q=80" alt="Williams Calado" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Williams Calado</h3>
+              <span className={styles.equipeRole}>Desenvolvedor de Software</span>
+              <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
             </div>
           </div>
 
           {/* Renato */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="/renato-assis.jpg" alt="Renato Silva de Assis" className={styles.equipeImage} />
+              <img src="/renato_assis_co.jpg" alt="Renato Silva de Assis" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
@@ -714,7 +714,7 @@ export default function Home() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', fontSize: '11px' }}>
             <span style={{ color: '#5A5F6A' }}>Criado por</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-               <img src="/arkos-logomarca.png" alt="Arkos" style={{ height: '24px', objectFit: 'contain' }} />
+               <img src="/arkos-logomarca-vertical.png" alt="Arkos" style={{ height: '36px', width: 'auto', display: 'block', flexShrink: 0, objectFit: 'contain' }} />
             </div>
           </div>
         </div>
