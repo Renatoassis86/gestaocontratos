@@ -237,8 +237,8 @@ export default function Home() {
           {/* Right: Differentiators Accordion */}
           <div>
             <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos infraestrutura.</h3>
-            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>A vantagem real não está na simples tecnologia, está na cultura, nos dados proprietários e na capacidade educacional integrada às regras de negócio da empresa. O homem, chamado a analisar dados de excelência, não nasce pronto.</p>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos <em style={{ color: '#C8F542', fontStyle: 'italic' }}>infraestrutura e inteligência.</em></h3>
+            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>Nossa diferenciacão não está em uma licença de ferramenta. Estão na arquitetura de dados que construímos, na inteligência que treinamos sobre os seus processos e na capacidade analítica que formamos dentro do seu time.</p>
             
             <div className={styles.accList}>
               <div className={styles.accItem}>
@@ -487,7 +487,7 @@ export default function Home() {
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Williams Calado</h3>
-              <span className={styles.equipeRole}>Desenvolvedor de Software</span>
+              <span className={styles.equipeRole}>Engenheiro de Integrações & Infraestrutura</span>
               <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
             </div>
           </div>
@@ -546,7 +546,7 @@ export default function Home() {
             </div>
 
             <div className={styles.compMegaRow}>
-              <div className={styles.compMegaTag}>Softwares de BI (PowerBI, Tableau)</div>
+              <div className={styles.compMegaTag}>Ferramentas isoladas de BI (PowerBI, Tableau)</div>
               <div className={styles.compMegaLimit}>Exibem gráficos complexos, mas exigem analistas caros para interpretar continuamente. Eles não dizem o que o gestor deve fazer, apenas o que já passou.</div>
               <div className={styles.compMegaArkos}>Analytics Prescritivo. Nossos agentes de IA cruzam dados de todas as áreas simultaneamente e inferem as variáveis, recomendando a próxima ação tática para o líder.</div>
             </div>
