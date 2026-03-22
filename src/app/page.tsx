@@ -693,8 +693,21 @@ export default function Home() {
 
         </div>
         
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', textAlign: 'center', fontSize: '11px', color: '#5A5F6A', marginTop: '60px', fontFamily: 'monospace' }}>
-          &copy; {new Date().getFullYear()} ARKOS Intelligence. A Infraestrutura da Nova Economia Empresarial.
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', fontSize: '12px', color: '#8A8F99', marginTop: '60px', gap: '24px', position: 'relative' }}>
+          
+          {/* Default Centro */}
+          <div style={{ textAlign: 'center', order: 1 }}>
+            &copy; {new Date().getFullYear()} Arkos Intelligence. Todos os direitos reservados. <Link href="/privacidade" style={{ color: '#C8F542', textDecoration: 'none', marginLeft: '6px', fontWeight: 600 }}>Privacidade & Termos</Link>
+          </div>
+          
+          {/* Criado por... */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', order: 2, '@media(minWidth: 768px)': { position: 'absolute', right: 0 } } as React.CSSProperties}>
+            <span style={{ color: '#5A5F6A' }}>Criado por</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+               <img src="/logo-high-res.svg" alt="Arkos Marca" style={{ height: '12px', filter: 'brightness(0) invert(1)' }} />
+               <strong style={{ color: '#F4F2ED', fontSize: '11px' }}>Arkos Intelligence</strong>
+            </div>
+          </div>
         </div>
       </footer>
 
