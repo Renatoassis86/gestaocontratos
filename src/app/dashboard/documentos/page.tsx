@@ -99,51 +99,42 @@ export default function DocumentosModelosPage() {
                 </h2>
               </div>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
                 {items.map((t: any) => (
-                  <div key={t.id} style={{ flex: '1 1 210px', maxWidth: '350px', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.15s' }}>
-                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                      <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px' }}>
+                  <div key={t.id} style={{ background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.1s ease' }}>
+                    
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', minWidth: 0 }}>
+                      <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px', flexShrink: 0 }}>
                         {groupName.toLowerCase().includes('histórico') || groupName.toLowerCase().includes('certificado') ? <GraduationCap size={18} /> : <FileText size={18} />}
                       </div>
-                      <div>
-                        <div style={{ fontWeight: 800, fontSize: '0.813rem', color: '#F4F2ED', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '160px' }}>{t.titulo}</div>
-                        <div style={{ fontSize: '0.688rem', color: '#8A8F99', marginTop: '0.15rem' }}>Versão: {t.versao || '1.0'}</div>
+                      <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontWeight: 800, fontSize: '0.813rem', color: '#F4F2ED', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={t.titulo}>
+                          {t.titulo}
+                        </div>
+                        <div style={{ fontSize: '0.688rem', color: '#8A8F99', marginTop: '0.15rem' }}>
+                          Versão: {t.versao || '1.0'}
+                        </div>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexShrink: 0 }}>
                       <Link 
                         href={`/dashboard/documentos/emitir/${t.id}`} 
-                        style={{ 
-                          color: '#0A0C0F', 
-                          background: '#C8F542', 
-                          padding: '0.45rem 0.75rem', 
-                          borderRadius: '8px', 
-                          fontWeight: 800, 
-                          fontSize: '0.75rem', 
-                          cursor: 'pointer', 
-                          textDecoration: 'none', 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          gap: '4px',
-                          boxShadow: '0 0 10px rgba(200,245,66,0.1)'
-                        }} 
-                        title="Popular dados e Emitir"
+                        style={{ color: '#0A0C0F', background: '#C8F542', padding: '0.45rem 0.75rem', borderRadius: '8px', fontWeight: 800, fontSize: '0.75rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', boxShadow: '0 0 12px rgba(200, 245, 66, 0.1)' }}
                       >
                         <FileText size={14} /> Popular
                       </Link>
-                      <Link href={`/dashboard/templates/${t.id}/editar`} style={{ color: '#8A8F99', background: '#111318', border: '1px solid #1F242D', padding: '0.45rem', borderRadius: '8px', cursor: 'pointer' }} title="Editar">
+                      <Link href={`/dashboard/templates/${t.id}/editar`} style={{ color: '#8A8F99', background: '#111318', border: '1px solid #1F242D', padding: '0.45rem', borderRadius: '8px' }} title="Editar">
                         <Edit size={14} />
                       </Link>
                       <button 
                         onClick={() => handleDelete(t.id)} 
-                        style={{ color: '#EF4444', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)', padding: '0.45rem', borderRadius: '8px', cursor: 'pointer' }} 
-                        title="Excluir"
+                        style={{ color: '#EF4444', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)', padding: '0.45rem', borderRadius: '8px', cursor: 'pointer' }}
                       >
                         <Trash2 size={14} />
                       </button>
                     </div>
+
                   </div>
                 ))}
               </div>

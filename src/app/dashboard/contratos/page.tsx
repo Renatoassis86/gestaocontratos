@@ -86,23 +86,28 @@ export default function ContratosPage() {
                 </h2>
               </div>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
                 {items.map((t: any) => (
-                  <div key={t.id} style={{ flex: '1 1 240px', maxWidth: '380px', background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                      <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px' }}>
+                  <div key={t.id} style={{ background: '#0A0C0F', border: '1px solid #1F242D', borderRadius: '12px', padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'transform 0.1s ease' }}>
+                    
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', minWidth: 0 }}>
+                      <div style={{ background: '#1F242D', color: '#C8F542', padding: '0.625rem', borderRadius: '10px', flexShrink: 0 }}>
                         <Briefcase size={18} />
                       </div>
-                      <div>
-                        <div style={{ fontWeight: 800, fontSize: '0.813rem', color: '#F4F2ED' }}>{t.titulo}</div>
-                        <div style={{ fontSize: '0.688rem', color: '#8A8F99', marginTop: '0.15rem' }}>v{t.versao || '1.0'}</div>
+                      <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontWeight: 800, fontSize: '0.813rem', color: '#F4F2ED', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={t.titulo}>
+                          {t.titulo}
+                        </div>
+                        <div style={{ fontSize: '0.688rem', color: '#8A8F99', marginTop: '0.15rem' }}>
+                          Versão: {t.versao || '1.0'}
+                        </div>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexShrink: 0 }}>
                       <Link 
                         href={`/dashboard/documentos/emitir/${t.id}?contexto=fornecedores`} 
-                        style={{ color: '#0A0C0F', background: '#C8F542', padding: '0.45rem 0.75rem', borderRadius: '8px', fontWeight: 800, fontSize: '0.75rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        style={{ color: '#0A0C0F', background: '#C8F542', padding: '0.45rem 0.75rem', borderRadius: '8px', fontWeight: 800, fontSize: '0.75rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', boxShadow: '0 0 12px rgba(200, 245, 66, 0.1)' }}
                       >
                         <FileText size={14} /> Popular
                       </Link>
@@ -116,6 +121,7 @@ export default function ContratosPage() {
                         <Trash2 size={14} />
                       </button>
                     </div>
+
                   </div>
                 ))}
               </div>
