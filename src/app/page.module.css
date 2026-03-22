@@ -119,16 +119,16 @@
 }
 
 .carouselSlide {
-  width: 33.333%; aspect-ratio: 3 / 1; position: relative; flex-shrink: 0;
+  width: 33.333%; aspect-ratio: 4 / 1; position: relative; flex-shrink: 0;
 }
 
 .carouselImage {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block;
+  width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block;
 }
 
 .carouselInnerShadow {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.8); z-index: 1; pointer-events: none;
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.8); z-index: 1; pointer-events: none;
 }
 
 .carouselNav {

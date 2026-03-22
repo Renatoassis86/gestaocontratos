@@ -81,17 +81,17 @@ export default function Home() {
             {/* Slide 1 */}
             <div className={styles.carouselSlide}>
               <div className={styles.carouselInnerShadow}></div>
-              <img src="/arkos_dashboard_decision_1774133572097.png" alt="Dashboard Ágil Arkos 1" className={styles.carouselImage} style={{ objectPosition: 'center 20%' }} />
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2850&q=100" alt="Dashboard Ágil Arkos 1" className={styles.carouselImage} />
             </div>
             {/* Slide 2 */}
             <div className={styles.carouselSlide}>
               <div className={styles.carouselInnerShadow}></div>
-              <img src="/arkos_real_executive_dashboard_1774143584596.png" alt="Dashboard Ágil Arkos 2" className={styles.carouselImage} style={{ objectPosition: 'center 20%' }} />
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2850&q=100" alt="Dashboard Ágil Arkos 2" className={styles.carouselImage} />
             </div>
             {/* Slide 3 */}
             <div className={styles.carouselSlide}>
               <div className={styles.carouselInnerShadow}></div>
-              <img src="/arkos_corporate_presenting_1774143639165.png" alt="Dashboard Ágil Arkos 3" className={styles.carouselImage} style={{ objectPosition: 'center 10%' }} />
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2850&q=100" alt="Dashboard Ágil Arkos 3" className={styles.carouselImage} />
             </div>
           </div>
 
@@ -123,14 +123,30 @@ export default function Home() {
 
       {/* ── LOGOBAR ─── */}
       <div className={styles.logobar} style={{ padding: '40px 0', borderTop: '1px solid rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.03)', background: 'rgba(0,0,0,0.2)' }}>
-        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700 }}>APLICADO E APOIADO POR PROFISSIONAIS DE EMPRESAS COMO</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center', alignItems: 'center', maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
-          <img src="/logo_4.png" alt="DIEESE" style={{ height: '32px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
-          <img src="/logo_1.png" alt="ECONSULT" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
-          <img src="/logo_3.png" alt="CIDADE VIVA" style={{ height: '32px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
-          <img src="/logo_2.png" alt="FICV" style={{ height: '35px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#FFF', letterSpacing: '1px', opacity: 0.8 }}>SINTAJ</span>
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#FFF', letterSpacing: '1px', opacity: 0.8 }}>E-CONSULT</span>
+        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700 }}>APLICADO E APOIADO POR INSTITUIÇÕES COMO</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', justifyContent: 'center', alignItems: 'center', maxWidth: '1100px', margin: '0 auto', padding: '0 20px', opacity: 0.5 }}>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFF' }}>
+            <span style={{ fontWeight: 900, fontSize: '1.3rem', letterSpacing: '2px', fontFamily: 'sans-serif' }}>DIEESE</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFF' }}>
+            <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '1px' }}>E-CONSULT</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#FFF' }}>
+            <Shield size={24} />
+            <span style={{ fontWeight: 700, fontSize: '1.1rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Cidade Viva</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#FFF' }}>
+            <span style={{ fontWeight: 400, fontSize: '1.4rem', fontFamily: 'serif', letterSpacing: '2px' }}>FICV</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFF' }}>
+            <span style={{ fontWeight: 800, fontSize: '1.25rem', letterSpacing: '1px' }}>SINTAJ</span>
+          </div>
+
         </div>
       </div>
 
