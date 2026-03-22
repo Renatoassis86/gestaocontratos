@@ -81,17 +81,17 @@ export default function Home() {
             {/* Slide 1 */}
             <div className={styles.carouselSlide}>
               <div className={styles.carouselInnerShadow}></div>
-              <img src="/arkos_dashboard_decision_1774133572097.png" alt="Dashboard Ágil Arkos 1" className={styles.carouselImage} />
+              <img src="/arkos_dashboard_decision_1774133572097.png" alt="Dashboard Ágil Arkos 1" className={styles.carouselImage} style={{ objectPosition: 'center 20%' }} />
             </div>
             {/* Slide 2 */}
             <div className={styles.carouselSlide}>
               <div className={styles.carouselInnerShadow}></div>
-              <img src="/arkos_real_executive_dashboard_1774143584596.png" alt="Dashboard Ágil Arkos 2" className={styles.carouselImage} />
+              <img src="/arkos_real_executive_dashboard_1774143584596.png" alt="Dashboard Ágil Arkos 2" className={styles.carouselImage} style={{ objectPosition: 'center 20%' }} />
             </div>
             {/* Slide 3 */}
             <div className={styles.carouselSlide}>
               <div className={styles.carouselInnerShadow}></div>
-              <img src="/arkos_corporate_presenting_1774143639165.png" alt="Dashboard Ágil Arkos 3" className={styles.carouselImage} />
+              <img src="/arkos_corporate_presenting_1774143639165.png" alt="Dashboard Ágil Arkos 3" className={styles.carouselImage} style={{ objectPosition: 'center 10%' }} />
             </div>
           </div>
 

@@ -115,15 +115,15 @@
 }
 
 .carouselTrack {
-  display: flex; transition: transform 0.5s ease-in-out; width: 300%; height: 550px;
+  display: flex; transition: transform 0.5s ease-in-out; width: 300%;
 }
 
 .carouselSlide {
-  width: 33.333%; height: 100%; position: relative; flex-shrink: 0;
+  width: 33.333%; aspect-ratio: 3 / 1; position: relative; flex-shrink: 0;
 }
 
 .carouselImage {
-  width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block;
 }
 
 .carouselInnerShadow {
@@ -412,7 +412,7 @@
   .doresGrid { grid-template-columns: 1fr; }
   .modulosGrid { grid-template-columns: 1fr; }
   .equipeGrid { grid-template-columns: 1fr; }
-  .carouselTrack { height: 260px; }
+  .carouselSlide { aspect-ratio: 16 / 10; }
   
   .streamLine { left: 16px; }
   .streamItem { gap: 16px; }
