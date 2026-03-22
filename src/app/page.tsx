@@ -7,28 +7,36 @@ import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye,
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeVideo, setActiveVideo] = useState<1|2|3>(1);
-  const video1Ref = useRef<HTMLVideoElement>(null);
-  const video2Ref = useRef<HTMLVideoElement>(null);
-  const video3Ref = useRef<HTMLVideoElement>(null);
+  const [activeVideo, setActiveVideo] = useState<0|1|2>(0);
+  const videoRefs = [
+    useRef<HTMLVideoElement>(null),
+    useRef<HTMLVideoElement>(null),
+    useRef<HTMLVideoElement>(null),
+  ];
 
-  const videoRefs = { 1: video1Ref, 2: video2Ref, 3: video3Ref };
-
-  // Start video 1 on mount (satisfies mobile autoplay policy)
+  // Wire up the 3-video circular crossfade after mount
   useEffect(() => {
-    video1Ref.current?.play().catch(() => {});
-  }, []);
+    const videos = videoRefs.map(r => r.current).filter(Boolean) as HTMLVideoElement[];
+    if (videos.length < 3) return;
 
-  // Circular rotation: 1 → 2 → 3 → 1 → ...
-  const handleVideoEnd = (finished: 1|2|3) => {
-    const next: 1|2|3 = finished === 1 ? 2 : finished === 2 ? 3 : 1;
-    setActiveVideo(next);
-    const ref = videoRefs[next];
-    if (ref.current) {
-      ref.current.currentTime = 0;
-      ref.current.play().catch(() => {});
-    }
-  };
+    const handlers: (() => void)[] = videos.map((_, i) => () => {
+      const nextIdx = (i + 1) % 3;
+      setActiveVideo(nextIdx as 0|1|2);
+      const next = videos[nextIdx];
+      next.currentTime = 0;
+      next.play().catch(() => {});
+    });
+
+    videos.forEach((v, i) => v.addEventListener('ended', handlers[i]));
+
+    // Kick off first video immediately
+    videos[0].play().catch(() => {});
+
+    return () => {
+      videos.forEach((v, i) => v.removeEventListener('ended', handlers[i]));
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,29 +94,26 @@ export default function Home() {
         {/* Background Video — 3-video crossfade loop */}
         <div className={styles.heroVideoBg}>
           <video
-            ref={video1Ref}
+            ref={videoRefs[0]}
             muted playsInline
-            onEnded={() => handleVideoEnd(1)}
             className={styles.heroVideoElement}
-            style={{ opacity: activeVideo === 1 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ opacity: activeVideo === 0 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
             <source src="/hero-main-arkos.mp4" type="video/mp4" />
           </video>
           <video
-            ref={video2Ref}
+            ref={videoRefs[1]}
             muted playsInline
-            onEnded={() => handleVideoEnd(2)}
             className={styles.heroVideoElement}
-            style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ opacity: activeVideo === 1 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
             <source src="/hero-secondary-arkos.mp4" type="video/mp4" />
           </video>
           <video
-            ref={video3Ref}
+            ref={videoRefs[2]}
             muted playsInline
-            onEnded={() => handleVideoEnd(3)}
             className={styles.heroVideoElement}
-            style={{ opacity: activeVideo === 3 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
             <source src="/hero-arkos-video.mp4" type="video/mp4" />
           </video>
