@@ -6,13 +6,16 @@ import styles from './CompetidoresSeccion.module.css'
 
 export default function CompetidoresSeccion() {
   const empresas = [
-    { name: 'Netflix', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/netflix.svg' },
-    { name: 'Amazon', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazon.svg' },
-    { name: 'Capital One', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/capitalone.svg' },
-    { name: 'Google', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg' },
-    { name: 'UPS', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/ups.svg' },
-    { name: 'LinkedIn', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linkedin.svg' },
-    { name: 'Patriots', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/accenture.svg' } // Accenture ou Similares analiticos
+    { name: 'Netflix', logo: 'https://logo.clearbit.com/netflix.com' },
+    { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com' },
+    { name: 'Capital One', logo: 'https://logo.clearbit.com/capitalone.com' },
+    { name: 'Google', logo: 'https://logo.clearbit.com/google.com' },
+    { name: 'Walmart', logo: 'https://logo.clearbit.com/walmart.com' },
+    { name: 'UPS', logo: 'https://logo.clearbit.com/ups.com' },
+    { name: 'LinkedIn', logo: 'https://logo.clearbit.com/linkedin.com' },
+    { name: 'Progressive', logo: 'https://logo.clearbit.com/progressive.com' },
+    { name: 'Caesars', logo: '/caesars.png' },
+    { name: 'Patriots', logo: '/patriots.png' }
   ]
 
   return (
@@ -62,7 +65,7 @@ export default function CompetidoresSeccion() {
             
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/netflix.svg" style={{ height: '32px', filter: 'brightness(0) invert(1)' }} alt="N" />
+                <img src="https://logo.clearbit.com/netflix.com" style={{ height: '32px', filter: 'brightness(0) invert(1)' }} alt="N" />
                 <h3 style={{ color: '#F4F2ED', fontSize: '2.25rem', fontWeight: 800, fontFamily: 'Sora, sans-serif' }}>O Caso Netflix</h3>
               </div>
               
@@ -91,20 +94,20 @@ export default function CompetidoresSeccion() {
             <div className={styles.caseStats} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div className={styles.statsGrid}>
                 <div className={styles.statCard}>
-                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>1 Bi</div>
-                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>feedbacks e opiniões avaliados</div>
+                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>325 mi</div>
+                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>assinantes ativos globais</div>
                 </div>
                 <div className={styles.statCard}>
-                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>70k</div>
-                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>atributos analiticos do usuário</div>
+                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>US$ 2,4 Bi</div>
+                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>lucro líquido (4º Tri 2025)</div>
                 </div>
                 <div className={styles.statCard}>
-                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>1.000</div>
-                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>experimentos A/B anuais</div>
+                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>96 Bi h</div>
+                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>conteúdos assistidos por semestre</div>
                 </div>
                 <div className={styles.statCard}>
-                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>69.4k h</div>
-                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>de vídeos medidos por minuto</div>
+                  <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>US$ 45 Bi</div>
+                  <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>receita total anual recorde</div>
                 </div>
               </div>
 
@@ -122,13 +125,13 @@ export default function CompetidoresSeccion() {
                   overflow: 'hidden'
                 }}
               >
-                <div style={{ color: '#C8F542', fontWeight: 800, fontSize: '0.8rem', letterSpacing: '1px' }}>O IMPACTO NOS NEGÓCIOS</div>
-                <h4 style={{ color: '#F4F2ED', fontSize: '1.25rem', fontWeight: 800 }}>O que a Estratégia Rendeu?</h4>
+                <div style={{ color: '#C8F542', fontWeight: 800, fontSize: '0.8rem', letterSpacing: '1px' }}>CRESCIMENTO ABSOLUTO</div>
+                <h4 style={{ color: '#F4F2ED', fontSize: '1.25rem', fontWeight: 800 }}>O que a Estratégia Rendeu em 2025?</h4>
                 <p style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.6' }}>
-                  A produção de <em>House of Cards</em> sem episódios pilotos reduziu drasticamente os custos de falhas. Em apenas 3 meses de lançamento, a precisão analítica gerou um incremento de <strong>3 milhões de novos assinantes globais</strong>, adicionando mais de <strong>US$ 72 milhões de faturamento imediato</strong> para a companhia e amortizando o investimento inicial rapidamente.
+                  A estabilidade analítica garantiu uma margem operacional recorde de <strong>24,5%</strong>. Essa solidez financeira permitiu à Netflix propor uma compra histórica de <strong>US$ 82,7 bilhões</strong> da <em>Warner Bros. Discovery</em> 100% all-cash, consolidando-se como uma força imbatível contra a concorrência tradicional.
                 </p>
                 <p style={{ color: '#C8F542', fontSize: '0.85rem', fontWeight: 700 }}>
-                   Substituição do instinto por decisões quantitativas absolutas.
+                   O volume de dados em tempo real sustenta investimentos bilionários com risco mitigado.
                 </p>
               </div>
             </div>
@@ -142,17 +145,17 @@ export default function CompetidoresSeccion() {
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
               {[
-                { name: 'Amazon', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazon.svg', text: 'Utiliza técnicas avançadas de otimização em tempo real e aprendizado de máquina em toda a sua cadeia de suprimentos para gerenciar estoques com base na incerteza da demanda.' },
-                { name: 'Capital One', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/capitalone.svg', text: 'Pioneira em "estratégias baseadas em informações", conduz cerca de 8.000 testes de marketing por ano para atrair clientes lucrativos com precisão.' },
-                { name: 'Google', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg', text: 'Aplica o rigor analítico a algoritmos de busca e ao "People Operations", utilizando ciência de dados para formar melhores líderes e estratégias de retenção.' },
-                { name: 'Walmart', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/walmart.svg', text: 'Referência em supply-chain, compartilha dados em tempo real com 60 mil fornecedores via Retail Link, prevendo demandas sazonais ou atípicas (como furacões).' },
-                { name: 'UPS', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/ups.svg', text: 'Investiu no sistema ORION, que otimiza rotas de 55 mil motoristas diariamente, gerando economia de centenas de milhões de dólares ao ano em combustível.' },
-                { name: 'Caesars Entertainment', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microstrategy.svg', text: 'Revolucionou o setor de cassinos fidelizando clientes por meio de análise de dados no ponto de venda para ofertas personalizadas em tempo real.' },
-                { name: 'Progressive', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/progressive.svg', text: 'Destaca-se pelo programa Snapshot, precificando seguros dinamicamente ao coletar dados reais sobre como o cliente dirige (velocidade, freadas).' },
-                { name: 'Times Esportivos (Patriots)', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nfl.svg', text: 'Patriots e Oakland A\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia e força mental dos atletas.' }
+                { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com', text: 'Utiliza técnicas avançadas de otimização em tempo real e aprendizado de máquina em toda a sua cadeia de suprimentos para gerenciar estoques com base na incerteza da demanda.' },
+                { name: 'Capital One', logo: 'https://logo.clearbit.com/capitalone.com', text: 'Pioneira em "estratégias baseadas em informações", conduz cerca de 8.000 testes de marketing por ano para atrair clientes lucrativos com precisão.' },
+                { name: 'Google', logo: 'https://logo.clearbit.com/google.com', text: 'Aplica o rigor analítico a algoritmos de busca e ao "People Operations", utilizando ciência de dados para formar melhores líderes e estratégias de retenção.' },
+                { name: 'Walmart', logo: 'https://logo.clearbit.com/walmart.com', text: 'Referência em supply-chain, compartilha dados em tempo real com 60 mil fornecedores via Retail Link, prevendo demandas sazonais ou atípicas (como furacões).' },
+                { name: 'UPS', logo: 'https://logo.clearbit.com/ups.com', text: 'Investiu no sistema ORION, que otimiza rotas de 55 mil motoristas diariamente, gerando economia de centenas de milhões de dólares ao ano em combustível.' },
+                { name: 'Caesars Entertainment', logo: '/caesars.png', text: 'Revolucionou o setor de cassinos fidelizando clientes por meio de análise de dados no ponto de venda para ofertas personalizadas em tempo real.' },
+                { name: 'Progressive', logo: 'https://logo.clearbit.com/progressive.com', text: 'Destaca-se pelo programa Snapshot, precificando seguros dinamicamente ao coletar dados reais sobre como o cliente dirige (velocidade, freadas).' },
+                { name: 'Times Esportivos (Patriots)', logo: '/patriots.png', text: 'Patriots e Oakland A\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia e força mental dos atletas.' }
               ].map((c) => (
                  <div key={c.name} style={{ background: '#111318', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <img src={c.logo} style={{ height: '24px', width: 'fit-content', filter: 'brightness(0) invert(1)', opacity: 0.5 }} alt={c.name} />
+                    <img src={c.logo} style={{ height: '32px', width: 'fit-content', filter: 'brightness(0) invert(1)', opacity: 0.8 }} alt={c.name} />
                     <div>
                       <div style={{ color: '#F4F2ED', fontSize: '1rem', fontWeight: 800, marginBottom: '6px' }}>{c.name}</div>
                       <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5' }}>{c.text}</p>
