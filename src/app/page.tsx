@@ -502,8 +502,36 @@ export default function Home() {
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
-          <div>
-            <img src="/arkos_maturity.png" alt="Maturidade Analítica" style={{ width: '100%', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
+          {/* Staircase Graphic Render Layout instead of IMG */}
+          <div style={{ position: 'relative', height: '480px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '20px 0' }}>
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '20px', width: '2px', background: 'linear-gradient(to top, #C8F542 40%, rgba(255,255,255,0.05) 100%)' }}></div>
+            
+            {[
+              { n: 5, t: 'Competidores Analíticos', c: '#C8F542', b: 'rgba(200,245,66,0.08)', d: 'Estratégia' },
+              { n: 4, t: 'Empresas Analíticas', c: '#FFFFFF', b: 'rgba(255,255,255,0.04)', d: 'Integração' },
+              { n: 3, t: 'Aspirações Analíticas', c: '#8A8F99', b: 'rgba(255,255,255,0.02)', d: 'Início' },
+              { n: 2, t: 'Analítica Localizada', c: '#8A8F99', b: 'rgba(255,255,255,0.01)', d: 'Silos' },
+              { n: 1, t: 'Analiticamente Defasado', c: '#5A5F6A', b: 'transparent', d: 'Intuição' }
+            ].map((step, i) => (
+              <div key={step.n} style={{ display: 'flex', alignItems: 'center', gap: '16px', position: 'relative', marginLeft: `${(5 - i) * 16}px`, transition: 'all 0.3s' }}>
+                <div style={{ 
+                  background: step.n === 5 ? '#C8F542' : '#111318', 
+                  color: step.n === 5 ? '#000' : '#8A8F99', 
+                  width: '44px', height: '44px', 
+                  borderRadius: '12px', 
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                  fontWeight: '800', 
+                  border: `1px solid ${step.n === 5 ? '#C8F542' : 'rgba(255,255,255,0.05)'}`, 
+                  boxShadow: step.n === 5 ? '0 0 30px rgba(200,245,66,0.25)' : 'none' 
+                }}>
+                  {step.n}
+                </div>
+                <div style={{ padding: '14px 20px', background: step.b, borderRadius: '12px', border: `1px solid ${step.n === 5 ? 'rgba(200,245,66,0.2)' : 'rgba(255,255,255,0.03)'}`, flex: 1, backdropFilter: 'blur(10px)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: step.c, fontWeight: '800', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{step.t}</span>
+                  <span style={{ color: step.n === 5 ? '#000' : '#5A5F6A', background: step.n === 5 ? '#C8F542' : 'rgba(255,255,255,0.04)', fontSize: '0.625rem', fontFamily: 'monospace', padding: '4px 8px', borderRadius: '4px', fontWeight: 'bold' }}>{step.d}</span>
+                </div>
+              </div>
+            ))}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', position: 'relative' }}>
@@ -535,6 +563,31 @@ export default function Home() {
               <strong style={{ color: '#C8F542', fontSize: '1.2rem', display: 'block', marginBottom: '8px', fontWeight: 800 }}>Competidores Analíticos</strong>
               <p style={{ color: '#FFF', fontSize: '0.95rem', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>O topo da maturidade. A inteligência e os algoritmos são o principal diferencial competitivo da firma, direcionando cada decisão de expansão e eficiência.</p>
             </div>
+          </div>
+        </div>
+
+        {/* ── FOOTER DO MODELO DELTA ────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '80px', paddingTop: '60px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>VETOR DE IMPLANTAÇÃO</div>
+            <h3 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#F4F2ED' }}>O Modelo DELTA como Combustível</h3>
+            <p style={{ color: '#8A8F99', fontSize: '0.9rem', maxWidth: '600px', margin: '12px auto 0 auto' }}>Para sustentar a escalada aos Níveis 4 e 5, Davenport descreve cinco pilares fundacionais indispensáveis. A ARKOS preenche cada um deles nativamente:</p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '24px' }}>
+            {[
+              { l: 'D', t: 'Data (Dados)', d: 'Consolidação de dados limpos, integrados e de alta qualidade (Data Lake).' },
+              { l: 'E', t: 'Enterprise (Empresa)', d: 'Visão sistêmica global que quebra os silos departamentais.' },
+              { l: 'L', t: 'Leadership (Liderança)', d: 'Geração de insights diretos para o apoio e tomada de decisão do C-Level.' },
+              { l: 'T', t: 'Targets (Metas)', d: 'Foco analítico direcionado aos principais objetivos da firma.' },
+              { l: 'A', t: 'Analysts (Analistas)', d: 'Algoritmos atuando como co-pilotos automatizados da sua equipe.' }
+            ].map((item) => (
+              <div key={item.l} style={{ padding: '24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)', textAlign: 'center' }}>
+                <div style={{ fontSize: '2.5rem', fontWeight: '900', color: '#C8F542', marginBottom: '12px', fontFamily: 'var(--sans)' }}>{item.l}</div>
+                <strong style={{ color: '#FFF', fontSize: '1rem', display: 'block', marginBottom: '8px' }}>{item.t}</strong>
+                <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5', margin: 0 }}>{item.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
