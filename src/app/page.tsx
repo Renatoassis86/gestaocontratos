@@ -365,7 +365,7 @@ export default function Home() {
             { tag: 'Arkos Rooms', icon: '🎥', desc: 'Aplicativo interno para salas de reunião remotas com mecanismo que transcreve falas automaticamente via Inteligência Artificial e gera atas em PDFs.', title: 'Reuniões Remotas' },
             { tag: 'Arkos LiveTranslate', icon: '🌐', desc: 'Tradutor instantâneo e robusto embarcado para calls, acompanhando a prospecção da empresa globalmente de forma nativa e confidencial.', title: 'Call Translator' },
             { tag: 'Arkos Connect', icon: '🤝', desc: 'Rede social interna fechada da companhia para compartilhamento de informações confidenciais, boletins, murais de avisos e rituais de times', title: 'Feed Corporativo Gamificado' },
-            { tag: 'Arkos Flow', icon: '🔄', desc: 'Sistemas de gestão ágil puras (Scrum e Kanban nativo) rodando visualmente colado aos SLAs dos contratos e financeiro dos tickets internos.', title: 'Projetos e Processos' },
+            { tag: 'Arkos Flow', icon: '🔄', desc: 'Gestão ágil de projetos com Scrum e Kanban nativos. Cada área da empresa gerencia suas ações, tarefas e entregas em painéis visuais. O gestor acompanha o andamento de cada setor em tempo real, garantindo execução disciplinada das metas estratégicas.', title: 'Projetos e Processos' },
             { tag: 'Arkos Smart Booking', icon: '📅', desc: 'Links de reunião e formulários de prospecção autônomos por sistema web que despacham lembretes e agendamentos pelo WhatsApp automaticamente.', title: 'Agendamentos Inteligentes' },
           ].map((app, idx) => (
             <div key={idx} style={{ background: '#111318', border: '1px solid rgba(255,255,255,0.03)', padding: '32px', borderRadius: '12px' }}>
