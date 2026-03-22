@@ -1,12 +1,25 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
 import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users } from 'lucide-react'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  
+  const handleVideoTimeUpdate = () => {
+    if (!heroVideoRef.current) return;
+    const { currentTime, duration } = heroVideoRef.current;
+    // Fade out 1.2s before the end, keep faded for the first 0.5s to hide abrupt jump
+    if (duration > 0 && (duration - currentTime < 1.0 || currentTime < 0.5)) {
+      heroVideoRef.current.style.opacity = '0';
+    } else {
+      heroVideoRef.current.style.opacity = '1';
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -65,9 +78,10 @@ export default function Home() {
         <div className={styles.heroVideoBg}>
           {/* Instrução: Faça o upload do vídeo final no formato .mp4 com o nome hero-main-arkos.mp4 para a pasta /public */}
           <video 
+            ref={heroVideoRef}
+            onTimeUpdate={handleVideoTimeUpdate}
             autoPlay loop muted defaultMuted playsInline 
             className={styles.heroVideoElement}
-            poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80"
           >
             <source src="/hero-main-arkos.mp4" type="video/mp4" />
           </video>
@@ -83,7 +97,7 @@ export default function Home() {
 
           <h1 className={styles.heroH1Adapta}>
             A Infraestrutura de <br />
-            <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da Nova Economia, administração e sistemas.
+            <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da nova economia, administração aliada a ciências de dados para negócios.
           </h1>
 
           <p className={styles.heroPAdapta}>
