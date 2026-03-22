@@ -1,51 +1,51 @@
-\\pagebreak
-\\chapter{Aderência aos Padrões de Engenharia de Software (SWEBOK v4.0)}
+\pagebreak
+\chapter{Aderência aos Padrões de Engenharia de Software (SWEBOK v4.0)}
 
-\\section{A Fundamentação de Software da Arkos}
-Para garantir que a Arkos Intelligence não seja apenas mais uma aplicação comercial, mas sim uma \\textbf{Infraestrutura Evolutiva}, o seu desenvolvimento segue rigorosamente o \\textbf{Guide to the Software Engineering Body of Knowledge (SWEBOK v4.0)} da IEEE Computer Society. 
+\section{A Fundamentação de Software da Arkos}
+Para garantir que a Arkos Intelligence não seja apenas mais uma aplicação comercial, mas sim uma \textbf{Infraestrutura Evolutiva}, o seu desenvolvimento segue rigorosamente o \textbf{Guide to the Software Engineering Body of Knowledge (SWEBOK v4.0)} da IEEE Computer Society. 
 
 Esta seção documenta como os pilares do SWEBOK são aplicados na plataforma para garantir previsibilidade, segurança e retorno sobre o investimento para os co-criadores.
 
-\\section{Mapeamento de Áreas de Conhecimento (KAs)}
+\section{Mapeamento de Áreas de Conhecimento (KAs)}
 
-\\subsection{1. Requisitos de Software (Software Requirements)}
-\\begin{itemize}
-    \\item \\textbf{Alinhamento SWEBOK}: Elicitação, especificação e validação de necessidades de stakeholders em ciclos ágeis.
-    \\item \\textbf{Justificativa Arkos}: Nossa metodologia começa pelo \\textbf{Diagnóstico e Mapeamento de Silos}. Os requisitos não são \"deduzidos\", mas sim mapeados de fluxos de caixa, contratos e gargalos reais da operação do cliente, traduzidos em regras de negócio determinísticas.
-\\end{itemize}
+\subsection{1. Requisitos de Software (Software Requirements)}
+\begin{itemize}
+    \item \textbf{Alinhamento SWEBOK}: Elicitação, especificação e validação de necessidades de stakeholders em ciclos ágeis.
+    \item \textbf{Justificativa Arkos}: Nossa metodologia começa pelo \textbf{Diagnóstico e Mapeamento de Silos}. Os requisitos não são \"deduzidos\", mas sim mapeados de fluxos de caixa, contratos e gargalos reais da operação do cliente, traduzidos em regras de negócio determinísticas.
+\end{itemize}
 
-\\subsection{2. Arquitetura e Design (Software Design)}
-\\begin{itemize}
-    \\item \\textbf{Alinhamento SWEBOK}: Modularização, acoplamento fraco (loose coupling), alta coesão e separação de interesses.
-    \\item \\textbf{Justificativa Arkos}: O desenho do \\textbf{Hub de Inteligência} aplica micro-modularização. Cada plataforma (CRM, CLM, HRMS) opera de forma isolada no frontend, mas consome o mesmo barramento analítico seguro (Supabase/Data Lake). Se um módulo falhar, o core operacional continua imutável.
-\\end{itemize}
+\subsection{2. Arquitetura e Design (Software Design)}
+\begin{itemize}
+    \item \textbf{Alinhamento SWEBOK}: Modularização, acoplamento fraco (loose coupling), alta coesão e separação de interesses.
+    \item \textbf{Justificativa Arkos}: O desenho do \textbf{Hub de Inteligência} aplica micro-modularização. Cada plataforma (CRM, CLM, HRMS) opera de forma isolada no frontend, mas consome o mesmo barramento analítico seguro (Supabase/Data Lake). Se um módulo falhar, o core operacional continua imutável.
+\end{itemize}
 
-\\subsection{3. Construção de Software (Software Construction)}
-\\begin{itemize}
-    \\item \\textbf{Alinhamento SWEBOK}: Práticas de codificação segura, Clean Code e desenvolvimento orientado a componentes.
-    \\item \\textbf{Justificativa Arkos}: A interface utiliza componentização atômica em React/Next.js. Isso impede duplicidade de lógica e garante que disparos de gatilhos acionem rotinas seguras e autenticadas no backend, nunca expondo inteligência analítica localmente do lado do navegador (Client).
-\\end{itemize}
+\subsection{3. Construção de Software (Software Construction)}
+\begin{itemize}
+    \item \textbf{Alinhamento SWEBOK}: Práticas de codificação segura, Clean Code e desenvolvimento orientado a componentes.
+    \item \textbf{Justificativa Arkos}: A interface utiliza componentização atômica em React/Next.js. Isso impede duplicidade de lógica e garante que disparos de gatilhos acionem rotinas seguras e autenticadas no backend, nunca expondo inteligência analítica localmente do lado do navegador (Client).
+\end{itemize}
 
-\\subsection{4. Engenharia Econômica de Software (Economics)}
-\\begin{itemize}
-    \\item \\textbf{Alinhamento SWEBOK}: Mensuração de valor, retorno sobre investimento (ROI) e amortização de custos de engenharia.
-    \\item \\textbf{Justificativa Arkos}: Esta é a grande inovação. O cálculo de \\textbf{CAC e LTV} automatizados na mesa operacional é o SWEBOK aplicado na prática para a gestão do cliente. A plataforma mede a própria rentabilidade de cada ecossistema em tempo real.
-\\end{itemize}
+\subsection{4. Engenharia Econômica de Software (Economics)}
+\begin{itemize}
+    \item \textbf{Alinhamento SWEBOK}: Mensuração de valor, retorno sobre investimento (ROI) e amortização de custos de engenharia.
+    \item \textbf{Justificativa Arkos}: Esta é a grande inovação. O cálculo de \textbf{CAC e LTV} automatizados na mesa operacional é o SWEBOK aplicado na prática para a gestão do cliente. A plataforma mede a própria rentabilidade de cada ecossistema em tempo real.
+\end{itemize}
 
-\\section{Auditoria de Conformidade (O que foi Ajustado)}
-Durante a varredura estrutural para este relatório, avaliamos e refinamos pontos estratégicos para garantir 100\\% de adequação com os padrões rigorosos da IEEE:
+\section{Auditoria de Conformidade (O que foi Ajustado)}
+Durante a varredura estrutural para este relatório, avaliamos e refinamos pontos estratégicos para garantir 100\% de adequação com os padrões rigorosos da IEEE:
 
-\\begin{enumerate}
-    \\item \\textbf{Gestão de Dependências (Configuration Management)}:
-    \\begin{itemize}
-        \\item \\textit{Status Anterior}: Atualizações livres com potencial vulnerabilidade de versão.
-        \\item \\textit{Ajuste Aplicado}: Implementação de travamento de versões (lockfiles) e espelhamento seguro de dados para garantir que atualizações externas não quebrem a esteira analítica da Arkos.
-    \\end{itemize}
-    \\item \\textbf{Automação de Testes de Integridade (Software Testing)}:
-    \\begin{itemize}
-        \\item \\textit{Status Anterior}: Validação visual de painéis e fluxos analíticos.
-        \\item \\textit{Ajuste Aplicado}: Introdução de rotinas de testes automatizados (Playwright). Qualquer alteração em filtros de contratos ou receitas aciona um teste que impede visualizações corrompidas para o C-Level.
-    \\end{itemize}
-\\end{enumerate}
+\begin{enumerate}
+    \item \textbf{Gestão de Dependências (Configuration Management)}:
+    \begin{itemize}
+        \item \textit{Status Anterior}: Atualizações livres com potencial vulnerabilidade de versão.
+        \item \textit{Ajuste Aplicado}: Implementação de travamento de versões (lockfiles) e espelhamento seguro de dados para garantir que atualizações externas não quebrem a esteira analítica da Arkos.
+    \end{itemize}
+    \item \textbf{Automação de Testes de Integridade (Software Testing)}:
+    \begin{itemize}
+        \item \textit{Status Anterior}: Validação visual de painéis e fluxos analíticos.
+        \item \textit{Ajuste Aplicado}: Introdução de rotinas de testes automatizados (Playwright). Qualquer alteração em filtros de contratos ou receitas aciona um teste que impede visualizações corrompidas para o C-Level.
+    \end{itemize}
+\end{enumerate}
 
-Essa governança garante que \\textbf{Gabriel, Emanuel, Lucas e Wiliam} possuam uma plataforma sustentada pelas melhores práticas globais de software, mitigando riscos de segurança e garantindo total escalabilidade estrutural.
+Essa governança garante que \textbf{Gabriel, Emanuel, Lucas e Wiliam} possuam uma plataforma sustentada pelas melhores práticas globais de software, mitigando riscos de segurança e garantindo total escalabilidade estrutural.
