@@ -81,16 +81,12 @@ export default function ModulosSelector() {
           ].map((modulo) => {
             const CardContent = (
               <div 
-                className={styles.card} 
+                className={`${styles.card} ${modulo.hasAccess ? styles.cardActive : styles.cardInactive}`} 
                 style={{ 
                   padding: 0, 
-                  height: 'auto', 
+                  height: '100%', 
                   display: 'flex', 
                   flexDirection: 'column',
-                  border: modulo.hasAccess ? '1px solid rgba(200,245,66,0.3)' : '1px solid rgba(255,255,255,0.04)',
-                  boxShadow: modulo.hasAccess ? '0 0 24px rgba(200,245,66,0.06)' : 'none',
-                  opacity: modulo.hasAccess ? 1 : 0.65,
-                  cursor: modulo.hasAccess ? 'pointer' : 'default'
                 }}
               >
                 {/* Imagem de Capa */}

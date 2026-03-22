@@ -79,9 +79,25 @@
 
 .card:hover {
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(200, 245, 66, 0.2);
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(200, 245, 66, 0.05);
+}
+
+.cardActive {
+  border: 1px solid rgba(200, 245, 66, 0.25) !important;
+  box-shadow: 0 0 20px rgba(200, 245, 66, 0.04);
+  opacity: 1;
+  cursor: pointer;
+}
+
+.cardActive:hover {
+  border-color: rgba(200, 245, 66, 0.5) !important;
+  box-shadow: 0 15px 35px rgba(200, 245, 66, 0.12);
+}
+
+.cardInactive {
+  border: 1px solid rgba(255, 255, 255, 0.03) !important;
+  opacity: 0.6 !important;
+  cursor: default;
 }
 
 .cardHeader {
