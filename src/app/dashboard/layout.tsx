@@ -63,6 +63,7 @@ export default async function DashboardLayout({
   return (
     <DashboardLayoutClient 
       activeCompany={activeCompany} 
+      empresas={empresas}
       isAdmin={isAdmin} 
       perfilName={perfil?.nome || user.email}
     >

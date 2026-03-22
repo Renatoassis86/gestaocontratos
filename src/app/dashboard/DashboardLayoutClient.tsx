@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { Sidebar } from '@/components/layout/Sidebar'
 import styles from './dashboardLayoutClient.module.css'
 
-export function DashboardLayoutClient({ children, activeCompany, isAdmin, perfilName, perfilAvatar }: any) {
+export function DashboardLayoutClient({ children, activeCompany, empresas, isAdmin, perfilName, perfilAvatar }: any) {
   const pathname = usePathname()
   const isHub = pathname === '/dashboard'
 
@@ -17,16 +17,16 @@ export function DashboardLayoutClient({ children, activeCompany, isAdmin, perfil
           <div className={styles.leftHeader} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             {isHub && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <img src="/arkos_logo.png" alt="Arkos" style={{ height: '28px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+                <img src="/arkos_logo.png" alt="Arkos" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
               </div>
             )}
-            {!isHub && <CompanySwitcherWrapper activeCompany={activeCompany} />}
+            {!isHub && <CompanySwitcher empresas={empresas} activeCompany={activeCompany} />}
           </div>
 
           {isHub && (
-             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.02)', padding: '6px 12px', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px' }}>
-                <span style={{ fontSize: '0.75rem', color: '#8A8F99' }}>Workspace Workspace configurável</span>
-                <input type="color" defaultValue="#C8F542" style={{ width: '24px', height: '24px', border: 'none', borderRadius: '4px', cursor: 'pointer', background: 'transparent' }} />
+             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.02)', padding: '6px 12px', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '12px' }}>
+                <span style={{ fontSize: '0.75rem', color: '#8A8F99' }}>Espaço Customizável</span>
+                <input type="color" defaultValue="#C8F542" style={{ width: '22px', height: '22px', border: 'none', borderRadius: '4px', cursor: 'pointer', background: 'transparent' }} />
              </div>
           )}
 
@@ -52,11 +52,3 @@ export function DashboardLayoutClient({ children, activeCompany, isAdmin, perfil
 
 import { CompanySwitcher } from '@/components/layout/CompanySwitcher'
 import Link from 'next/link'
-
-function CompanySwitcherWrapper({ activeCompany }: any) {
-    return (
-        <div className={styles.companySwitcher}>
-           <span>{activeCompany?.nomeFantasia || activeCompany?.razaoSocial}</span>
-        </div>
-    )
-}
