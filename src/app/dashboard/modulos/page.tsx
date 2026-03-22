@@ -1,23 +1,89 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { FileText, Users, ShoppingCart, LogOut, Package, ArrowRight } from 'lucide-react'
+import { FileText, Users, ShoppingCart, LogOut, Package, ArrowRight, CheckCircle, MessageCircle } from 'lucide-react'
 import styles from './modulos.module.css'
 
 export default function ModulosSelector() {
+  const [mounted, setMounted] = useState(false)
+  const [isPlayingVideo, setIsPlayingVideo] = useState(true)
+  const [fadeOut, setFadeOut] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+
+    // Começar a esmaecer após 3.5 segundos (tempo para o vídeo impactar)
+    const fadeTimeout = setTimeout(() => {
+      setFadeOut(true)
+    }, 3500)
+
+    // Remover totalmente após o fade completar (4.5 segundos)
+    const removeTimeout = setTimeout(() => {
+      setIsPlayingVideo(false)
+    }, 4500)
+
+    return () => {
+      clearTimeout(fadeTimeout)
+      clearTimeout(removeTimeout)
+    }
+  }, [])
+
   return (
     <div className={styles.container}>
-      {/* Header Selector */}
-      <header className={styles.header}>
-        <div className={styles.logoArea}>
-          <img src="/arkos_logo.png" alt="Arkos" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+      {/* Video Transition Overlay */}
+      {mounted && isPlayingVideo && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 9999,
+          backgroundColor: '#070A0F',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          opacity: fadeOut ? 0 : 1,
+          transition: 'opacity 1.2s ease-in-out',
+          pointerEvents: 'none',
+          overflow: 'hidden'
+        }}>
+          <video 
+            src="/Futuristic_Corporate_Analytics_Video_Generated.mp4" 
+            autoPlay 
+            muted 
+            playsInline 
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          />
+          
+          <div style={{
+            position: 'absolute',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            color: '#10B981',
+            fontSize: '1.25rem',
+            fontWeight: 700,
+            background: 'rgba(7, 10, 15, 0.75)',
+            padding: '14px 28px',
+            borderRadius: '16px',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(16, 185, 129, 0.2)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(16, 185, 129, 0.05)',
+            animation: 'pulse 2s infinite'
+          }}>
+            <CheckCircle size={24} style={{ fill: 'rgba(16, 185, 129, 0.1)' }} />
+            <span>Validação Aprovada</span>
+          </div>
         </div>
-        
-        <Link href="/login" style={{ textDecoration: 'none' }}>
-          <button style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#EF4444', fontSize: '0.813rem', background: 'rgba(239, 68, 68, 0.05)', padding: '6px 14px', borderRadius: '10px', border: '1px solid rgba(239, 68, 68, 0.15)', transition: 'all 0.2s', cursor: 'pointer' }}>
-            <LogOut size={14} />
-            <span>Sair</span>
-          </button>
-        </Link>
-      </header>
+      )}
+
+
 
       {/* Main Container Grid */}
       <main className="flex-1 flex flex-col items-center justify-center">
@@ -130,6 +196,48 @@ export default function ModulosSelector() {
               <Link href={modulo.link} className="flex" key={modulo.id} style={{ textDecoration: 'none' }}>{CardContent}</Link>
             );
           })}
+        </div>
+
+        {/* Footer Cta section */}
+        <div style={{
+          marginTop: '60px',
+          padding: '24px 32px',
+          background: 'rgba(255,255,255,0.02)',
+          border: '1px solid rgba(255,255,255,0.05)',
+          borderRadius: '16px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          maxWidth: '500px',
+          width: '100%',
+          textAlign: 'center',
+          marginBottom: '40px'
+        }}>
+          <p style={{ color: '#8A8F99', fontSize: '0.875rem', margin: 0, fontWeight: 500 }}>
+            Precisa de um módulo exclusivo ou suporte dedicado?
+          </p>
+          <a href="https://wa.me/5583981957737" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+            <button style={{
+              background: '#C8F542',
+              color: '#000',
+              fontWeight: '800',
+              fontSize: '0.75rem',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              transition: 'all 0.2s'
+            }}>
+              <MessageCircle size={16} style={{ strokeWidth: 3 }} />
+              <span>Falar com Consultor</span>
+            </button>
+          </a>
         </div>
       </main>
     </div>

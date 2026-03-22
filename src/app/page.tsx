@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users } from 'lucide-react'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X } from 'lucide-react'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeVideo, setActiveVideo] = useState<0|1|2>(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const videoRefs = [
     useRef<HTMLVideoElement>(null),
     useRef<HTMLVideoElement>(null),
@@ -56,23 +57,32 @@ export default function Home() {
           <img src="/logo-high-res.svg" alt="ARKOS" className={styles.logoImage} />
         </div>
         
-        <nav className={styles.hideOnMobile} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.813rem', color: '#8A8F99' }}>
+        {/* Botão Hambúrguer para Mobile */}
+        <button 
+          className={styles.burgerButton} 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          style={{ background: 'transparent', border: 'none', color: '#FFF', cursor: 'pointer', outline: 'none' }}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+        
+        <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : styles.hideOnMobile}`} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.813rem', color: '#8A8F99' }}>
           {/* Dropdown Institucional */}
           <div className={styles.navLinkDropdown} style={{ transition: 'color 0.2s', color: 'inherit' }}>
             <span style={{ cursor: 'pointer' }}>Institucional</span>
             <div className={styles.dropdownMenu}>
-              <Link href="/institucional/o-que-e" className={styles.dropdownItem}>O que é a Arkos</Link>
-              <Link href="/institucional/quem-somos" className={styles.dropdownItem}>Quem somos</Link>
-              <Link href="/institucional/equipe" className={styles.dropdownItem}>Conheça nossa equipe</Link>
-              <Link href="/institucional/nosso-negocio" className={styles.dropdownItem}>Nosso negócio</Link>
+              <Link href="/institucional/o-que-e" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>O que é a Arkos</Link>
+              <Link href="/institucional/quem-somos" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Quem somos</Link>
+              <Link href="/institucional/equipe" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Conheça nossa equipe</Link>
+              <Link href="/institucional/nosso-negocio" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Nosso negócio</Link>
             </div>
           </div>
 
-          <Link href="#problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>O Problema</span></Link>
-          <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Solução</span></Link>
-          <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Ecossistema</span></Link>
-          <Link href="#aplicativos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Hub Arkos</span></Link>
-          <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Diferencial</span></Link>
+          <Link href="#problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>O Problema</span></Link>
+          <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Solução</span></Link>
+          <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Ecossistema</span></Link>
+          <Link href="#aplicativos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Hub Arkos</span></Link>
+          <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferencial</span></Link>
         </nav>
 
         <div className={styles.headerActions}>
@@ -95,7 +105,7 @@ export default function Home() {
         <div className={styles.heroVideoBg}>
           <video
             ref={videoRefs[0]}
-            muted playsInline
+            autoPlay muted playsInline
             className={styles.heroVideoElement}
             style={{ opacity: activeVideo === 0 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
@@ -103,7 +113,7 @@ export default function Home() {
           </video>
           <video
             ref={videoRefs[1]}
-            muted playsInline
+            autoPlay muted playsInline
             className={styles.heroVideoElement}
             style={{ opacity: activeVideo === 1 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
@@ -111,7 +121,7 @@ export default function Home() {
           </video>
           <video
             ref={videoRefs[2]}
-            muted playsInline
+            autoPlay muted playsInline
             className={styles.heroVideoElement}
             style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
