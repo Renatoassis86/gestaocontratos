@@ -193,13 +193,13 @@
 
 /* ── SOLUÇÃO & VIDEO ARCH ───────────────────────────────── */
 .solucaoHero {
-  display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start;
-  margin-bottom: 80px;
+  display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 80px; align-items: start;
+  margin-bottom: 80px; max-width: 1080px; margin-left: auto; margin-right: auto;
 }
 
 .videoArchContainer {
-  position: relative; width: 100%; aspect-ratio: 1 / 1.15; max-width: 500px; margin: 0 auto;
-  border-radius: 40px 40px 280px 280px; overflow: hidden;
+  position: relative; width: 100%; aspect-ratio: 1 / 1.18; max-width: 380px; margin: 0 auto;
+  border-radius: 40px 40px 240px 240px; overflow: hidden;
   background: #111318; border: 1px solid rgba(255,255,255,0.05);
   box-shadow: 0 24px 60px -12px rgba(200,245,66,0.08);
 }
@@ -209,13 +209,6 @@
 }
 
 .videoArchContainer:hover .videoPlayer { opacity: 1; }
-
-.videoTopBadge {
-  position: absolute; top: 24px; left: 24px; z-index: 10;
-  background: #1162fb; color: #FFF; border-radius: 8px;
-  padding: 8px 16px; font-size: 0.813rem; font-weight: 600;
-  display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(17,98,251,0.4);
-}
 
 .videoBtmBadge {
   position: absolute; bottom: 32px; left: 0; right: 0; text-align: center;

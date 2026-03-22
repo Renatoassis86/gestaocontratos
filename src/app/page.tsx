@@ -186,9 +186,6 @@ export default function Home() {
         <div className={styles.solucaoHero}>
           {/* Left: Arch Video Thumbnail */}
           <div className={styles.videoArchContainer}>
-            <div className={styles.videoTopBadge}>
-              <span>▶</span> Conheça a Arkos
-            </div>
             {/* O vídeo deve ser adicionado na pasta public/ com o nome "hero-arkos-video.mp4" */}
             <video 
               autoPlay loop muted playsInline 
