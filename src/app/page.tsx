@@ -184,6 +184,7 @@ export default function Home() {
         </div>
         
         <div className={styles.solucaoGrid}>
+          {/* LEFT: Camadas do Pipeline */}
           <div className={styles.camadas}>
             <div className={styles.camada}>
               <div className={styles.camadaBar}></div>
@@ -219,19 +220,41 @@ export default function Home() {
             </div>
           </div>
 
-          <div>
-            <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.2' }}>Não vendemos software. Vendemos infraestrutura.</h3>
-            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>A vantagem real não está na tecnologia — está na cultura, nos dados proprietários e na capacidade analítica integrada às regras de negócio da empresa.</p>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
-                <Shield size={20} color="#C8F542" />
-                <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Operamos em analytics de alto nível — onde menos de 5% das empresas operam.</span>
+          {/* RIGHT: Video and Differentiators */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            {/* Video Thumbnail Hero */}
+            <div className={styles.videoContainer}>
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
+                className={styles.videoPlayer}
+              >
+                {/* O usuário precisará adicionar o arquivo video-executivos.mp4 na pasta public */}
+                <source src="/video-executivos.mp4" type="video/mp4" />
+                Seu navegador não suporta vídeos.
+              </video>
+              <div className={styles.videoOverlay}>
+                <div className={styles.videoTag}>Decisão Estratégica em Tempo Real</div>
               </div>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
-                <Users size={20} color="#C8F542" />
-                <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Letramento nativo para que sua equipe decida com autonomia de longo prazo.</span>
+            </div>
+
+            <div>
+              <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
+              <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px', lineHeight: '1.2' }}>Não vendemos software. Vendemos infraestrutura.</h3>
+              <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '24px' }}>A vantagem real não está na tecnologia — está na cultura, nos dados proprietários e na capacidade analítica integrada às regras de negócio da empresa.</p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                  <Shield size={20} color="#C8F542" />
+                  <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Operamos em analytics de alto nível — onde menos de 5% das empresas operam.</span>
+                </div>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                  <Users size={20} color="#C8F542" />
+                  <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Letramento nativo para que sua equipe decida com autonomia de longo prazo.</span>
+                </div>
               </div>
             </div>
           </div>
