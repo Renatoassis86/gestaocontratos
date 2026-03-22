@@ -109,8 +109,8 @@
 }
 
 .heroH1Adapta {
-  font-family: serif; font-size: 4.5rem; font-weight: 800; line-height: 1.05;
-  letter-spacing: -0.03em; color: var(--wht); margin-bottom: 24px;
+  font-family: 'Outfit', 'Inter', sans-serif; font-size: 4.5rem; font-weight: 900; line-height: 1.05;
+  letter-spacing: -0.04em; color: var(--wht); margin-bottom: 24px;
 }
 
 .heroPAdapta {
