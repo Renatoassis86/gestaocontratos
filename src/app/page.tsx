@@ -289,9 +289,9 @@ export default function Home() {
             <p className={styles.moduloDesc}>Squads avançados para empresas parceiras operando desenvolvimento web, landing pages exclusivas, tráfego pago escalável e produção audiovisual de marca.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>MODELAGEM MACRO</div>
+            <div className={styles.moduloSub}>PLANEJAMENTO ESTRATÉGICO</div>
             <h3 className={styles.moduloTitle}>Arkos Strategy Planner</h3>
-            <p className={styles.moduloDesc}>Geração de planos de negócios interativos e estruturação automatizada de rentabilidade usando leitura de cenários de cruzamento econômico contínuos.</p>
+            <p className={styles.moduloDesc}>Formulação completa e acompanhamento de planejamento estratégico. Oferecemos duas vias: através de um sistema autônomo e visual que orienta todos os passos, desde a identidade organizacional até a operação tática; ou via nossa consultoria especializada (remota ou presencial) para estruturar todo o plano junto à sua equipe.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>LETRAMENTO E GESTÃO EAD</div>
