@@ -60,43 +60,49 @@ export default function Home() {
 
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className={styles.heroAdapta}>
-        <div className={styles.heroTag} style={{ background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.12)', color: '#C8F542' }}>
-          <Sparkles size={12} />
-          <span>Infraestrutura de Inteligência · B2B SaaS</span>
-        </div>
-
-        <h1 className={styles.heroH1Adapta}>
-          A Infraestrutura de <br />
-          <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da Nova Economia, administração e sistemas.
-        </h1>
-
-        <p className={styles.heroPAdapta}>
-          Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional.
-        </p>
-        {/* ── Main Hero Video (VEO 3 Placeholder) ── */}
-        <div className={styles.mainVideoContainer}>
+        
+        {/* Background Video */}
+        <div className={styles.heroVideoBg}>
           {/* Instrução: Faça o upload do vídeo final no formato .mp4 com o nome hero-main-arkos.mp4 para a pasta /public */}
           <video 
             autoPlay loop muted defaultMuted playsInline 
-            className={styles.mainVideoPlayer}
+            className={styles.heroVideoElement}
             poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80"
           >
             <source src="/hero-main-arkos.mp4" type="video/mp4" />
           </video>
-          <div className={styles.mainVideoShadow}></div>
+          <div className={styles.heroVideoOverlay}></div>
         </div>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10 }}>
-          <Link href="https://wa.me/5583981957737" target="_blank">
-            <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
-              <span>Diagnóstico Gratuito</span>
-              <ArrowRight size={16} />
-            </button>
-          </Link>
-          <Link href="#solucao" className={styles.hideOnMobile}>
-            <button className={styles.btnSecondary}>
-              <span>Ver Como Funciona</span>
-            </button>
-          </Link>
+
+        {/* Foreground Content */}
+        <div className={styles.heroContentWrapper}>
+          <div className={styles.heroTag} style={{ background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.12)', color: '#C8F542' }}>
+            <Sparkles size={12} />
+            <span>Infraestrutura de Inteligência</span>
+          </div>
+
+          <h1 className={styles.heroH1Adapta}>
+            A Infraestrutura de <br />
+            <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da Nova Economia, administração e sistemas.
+          </h1>
+
+          <p className={styles.heroPAdapta}>
+            Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional.
+          </p>
+          
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10 }}>
+            <Link href="https://wa.me/5583981957737" target="_blank">
+              <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
+                <span>Diagnóstico Gratuito</span>
+                <ArrowRight size={16} />
+              </button>
+            </Link>
+            <Link href="#solucao" className={styles.hideOnMobile}>
+              <button className={styles.btnSecondary}>
+                <span>Ver Como Funciona</span>
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -135,13 +141,13 @@ export default function Home() {
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>O PROBLEMA</div>
           <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Por que as empresas perdem clareza</h2>
         </div>
-        <p className={styles.sectionIntro}>3 dores estruturais que se repetem em todo negócio — independente do porte ou segmento.</p>
+        <p className={styles.sectionIntro}>3 dores estruturais que se repetem em todo negócio, independente do porte ou segmento.</p>
 
         <div className={styles.doresGrid}>
           <div className={styles.dorCard}>
             <span className={styles.dorNum}>01</span>
             <h3 className={styles.dorTitle}>Informação Fragmentada</h3>
-            <p className={styles.dorBody}>Dados espalhados em planilhas, ERPs, CRMs e ferramentas digitais sem conexão entre si. A empresa enxerga pedaços do problema — nunca o todo.</p>
+            <p className={styles.dorBody}>Dados espalhados em planilhas, ERPs, CRMs e ferramentas digitais sem conexão entre si. A empresa enxerga pedaços do problema, nunca o todo.</p>
           </div>
           <div className={styles.dorCard}>
             <span className={styles.dorNum}>02</span>
@@ -185,7 +191,7 @@ export default function Home() {
           <div>
             <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
             <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos infraestrutura.</h3>
-            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>A vantagem real não está na simples tecnologia — está na cultura, nos dados proprietários e na capacidade educacional integrada às regras de negócio da empresa. O homem, chamado a analisar dados de excelência, não nasce pronto.</p>
+            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>A vantagem real não está na simples tecnologia, está na cultura, nos dados proprietários e na capacidade educacional integrada às regras de negócio da empresa. O homem, chamado a analisar dados de excelência, não nasce pronto.</p>
             
             <div className={styles.accList}>
               <div className={styles.accItem}>
