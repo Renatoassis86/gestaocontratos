@@ -56,9 +56,9 @@ export default function ModulosSelector() {
             },
             {
               id: 'recrutamento',
-              titulo: 'Recrutamento',
+              titulo: 'Gestão de Talentos (HR)',
               tag: 'HRMS',
-              desc: 'Triagem inteligente de candidatos e Onboarding digital sem burocracia.',
+              desc: 'Recrutamento automatizado por IA com rankeamento de currículos, dossiê de candidatos, gestão de folha de pagamento e KPIs de RH integrados.',
               link: 'https://recrutamento.cidadeviva.education/',
               externo: true,
               icon: <Users size={22} />,
