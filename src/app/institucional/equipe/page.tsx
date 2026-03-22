@@ -1,33 +1,63 @@
 "use client"
-import { Briefcase, Key } from 'lucide-react'
+import { Briefcase, Key, GraduationCap, MapPin, Code2 } from 'lucide-react'
 import styles from '../../page.module.css'
 
 export default function ConhecaEquipe() {
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px' }}>
+      <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px', textAlign: 'center' }}>CONHEÇA NOSSA EQUIPE</div>
+      <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '64px', lineHeight: '1.2', textAlign: 'center' }}>Mentes analíticas construindo o futuro da gestão.</h1>
+
       <div className={styles.solucaoHero}>
-        <div className={styles.videoArchWrapper}>
-          <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1552664688-cf412ec27db2?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        {/* Foto de Renato com efeito */}
+        <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', backgroundColor: '#090a0c', height: '100%', minHeight: '600px' }}>
+          {/* Instrução: salve a foto enviada na raiz da pasta public/  com o nome "renato-assis.jpg" */}
+          <div style={{ background: 'url("/renato-assis.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '100%', opacity: 0.9 }}>
           </div>
-          <div className={styles.videoBtmBadge}>
-             <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Especialistas em</span> performance <span style={{ color: '#C8F542' }}>&rarr;</span>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px', background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}>
+            <h2 style={{ color: '#FFF', fontSize: '1.8rem', fontWeight: 800, margin: 0 }}>Renato Assis</h2>
+            <p style={{ color: '#C8F542', fontFamily: 'monospace', fontSize: '0.8rem', letterSpacing: '1px', margin: '8px 0 0 0' }}>FOUNDER & CIENTISTA DE DADOS</p>
           </div>
         </div>
 
-        <div>
-          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>CONHEÇA NOSSA EQUIPE</div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '24px', lineHeight: '1.2' }}>Mentes analíticas, coração em operações reais.</h1>
-          <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.8', marginBottom: '32px' }}>A ARKOS nasceu na interseção de engenheiros de machine learning, CFOs de mercado de capitais e diretores operacionais. Os construtores desse núcleo reúnem profunda teoria econométrica com o "chão de fábrica" das vendas e da produtividade.</p>
+        {/* Bio Renato */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingTop: '16px' }}>
+          <div>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px' }}>A ciência econômica aplicada à produtividade diária.</h3>
+            <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.8', marginBottom: '16px' }}>
+              Com mais de uma década e meia atuando como supervisor técnico do DIEESE (PB e RN), Renato traz para a ARKOS uma bagagem ímpar de pesquisa em demografia, mercado de trabalho e análises socioeconômicas complexas. 
+            </p>
+            <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.8' }}>
+              Economista por formação e apaixonado pelo rigor analítico, fundou também a Econsult, aplicando planejamento estratégico, gestão financeira e desenvolvimento organizacional na prática do mercado privado. Hoje, lidera a visão de arquitetura de dados e de expansão tecnológica da ARKOS Ecosystems.
+            </p>
+          </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '16px' }}>
-              <Key size={24} color="#C8F542" style={{ flexShrink: 0 }} />
+          {/* Tags de Formação / Origem */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
+             <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+              <GraduationCap size={24} color="#C8F542" style={{ flexShrink: 0 }} />
               <div>
-                <strong style={{ display: 'block', color: '#FFF', fontSize: '0.95rem', marginBottom: '6px' }}>Conselho Multi-Disciplinar</strong>
-                <span style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.6' }}>Não terceirizamos a capacidade técnica. A arquitetura de inteligência é nossa arte principal.</span>
+                <strong style={{ display: 'block', color: '#FFF', fontSize: '0.95rem', marginBottom: '6px' }}>Formação Acadêmica (UFPB / UFRN)</strong>
+                <span style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.6' }}>Bacharel em C. Econômicas e Mestre em Economia Regional. Graduando em Ciência de Dados para Negócios e Pós em Educação Cristã Clássica pela FICV.</span>
+              </div>
+            </div>
+            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+              <Code2 size={24} color="#C8F542" style={{ flexShrink: 0 }} />
+              <div>
+                <strong style={{ display: 'block', color: '#FFF', fontSize: '0.95rem', marginBottom: '6px' }}>Stack Tecnológica & Dados</strong>
+                <span style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.6' }}>SPSS, Stata, R, SQL, Python, Pandas, Power BI, IA Generativa aplicada à Gestão e Modelagem de Data Warehouse (BI).</span>
               </div>
             </div>
           </div>
+
+          {/* Visão de Trabalho */}
+          <div style={{ padding: '24px', background: 'rgba(200,245,66,0.02)', borderRadius: '12px', border: '1px solid rgba(200,245,66,0.1)' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#C8F542', marginBottom: '12px' }}>A Motivação Arkos</div>
+            <p style={{ color: '#F4F2ED', fontSize: '0.95rem', lineHeight: '1.6', fontStyle: 'italic' }}>
+              "A prioridade sempre foi construir processos com pessoas e para pessoas. A tecnologia pela tecnologia não se sustenta; ela precisa gerar impacto de escala, agregar o máximo de valor e melhorar o bem-estar dos times. Na Arkos, transformamos gestão fragmentada em poder de decisão perfeitamente orquestrado."
+            </p>
+          </div>
+
         </div>
       </div>
     </div>

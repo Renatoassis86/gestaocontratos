@@ -8,16 +8,26 @@ import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye,
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
   
-  const handleVideoTimeUpdate = () => {
-    if (!heroVideoRef.current) return;
-    const { currentTime, duration } = heroVideoRef.current;
-    // Fade out 1.2s before the end, keep faded for the first 0.5s to hide abrupt jump
-    if (duration > 0 && (duration - currentTime < 1.0 || currentTime < 0.5)) {
-      heroVideoRef.current.style.opacity = '0';
-    } else {
-      heroVideoRef.current.style.opacity = '1';
+  const handleTimeUpdate1 = () => {
+    if (!video1Ref.current || !video2Ref.current) return;
+    const { currentTime, duration } = video1Ref.current;
+    if (duration > 0 && duration - currentTime < 1.2 && video1Ref.current.style.opacity !== '0') {
+      video1Ref.current.style.opacity = '0';
+      video2Ref.current.style.opacity = '1';
+      video2Ref.current.play().catch(() => {});
+    }
+  };
+
+  const handleTimeUpdate2 = () => {
+    if (!video1Ref.current || !video2Ref.current) return;
+    const { currentTime, duration } = video2Ref.current;
+    if (duration > 0 && duration - currentTime < 1.2 && video2Ref.current.style.opacity !== '0') {
+      video2Ref.current.style.opacity = '0';
+      video1Ref.current.style.opacity = '1';
+      video1Ref.current.play().catch(() => {});
     }
   };
 
@@ -53,8 +63,8 @@ export default function Home() {
 
           <Link href="#problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>O Problema</span></Link>
           <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Solução</span></Link>
-          <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Módulos</span></Link>
-          <Link href="#fluxo" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Maturidade</span></Link>
+          <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Ecossistema</span></Link>
+          <Link href="#aplicativos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Hub Arkos</span></Link>
           <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Diferencial</span></Link>
         </nav>
 
@@ -78,12 +88,23 @@ export default function Home() {
         <div className={styles.heroVideoBg}>
           {/* Instrução: Faça o upload do vídeo final no formato .mp4 com o nome hero-main-arkos.mp4 para a pasta /public */}
           <video 
-            ref={heroVideoRef}
-            onTimeUpdate={handleVideoTimeUpdate}
-            autoPlay loop muted defaultMuted playsInline 
+            ref={video1Ref}
+            onTimeUpdate={handleTimeUpdate1}
+            onEnded={() => { if(video1Ref.current) video1Ref.current.currentTime = 0; }}
+            autoPlay muted defaultMuted playsInline 
             className={styles.heroVideoElement}
           >
             <source src="/hero-main-arkos.mp4" type="video/mp4" />
+          </video>
+          <video 
+            ref={video2Ref}
+            onTimeUpdate={handleTimeUpdate2}
+            onEnded={() => { if(video2Ref.current) video2Ref.current.currentTime = 0; }}
+            muted defaultMuted playsInline 
+            className={styles.heroVideoElement}
+            style={{ opacity: 0, position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
+          >
+            <source src="/hero-secondary-arkos.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroVideoOverlay}></div>
         </div>
@@ -264,45 +285,79 @@ export default function Home() {
 
       </section>
 
-      {/* ── 3. MÓDULOS ─────────────────────────────────────────── */}
+      {/* ── 3. ECOSSISTEMA MÓDULOS ─────────────────────────────────────────── */}
       <section id="modulos" className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>6 MÓDULOS · 1 ECOSSISTEMA</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Suite de Produtos ARKOS</h2>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>A INFRAESTRUTURA COMPLETA</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Plataformas Modulares ARKOS</h2>
         </div>
 
-        <div className={styles.modulosGrid}>
-          {/* Módulos contents */}
+        <div className={styles.modulosGrid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>WEDGE ENTRADA</div>
             <h3 className={styles.moduloTitle}>Marketing Intelligence</h3>
             <p className={styles.moduloDesc}>Satisfação, mercado, digital e funil comercial. O módulo de entrada com ROI visível em semanas.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>FUNDAÇÃO</div>
+            <div className={styles.moduloSub}>DADOS NATIVOS</div>
             <h3 className={styles.moduloTitle}>Arkos Data</h3>
-            <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. A fundação de sua esteira analítica.</p>
+            <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. A fundação da sua esteira analítica.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>ESPINHA DORSAL</div>
-            <h3 className={styles.moduloTitle}>Arkos Systems</h3>
-            <p className={styles.moduloDesc}>Contratos, documentos, estoque e fluxos operacionais integrados em uma única plataforma.</p>
+            <div className={styles.moduloSub}>GESTÃO GLOBAL</div>
+            <h3 className={styles.moduloTitle}>Arkos ERP & CRM Matrix</h3>
+            <p className={styles.moduloDesc}>Contratos, documentos, finanças, gestão de fornecedores, tickets, pedidos e relacionamento unificados em uma arquitetura limpa.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>AUTOMAÇÃO</div>
-            <h3 className={styles.moduloTitle}>Arkos AI</h3>
-            <p className={styles.moduloDesc}>Copilots executivos, previsão de quebras de contrato e notificações de anomalia baseadas em IA.</p>
+            <div className={styles.moduloSub}>INTELIGÊNCIA AUTOMÁTICA</div>
+            <h3 className={styles.moduloTitle}>Arkos AI Agents</h3>
+            <p className={styles.moduloDesc}>Agentes autônomos treinados com as regras do seu negócio para resolver chamados diretamente via WhatsApp, reduzindo drasticamente custos de suporte.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>ESTRATÉGIA</div>
-            <h3 className={styles.moduloTitle}>Arkos Strategy</h3>
-            <p className={styles.moduloDesc}>Planejamento estratégico estruturado e leitura de cenários de cruzamento econômico.</p>
+            <div className={styles.moduloSub}>VENDAS DIGITAIS</div>
+            <h3 className={styles.moduloTitle}>Arkos Commerce & SaaS</h3>
+            <p className={styles.moduloDesc}>Motor financeiro robusto B2B integrado à gestão para e-commerce, recorrência, subscrições de produtos e integrações bancárias diretas.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>TRAÇÃO E AGÊNCIA</div>
+            <h3 className={styles.moduloTitle}>Arkos Growth Agency</h3>
+            <p className={styles.moduloDesc}>Squads avançados para empresas parceiras operando desenvolvimento web, landing pages exclusivas, tráfego pago escalável e produção audiovisual de marca.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>MODELAGEM MACRO</div>
+            <h3 className={styles.moduloTitle}>Arkos Strategy Planner</h3>
+            <p className={styles.moduloDesc}>Geração de planos de negócios interativos e estruturação automatizada de rentabilidade usando leitura de cenários de cruzamento econômico contínuos.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>LETRAMENTO</div>
             <h3 className={styles.moduloTitle}>Arkos Academy</h3>
-            <p className={styles.moduloDesc}>Trilhas educacionais corporativas, EdTechs white-label para faculdades e sistemas de ensino. Unimos rigor acadêmico com métricas preditivas de gestão e resultados a partir do comportamento e interação digital dos alunos.</p>
+            <p className={styles.moduloDesc}>Trilhas formativas corporativas (EdTech) atreladas à performance real dos colaboradores que os ensinam a usar a dados para liderança.</p>
           </div>
+        </div>
+      </section>
+
+      {/* ── 4. APLICATIVOS (HUB) ─────────────────────────────────────────── */}
+      <section id="aplicativos" className={styles.section} style={{ background: '#0a0c10', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
+        <div className={styles.sectionHeader} style={{ marginBottom: '60px' }}>
+          <div style={{ display: 'inline-flex', padding: '6px 14px', background: 'rgba(255,255,255,0.06)', borderRadius: '20px', color: '#FFF', fontSize: '0.75rem', fontWeight: '700', gap: '6px', alignItems: 'center', margin: '0 auto 12px auto' }}>HUB DE RECURSOS</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', letterSpacing: '-0.03em' }}>Ferramentas nativas prontas<br />para a sua rotina executiva.</h2>
+        </div>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          {[
+            { tag: 'Arkos Cloud', icon: '☁️', desc: 'Armazenamento interno seguro como "Drive" para salvar, classificar e auditar entregáveis da sua empresa.', title: 'Bancos de Arquivos' },
+            { tag: 'Arkos Rooms', icon: '🎥', desc: 'Aplicativo interno para salas de reunião remotas com mecanismo que transcreve falas automaticamente via Inteligência Artificial e gera atas em PDFs.', title: 'Reuniões Remotas' },
+            { tag: 'Arkos LiveTranslate', icon: '🌐', desc: 'Tradutor instantâneo e robusto embarcado para calls, acompanhando a prospecção da empresa globalmente de forma nativa e confidencial.', title: 'Call Translator' },
+            { tag: 'Arkos Connect', icon: '🤝', desc: 'Rede social interna fechada da companhia para compartilhamento de informações confidenciais, boletins, murais de avisos e rituais de times', title: 'Feed Corporativo Gamificado' },
+            { tag: 'Arkos Flow', icon: '🔄', desc: 'Sistemas de gestão ágil puras (Scrum e Kanban nativo) rodando visualmente colado aos SLAs dos contratos e financeiro dos tickets internos.', title: 'Projetos e Processos' },
+            { tag: 'Arkos Smart Booking', icon: '📅', desc: 'Links de reunião e formulários de prospecção autônomos por sistema web que despacham lembretes e agendamentos pelo WhatsApp automaticamente.', title: 'Agendamentos Inteligentes' },
+          ].map((app, idx) => (
+            <div key={idx} style={{ background: '#111318', border: '1px solid rgba(255,255,255,0.03)', padding: '32px', borderRadius: '12px' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '16px' }}>{app.icon}</div>
+              <h4 style={{ color: '#F4F2ED', fontSize: '1.25rem', marginBottom: '8px', fontWeight: 700 }}>{app.tag}</h4>
+              <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6' }}>{app.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
