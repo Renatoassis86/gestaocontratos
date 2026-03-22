@@ -514,66 +514,66 @@ export default function Home() {
         <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px' }}>Impacto Projetado na Operação</h2>
         <p style={{ color: '#8A8F99', fontSize: '1rem', marginBottom: '60px', maxWidth: '600px', margin: '0 auto 60px auto' }}>Métricas médias de rentabilidade e eficiência entregues na jornada das empresas que adotam a infraestrutura ARKOS.</p>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', textAlign: 'left' }}>
+        <div className={styles.resultadosGridMetrics}>
           
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↓ 25%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Redução de CAC</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Otimização direta do Custo de Aquisição de Clientes, bloqueando investimentos de marketing sem ROI real.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>↓ 25%</div>
+            <div className={styles.metricTitle}>Redução de CAC</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Otimização direta do Custo de Aquisição de Clientes, bloqueando investimentos sem ROI.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↑ 40%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Eficiência Analítica</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Fim do trabalho manual e repetitivo. O RH e Financeiro focam em aprovar estratégias em vez de montar planilhas.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>↑ 40%</div>
+            <div className={styles.metricTitle}>Eficiência Analítica</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Fim do trabalho manual. O RH e Financeiro focam em aprovar estratégias em vez de montar planilhas.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>8h → 3s</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Aceleração de Resposta</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> O tempo necessário para a diretoria compilar o fechamento de caixa ou vendas vs. a resposta no painel inteligenteizado.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>8h → 3s</div>
+            <div className={styles.metricTitle}>Aceleração de Resposta</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> O tempo necessário para a diretoria compilar vendas vs. a resposta no painel inteligenteizado.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↑ 30%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Crescimento de LTV</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Lifetime Value. Algoritmos predizem produtos que o cliente quer comprar e notificam o comercial (Up-sell e Cross-sell).</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>↑ 30%</div>
+            <div className={styles.metricTitle}>Crescimento de LTV</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Algoritmos predizem produtos que o cliente quer comprar e notificam o comercial.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>99,9%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Precisão Operacional</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Fim dos cálculos errados, contratos defasados não reajustados pela inflação ou perda de vigência jurídica.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>99,9%</div>
+            <div className={styles.metricTitle}>Precisão Operacional</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Fim dos cálculos errados, contratos defasados não reajustados pela inflação.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>↓ 18%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Redução de Opex</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Redução nas despesas operacionais da empresa devida à consolidação de ferramentas de software avulsas em um hub unificado.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>↓ 18%</div>
+            <div className={styles.metricTitle}>Redução de Opex</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Redução nas despesas operacionais devido à consolidação de ferramentas de software em um hub.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>360°</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Abolição de Silos</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Financeiro, Marketing e Suprimentos lendo a mesma fonte da verdade. O fim dos "meus dados vs. os seus dados".</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>360°</div>
+            <div className={styles.metricTitle}>Abolição de Silos</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Financeiro e Marketing lendo a mesma fonte. O fim dos "meus dados vs. os seus dados".</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>D-0</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Preditibilidade de Caixa</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Modulação antecipada (predictive cashflow). O sistema simula calotes antes de ocorrerem no caixa financeiro.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>D-0</div>
+            <div className={styles.metricTitle}>Preditibilidade Caixa</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Modulação antecipada (predictive cashflow). O sistema simula calotes antes de ocorrerem.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>- 45%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Mitigação de Churn</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> No braço acadêmico, identifica a probabilidade de um aluno evadir 60 dias antes dele deixar de pagar a mensalidade.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>- 45%</div>
+            <div className={styles.metricTitle}>Mitigação de Churn</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Identifica a probabilidade de um aluno evangelho evadir 60 dias antes dele deixar de pagar a mensalidade.</p>
           </div>
 
-          <div style={{ padding: '32px 24px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)' }}>
-            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px', lineHeight: '1' }}>100%</div>
-            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#FFF', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Autonomia de Capital</div>
-            <p style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.6' }}><strong style={{ color: '#F4F2ED' }}>O que representa:</strong> Letramento do time e posse total (Data Ownership). O ativo e a modelagem matemática ficam retidos e capitalizada para a empresa líder.</p>
+          <div className={styles.metricCard}>
+            <div className={styles.metricBig}>100%</div>
+            <div className={styles.metricTitle}>Autonomia Capital</div>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Letramento do time e posse total. A inteligência fica retida para a empresa, sem depender de consultorias.</p>
           </div>
 
         </div>
