@@ -500,6 +500,18 @@ export default function Home() {
         <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '600px', margin: '0 auto 40px auto' }}>Profissionais multidisciplinares unindo Ciência da Computação, Economia e Inteligência de Mercado.</p>
 
         <div className={styles.equipeGrid}>
+          {/* Renato - Idealizador (Moved to Top) */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/renato_assis_co.jpg" alt="Renato Assis" className={styles.equipeImage} style={{ objectPosition: 'top center' }} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Renato Assis</h3>
+              <span className={styles.equipeRole}>Idealizador e Founder | Cientista de Dados</span>
+              <p className={styles.equipeBio}>Idealizador do conceito da ARKOS, vislumbrou uma infraestrutura que unisse economia analítica e inteligência real para o C-Level. Orquestra a estratégia de expansão do ecossistema ao lado de co-fundadores especialistas.</p>
+            </div>
+          </div>
+
           {/* Emanuel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
@@ -545,18 +557,6 @@ export default function Home() {
               <h3 className={styles.equipeName}>Williams Calado</h3>
               <span className={styles.equipeRole}>Engenheiro de Integrações E Infraestrutura</span>
               <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
-            </div>
-          </div>
-
-          {/* Renato */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/renato_assis_co.jpg" alt="Renato Silva de Assis" className={styles.equipeImage} style={{ objectPosition: 'top center' }} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
-              <span className={styles.equipeRole}>Arquiteto Estratégico E Data Scientist</span>
-              <p className={styles.equipeBio}>Pesquisador e Economista responsável pela concepção das mecânicas avançadas da Arkos. Lidera a união das premissas econômicas reais com o Big Data da nova economia.</p>
             </div>
           </div>
 
