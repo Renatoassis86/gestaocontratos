@@ -67,7 +67,7 @@ export default function Home() {
 
         <h1 className={styles.heroH1Adapta}>
           A Infraestrutura de <br />
-          <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da Nova Economia.
+          <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da Nova Economia, administração e sistemas.
         </h1>
 
         <p className={styles.heroPAdapta}>
@@ -77,7 +77,7 @@ export default function Home() {
         <div className={styles.mainVideoContainer}>
           {/* Instrução: Faça o upload do vídeo final no formato .mp4 com o nome hero-main-arkos.mp4 para a pasta /public */}
           <video 
-            autoPlay loop muted playsInline 
+            autoPlay loop muted defaultMuted playsInline 
             className={styles.mainVideoPlayer}
             poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80"
           >
@@ -165,15 +165,17 @@ export default function Home() {
         
         <div className={styles.solucaoHero}>
           {/* Left: Arch Video Thumbnail */}
-          <div className={styles.videoArchContainer}>
-            {/* O vídeo deve ser adicionado na pasta public/ com o nome "hero-arkos-video.mp4" */}
-            <video 
-              autoPlay loop muted playsInline 
-              className={styles.videoPlayer}
-              poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
-            >
-              <source src="/hero-arkos-video.mp4" type="video/mp4" />
-            </video>
+          <div className={styles.videoArchWrapper}>
+            <div className={styles.videoArchContainer}>
+              {/* O vídeo deve ser adicionado na pasta public/ com o nome "hero-arkos-video.mp4" */}
+              <video 
+                autoPlay loop muted defaultMuted playsInline 
+                className={styles.videoPlayer}
+                poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
+              >
+                <source src="/hero-arkos-video.mp4" type="video/mp4" />
+              </video>
+            </div>
             <div className={styles.videoBtmBadge}>
               <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Sua operação movida a</span> Inteligência Estrutural <span style={{ color: '#C8F542' }}>&rarr;</span>
             </div>

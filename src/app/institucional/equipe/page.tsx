@@ -6,7 +6,9 @@ export default function ConhecaEquipe() {
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px' }}>
       <div className={styles.solucaoHero}>
-        <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1552664688-cf412ec27db2?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className={styles.videoArchWrapper}>
+          <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1552664688-cf412ec27db2?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          </div>
           <div className={styles.videoBtmBadge}>
              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Especialistas em</span> performance <span style={{ color: '#C8F542' }}>&rarr;</span>
           </div>

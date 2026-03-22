@@ -6,7 +6,9 @@ export default function NossoNegocio() {
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px' }}>
       <div className={styles.solucaoHero}>
-        <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className={styles.videoArchWrapper}>
+          <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          </div>
           <div className={styles.videoBtmBadge}>
              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Evoluindo a sua</span> corporação <span style={{ color: '#C8F542' }}>&rarr;</span>
           </div>
