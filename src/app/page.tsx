@@ -97,7 +97,7 @@ export default function Home() {
 
           <h1 className={styles.heroH1Adapta}>
             A Infraestrutura de <br />
-            <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da nova economia, administração aliada a ciências de dados para negócios.
+            <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da nova economia, aliada a ciências de dados para negócios.
           </h1>
 
           <p className={styles.heroPAdapta}>
