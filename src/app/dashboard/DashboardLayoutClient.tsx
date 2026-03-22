@@ -31,7 +31,9 @@ export function DashboardLayoutClient({ children, activeCompany, empresas, isAdm
           )}
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            {isHub && <Link href="/" style={{ color: '#8A8F99', fontSize: '0.813rem', textDecoration: 'none' }}>Sair da Suite</Link>}
+            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#8A8F99', fontSize: '0.813rem', textDecoration: 'none', background: 'rgba(255,255,255,0.02)', padding: '6px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.04)', transition: 'all 0.2s' }}>
+              <ArrowRight size={14} style={{ transform: 'rotate(180deg)' }} /> Voltar para o Site
+            </Link>
             
             <div className={styles.userMenu}>
               <div className={styles.perfilIcon}>
