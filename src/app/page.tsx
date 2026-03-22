@@ -698,8 +698,8 @@ export default function Home() {
 
           <div className={styles.footerCol}>
             <h4>Fale Conosco</h4>
-            <p style={{ color: '#F4F2ED' }}>contato@arkos.com</p>
-            <p style={{ color: '#F4F2ED' }}>+55 (83) 98195-7737</p>
+            <p>contato@arkos.com</p>
+            <p>+55 (83) 98195-7737</p>
           </div>
 
           <div className={styles.footerCol}>
