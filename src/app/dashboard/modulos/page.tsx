@@ -8,12 +8,12 @@ export default function ModulosSelector() {
       {/* Header Selector */}
       <header className={styles.header}>
         <div className={styles.logoArea}>
-          <img src="/logo-green.png" alt="ARKOS" className={styles.logoImage} />
+          <img src="/arkos_logo.png" alt="Arkos" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
         </div>
         
-        <Link href="/login">
-          <button className="flex items-center space-x-1.5 text-sm stroke-slate-400 text-slate-400 hover:text-red-500 font-medium transition-all">
-            <LogOut size={16} />
+        <Link href="/login" style={{ textDecoration: 'none' }}>
+          <button style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#EF4444', fontSize: '0.813rem', background: 'rgba(239, 68, 68, 0.05)', padding: '6px 14px', borderRadius: '10px', border: '1px solid rgba(239, 68, 68, 0.15)', transition: 'all 0.2s', cursor: 'pointer' }}>
+            <LogOut size={14} />
             <span>Sair</span>
           </button>
         </Link>

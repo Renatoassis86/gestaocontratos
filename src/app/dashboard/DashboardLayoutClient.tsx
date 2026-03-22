@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react'
 
 export function DashboardLayoutClient({ children, activeCompany, empresas, isAdmin, perfilName, perfilAvatar }: any) {
   const pathname = usePathname()
-  const isHub = pathname === '/dashboard'
+  const isHub = pathname === '/dashboard' || pathname === '/dashboard/modulos'
 
   return (
     <div className={`${styles.layout} ${isHub ? styles.layoutHub : ''}`}>
