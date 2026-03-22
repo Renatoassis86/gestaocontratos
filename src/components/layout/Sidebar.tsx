@@ -74,7 +74,7 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.header} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '1.5rem' }}>
-        <img src="/logo-green.svg" alt="Arkos" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+        <img src="/logo-high-res.svg" alt="Arkos" style={{ width: '30px', height: '30px', objectFit: 'contain' }} />
         <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#FFFFFF', letterSpacing: '0.5px', fontFamily: 'var(--sans)' }}>ARKOS</span>
       </div>
 
