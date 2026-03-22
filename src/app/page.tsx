@@ -122,14 +122,15 @@ export default function Home() {
       </section>
 
       {/* ── LOGOBAR ─── */}
-      <div className={styles.logobar}>
-        <p style={{ fontSize: '0.688rem', color: '#5A5F6A', marginBottom: '1.5rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1px' }}>APLICADO E APOIADO POR PROFISSIONAIS DE EMPRESAS COMO</p>
-        <div className={styles.logoGrid}>
-          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>BRASIL PARALELO</span>
-          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>USP</span>
-          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>facebook</span>
-          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>ambev</span>
-          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>ifcv</span>
+      <div className={styles.logobar} style={{ padding: '40px 0', borderTop: '1px solid rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.03)', background: 'rgba(0,0,0,0.2)' }}>
+        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700 }}>APLICADO E APOIADO POR PROFISSIONAIS DE EMPRESAS COMO</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', justifyContent: 'center', alignItems: 'center', maxWidth: '1100px', margin: '0 auto', padding: '0 20px' }}>
+          <img src="/logo_4.png" alt="DIEESE" style={{ height: '32px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
+          <img src="/logo_1.png" alt="ECONSULT" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
+          <img src="/logo_3.png" alt="CIDADE VIVA" style={{ height: '32px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
+          <img src="/logo_2.png" alt="FICV" style={{ height: '35px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.8 }} />
+          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#FFF', letterSpacing: '1px', opacity: 0.8 }}>SINTAJ</span>
+          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#FFF', letterSpacing: '1px', opacity: 0.8 }}>E-CONSULT</span>
         </div>
       </div>
 
