@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import styles from './page.module.css'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, Grid, Eye, TrendingUp, Cpu, Shield, Users, BarChart2 } from 'lucide-react'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -17,11 +17,23 @@ export default function Home() {
           <img src="/logo-high-res.svg" alt="ARKOS" className={styles.logoImage} />
         </div>
         
-        <nav className={styles.hideOnMobile} style={{ display: 'flex', gap: '1.5rem', fontSize: '0.813rem', color: '#8A8F99' }}>
+        <nav className={styles.hideOnMobile} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.813rem', color: '#8A8F99' }}>
           <Link href="#problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>O Problema</span></Link>
           <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Solução</span></Link>
           <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Módulos</span></Link>
           <Link href="#fluxo" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Maturidade</span></Link>
+          
+          {/* Dropdown Institucional */}
+          <div className={styles.navLinkDropdown} style={{ transition: 'color 0.2s', color: 'inherit' }}>
+            <span style={{ cursor: 'pointer' }}>Institucional</span>
+            <div className={styles.dropdownMenu}>
+              <Link href="#problema" className={styles.dropdownItem}>O que é a Arkos</Link>
+              <Link href="#solucao" className={styles.dropdownItem}>Quem somos</Link>
+              <Link href="#equipe" className={styles.dropdownItem}>Conheça nossa equipe</Link>
+              <Link href="#modulos" className={styles.dropdownItem}>Nosso negócio</Link>
+            </div>
+          </div>
+
           <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Diferencial</span></Link>
         </nav>
 
@@ -72,8 +84,8 @@ export default function Home() {
         <div className={styles.laptopContainer}>
           <div className={styles.laptopInnerShadow}></div>
           <img 
-            src="/arkos_financial_clickup_dashboard_1774143700587.png" 
-            alt="Dashboard Ágil Arkos" 
+            src="/arkos_dashboard_decision_1774133572097.png" 
+            alt="Dashboard Ágil Arkos Executivo" 
             className={styles.laptopImage} 
           />
         </div>
@@ -188,6 +200,7 @@ export default function Home() {
         </div>
 
         <div className={styles.modulosGrid}>
+          {/* Módulos contents */}
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>WEDGE ENTRADA</div>
             <h3 className={styles.moduloTitle}>Marketing Intelligence</h3>
@@ -246,17 +259,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ITEM 2: PREDIÇÃO */}
+          {/* ITEM 2: PREDIÇÃO - UPDATED WITH AI BRAIN IMAGE */}
           <div className={styles.streamItem}>
             <div className={styles.streamIcon} style={{ background: '#C8F542', color: '#000' }}><Cpu size={18} /></div>
             <div className={styles.streamContent}>
               <div className={styles.streamImageWrapper}>
-                <img src="/arkos_financial_clickup_dashboard_1774143700587.png" alt="Predição" className={styles.streamImage} />
+                <img src="/arkos_data_brain_1774143436679.png" alt="Predição Modelagem e Redes Neurais" className={styles.streamImage} />
               </div>
               <div className={styles.streamText}>
                 <span className={styles.streamLabel} style={{ color: '#C8F542' }}>ETAPA 02</span>
-                <h3>Predição: Modelagem de Cenários</h3>
-                <p>O que vai acontecer? Projete comportamentos futuros, flutuações financeiras e tendências de mercado com base em pipelines de dados preditivos estruturados.</p>
+                <h3>Predição: Modelagem de Cenários (Machine Learning)</h3>
+                <p>O que vai acontecer? Projete comportamentos futuros, flutuações financeiras e tendências de mercado com base em pipelines de dados preditivos e redes neurais estruturadas.</p>
               </div>
             </div>
           </div>
@@ -271,7 +284,7 @@ export default function Home() {
               <div className={styles.streamText}>
                 <span className={styles.streamLabel}>ETAPA 03</span>
                 <h3>Prescrição: Tomada de Decisão</h3>
-                <p>O que devemos fazer? Geração de planos de ação táticos, otimização de fluxos e recomendações executivas baseadas em cenários estruturados e cruzados.</p>
+                <p>O que devemos fazer? Geração de planos de ação táticos, otimização de fluxas e recomendações executivas baseadas em cenários estruturados e cruzados.</p>
               </div>
             </div>
           </div>
@@ -279,7 +292,92 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. VANTAGEM COMPETITIVA ────────────────────────────── */}
+      {/* ── 5. EQUIPE (CREATORS) ────────────────────────────────── */}
+      <section id="equipe" className={styles.section} style={{ background: '#090a0c' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>CONHEÇA NOSSA EQUIPE</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Os Criadores da ARKOS</h2>
+        </div>
+        <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '600px', margin: '0 auto 40px auto' }}>Profissionais multidisciplinares unindo Ciência da Computação, Economia e Inteligência de Mercado.</p>
+
+        <div className={styles.equipeGrid}>
+          {/* Emanuel */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/arkos_team_emanuel_1774147017168.png" alt="Emanuel Peixoto" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Emanuel Peixoto</h3>
+              <span className={styles.equipeRole}>Designer & Gestor de Marketing</span>
+              <p className={styles.equipeBio}>Especialista em UI/UX e Estratégia de Marketing. Formado em Ciência da Computação, cria interfaces de dados de alta fidelidade ligadas à experiência do tomador de decisão.</p>
+            </div>
+          </div>
+
+          {/* Gabriel */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/arkos_team_gabriel_1774147038283.png" alt="Gabriel Mamede" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Gabriel Mamede</h3>
+              <span className={styles.equipeRole}>Desenvolvedor Full-Stack</span>
+              <p className={styles.equipeBio}>Desenvolvedor de Software Full-Stack formado em Ciência da Computação. Atua na arquitetura de microsserviços seguros e pipelines de dados de alta performance.</p>
+            </div>
+          </div>
+
+          {/* Julio */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/arkos_team_julio_1774147056369.png" alt="Julio César" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Julio César</h3>
+              <span className={styles.equipeRole}>Analista de Marketing</span>
+              <p className={styles.equipeBio}>Analista de Marketing Digital com foco em Growth Hacking e Funil Analítico Estruturado. Atua em otimização de campanhas baseadas em dados.</p>
+            </div>
+          </div>
+
+          {/* Lucas */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/arkos_team_lucas_ai_1774147056369_1774147074921.png" alt="Lucas Batista" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Lucas Batista</h3>
+              <span className={styles.equipeRole}>Analista de Inteligência Artificial</span>
+              <p className={styles.equipeBio}>Especialista em Processamento de Linguagem Natural (NLP) e algoritmos preditivos para negócios, gerando modelagens com Machine Learning.</p>
+            </div>
+          </div>
+
+          {/* Renato */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              {/* Fotos ilustrativas carregadas do catalog para o deployment robusto */}
+              <img src="/arkos_team_emanuel_1774147017168.png" style={{ filter: 'grayscale(100%) opacity(0.4)' }} alt="Renato Silva de Assis" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
+              <span className={styles.equipeRole}>Economista & Data Scientist</span>
+              <p className={styles.equipeBio}>Economista e Cientista de Dados. Mestre em Economia com foco em econometria e inteligência de negócios. Desenvolve tomadas de decisões associadas às finanças corporativas.</p>
+            </div>
+          </div>
+
+          {/* Williams */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/arkos_team_gabriel_1774147038283.png" style={{ filter: 'grayscale(100%) opacity(0.4)' }} alt="Williams Calado" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Williams Calado</h3>
+              <span className={styles.equipeRole}>Desenvolvedor de Software</span>
+              <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 6. VANTAGEM COMPETITIVA ────────────────────────────── */}
       <section id="vantagem" className={styles.section}>
         <div className={styles.sectionHeader}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>DIFERENCIAL COMPETITIVO</div>
@@ -294,15 +392,15 @@ export default function Home() {
             </div>
             <div className={styles.compRow}>
               <span>Consultorias</span>
-              <span style={{ color: '#8A8F99' }}>Têm estratégia estratégica, mas não têm produto</span>
+              <span style={{ color: '#8A8F99' }}>Têm estratégia, mas não têm produto escalável</span>
             </div>
             <div className={styles.compRow}>
               <span>BI Softwares</span>
-              <span style={{ color: '#8A8F99' }}>Têm dados montados, mas não têm visões executivas</span>
+              <span style={{ color: '#8A8F99' }}>Têm dados montados, mas não têm visões de negócio</span>
             </div>
             <div className={styles.compRow}>
               <span>ERPs / CRMs</span>
-              <span style={{ color: '#8A8F99' }}>Têm sistemas inserção, mas não têm analytics final</span>
+              <span style={{ color: '#8A8F99' }}>Têm inserção pontual, mas não têm analytics preditivo</span>
             </div>
           </div>
 
@@ -325,7 +423,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. RESULTADOS ───────────────────────────────────────── */}
+      {/* ── 7. RESULTADOS ───────────────────────────────────────── */}
       <section className={styles.section} style={{ background: '#090a0c', textAlign: 'center' }}>
         <h2 style={{ fontSize: '2.25rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '40px' }}>Métricas de Ativação e Operações</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>

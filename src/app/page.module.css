@@ -34,6 +34,29 @@
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
+/* ── INSTITUCIONAL DROPDOWN ───────────────────────────── */
+.navLinkDropdown {
+  position: relative; cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 10px 0;
+}
+
+.dropdownMenu {
+  position: absolute; top: 44px; left: -20px; background: #111318; border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px; width: 220px; padding: 12px 6px; display: flex; flex-direction: column; gap: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transform: translateY(10px);
+  transition: opacity 0.2s, transform 0.2s; z-index: 999;
+}
+
+.navLinkDropdown:hover .dropdownMenu {
+  opacity: 1; pointer-events: auto; transform: translateY(0);
+}
+
+.dropdownItem {
+  padding: 10px 14px; color: #8A8F99; font-size: 0.75rem; text-decoration: none; border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+.dropdownItem:hover { background: rgba(255,255,255,0.03); color: #F4F2ED; }
+
+
 .logoImage { height: 32px; width: auto; }
 
 .headerActions { display: flex; gap: 12px; align-items: center; }
@@ -318,6 +341,39 @@
   color: #8A8F99; text-decoration: none; font-size: 0.625rem; font-weight: 500;
 }
 
+/* ── EQUIPE GRID ────────────────────────────────────────── */
+.equipeGrid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;
+}
+
+.equipeCard {
+  background: var(--ob2); border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+}
+.equipeCard:hover {
+  transform: translateY(-4px); border-color: rgba(200,245,66,0.2);
+}
+
+.equipeImageWrapper {
+  width: 100%; height: 280px; background: #000; position: relative; overflow: hidden;
+}
+
+.equipeImage {
+  width: 100%; height: 100%; object-fit: cover; filter: grayscale(50%); transition: filter 0.3s, transform 0.3s;
+}
+.equipeCard:hover .equipeImage { filter: grayscale(0%); transform: scale(1.03); }
+
+.equipeContent { padding: 24px; }
+
+.equipeName { font-size: 1.125rem; font-weight: 800; color: var(--wht); margin-bottom: 4px; }
+
+.equipeRole {
+  font-family: monospace; font-size: 0.625rem; color: var(--sig);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; display: block;
+}
+
+.equipeBio { font-size: 0.75rem; color: var(--mut); line-height: 1.6; }
+
 /* ── MEDIA QUERIES RESPONSIVAS ─────────────────────────────── */
 @media (max-width: 1024px) {
   .solucaoGrid, .vantagemGrid { grid-template-columns: 1fr; gap: 48px; }
@@ -332,6 +388,7 @@
   .section { padding: 80px 16px; }
   .doresGrid { grid-template-columns: 1fr; }
   .modulosGrid { grid-template-columns: 1fr; }
+  .equipeGrid { grid-template-columns: 1fr; }
   
   .streamLine { left: 16px; }
   .streamItem { gap: 16px; }
