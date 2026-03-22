@@ -8,28 +8,7 @@ import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye,
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const video1Ref = useRef<HTMLVideoElement>(null);
-  const video2Ref = useRef<HTMLVideoElement>(null);
-  
-  const handleTimeUpdate1 = () => {
-    if (!video1Ref.current || !video2Ref.current) return;
-    const { currentTime, duration } = video1Ref.current;
-    if (duration > 0 && duration - currentTime < 1.2 && video1Ref.current.style.opacity !== '0') {
-      video1Ref.current.style.opacity = '0';
-      video2Ref.current.style.opacity = '1';
-      video2Ref.current.play().catch(() => {});
-    }
-  };
 
-  const handleTimeUpdate2 = () => {
-    if (!video1Ref.current || !video2Ref.current) return;
-    const { currentTime, duration } = video2Ref.current;
-    if (duration > 0 && duration - currentTime < 1.2 && video2Ref.current.style.opacity !== '0') {
-      video2Ref.current.style.opacity = '0';
-      video1Ref.current.style.opacity = '1';
-      video1Ref.current.play().catch(() => {});
-    }
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,25 +65,11 @@ export default function Home() {
         
         {/* Background Video */}
         <div className={styles.heroVideoBg}>
-          {/* Instrução: Faça o upload do vídeo final no formato .mp4 com o nome hero-main-arkos.mp4 para a pasta /public */}
           <video 
-            ref={video1Ref}
-            onTimeUpdate={handleTimeUpdate1}
-            onEnded={() => { if(video1Ref.current) video1Ref.current.currentTime = 0; }}
-            autoPlay muted defaultMuted playsInline 
+            autoPlay loop muted playsInline 
             className={styles.heroVideoElement}
           >
             <source src="/hero-main-arkos.mp4" type="video/mp4" />
-          </video>
-          <video 
-            ref={video2Ref}
-            onTimeUpdate={handleTimeUpdate2}
-            onEnded={() => { if(video2Ref.current) video2Ref.current.currentTime = 0; }}
-            muted defaultMuted playsInline 
-            className={styles.heroVideoElement}
-            style={{ opacity: 0, position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
-          >
-            <source src="/hero-secondary-arkos.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroVideoOverlay}></div>
         </div>
@@ -331,7 +296,7 @@ export default function Home() {
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>LETRAMENTO E GESTÃO EAD</div>
             <h3 className={styles.moduloTitle}>Arkos Academy (EdTech)</h3>
-            <p className={styles.moduloDesc}>Plataforma de ensino dupla. Internamente, treina e atualiza seus clientes e líderes em dados, economia competitiva e análise de mercado. Externamente, assemelha-se ao Moodle para atuar como Portal EAD ponta a ponta para faculdades, escolas e sistemas de ensino. Acoplamos todo o ecossistema fornecendo diagnóstico, predição e prescrição para elevar os resultados de gestão e a eficiência acadêmica dos alunos.</p>
+            <p className={styles.moduloDesc}>Plataforma de ensino dupla. Internamente, treina e atualiza seus clientes e líderes em dados, economia competitiva e análise de mercado. Externamente, atua como Portal EAD completo para faculdades, escolas e sistemas de ensino. Acoplamos todo o ecossistema fornecendo diagnóstico, predição e prescrição para elevar os resultados de gestão e a eficiência acadêmica dos alunos.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>GESTAO TECNOLÓGICA</div>
