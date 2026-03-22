@@ -330,8 +330,8 @@ export default function Home() {
               </div>
               <div className={styles.streamText}>
                 <span className={styles.streamLabel}>ETAPA 03</span>
-                <h3>Prescrição: Tomada de Decisão</h3>
-                <p>O que devemos fazer? Geração de planos de ação táticos, otimização de fluxas e recomendações executivas baseadas em cenários estruturados e cruzados.</p>
+                <h3>Prescrição: Tomada de Decisão (Ações Dirigidas)</h3>
+                <p>O que devemos fazer? Tradução da métrica em ação. Geração de planos táticos, otimização automática de fluxos operacionais, alocação inteligente de recursos financeiros e humanos, e formulação de recomendações executivas guiadas pelo cruzamento de múltiplos cenários simulados.</p>
               </div>
             </div>
           </div>
