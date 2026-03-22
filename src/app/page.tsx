@@ -14,6 +14,7 @@ export default function Home() {
     useRef<HTMLVideoElement>(null),
     useRef<HTMLVideoElement>(null),
   ];
+  const solucaoVideoRef = useRef<HTMLVideoElement>(null);
 
   // Wire up the 3-video circular crossfade after mount with a resilient retry setup for hydration
   useEffect(() => {
@@ -48,11 +49,17 @@ export default function Home() {
           videos.forEach(v => {
             if (v && v.paused) v.play().catch(() => {});
           });
+          if (solucaoVideoRef.current && solucaoVideoRef.current.paused) {
+            solucaoVideoRef.current.play().catch(() => {});
+          }
           window.removeEventListener('scroll', handleInteraction);
           window.removeEventListener('touchstart', handleInteraction);
         };
         window.addEventListener('scroll', handleInteraction, { passive: true });
         window.addEventListener('touchstart', handleInteraction, { passive: true });
+        
+        // Ensure solucao video plays immediately if ready
+        if (solucaoVideoRef.current) solucaoVideoRef.current.play().catch(() => {});
       }
     }, 400);
 
@@ -260,8 +267,10 @@ export default function Home() {
             <div className={styles.videoArchContainer}>
               {/* O vídeo deve ser adicionado na pasta public/ com o nome "hero-arkos-video.mp4" */}
               <video 
+                ref={solucaoVideoRef}
                 autoPlay loop muted playsInline 
                 className={styles.videoPlayer}
+                poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
               >
                 <source src="/hero-arkos-video.mp4" type="video/mp4" />
               </video>
@@ -558,7 +567,7 @@ export default function Home() {
       <section id="vantagem" className={styles.section}>
         <div className={styles.sectionHeader}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>DIFERENCIAL COMPETITIVO</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Por que a ARKOS é difícil de substituir</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Por que a ARKOS é a escolha estratégica definitiva</h2>
         </div>
 
         <div className={styles.vantagemGrid}>
@@ -733,14 +742,18 @@ export default function Home() {
 
           <div className={styles.footerCol}>
             <h4>Ecossistema Hub</h4>
-            <Link href="#modulos">Arkos C-Level (Operação Diária)</Link>
-            <Link href="#modulos">Arkos Data Lake Node (Datalake Próprio)</Link>
-            <Link href="#modulos">Arkos Growth Intelligence</Link>
-            <Link href="#modulos">Arkos Smart Contracts</Link>
-            <Link href="#modulos">Arkos Financial Intelligence</Link>
-            <Link href="#modulos">Arkos CRM / Pipeline</Link>
-            <Link href="#modulos">Arkos RH / Performance</Link>
-            <Link href="#modulos">Arkos Academy</Link>
+            <Link href="#aplicativos">Arkos C-Level (Operação Diária)</Link>
+            <Link href="#aplicativos">Arkos Data Lake Node</Link>
+            <Link href="#aplicativos">Arkos Growth Intelligence</Link>
+            <Link href="#aplicativos">Arkos Smart Contracts</Link>
+            <Link href="#aplicativos">Arkos Financial Intelligence</Link>
+            <Link href="#aplicativos">Arkos Client Matrix</Link>
+            <Link href="#aplicativos">Arkos Operation Matrix</Link>
+            <Link href="#aplicativos">Arkos Talent Intelligence</Link>
+            <Link href="#aplicativos">Arkos Tech Management</Link>
+            <Link href="#aplicativos">Arkos Commerce Suite</Link>
+            <Link href="#aplicativos">Arkos Strategy Master</Link>
+            <Link href="#aplicativos">Arkos Academy</Link>
           </div>
 
           <div className={styles.footerCol}>
