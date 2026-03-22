@@ -491,7 +491,55 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. EQUIPE (CREATORS) ────────────────────────────────── */}
+      {/* ── 5. MATURIDADE ANALÍTICA ────────────────────────────── */}
+      <section id="maturidade" className={styles.section} style={{ background: '#0b0c0e' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>EVOLUÇÃO ESTRATÉGICA</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Escalando para o Topo da Maturidade Analítica</h2>
+        </div>
+        <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '700px', margin: '0 auto 60px auto' }}>
+          Nós não somos apenas mais um painel de BI ou um sistema isolado. A ARKOS atua como a <strong>espinha dorsal analítica e operacional</strong> da sua empresa, estruturando o caos de informações espalhadas para levar a sua operação à elite do último estágio de maturidade de decisão.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
+          <div>
+            <img src="/arkos_maturity.png" alt="Maturidade Analítica" style={{ width: '100%', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }} />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '0.8rem', color: '#8A8F99', fontFamily: 'monospace' }}>NÍVEL 1</div>
+              <strong style={{ color: '#F4F2ED', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>Analiticamente Defasado</strong>
+              <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>Decisões baseadas puramente em intuição. Organização com dados de baixa qualidade, fragmentados e planilhas isoladas sem governança.</p>
+            </div>
+
+            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '0.8rem', color: '#8A8F99', fontFamily: 'monospace' }}>NÍVEL 2</div>
+              <strong style={{ color: '#F4F2ED', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>Analítica Localizada</strong>
+              <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>Existem ilhas de dados e dashboards isolados em alguns departamentos, mas sem visão sistêmica ou peso estratégico global.</p>
+            </div>
+
+            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '0.8rem', color: '#8A8F99', fontFamily: 'monospace' }}>NÍVEL 3</div>
+              <strong style={{ color: '#F4F2ED', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>Aspirações Analíticas</strong>
+              <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>A liderança reconhece o valor dos dados. Inicia-se a centralização de repositórios e a agregação de inteligência em alvos operacionais táticos.</p>
+            </div>
+
+            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,150,0,0.1)', position: 'relative', borderLeft: '4px solid #C8F542' }}>
+              <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '0.8rem', color: '#C8F542', fontFamily: 'monospace', fontWeight: 700 }}>NÍVEL 4</div>
+              <strong style={{ color: '#FFF', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>Empresas Analíticas</strong>
+              <p style={{ color: '#F4F2ED', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>Dados integrados, centralizados e redes lógicas compartilhadas que alimentam e sustentam os processos corporativos rotineiros.</p>
+            </div>
+
+            <div style={{ padding: '20px', background: 'rgba(200,245,66,0.02)', borderRadius: '12px', border: '1px solid rgba(200,245,66,0.15)', position: 'relative', borderLeft: '4px solid #C8F542' }}>
+              <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize: '0.8rem', color: '#C8F542', fontFamily: 'monospace', fontWeight: 800 }}>ETAPA ARKOS — NÍVEL 5</div>
+              <strong style={{ color: '#C8F542', fontSize: '1.2rem', display: 'block', marginBottom: '8px', fontWeight: 800 }}>Competidores Analíticos</strong>
+              <p style={{ color: '#FFF', fontSize: '0.95rem', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>O topo da maturidade. A inteligência e os algoritmos são o principal diferencial competitivo da firma, direcionando cada decisão de expansão e eficiência.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. EQUIPE (CREATORS) ────────────────────────────────── */}
       <section id="equipe" className={styles.section} style={{ background: '#090a0c' }}>
         <div className={styles.sectionHeader}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>CONHEÇA NOSSA EQUIPE</div>
