@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X } from 'lucide-react'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2 } from 'lucide-react'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -42,6 +42,17 @@ export default function Home() {
         
         // Kick off first video immediately
         videos[0].play().catch(() => {});
+
+        // Resilient Play Trigger FOR MOBILE layout on user hydration/scroll to bypass low-power blockers
+        const handleInteraction = () => {
+          videos.forEach(v => {
+            if (v && v.paused) v.play().catch(() => {});
+          });
+          window.removeEventListener('scroll', handleInteraction);
+          window.removeEventListener('touchstart', handleInteraction);
+        };
+        window.addEventListener('scroll', handleInteraction, { passive: true });
+        window.addEventListener('touchstart', handleInteraction, { passive: true });
       }
     }, 400);
 
@@ -103,7 +114,7 @@ export default function Home() {
         </nav>
 
         <div className={styles.headerActions}>
-          <Link href="/login" className={styles.hideOnMobile}>
+          <Link href="/login">
             <button className={styles.btnText}>Entrar</button>
           </Link>
           <Link href="https://wa.me/5583981957737" target="_blank" className={styles.headerCta}>
@@ -776,8 +787,10 @@ export default function Home() {
       {/* ── MOBILE BOTTOM NAVBAR ────────────────────────────────── */}
       <nav className={styles.mobileNavbar}>
         <Link href="#" className={styles.navItem}><HomeIcon size={20} /><span>Início</span></Link>
-        <Link href="#fluxo" className={styles.navItem}><TrendingUp size={20} /><span>Maturidade</span></Link>
-        <Link href="https://wa.me/5583981957737" target="_blank" className={styles.navItem} style={{ color: '#C8F542' }}><MessageCircle size={20} /><span>Consultor</span></Link>
+        <Link href="#solucao" className={styles.navItem}><CheckCircle2 size={20} /><span>Solução</span></Link>
+        <Link href="#aplicativos" className={styles.navItem}><Grid size={20} /><span>Hub</span></Link>
+        <Link href="https://wa.me/5583981957737" target="_blank" className={styles.navItem} style={{ color: '#A3A3A3' }}><MessageCircle size={20} /><span>Suporte</span></Link>
+        <Link href="/login" className={styles.navItem} style={{ color: '#C8F542' }}><LogIn size={20} /><span>Entrar</span></Link>
       </nav>
 
     </div>
