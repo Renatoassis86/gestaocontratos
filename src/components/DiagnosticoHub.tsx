@@ -188,76 +188,92 @@ export default function DiagnosticoHub() {
     <div className={styles.container}>
       {/* ── SEÇÃO 1: MATURIDADE ── */}
       {step === 'intro' && (
-        <section className={styles.section}>
-          <div className={styles.mediaWrapper}>
-             <img src="/estagios_maturidade_legivel.png" alt="Maturidade" className={styles.media} />
-             <div className={styles.imageOverlay} />
-          </div>
-          <div className={styles.content}>
+        <section className={styles.sectionFull}>
+          <div className={styles.headerCentered}>
             <div className={styles.tag}>Os 5 Estágios de Maturidade</div>
-            <h2 className={styles.title} style={{ fontSize: '2rem' }}>O Caminho para a Competitividade</h2>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '10px' }}>
-              {[
-                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' },
-                { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
-                { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados em repositórios centrais.' },
-                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.' },
-                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio. 👉 Este é o estágio que a ARKOS quer que sua empresa alcance em termos de gestão baseada em evidências.', highlight: true }
-              ].map((item) => (
+            <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center' }}>O Caminho para a Competitividade</h2>
+          </div>
+          
+          <div className={styles.stairInfographic}>
+            {[
+              { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio.', highlight: true },
+              { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.' },
+              { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados em repositórios centrais.' },
+              { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
+              { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' }
+            ].map((item, idx) => (
+              <div key={item.lvl} className={styles.stairRow}>
+                {/* Vetor Laser Escada */}
                 <div 
-                  key={item.lvl} 
+                  className={styles.stairVector} 
+                  style={{ width: `${200 + item.lvl * 50}px` }}
+                >
+                  <span className={styles.stairIndex}>Stage {item.lvl}</span>
+                </div>
+
+                {/* Card Descrição */}
+                <div 
                   className={styles.statCard} 
                   style={{ 
                     borderLeft: item.highlight ? '4px solid #C8F542' : '4px solid rgba(255,255,255,0.1)',
-                    background: item.highlight ? 'rgba(200,245,66,0.02)' : '#111318'
+                    background: item.highlight ? 'rgba(200,245,66,0.02)' : '#111318',
+                    flex: 1
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <span style={{ fontWeight: 800, color: item.highlight ? '#C8F542' : '#8A8F99', fontSize: '0.85rem' }}>NÍVEL {item.lvl}</span>
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: '1rem', color: '#F4F2ED', marginBottom: '4px' }}>{item.t}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#8A8F99', lineHeight: '1.4' }}>{item.d}</div>
+                  <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#F4F2ED', marginBottom: '4px' }}>{item.t}</div>
+                  <div style={{ fontSize: '0.85rem', color: '#8A8F99', lineHeight: '1.5' }}>{item.d}</div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
 
-            <button className={styles.btnPrimary} onClick={() => setStep('lead')} style={{ marginTop: '10px' }}>
-              Descubra o Nível da sua Empresa <ArrowRight size={18} />
+          {/* Botão High-Light Centered */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '50px', gap: '12px' }}>
+            <p style={{ color: '#8A8F99', fontSize: '0.85rem', textAlign: 'center' }}>Faça nosso teste rápido e saiba em qual patamar sua empresa se encontra.</p>
+            <button className={styles.btnLargeHero} onClick={() => setStep('lead')}>
+              Iniciar Diagnóstico de Maturidade <ArrowRight size={22} color="#000" />
             </button>
           </div>
         </section>
       )}
 
-      {/* ── SEÇÃO 2: DELTA (Light Mode inserido no Scroll) ── */}
+      {/* ── SEÇÃO 2: DELTA (Light Mode horizontalizado) ── */}
       {step === 'intro' && (
         <div className={styles.sectionLight}>
-          <div className={styles.sectionLightInner}>
-            <div className={styles.mediaWrapper}>
-               <img src="/modelo_delta_dark_en.png" alt="Modelo DELTA" className={styles.media} />
-            </div>
-            <div className={styles.content}>
+          <div className={styles.sectionLightFull}>
+            
+            <div className={styles.headerCenteredDelta}>
               <div className={styles.tag} style={{ background: '#0A0C0F', color: '#C8F542' }}>Estrutura DELTA</div>
-              <h2 className={styles.title} style={{ color: '#0A0C0F' }}>A Infraestrutura da Inteligência Comercial</h2>
-              <p style={{ color: '#5A5F6A', fontSize: '0.9rem', marginBottom: '20px' }}>Segundo <strong>Thomas H. Davenport</strong> e <strong>Jeanne G. Harris</strong> no clássico <em>"Competição Analítica"</em>, estes cinco pilares sustentam a escalada aos Níveis 4 e 5.</p>
-              <div className={styles.deltaGrid}>
-                {[
-                  { l: 'D', t: 'DATA (Dados)', d: 'Dados integrados, precisos e limpos como o principal ativo estratégico invisível.' },
-                  { l: 'E', t: 'ENTERPRISE (Empreendimento)', d: 'A quebra de silos departamentais unificando a tecnologia unificadamente.' },
-                  { l: 'L', t: 'LEADERSHIP (Liderança)', d: 'Executivos que exigem decisões baseadas em fatos em vez de intuições.' },
-                  { l: 'T', t: 'TARGETS (Alvos)', d: 'Foco estratégico onde algoritmos direcionam para o maior ROI competitivo.' },
-                  { l: 'A', t: 'ANALYSTS (Analistas)', d: 'Combinação entre ciência de dados e talento executivo ágil.' }
-                ].map((d) => (
-                  <div key={d.l} className={styles.deltaItem}>
-                    <div className={styles.deltaLetter}>{d.l}</div>
-                    <div>
-                      <div className={styles.deltaTitle}>{d.t}</div>
-                      <div className={styles.deltaDesc}>{d.d}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <h2 className={styles.title} style={{ color: '#0A0C0F', fontSize: '2.5rem' }}>A Infraestrutura da Inteligência Comercial</h2>
+              <p style={{ color: '#5A5F6A', fontSize: '1rem', maxWidth: '700px', textAlign: 'center', marginTop: '12px' }}>
+                Segundo <strong>Thomas H. Davenport</strong> no clássico <em>"Competição Analítica"</em>, estes cinco pilares sustentam a escalada de maturidade corporativa.
+              </p>
             </div>
+
+            <div className={styles.mediaWrapperDelta}>
+               <img src="/modelo_delta_empresarial.png" alt="Grupo Estratégico Modelo DELTA" className={styles.mediaDelta} />
+               <div className={styles.imageOverlayLight} />
+            </div>
+
+            <div className={styles.deltaGridHorizontal}>
+              {[
+                { l: 'D', t: 'DATA', d: 'Dados integrados, precisos e limpos como o principal ativo estratégico invisível.' },
+                { l: 'E', t: 'ENTERPRISE', d: 'A quebra de silos departamentais unificando a tecnologia unificadamente.' },
+                { l: 'L', t: 'LEADERSHIP', d: 'Executivos que exigem decisões baseadas em fatos em vez de intuições.' },
+                { l: 'T', t: 'TARGETS', d: 'Foco estratégico onde algoritmos direcionam para o maior ROI competitivo.' },
+                { l: 'A', t: 'ANALYSTS', d: 'Combinação entre ciência de dados e talento executivo ágil.' }
+              ].map((d) => (
+                <div key={d.l} className={styles.deltaCard}>
+                  <div className={styles.deltaLetter}>{d.l}</div>
+                  <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0A0C0F', marginBottom: '6px' }}>{d.t}</div>
+                  <div style={{ fontSize: '0.8rem', color: '#5A5F6A', lineHeight: '1.4' }}>{d.d}</div>
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       )}

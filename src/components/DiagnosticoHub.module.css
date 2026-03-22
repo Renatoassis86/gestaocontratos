@@ -133,35 +133,202 @@
   box-shadow: 0 4px 20px rgba(200,245,66,0.2);
 }
 
+/* --- ESTILO ESCADA INFOGRÁFICO --- */
+.sectionFull {
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headerCentered {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.stairInfographic {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.stairRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .stairRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stairVector {
+    width: 60px !important; /* Retrai no mobile para focar no card */
+    height: 40px !important;
+  }
+}
+
+.stairVector {
+  height: 80px;
+  border-top: 3px solid #C8F542;
+  border-right: 3px solid #C8F542;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(200, 245, 66, 0.4);
+  background: linear-gradient(to top right, rgba(200,245,66,0.03), transparent);
+}
+
+.stairIndex {
+  position: absolute;
+  top: -24px;
+  right: 12px;
+  color: #C8F542;
+  font-family: monospace;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+}
+
+.btnLargeHero {
+  background: #C8F542;
+  color: #0a0c0f;
+  padding: 18px 48px;
+  border-radius: 40px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(200, 245, 66, 0.4);
+  transition: all 0.3s ease;
+  font-family: 'Sora', sans-serif;
+}
+
+.btnLargeHero:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 35px rgba(200, 245, 66, 0.6);
+}
+
+.mediaWrapperDelta {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(10,12,15,0.05);
+  background: #111318;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.mediaDelta {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* --- SEÇÃO 2: DELTA (LIGHT MODE) --- */
 .sectionLight {
   background: #F4F2ED;
   color: #0A0C0F;
   padding: 80px 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
   max-width: 100%;
 }
 
-.sectionLightInner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+.sectionLightFull {
+  display: flex;
+  flex-direction: column;
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
   width: 100%;
 }
 
+.headerCenteredDelta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.mediaWrapperDelta {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(10,12,15,0.03);
+  background: #111318;
+  width: 100%;
+  aspect-ratio: 21 / 9; /* Mais retangular e menos alta */
+  margin-bottom: 50px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.mediaDelta {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageOverlayLight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(244,242,237,0.5), transparent);
+}
+
+.deltaGridHorizontal {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.deltaCard {
+  background: #FFFFFF;
+  padding: 24px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(10,12,15,0.04);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  transition: transform 0.2s;
+}
+
+.deltaCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.deltaLetter {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0A0C0F;
+  margin-bottom: 12px;
+  font-family: 'Sora', sans-serif;
+  opacity: 0.15;
+}
+
 @media (max-width: 900px) {
   .sectionLight {
     padding: 60px 20px;
   }
-  .sectionLightInner {
+  .deltaGridHorizontal {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 12px;
+  }
+  .mediaWrapperDelta {
+    aspect-ratio: 16 / 9; /* Um pouco mais alta no mobile para caber melhor */
   }
 }
 
