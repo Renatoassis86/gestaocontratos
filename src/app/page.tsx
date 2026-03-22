@@ -75,20 +75,6 @@ export default function Home() {
           Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional.
         </p>
 
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '40px', zIndex: 10 }}>
-          <Link href="https://wa.me/5583981957737" target="_blank">
-            <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
-              <span>Diagnóstico Gratuito</span>
-              <ArrowRight size={16} />
-            </button>
-          </Link>
-          <Link href="#solucao" className={styles.hideOnMobile}>
-            <button className={styles.btnSecondary}>
-              <span>Ver Como Funciona</span>
-            </button>
-          </Link>
-        </div>
-
         {/* IMAGE: MOCKUP DO LAPTOP COM LOCAL PUBLIC APP PATH */}
         <div className={styles.laptopContainer}>
           <div className={styles.carouselTrack} style={{ transform: `translateX(-${(currentSlide * 100) / 3}%)` }}>
@@ -118,6 +104,20 @@ export default function Home() {
               />
             ))}
           </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10 }}>
+          <Link href="https://wa.me/5583981957737" target="_blank">
+            <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
+              <span>Diagnóstico Gratuito</span>
+              <ArrowRight size={16} />
+            </button>
+          </Link>
+          <Link href="#solucao" className={styles.hideOnMobile}>
+            <button className={styles.btnSecondary}>
+              <span>Ver Como Funciona</span>
+            </button>
+          </Link>
         </div>
       </section>
 
