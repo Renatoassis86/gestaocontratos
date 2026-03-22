@@ -201,7 +201,7 @@ export default function Home() {
       </section>
 
       <div className={styles.logobar}>
-        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700, padding: '0 20px' }}>TECNOLOGIA COMPATÍVEL AOS ECOSSISTEMAS DE</p>
+        <p className={styles.logobarTitle}>TECNOLOGIA COMPATÍVEL AOS ECOSSISTEMAS DE</p>
         
         <div className={styles.logobarInner}>
           {Array(2).fill([
