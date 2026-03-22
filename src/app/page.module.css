@@ -183,7 +183,7 @@
 .logobarInner {
   display: flex;
   width: max-content;
-  animation: scrollMarquee 40s linear infinite;
+  animation: scrollMarquee 60s linear infinite;
   align-items: center;
   gap: 80px; 
 }

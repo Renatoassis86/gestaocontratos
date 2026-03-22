@@ -133,6 +133,8 @@ export default function Home() {
             { name: 'NVIDIA', weight: 800, size: '1.25rem', ls: '2px' },
             { name: 'AMAZON AWS', weight: 700, size: '1.1rem', ls: '1px' },
             { name: 'GOOGLE CLOUD', weight: 600, size: '1.1rem', ls: '1px' },
+            { name: 'CISCO', weight: 800, size: '1.3rem', ls: '2px' },
+            { name: 'INTEL', weight: 900, size: '1.4rem', ls: '1px' },
           ]).flat().map((company, idx) => (
             <div key={idx} className={styles.logoItem}>
               <span style={{ 
