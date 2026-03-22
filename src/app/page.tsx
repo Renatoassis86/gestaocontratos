@@ -31,10 +31,10 @@ export default function Home() {
           <div className={styles.navLinkDropdown} style={{ transition: 'color 0.2s', color: 'inherit' }}>
             <span style={{ cursor: 'pointer' }}>Institucional</span>
             <div className={styles.dropdownMenu}>
-              <Link href="#problema" className={styles.dropdownItem}>O que é a Arkos</Link>
-              <Link href="#solucao" className={styles.dropdownItem}>Quem somos</Link>
-              <Link href="#equipe" className={styles.dropdownItem}>Conheça nossa equipe</Link>
-              <Link href="#modulos" className={styles.dropdownItem}>Nosso negócio</Link>
+              <Link href="/institucional/o-que-e" className={styles.dropdownItem}>O que é a Arkos</Link>
+              <Link href="/institucional/quem-somos" className={styles.dropdownItem}>Quem somos</Link>
+              <Link href="/institucional/equipe" className={styles.dropdownItem}>Conheça nossa equipe</Link>
+              <Link href="/institucional/nosso-negocio" className={styles.dropdownItem}>Nosso negócio</Link>
             </div>
           </div>
 
@@ -73,38 +73,18 @@ export default function Home() {
         <p className={styles.heroPAdapta}>
           Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional.
         </p>
-
-        {/* IMAGE: MOCKUP DO LAPTOP COM LOCAL PUBLIC APP PATH */}
-        <div className={styles.laptopContainer}>
-          <div className={styles.carouselTrack} style={{ transform: `translateX(-${(currentSlide * 100) / 3}%)` }}>
-            {/* Slide 1 */}
-            <div className={styles.carouselSlide}>
-              <div className={styles.carouselInnerShadow}></div>
-              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2850&q=100" alt="Dashboard Ágil Arkos 1" className={styles.carouselImage} />
-            </div>
-            {/* Slide 2 */}
-            <div className={styles.carouselSlide}>
-              <div className={styles.carouselInnerShadow}></div>
-              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2850&q=100" alt="Dashboard Ágil Arkos 2" className={styles.carouselImage} />
-            </div>
-            {/* Slide 3 */}
-            <div className={styles.carouselSlide}>
-              <div className={styles.carouselInnerShadow}></div>
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2850&q=100" alt="Dashboard Ágil Arkos 3" className={styles.carouselImage} />
-            </div>
-          </div>
-
-          <div className={styles.carouselNav}>
-            {[0, 1, 2].map((idx) => (
-              <button 
-                key={idx}
-                className={`${styles.carouselDot} ${currentSlide === idx ? styles.carouselDotActive : ''}`}
-                onClick={() => setCurrentSlide(idx)}
-              />
-            ))}
-          </div>
+        {/* ── Main Hero Video (VEO 3 Placeholder) ── */}
+        <div className={styles.mainVideoContainer}>
+          {/* Instrução: Faça o upload do vídeo final no formato .mp4 com o nome hero-main-arkos.mp4 para a pasta /public */}
+          <video 
+            autoPlay loop muted playsInline 
+            className={styles.mainVideoPlayer}
+            poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80"
+          >
+            <source src="/hero-main-arkos.mp4" type="video/mp4" />
+          </video>
+          <div className={styles.mainVideoShadow}></div>
         </div>
-
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10 }}>
           <Link href="https://wa.me/5583981957737" target="_blank">
             <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
@@ -195,7 +175,7 @@ export default function Home() {
               <source src="/hero-arkos-video.mp4" type="video/mp4" />
             </video>
             <div className={styles.videoBtmBadge}>
-              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>E retorne ao</span> caminho certo <span style={{ color: '#C8F542' }}>&rarr;</span>
+              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Sua operação movida a</span> Inteligência Estrutural <span style={{ color: '#C8F542' }}>&rarr;</span>
             </div>
           </div>
 
@@ -373,7 +353,7 @@ export default function Home() {
           {/* Emanuel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Emanuel Peixoto" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80" alt="Emanuel Peixoto" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Emanuel Peixoto</h3>
@@ -385,7 +365,7 @@ export default function Home() {
           {/* Gabriel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=800&q=80" alt="Gabriel Mamede" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80" alt="Gabriel Mamede" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Gabriel Mamede</h3>
@@ -397,7 +377,7 @@ export default function Home() {
           {/* Lucas */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Lucas Batista" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=800&q=80" alt="Lucas Batista" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Lucas Batista</h3>
@@ -409,7 +389,7 @@ export default function Home() {
           {/* Renato */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Renato Silva de Assis" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Renato Silva de Assis" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
@@ -421,7 +401,7 @@ export default function Home() {
           {/* Williams */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80" alt="Williams Calado" className={styles.equipeImage} />
+              <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=800&q=80" alt="Williams Calado" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Williams Calado</h3>
