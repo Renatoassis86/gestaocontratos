@@ -262,7 +262,6 @@ export default function Home() {
               <video 
                 autoPlay loop muted playsInline 
                 className={styles.videoPlayer}
-                poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
               >
                 <source src="/hero-arkos-video.mp4" type="video/mp4" />
               </video>
@@ -460,7 +459,7 @@ export default function Home() {
               <div className={styles.streamText}>
                 <span className={styles.streamLabel} style={{ color: '#C8F542' }}>ETAPA 02</span>
                 <h3>Predição: Modelagem (Machine Learning)</h3>
-                <p>O que vai acontecer? Projete comportamentos e cenários futuros em <strong>todas as áreas da empresa</strong> (comercial, operacional, financeira). Antecipe tendências, riscos de churn e gargalos produtivos cruzando dados <strong>estruturados e não-estruturados</strong> através de redes neurais avançadas.</p>
+                <p>O que vai acontecer? Projete comportamentos e cenários futuros em <strong>todas as áreas da empresa</strong> (comercial, operacional, financeira). Antecipe tendências, riscos de churn e gargalos produtivos cruzando dados <strong>estruturados e não-estruturados</strong> através de técnicas de aprendizagem de máquina (Machine Learning) supervisionadas e não-supervisionadas aplicadas sob medida.</p>
               </div>
             </div>
           </div>
