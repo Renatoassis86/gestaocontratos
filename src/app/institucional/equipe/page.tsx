@@ -6,12 +6,12 @@ export default function ConhecaEquipe() {
   const equipe = [
     {
       nome: 'Renato Assis',
-      cargo: 'FOUNDER & CIENTISTA DE DADOS',
+      cargo: 'IDEALIZADOR E FOUNDER | CIENTISTA DE DADOS',
       foto: '/renato_assis_co.jpg',
       headline: 'A ciência econômica aplicada à produtividade diária.',
       bio: [
-        'Com mais de uma década e meia atuando como supervisor técnico do DIEESE (PB e RN), Renato traz para a ARKOS uma bagagem ímpar em análise de conjuntura, pesquisas setoriais, pesquisas qualitativas e quantitativas, negociações coletivas, planejamento estratégico e planos de negócio de alta complexidade.',
-        'Economista por formação e apaixonado pelo rigor analítico, atuou também como gerente administrativo do Sistema Educacional Cidade Viva Education e fundou a Econsult, aplicando gestão financeira e desenvolvimento organizacional na prática do mercado privado. Hoje, lidera a visão de arquitetura de dados e de expansão tecnológica da ARKOS Ecosystems.'
+        'Idealizador e arquiteto do conceito que deu origem à ARKOS, Renato vislumbrou uma infraestrutura que unisse economia analítica, fluxos auditáveis e inteligência real para o C-Level. Hoje, lidera a visão de expansão tecnológica do ecossistema, orquestrando a inteligência estratégica ao lado de um time de co-fundadores especialistas.',
+        'Com mais de uma década atuando como supervisor técnico do DIEESE, traz uma bagagem ímpar em análise de conjuntura, pesquisas setoriais e planos de negócio. Atuou também como gerente administrativo do Sistema Cidade Viva Education e fundou a Econsult, aplicando gestão financeira na prática de mercado.'
       ],
       tags: [
         {
