@@ -2,26 +2,27 @@
 
 import Link from 'next/link'
 import styles from './page.module.css'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, Grid, Eye, TrendingUp, Cpu } from 'lucide-react'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, Grid, Eye, TrendingUp, Cpu, Shield, Users, BarChart2 } from 'lucide-react'
 
 export default function Home() {
   return (
     <div className={styles.page}>
       
       {/* ── BACKGROUNDS & DECORATIONS ─────────────────────────── */}
-      <div className={styles.heroGlow}></div>
       <div className={styles.meshBg}></div>
 
-      {/* ── HEADER (ADAPTA STYLE) ────────────────────────────────── */}
+      {/* ── HEADER ─────────────────────────────────────────────── */}
       <header className={styles.header}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <img src="/logo-high-res.svg" alt="ARKOS" className={styles.logoImage} />
         </div>
         
-        <nav className={styles.hideOnMobile} style={{ display: 'flex', gap: '2rem', fontSize: '0.85rem', color: '#8A8F99' }}>
-          <Link href="#solucoes" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span style={{ cursor: 'pointer' }}>Soluções</span></Link>
-          <Link href="#fluxo" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span style={{ cursor: 'pointer' }}>Maturidade</span></Link>
-          <Link href="#sobre" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span style={{ cursor: 'pointer' }}>Sobre</span></Link>
+        <nav className={styles.hideOnMobile} style={{ display: 'flex', gap: '1.5rem', fontSize: '0.813rem', color: '#8A8F99' }}>
+          <Link href="#problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>O Problema</span></Link>
+          <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Solução</span></Link>
+          <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Módulos</span></Link>
+          <Link href="#fluxo" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Maturidade</span></Link>
+          <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }}><span>Diferencial</span></Link>
         </nav>
 
         <div className={styles.headerActions}>
@@ -29,111 +30,198 @@ export default function Home() {
             <button className={styles.btnText}>Entrar</button>
           </Link>
           <Link href="https://wa.me/5583981957737" target="_blank" className={styles.headerCta}>
-            <button className={styles.btnPrimary} style={{ background: '#C8F542', color: '#000', fontWeight: '800' }}>
-              <MessageCircle size={16} />
+            <button className={styles.btnPrimary}>
+              <MessageCircle size={14} />
               <span>Consultor</span>
             </button>
           </Link>
         </div>
       </header>
 
-      {/* ── HERO (LAPTOP ADAPTA STYLE) ────────────────────────── */}
+      {/* ── HERO ──────────────────────────────────────────────── */}
       <section className={styles.heroAdapta}>
         <div className={styles.heroTag} style={{ background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.12)', color: '#C8F542' }}>
-          <Sparkles size={14} />
-          <span>ARKOS INTELLIGENCE 2026</span>
+          <Sparkles size={12} />
+          <span>Infraestrutura de Inteligência · B2B SaaS</span>
         </div>
 
         <h1 className={styles.heroH1Adapta}>
-          Tudo o que você precisa <br />
-          de dados, <span style={{ color: '#C8F542' }}>em um só lugar.</span>
+          A Infraestrutura de <br />
+          <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da Nova Economia.
         </h1>
 
         <p className={styles.heroPAdapta}>
-          As melhores infraestruturas de dados, cruzes econômicos práticos e uma esteira de ciclo operacional dentro de uma única infraestrutura empresarial.
+          Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional.
         </p>
 
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '40px', zIndex: 10 }}>
-          <Link href="/login">
-            <button className={styles.btnPrimary} style={{ background: '#C8F542', color: '#000', padding: '16px 32px', borderRadius: '14px', fontWeight: '800' }}>
-              <span>Quero Fazer Parte</span>
-              <ArrowRight size={18} />
+          <Link href="https://wa.me/5583981957737" target="_blank">
+            <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
+              <span>Diagnóstico Gratuito</span>
+              <ArrowRight size={16} />
             </button>
           </Link>
-          <Link href="https://wa.me/5583981957737" target="_blank" className={styles.hideOnMobile}>
-            <button className={styles.btnSecondary} style={{ padding: '16px 32px', borderRadius: '14px' }}>
-              <span>Diagnóstico Gratuito</span>
-              <ArrowRight size={18} opacity={0.5} />
+          <Link href="#solucao" className={styles.hideOnMobile}>
+            <button className={styles.btnSecondary}>
+              <span>Ver Como Funciona</span>
             </button>
           </Link>
         </div>
 
-        {/* MOCKUP DO LAPTOP COM DASHBOARD CLICKUP STYLE */}
+        {/* IMAGE: MOCKUP DO LAPTOP COM LOCAL PUBLIC APP PATH */}
         <div className={styles.laptopContainer}>
           <div className={styles.laptopInnerShadow}></div>
           <img 
-            src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_financial_clickup_dashboard_1774143700587.png" 
+            src="/arkos_financial_clickup_dashboard_1774143700587.png" 
             alt="Dashboard Ágil Arkos" 
             className={styles.laptopImage} 
           />
         </div>
       </section>
 
-      {/* ── SEÇÃO DE PARCEIROS (LOGOS MONOCROMATICOS) ─────────────── */}
+      {/* ── LOGOBAR ─── */}
       <div className={styles.logobar}>
-        <p style={{ fontSize: '0.75rem', color: '#475569', marginBottom: '1.5rem', textAlign: 'center' }}>APLICADO E APOIADO POR PROFISSIONAIS DE EMPRESAS COMO</p>
+        <p style={{ fontSize: '0.688rem', color: '#5A5F6A', marginBottom: '1.5rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1px' }}>APLICADO E APOIADO POR PROFISSIONAIS DE EMPRESAS COMO</p>
         <div className={styles.logoGrid}>
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1E293B', opacity: 0.6 }}>BRASIL PARALELO</span>
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1E293B', opacity: 0.6 }}>USP</span>
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1E293B', opacity: 0.6 }}>facebook</span>
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1E293B', opacity: 0.6 }}>ambev</span>
-          <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1E293B', opacity: 0.6 }}>ifcv</span>
+          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>BRASIL PARALELO</span>
+          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>USP</span>
+          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>facebook</span>
+          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>ambev</span>
+          <span style={{ fontWeight: 800, fontSize: '1.125rem', color: '#1F242D' }}>ifcv</span>
         </div>
       </div>
 
-      {/* ── 1. GRID DE FERRAMENTAS ESPECIAIS (ADAPTA 3X2 GRID) ─────── */}
-      <section id="solucoes" className={styles.section} style={{ paddingTop: '80px' }}>
-        <div className={styles.sectionHeader} style={{ marginBottom: '60px' }}>
-          <div style={{ display: 'inline-flex', padding: '6px 14px', background: 'rgba(200,245,66,0.06)', borderRadius: '20px', color: '#C8F542', fontSize: '0.75rem', fontWeight: '700', gap: '6px', alignItems: 'center', margin: '0 auto 12px auto' }}> <Sparkles size={12} /> SISTEMAS GERENCIAIS</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', letterSpacing: '-0.03em' }}>Além disso, tenha acesso a <br /> Gestão e BI</h2>
+      {/* ── 1. O PROBLEMA ───────────────────────────────────────── */}
+      <section id="problema" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>O PROBLEMA</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Por que as empresas perdem clareza</h2>
         </div>
+        <p className={styles.sectionIntro}>3 dores estruturais que se repetem em todo negócio — independente do porte ou segmento.</p>
 
-        <div className={styles.adaptaGrid}>
-          
-          <div className={styles.adaptaCard}>
-            <div className={styles.adaptaCardHeader}>
-              <img src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_financial_clickup_dashboard_1774143700587.png" alt="SaaS Dashboard" className={styles.adaptaCardImg} />
-            </div>
-            <div className={styles.adaptaCardBody}>
-              <h4>Gestão de Contratos e Documentos</h4>
-              <p>Mantenha seus fluxos centralizados, categorizados e organize seus contratos de maneira ágil, via Kanban e dashboards de status.</p>
-            </div>
+        <div className={styles.doresGrid}>
+          <div className={styles.dorCard}>
+            <span className={styles.dorNum}>01</span>
+            <h3 className={styles.dorTitle}>Informação Fragmentada</h3>
+            <p className={styles.dorBody}>Dados espalhados em planilhas, ERPs, CRMs e ferramentas digitais sem conexão entre si. A empresa enxerga pedaços do problema — nunca o todo.</p>
           </div>
-
-          <div className={styles.adaptaCard}>
-            <div className={styles.adaptaCardHeader}>
-              <img src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_corporate_presenting_1774143639165.png" alt="BI Dashboard" className={styles.adaptaCardImg} />
-            </div>
-            <div className={styles.adaptaCardBody}>
-              <h4>Análise de Dados de Negócio</h4>
-              <p>Painéis financeiros cruzados com cruzamentos operacionais em tempo real para tomada de decisão executiva segura.</p>
-            </div>
+          <div className={styles.dorCard}>
+            <span className={styles.dorNum}>02</span>
+            <h3 className={styles.dorTitle}>Baixa Capacidade Analítica</h3>
+            <p className={styles.dorBody}>Dados existem, mas não se transformam em entendimento. Times passam horas em relatórios manuais e ainda assim chegam a conclusões imprecisas.</p>
           </div>
-
-          <div className={styles.adaptaCard}>
-            <div className={styles.adaptaCardHeader}>
-              <img src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_corporate_boardroom_1774143669395.png" alt="Decision" className={styles.adaptaCardImg} />
-            </div>
-            <div className={styles.adaptaCardBody}>
-              <h4>Painel de Decisores</h4>
-              <p>Visão de governança de alta liderança em painéis interativos de BI baseados em compliance robusto.</p>
-            </div>
+          <div className={styles.dorCard}>
+            <span className={styles.dorNum}>03</span>
+            <h3 className={styles.dorTitle}>Decisão por Percepção</h3>
+            <p className={styles.dorBody}>Sem modelagem, a gestão reage ao passado em vez de prever o futuro. O ruído vence a evidência. A empresa investe mais e ainda assim não sabe o que está funcionando.</p>
           </div>
-
         </div>
       </section>
 
-      {/* ── 2. FLUXO DE MATURIDADE ANALÍTICA (TIMELINE STYLE) ─────── */}
+      {/* ── 2. SOLUÇÃO ─────────────────────────────────────────── */}
+      <section id="solucao" className={styles.section} style={{ background: '#090a0c' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>A SOLUÇÃO</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Do dado bruto à decisão executiva</h2>
+        </div>
+        
+        <div className={styles.solucaoGrid}>
+          <div className={styles.camadas}>
+            <div className={styles.camada}>
+              <div className={styles.camadaBar}></div>
+              <div className={styles.camadaContent}>
+                <div className={styles.camadaTag}>Camada 1</div>
+                <div className={styles.camadaName}>Fontes de Dados</div>
+                <div className={styles.camadaDesc}>ERP, CRM, financeiro, marketing, operações, planilhas e dados externos integrados.</div>
+              </div>
+            </div>
+            <div className={styles.camada}>
+              <div className={styles.camadaBar}></div>
+              <div className={styles.camadaContent}>
+                <div className={styles.camadaTag}>Camada 2</div>
+                <div className={styles.camadaName}>Integração & Pipelines</div>
+                <div className={styles.camadaDesc}>APIs, ETL automático, governança de dados limpos e modelagem unificada via Data Lake Node.</div>
+              </div>
+            </div>
+            <div className={styles.camada}>
+              <div className={styles.camadaBar}></div>
+              <div className={styles.camadaContent}>
+                <div className={styles.camadaTag}>Camada 3</div>
+                <div className={styles.camadaName}>Analytics Estruturado</div>
+                <div className={styles.camadaDesc}>Modelos estatísticos, segmentações e cruzamento correlacional de alta fidelidade Node.</div>
+              </div>
+            </div>
+            <div className={styles.camada}>
+              <div className={styles.camadaBar}></div>
+              <div className={styles.camadaContent}>
+                <div className={styles.camadaTag}>Camada 4</div>
+                <div className={styles.camadaName}>Inteligência Ativa</div>
+                <div className={styles.camadaDesc}>Dashboards dinâmicos, alertas configuráveis de métricas e copiloto analítico de auditoria.</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.2' }}>Não vendemos software. Vendemos infraestrutura.</h3>
+            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>A vantagem real não está na tecnologia — está na cultura, nos dados proprietários e na capacidade analítica integrada às regras de negócio da empresa.</p>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                <Shield size={20} color="#C8F542" />
+                <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Operamos em analytics de alto nível — onde menos de 5% das empresas operam.</span>
+              </div>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                <Users size={20} color="#C8F542" />
+                <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Letramento nativo para que sua equipe decida com autonomia de longo prazo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. MÓDULOS ─────────────────────────────────────────── */}
+      <section id="modulos" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>6 MÓDULOS · 1 ECOSSISTEMA</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Suite de Produtos ARKOS</h2>
+        </div>
+
+        <div className={styles.modulosGrid}>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>WEDGE ENTRADA</div>
+            <h3 className={styles.moduloTitle}>Marketing Intelligence</h3>
+            <p className={styles.moduloDesc}>Satisfação, mercado, digital e funil comercial. O módulo de entrada com ROI visível em semanas.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>FUNDAÇÃO</div>
+            <h3 className={styles.moduloTitle}>Arkos Data</h3>
+            <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. A fundação de sua esteira analítica.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>ESPINHA DORSAL</div>
+            <h3 className={styles.moduloTitle}>Arkos Systems</h3>
+            <p className={styles.moduloDesc}>Contratos, documentos, estoque e fluxos operacionais integrados em uma única plataforma.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>AUTOMAÇÃO</div>
+            <h3 className={styles.moduloTitle}>Arkos AI</h3>
+            <p className={styles.moduloDesc}>Copilots executivos, previsão de quebras de contrato e notificações de anomalia baseadas em IA.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>ESTRATÉGIA</div>
+            <h3 className={styles.moduloTitle}>Arkos Strategy</h3>
+            <p className={styles.moduloDesc}>Planejamento estratégico estruturado e leitura de cenários de cruzamento econômico.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>LETRAMENTO</div>
+            <h3 className={styles.moduloTitle}>Arkos Academy</h3>
+            <p className={styles.moduloDesc}>Trilhas educacionais corporativas e formação de gestores orientados por evidência e dados.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. FLUXO DE MATURIDADE ANALÍTICA (TIMELINE) ─────── */}
       <section id="fluxo" className={styles.section} style={{ background: '#07080a', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
         <div className={styles.sectionHeader} style={{ marginBottom: '80px' }}>
           <div style={{ display: 'inline-flex', padding: '6px 14px', background: 'rgba(200,245,66,0.06)', borderRadius: '20px', color: '#C8F542', fontSize: '0.75rem', fontWeight: '700', gap: '6px', alignItems: 'center', margin: '0 auto 12px auto' }}> <TrendingUp size={12} /> PIPELINE DE MATURIDADE</div>
@@ -148,7 +236,7 @@ export default function Home() {
             <div className={styles.streamIcon}><Eye size={18} /></div>
             <div className={styles.streamContent}>
               <div className={styles.streamImageWrapper}>
-                <img src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_corporate_boardroom_1774143669395.png" alt="Descrição" className={styles.streamImage} />
+                <img src="/arkos_corporate_boardroom_1774143669395.png" alt="Descrição" className={styles.streamImage} />
               </div>
               <div className={styles.streamText}>
                 <span className={styles.streamLabel}>ETAPA 01</span>
@@ -163,7 +251,7 @@ export default function Home() {
             <div className={styles.streamIcon} style={{ background: '#C8F542', color: '#000' }}><Cpu size={18} /></div>
             <div className={styles.streamContent}>
               <div className={styles.streamImageWrapper}>
-                <img src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_financial_clickup_dashboard_1774143700587.png" alt="Predição" className={styles.streamImage} />
+                <img src="/arkos_financial_clickup_dashboard_1774143700587.png" alt="Predição" className={styles.streamImage} />
               </div>
               <div className={styles.streamText}>
                 <span className={styles.streamLabel} style={{ color: '#C8F542' }}>ETAPA 02</span>
@@ -178,7 +266,7 @@ export default function Home() {
             <div className={styles.streamIcon}><Sparkles size={18} /></div>
             <div className={styles.streamContent}>
               <div className={styles.streamImageWrapper}>
-                <img src="file:///C:/Users/renato/.gemini/antigravity/brain/93e64aad-1b74-4bf1-8e76-61f845a2ba1f/arkos_real_executive_dashboard_1774143584596.png" alt="Prescrição" className={styles.streamImage} />
+                <img src="/arkos_real_executive_dashboard_1774143584596.png" alt="Prescrição" className={styles.streamImage} />
               </div>
               <div className={styles.streamText}>
                 <span className={styles.streamLabel}>ETAPA 03</span>
@@ -191,51 +279,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FOOTER (ADAPTA STYLE SITEMAP) ───────────────────────── */}
+      {/* ── 5. VANTAGEM COMPETITIVA ────────────────────────────── */}
+      <section id="vantagem" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>DIFERENCIAL COMPETITIVO</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Por que a ARKOS é difícil de substituir</h2>
+        </div>
+
+        <div className={styles.vantagemGrid}>
+          <div className={styles.compTable}>
+            <div className={styles.compHeader}>
+              <span>CONCORRENTE</span>
+              <span>LIMITAÇÃO</span>
+            </div>
+            <div className={styles.compRow}>
+              <span>Consultorias</span>
+              <span style={{ color: '#8A8F99' }}>Têm estratégia estratégica, mas não têm produto</span>
+            </div>
+            <div className={styles.compRow}>
+              <span>BI Softwares</span>
+              <span style={{ color: '#8A8F99' }}>Têm dados montados, mas não têm visões executivas</span>
+            </div>
+            <div className={styles.compRow}>
+              <span>ERPs / CRMs</span>
+              <span style={{ color: '#8A8F99' }}>Têm sistemas inserção, mas não têm analytics final</span>
+            </div>
+          </div>
+
+          <div className={styles.diffs}>
+            <div className={styles.diffItem}>
+              <div className={styles.diffBar}></div>
+              <div>
+                <div className={styles.diffTitle}>Não vendemos apenas Relatórios</div>
+                <div className={styles.diffDesc}>Entregamos decisões fundamentadas em evidência — com recomendações acionáveis na rotina do tomador de decisão.</div>
+              </div>
+            </div>
+            <div className={styles.diffItem}>
+              <div className={styles.diffBar}></div>
+              <div>
+                <div className={styles.diffTitle}>Independência Estrutural</div>
+                <div className={styles.diffDesc}>Ao contrário de outras soluções, nosso maior sucesso é quando o cliente não precisa mais de nós para entender seu negócio isoladamente.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. RESULTADOS ───────────────────────────────────────── */}
+      <section className={styles.section} style={{ background: '#090a0c', textAlign: 'center' }}>
+        <h2 style={{ fontSize: '2.25rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '40px' }}>Métricas de Ativação e Operações</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+          <div style={{ padding: '32px', background: '#111318', borderRadius: '12px' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px' }}>↓25%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#8A8F99', textTransform: 'uppercase' }}>Redução de CAC</div>
+          </div>
+          <div style={{ padding: '32px', background: '#111318', borderRadius: '12px' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px' }}>↑40%</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#8A8F99', textTransform: 'uppercase' }}>Eficiência Analítica</div>
+          </div>
+          <div style={{ padding: '32px', background: '#111318', borderRadius: '12px' }}>
+            <div style={{ fontSize: '3rem', fontWeight: '800', color: '#C8F542', marginBottom: '8px' }}>Horas</div>
+            <div style={{ fontSize: '0.688rem', fontFamily: 'monospace', color: '#8A8F99', textTransform: 'uppercase' }}>Tempo de Decisão</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER MEGA ────────────────────────────────────────── */}
       <footer className={styles.footerMega}>
         <div className={styles.footerGrid}>
           
           <div className={styles.footerCol}>
-            <h4>Mapa</h4>
-            <Link href="#solucoes">Soluções</Link>
-            <Link href="#fluxo">Maturidade Analítica</Link>
-            <Link href="#">Para Empresas</Link>
-            <Link href="#">Planos & Preços</Link>
-            <Link href="#">Políticas de Privacidade</Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+              <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '24px' }} />
+            </div>
+            <p style={{ lineHeight: '1.6', maxWidth: '240px' }}>A infraestrutura de inteligência da nova economia. Data · Intelligence · Decision.</p>
           </div>
 
           <div className={styles.footerCol}>
-            <h4>Redes Sociais</h4>
-            <Link href="https://linkedin.com" target="_blank">LinkedIn</Link>
-            <Link href="https://instagram.com" target="_blank">Instagram</Link>
-            <Link href="https://facebook.com" target="_blank">Facebook</Link>
+            <h4>Sistemas</h4>
+            <Link href="#modulos">Marketing Intelligence</Link>
+            <Link href="#modulos">Arkos Data Base</Link>
+            <Link href="#modulos">Arkos Operations</Link>
+            <Link href="#modulos">Arkos Academy</Link>
           </div>
 
           <div className={styles.footerCol}>
             <h4>Fale Conosco</h4>
             <p style={{ color: '#F4F2ED' }}>contato@arkos.com</p>
             <p style={{ color: '#F4F2ED' }}>+55 (83) 98195-7737</p>
-            <p style={{ color: '#475569', fontSize: '0.75rem', marginTop: '4px' }}>Atendimento humanizado, todos os dias de 09h00 às 18h00.</p>
           </div>
 
-          <div className={styles.footerCol} style={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-            <img src="/logo-high-res.svg" alt="Arkos" style={{ height: '24px', opacity: 0.8, marginBottom: '8px' }} />
-            <p style={{ fontSize: '0.75rem', color: '#475569' }}>Caixa Postal-035</p>
-            <p style={{ fontSize: '0.75rem', color: '#475569', textAlign: 'right', lineHeight: '1.4' }}>Avenida João Machado, 849, Sala 801<br />Centro, João Pessoa - PB<br />CEP: 58013-522</p>
+          <div className={styles.footerCol}>
+            <h4>Localização</h4>
+            <p style={{ lineHeight: '1.5' }}>Avenida João Machado, 849, Sala 801<br />Centro, João Pessoa - PB<br />CEP: 58013-522</p>
           </div>
 
         </div>
         
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', textAlign: 'center', fontSize: '11px', color: '#475569', marginTop: '60px' }}>
-          &copy; {new Date().getFullYear()} ARKOS. A Infraestrutura da Nova Economia Empresarial.
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', textAlign: 'center', fontSize: '11px', color: '#5A5F6A', marginTop: '60px', fontFamily: 'monospace' }}>
+          &copy; {new Date().getFullYear()} ARKOS Intelligence. A Infraestrutura da Nova Economia Empresarial.
         </div>
       </footer>
 
       {/* ── MOBILE BOTTOM NAVBAR ────────────────────────────────── */}
       <nav className={styles.mobileNavbar}>
         <Link href="#" className={styles.navItem}><HomeIcon size={20} /><span>Início</span></Link>
-        <Link href="#solucoes" className={styles.navItem}><Grid size={20} /><span>Sistemas</span></Link>
-        <Link href="https://wa.me/5583981957737" target="_blank" className={styles.navItemCta} style={{ color: '#C8F542' }}><MessageCircle size={20} /><span>Consultor</span></Link>
+        <Link href="#fluxo" className={styles.navItem}><TrendingUp size={20} /><span>Maturidade</span></Link>
+        <Link href="https://wa.me/5583981957737" target="_blank" className={styles.navItem} style={{ color: '#C8F542' }}><MessageCircle size={20} /><span>Consultor</span></Link>
       </nav>
 
     </div>
