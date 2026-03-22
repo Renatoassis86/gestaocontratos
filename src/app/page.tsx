@@ -15,26 +15,43 @@ export default function Home() {
     useRef<HTMLVideoElement>(null),
   ];
 
-  // Wire up the 3-video circular crossfade after mount
+  // Wire up the 3-video circular crossfade after mount with a resilient retry setup for hydration
   useEffect(() => {
-    const videos = videoRefs.map(r => r.current).filter(Boolean) as HTMLVideoElement[];
-    if (videos.length < 3) return;
+    let checkRefs: NodeJS.Timeout;
+    let loadedVideos: HTMLVideoElement[] = [];
+    let loadedHandlers: (() => void)[] = [];
 
-    const handlers: (() => void)[] = videos.map((_, i) => () => {
-      const nextIdx = (i + 1) % 3;
-      setActiveVideo(nextIdx as 0|1|2);
-      const next = videos[nextIdx];
-      next.currentTime = 0;
-      next.play().catch(() => {});
-    });
+    checkRefs = setInterval(() => {
+      const videos = videoRefs.map(r => r.current).filter(Boolean) as HTMLVideoElement[];
+      if (videos.length === 3) {
+        clearInterval(checkRefs);
+        loadedVideos = videos;
 
-    videos.forEach((v, i) => v.addEventListener('ended', handlers[i]));
+        const handlers = videos.map((_, i) => () => {
+          const nextIdx = (i + 1) % 3;
+          setActiveVideo(nextIdx as 0|1|2);
+          const next = videos[nextIdx];
+          if (next) {
+            next.currentTime = 0;
+            next.play().catch(() => {});
+          }
+        });
+        loadedHandlers = handlers;
 
-    // Kick off first video immediately
-    videos[0].play().catch(() => {});
+        videos.forEach((v, i) => v.addEventListener('ended', handlers[i]));
+        
+        // Kick off first video immediately
+        videos[0].play().catch(() => {});
+      }
+    }, 400);
 
     return () => {
-      videos.forEach((v, i) => v.removeEventListener('ended', handlers[i]));
+      clearInterval(checkRefs);
+      if (loadedVideos.length && loadedHandlers.length) {
+        loadedVideos.forEach((v, i) => {
+          if (loadedHandlers[i]) v.removeEventListener('ended', loadedHandlers[i]);
+        });
+      }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,7 +83,7 @@ export default function Home() {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         
-        <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : styles.hideOnMobile}`} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.813rem', color: '#8A8F99' }}>
+        <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : styles.hideOnMobile}`} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.813rem', color: '#FFFFFF' }}>
           {/* Dropdown Institucional */}
           <div className={styles.navLinkDropdown} style={{ transition: 'color 0.2s', color: 'inherit' }}>
             <span style={{ cursor: 'pointer' }}>Institucional</span>
@@ -325,9 +342,19 @@ export default function Home() {
             <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. Ou seja: criamos uma central única que organiza todas as informações da sua empresa. Isso elimina planilhas soltas e garante que você tome decisões baseadas em números reais, e não em achismos.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTÃO GLOBAL</div>
-            <h3 className={styles.moduloTitle}>Arkos ERP & CRM Matrix</h3>
-            <p className={styles.moduloDesc}>Contratos, documentos, finanças, gestão de fornecedores, tickets, pedidos e relacionamento unificados em uma arquitetura limpa.</p>
+            <div className={styles.moduloSub}>GESTÃO DE RELACIONAMENTO & VENDAS</div>
+            <h3 className={styles.moduloTitle}>Arkos CRM Matrix</h3>
+            <p className={styles.moduloDesc}>Rastreia toda a jornada do cliente, desde o primeiro contato até o pós-venda. Alimenta o Data Lake com taxas de conversão, velocidade do funil e comportamento de compra. Estes dados permitem que os algoritmos da Arkos prevejam fluxos de caixa futuros e antecipem oportunidades comerciais com precisão científica.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>GESTAO OPERACIONAL & FINANCEIRA</div>
+            <h3 className={styles.moduloTitle}>Arkos ERP Matrix</h3>
+            <p className={styles.moduloDesc}>Centraliza a espinha dorsal financeira e física do negócio: faturamento, contas a pagar, gestão de fornecedores, suprimentos e contratos. É o gerador supremo de dados de custos e margens de lucro, fornecendo a base histórica sólida para as modelagens e auditorias econométricas do ecossistema.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>GESTÃO DE TALENTOS & PERFORMANCE</div>
+            <h3 className={styles.moduloTitle}>Arkos HRMS (Recursos Humanos)</h3>
+            <p className={styles.moduloDesc}>Automatiza o funil de recrutamento, onboarding e departamento pessoal. Mapeia a demografia e rotinas corporativas para gerar **Previsão de Turnover** (saída de funcionários) e insights de produtividade, permitindo que a liderança retenha talentos de forma científica.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>INTELIGÊNCIA AUTOMÁTICA</div>

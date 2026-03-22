@@ -63,6 +63,7 @@
 
 
 .logoImage { height: 32px; width: auto; }
+.burgerButton { display: none; } /* Hide on desktop by default */
 
 .headerActions { display: flex; gap: 12px; align-items: center; }
 
@@ -96,7 +97,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 160px 40px 100px 40px;
+  padding: 120px 40px 60px 40px; /* Reduced paddings to scale on 100% zoom fold better */
   text-align: center;
   z-index: 1;
   overflow: hidden;
@@ -109,12 +110,12 @@
 }
 
 .heroH1Adapta {
-  font-family: 'Outfit', 'Inter', sans-serif; font-size: 4.5rem; font-weight: 900; line-height: 1.05;
+  font-family: 'Outfit', 'Inter', sans-serif; font-size: 3.8rem; font-weight: 900; line-height: 1.05; /* Reduced size of font scale slightly */
   letter-spacing: -0.04em; color: var(--wht); margin-bottom: 24px;
 }
 
 .heroPAdapta {
-  font-size: 1.125rem; color: var(--mut); max-width: 580px; margin: 0 auto 48px auto;
+  font-size: 1.063rem; color: var(--mut); max-width: 580px; margin: 0 auto 32px auto; /* Slightly smaller size and margin bottom fold fit */
   line-height: 1.7; font-weight: 300;
 }
 
