@@ -542,7 +542,7 @@ export default function Home() {
             <div className={styles.compMegaRow}>
               <div className={styles.compMegaTag}>Consultorias de Gestão Clássicas</div>
               <div className={styles.compMegaLimit}>Desenham estratégias excelentes no papel, mas não possuem um produto de tecnologia escalável que aplique a tese no dia a dia da empresa de forma orgânica.</div>
-              <div className={styles.compMegaArkos}>Produto SaaS embarcado com estratégia. Nós modelamos as regras de negócio e a própria infraestrutura corporativa roda e evolui 24/7 de forma algorítmica.</div>
+              <div className={styles.compMegaArkos}>A estratégia e a tecnologia andam juntas. Mapeamos as regras do seu negócio e a plataforma opera isso no dia a dia: coletando dados, gerando alertas e orientando decisões automaticamente, sem depender de consultores externos.</div>
             </div>
 
             <div className={styles.compMegaRow}>
