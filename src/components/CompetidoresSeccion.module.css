@@ -1,0 +1,89 @@
+.section {
+  background: #090A0E;
+  padding: 80px 20px;
+  border-top: 1px solid rgba(255,255,255,0.02);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #F4F2ED;
+  font-family: 'Sora', sans-serif;
+}
+
+.description {
+  color: #8A8F99;
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 12px auto 0 auto;
+}
+
+.carouselWrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0;
+  margin-bottom: 60px;
+}
+
+.caseWrapper {
+  background: linear-gradient(135deg, #111318 0%, #07080A 100%);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid rgba(200,245,66,0.05);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+
+.caseGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.caseStats {
+  position: relative;
+  border-left: 1px solid rgba(255,255,255,0.05);
+  padding-left: 40px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.statCard {
+  background: #1F242D;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+@media (max-width: 768px) {
+  .caseGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .caseStats {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 30px;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

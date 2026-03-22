@@ -44,6 +44,18 @@ Para que a Arkos atue como a espinha dorsal corporativa, ela orienta a empresa a
     \item \textbf{Nível 5 - Competidores Analíticos (Nível Arkos)}: O topo da maturidade. A inteligência e os algoritmos são o principal diferencial competitivo da firma, direcionando decisões de expansão e ganho de eficiência.
 \end{enumerate}
 
+\subsection{Memória de Cálculo do Diagnóstico}
+Para classificar a governança em escala de forma auditável, o motor aplica um modelo de \textbf{Scorecard de Fator Agregado}. Dado um vetor $X$ de $20$ variáveis independentes $X_i \in \{1,2,3,4\}$ de respostas, o Score de Maturidade Global ($S$) é calculado pela média normalizada:
+\begin{equation}
+S = \frac{\sum_{i=1}^{20} X_i}{20}
+\end{equation}
+
+Os pilares do modelo DELTA são obtidos por médias dimensionais: $\bar{x}_k = \frac{1}{4} \sum_{i=1}^{4} X_{k,i}$, onde $k \in \{L, E, D, T, A\}$. A deﬁnição de Gargalo Operacional que dispara a indicação de produto é obtida por:
+\begin{equation}
+\text{Gargalo} = \text{argmin} (\bar{x}_L, \bar{x}_E, \bar{x}_D, \bar{x}_T, \bar{x}_A)
+\end{equation}
+\vspace{0.5cm}
+
 \section{Governança e Segurança da Informação}
 Dado que a Arkos manipula ecossistemas de dados estratégicos e contratuais, a segurança é posicionada na base da pirâmide arquitetural:
 \begin{itemize}

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
+import styles from './CompetidoresSeccion.module.css'
 
 export default function CompetidoresSeccion() {
   const empresas = [
@@ -16,22 +17,20 @@ export default function CompetidoresSeccion() {
   ]
 
   return (
-    <section id="competidores" style={{ background: '#090A0E', padding: '80px 20px', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="competidores" className={styles.section}>
+      <div className={styles.container}>
         
         {/* --- HEADER --- */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <div className={styles.header}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>O BENCHMARK MÁXIMO</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', fontFamily: 'Sora, sans-serif' }}>
-            A Elite dos Competidores Analíticos
-          </h2>
-          <p style={{ color: '#8A8F99', fontSize: '1rem', maxWidth: '700px', margin: '12px auto 0 auto' }}>
+          <h2 className={styles.title}>A Elite dos Competidores Analíticos</h2>
+          <p className={styles.description}>
             Empresas no Nível 5 utilizam a ciência de dados de forma ampla, sistemática e como sua principal vantagem sustentável. É esse patamar que a ARKOS ajuda você a pavimentar.
           </p>
         </div>
 
         {/* --- CAROUSEL MONOCRO --- */}
-        <div style={{ position: 'relative', overflow: 'hidden', padding: '40px 0', marginBottom: '60px' }}>
+        <div className={styles.carouselWrapper}>
           <motion.div 
             animate={{ x: [0, -1200] }} 
             transition={{ repeat: Infinity, duration: 25, ease: 'linear' }} 
@@ -59,8 +58,8 @@ export default function CompetidoresSeccion() {
         </div>
 
         {/* --- O CASO NETFLIX --- */}
-        <div style={{ background: 'linear-gradient(135deg, #111318 0%, #07080A 100%)', padding: '40px', borderRadius: '16px', border: '1px solid rgba(200,245,66,0.05)', boxShadow: '0 4px 30px rgba(0,0,0,0.5)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center' }}>
+        <div className={styles.caseWrapper}>
+          <div className={styles.caseGrid}>
             
             <div>
               <div style={{ color: '#C8F542', fontWeight: 800, fontSize: '0.8rem', marginBottom: '8px' }}>MISTÉRIO & DESEMPENHO</div>
@@ -84,22 +83,22 @@ export default function CompetidoresSeccion() {
               </div>
             </div>
 
-            <div style={{ position: 'relative', borderLeft: '1px solid rgba(255,255,255,0.05)', paddingLeft: '40px' }}>
+            <div className={styles.caseStats}>
               <div style={{ fontSize: '3rem', fontWeight: 900, color: 'rgba(255,255,255,0.02)', position: 'absolute', top: -10, left: 40, userSelect: 'none' }}>DATA</div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                <div style={{ background: '#1F242D', padding: '20px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+              <div className={styles.statsGrid}>
+                <div className={styles.statCard}>
                   <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>1 Bi</div>
                   <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>feedbacks e opiniões avaliados</div>
                 </div>
-                <div style={{ background: '#1F242D', padding: '20px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                <div className={styles.statCard}>
                   <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>70k</div>
                   <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>atributos analiticos do usuário</div>
                 </div>
-                <div style={{ background: '#1F242D', padding: '20px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                <div className={styles.statCard}>
                   <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>1.000</div>
                   <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>experimentos A/B anuais</div>
                 </div>
-                <div style={{ background: '#1F242D', padding: '20px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                <div className={styles.statCard}>
                   <div style={{ color: '#C8F542', fontSize: '1.8rem', fontWeight: 800 }}>69.4k h</div>
                   <div style={{ color: '#8A8F99', fontSize: '0.75rem' }}>de vídeos medidos por minuto</div>
                 </div>
