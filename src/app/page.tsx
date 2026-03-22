@@ -30,18 +30,20 @@ export default function Home() {
         clearInterval(checkRefs);
         loadedVideos = videos;
 
-        const handlers = videos.map((_, i) => () => {
-          const nextIdx = (i + 1) % 3;
-          setActiveVideo(nextIdx as 0|1|2);
-          const next = videos[nextIdx];
-          if (next) {
-            next.currentTime = 0;
-            next.play().catch(() => {});
-          }
-        });
-        loadedHandlers = handlers;
+        const interval = setInterval(() => {
+          setActiveVideo(prev => {
+            const nextIdx = (prev + 1) % 3;
+            const next = videos[nextIdx];
+            if (next) {
+              next.currentTime = 0;
+              next.play().catch(() => {});
+            }
+            return nextIdx as 0|1|2;
+          });
+        }, 5000);
 
-        videos.forEach((v, i) => v.addEventListener('ended', handlers[i]));
+        // Armazenar o interval para limpeza
+        checkRefs = interval; 
         
         // Kick off first video immediately
         videos[0].play().catch(() => {});
@@ -60,8 +62,10 @@ export default function Home() {
         window.addEventListener('scroll', handleInteraction, { passive: true });
         window.addEventListener('touchstart', handleInteraction, { passive: true });
         
-        // Ensure solucao video plays immediately if ready
-        if (solucaoVideoRef.current) solucaoVideoRef.current.play().catch(() => {});
+        if (solucaoVideoRef.current) {
+          solucaoVideoRef.current.playbackRate = 0.7;
+          solucaoVideoRef.current.play().catch(() => {});
+        }
       }
     }, 400);
 
