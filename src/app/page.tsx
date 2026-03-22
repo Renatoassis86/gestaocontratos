@@ -7,25 +7,26 @@ import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye,
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeVideo, setActiveVideo] = useState<1|2>(1);
+  const [activeVideo, setActiveVideo] = useState<1|2|3>(1);
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
+  const video3Ref = useRef<HTMLVideoElement>(null);
+
+  const videoRefs = { 1: video1Ref, 2: video2Ref, 3: video3Ref };
 
   // Start video 1 on mount (satisfies mobile autoplay policy)
   useEffect(() => {
-    const v1 = video1Ref.current;
-    if (!v1) return;
-    v1.play().catch(() => {});
+    video1Ref.current?.play().catch(() => {});
   }, []);
 
-  // When active video ends, switch to the other
-  const handleVideoEnd = (finished: 1|2) => {
-    const next: 1|2 = finished === 1 ? 2 : 1;
+  // Circular rotation: 1 → 2 → 3 → 1 → ...
+  const handleVideoEnd = (finished: 1|2|3) => {
+    const next: 1|2|3 = finished === 1 ? 2 : finished === 2 ? 3 : 1;
     setActiveVideo(next);
-    const nextRef = next === 1 ? video1Ref : video2Ref;
-    if (nextRef.current) {
-      nextRef.current.currentTime = 0;
-      nextRef.current.play().catch(() => {});
+    const ref = videoRefs[next];
+    if (ref.current) {
+      ref.current.currentTime = 0;
+      ref.current.play().catch(() => {});
     }
   };
 
@@ -82,7 +83,7 @@ export default function Home() {
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className={styles.heroAdapta}>
         
-        {/* Background Video — dual crossfade loop */}
+        {/* Background Video — 3-video crossfade loop */}
         <div className={styles.heroVideoBg}>
           <video
             ref={video1Ref}
@@ -101,6 +102,15 @@ export default function Home() {
             style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
             <source src="/hero-secondary-arkos.mp4" type="video/mp4" />
+          </video>
+          <video
+            ref={video3Ref}
+            muted playsInline
+            onEnded={() => handleVideoEnd(3)}
+            className={styles.heroVideoElement}
+            style={{ opacity: activeVideo === 3 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          >
+            <source src="/hero-arkos-video.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroVideoOverlay}></div>
         </div>
