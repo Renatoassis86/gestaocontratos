@@ -510,39 +510,7 @@
 
 .equipeBio { font-size: 0.75rem; color: var(--mut); line-height: 1.6; }
 
-/* ── COMP MEGA TABLE ────────────────────────────────────── */
-.compMegaTable {
-  display: flex; flex-direction: column; width: 100%; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden;
-}
-
-.compMegaHeader {
-  display: grid; grid-template-columns: 250px 1fr 1.2fr; gap: 24px; padding: 0;
-  background: rgba(255,255,255,0.02); text-transform: uppercase; font-family: monospace; font-size: 0.625rem; letter-spacing: 1px; color: var(--mut); border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 700;
-}
-
-.compMegaCol, .compMegaColArkos { display: flex; align-items: center; gap: 8px; padding: 16px 24px; }
-.compMegaColArkos { color: var(--sig); font-weight: 800; }
-
-.compMegaRow {
-  display: grid; grid-template-columns: 250px 1fr 1.2fr; gap: 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 0.3s;
-}
-.compMegaRow:last-child { border-bottom: none; }
-.compMegaRow:hover { background: rgba(255,255,255,0.01); }
-
-.compMegaTag {
-  padding: 24px; font-weight: 700; font-size: 0.875rem; color: var(--wht); display: flex; align-items: flex-start;
-}
-
-.compMegaLimit {
-  padding: 24px; font-size: 0.813rem; color: var(--mut); line-height: 1.6; display: flex; align-items: flex-start;
-}
-
-.compMegaArkos {
-  padding: 24px; font-size: 0.813rem; color: var(--wht); line-height: 1.6; display: flex; align-items: flex-start;
-  background: linear-gradient(90deg, rgba(200,245,66,0.05) 0%, transparent 100%);
-  border-left: 2px solid var(--sig);
-}
+/* CSS Duplicado removido. As classes .compMegaTable, .compMegaHeader e .compMegaRow certas já estão definidas nas linhas 393. */
 
 /* ── RESULTADOS METRICS ─────────────────────────────────── */
 .resultadosGridMetrics {
@@ -612,4 +580,13 @@
   .heroH1Adapta { font-size: 2rem; }
   .section { padding: 60px 16px; }
   .resultadosGridMetrics { grid-template-columns: 1fr; }
+  .footerBottomBar {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    text-align: center !important;
+  }
+  .footerBottomBar > div {
+    text-align: center !important;
+    justify-content: center !important;
+  }
 }

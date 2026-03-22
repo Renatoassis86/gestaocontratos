@@ -329,9 +329,14 @@ export default function Home() {
             <p className={styles.moduloDesc}>Geração de planos de negócios interativos e estruturação automatizada de rentabilidade usando leitura de cenários de cruzamento econômico contínuos.</p>
           </div>
           <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>LETRAMENTO</div>
-            <h3 className={styles.moduloTitle}>Arkos Academy</h3>
-            <p className={styles.moduloDesc}>Trilhas formativas corporativas (EdTech) atreladas à performance real dos colaboradores que os ensinam a usar a dados para liderança.</p>
+            <div className={styles.moduloSub}>LETRAMENTO E GESTÃO EAD</div>
+            <h3 className={styles.moduloTitle}>Arkos Academy (EdTech)</h3>
+            <p className={styles.moduloDesc}>Plataforma de ensino dupla. Internamente, treina e atualiza seus clientes e líderes em dados, economia competitiva e análise de mercado. Externamente, assemelha-se ao Moodle para atuar como Portal EAD ponta a ponta para faculdades, escolas e sistemas de ensino. Acoplamos todo o ecossistema fornecendo diagnóstico, predição e prescrição para elevar os resultados de gestão e a eficiência acadêmica dos alunos.</p>
+          </div>
+          <div className={styles.moduloCard}>
+            <div className={styles.moduloSub}>GESTAO TECNOLÓGICA</div>
+            <h3 className={styles.moduloTitle}>Arkos IT & Infra</h3>
+            <p className={styles.moduloDesc}>Gestão compartilhada de TI a distância. Atuamos como seu departamento de ponta, elevando a eficiência de empresas que possuem setores legados ou que só operam o básico. Cuidamos desde a segurança da infraestrutura de servidores até a administração web e atualizações complexas da sua operação digital.</p>
           </div>
         </div>
       </section>
@@ -431,60 +436,60 @@ export default function Home() {
           {/* Emanuel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80" alt="Emanuel Peixoto" className={styles.equipeImage} />
+              <img src="/arkos_team_emanuel.png" alt="Emanuel Peixoto" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Emanuel Peixoto</h3>
-              <span className={styles.equipeRole}>Designer & Gestor de Marketing</span>
-              <p className={styles.equipeBio}>Especialista em UI/UX e Estratégia de Marketing. Formado em Ciência da Computação, cria interfaces de dados de alta fidelidade ligadas à experiência do tomador de decisão.</p>
+              <span className={styles.equipeRole}>Coordenador de Estratégias Visuais</span>
+              <p className={styles.equipeBio}>Especialista na concepção visual e user-experience do ecosssistema Arkos. Aplica design para resolver dores operacionais e trazer lucidez à tomada de decisão.</p>
             </div>
           </div>
 
           {/* Gabriel */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80" alt="Gabriel Mamede" className={styles.equipeImage} />
+              <img src="/arkos_team_gabriel.png" alt="Gabriel Mamede" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Gabriel Mamede</h3>
-              <span className={styles.equipeRole}>Desenvolvedor Full-Stack</span>
-              <p className={styles.equipeBio}>Desenvolvedor de Software Full-Stack formado em Ciência da Computação. Atua na arquitetura de microsserviços seguros e pipelines de dados de alta performance.</p>
+              <span className={styles.equipeRole}>Coordenador de Infraestrutura de Dados</span>
+              <p className={styles.equipeBio}>Responsável por estruturar a espinha dorsal lógica do banco de dados na Arkos. Foca em garantia de escalabilidade e confiabilidade no processamento corporativo.</p>
+            </div>
+          </div>
+
+          {/* Julio */}
+          <div className={styles.equipeCard}>
+            <div className={styles.equipeImageWrapper}>
+              <img src="/arkos_team_julio.png" alt="Júlio César" className={styles.equipeImage} />
+            </div>
+            <div className={styles.equipeContent}>
+              <h3 className={styles.equipeName}>Júlio César</h3>
+              <span className={styles.equipeRole}>Planejador e Analista de Mercado</span>
+              <p className={styles.equipeBio}>Com background rigoroso em modelagem, ajuda a identificar nichos de eficiência, construindo as lógicas que os algoritmos da Arkos precisam processar no dia a dia.</p>
             </div>
           </div>
 
           {/* Lucas */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=800&q=80" alt="Lucas Batista" className={styles.equipeImage} />
+              <img src="/arkos_team_lucas_ai.png" alt="Lucas Silva" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Lucas Batista</h3>
-              <span className={styles.equipeRole}>Analista de Inteligência Artificial</span>
-              <p className={styles.equipeBio}>Especialista em Processamento de Linguagem Natural (NLP) e algoritmos preditivos para negócios, gerando modelagens com Machine Learning.</p>
+              <h3 className={styles.equipeName}>Lucas</h3>
+              <span className={styles.equipeRole}>Inovação & IA Algorithms</span>
+              <p className={styles.equipeBio}>Integra fluxos de Inteligência Artificial generativa e processamento automatizado, reduzindo o volume de cliques da equipe técnica ao limite mínimo.</p>
             </div>
           </div>
 
           {/* Renato */}
           <div className={styles.equipeCard}>
             <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Renato Silva de Assis" className={styles.equipeImage} />
+              <img src="/renato-assis.jpg" alt="Renato Silva de Assis" className={styles.equipeImage} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
-              <span className={styles.equipeRole}>Economista & Data Scientist</span>
-              <p className={styles.equipeBio}>Economista e Cientista de Dados. Mestre em Economia com foco em econometria e inteligência de negócios. Desenvolve tomadas de decisões associadas às finanças corporativas.</p>
-            </div>
-          </div>
-
-          {/* Williams */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=800&q=80" alt="Williams Calado" className={styles.equipeImage} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Williams Calado</h3>
-              <span className={styles.equipeRole}>Desenvolvedor de Software</span>
-              <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
+              <span className={styles.equipeRole}>Arquiteto Estratégico & Data Scientist</span>
+              <p className={styles.equipeBio}>Pesquisador e Economista responsável pela concepção das mecânicas avançadas da Arkos. Lidera a união das premissas econômicas reais com o Big Data da nova economia.</p>
             </div>
           </div>
 
@@ -693,19 +698,23 @@ export default function Home() {
 
         </div>
         
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', fontSize: '12px', color: '#8A8F99', marginTop: '60px', gap: '24px', position: 'relative' }}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '30px', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', fontSize: '12px', color: '#8A8F99', marginTop: '60px', gap: '20px' }} className={styles.footerBottomBar}>
           
-          {/* Default Centro */}
-          <div style={{ textAlign: 'center', order: 1 }}>
-            &copy; {new Date().getFullYear()} Arkos Intelligence. Todos os direitos reservados. <Link href="/privacidade" style={{ color: '#C8F542', textDecoration: 'none', marginLeft: '6px', fontWeight: 600 }}>Privacidade & Termos</Link>
+          {/* Esquerda: Privacidade */}
+          <div style={{ textAlign: 'left' }}>
+            <Link href="/privacidade" style={{ color: '#C8F542', textDecoration: 'none', fontWeight: 600 }}>Privacidade & Termos</Link>
+          </div>
+
+          {/* Centro: Direitos Autorais */}
+          <div style={{ textAlign: 'center' }}>
+            &copy; 2026 Arkos Intelligence. Todos os direitos reservados.
           </div>
           
-          {/* Criado por... */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', order: 2, '@media(minWidth: 768px)': { position: 'absolute', right: 0 } } as React.CSSProperties}>
+          {/* Direita: Criado por */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', fontSize: '11px' }}>
             <span style={{ color: '#5A5F6A' }}>Criado por</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-               <img src="/logo-high-res.svg" alt="Arkos Marca" style={{ height: '12px', filter: 'brightness(0) invert(1)' }} />
-               <strong style={{ color: '#F4F2ED', fontSize: '11px' }}>Arkos Intelligence</strong>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+               <img src="/arkos-logomarca.png" alt="Arkos" style={{ height: '24px', objectFit: 'contain' }} />
             </div>
           </div>
         </div>

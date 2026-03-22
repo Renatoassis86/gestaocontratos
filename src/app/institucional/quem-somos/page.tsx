@@ -7,10 +7,10 @@ export default function QuemSomos() {
     <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px' }}>
       <div className={styles.solucaoHero}>
         <div className={styles.videoArchWrapper}>
-          <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <div className={styles.videoArchContainer} style={{ background: 'url("/arkos_success_woman.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
           </div>
           <div className={styles.videoBtmBadge}>
-             <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Arquitetos da</span> nova economia <span style={{ color: '#C8F542' }}>&rarr;</span>
+             <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Especialistas em</span> performance <span style={{ color: '#C8F542' }}>&rarr;</span>
           </div>
         </div>
 
