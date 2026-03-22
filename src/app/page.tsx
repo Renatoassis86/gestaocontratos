@@ -7,8 +7,27 @@ import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye,
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeVideo, setActiveVideo] = useState<1|2>(1);
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
 
+  // Start video 1 on mount (satisfies mobile autoplay policy)
+  useEffect(() => {
+    const v1 = video1Ref.current;
+    if (!v1) return;
+    v1.play().catch(() => {});
+  }, []);
 
+  // When active video ends, switch to the other
+  const handleVideoEnd = (finished: 1|2) => {
+    const next: 1|2 = finished === 1 ? 2 : 1;
+    setActiveVideo(next);
+    const nextRef = next === 1 ? video1Ref : video2Ref;
+    if (nextRef.current) {
+      nextRef.current.currentTime = 0;
+      nextRef.current.play().catch(() => {});
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -63,13 +82,25 @@ export default function Home() {
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className={styles.heroAdapta}>
         
-        {/* Background Video */}
+        {/* Background Video — dual crossfade loop */}
         <div className={styles.heroVideoBg}>
-          <video 
-            autoPlay loop muted playsInline 
+          <video
+            ref={video1Ref}
+            muted playsInline
+            onEnded={() => handleVideoEnd(1)}
             className={styles.heroVideoElement}
+            style={{ opacity: activeVideo === 1 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
           >
             <source src="/hero-main-arkos.mp4" type="video/mp4" />
+          </video>
+          <video
+            ref={video2Ref}
+            muted playsInline
+            onEnded={() => handleVideoEnd(2)}
+            className={styles.heroVideoElement}
+            style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          >
+            <source src="/hero-secondary-arkos.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroVideoOverlay}></div>
         </div>
