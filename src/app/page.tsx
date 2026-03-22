@@ -121,7 +121,7 @@ export default function Home() {
       </section>
 
       <div className={styles.logobar}>
-        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700 }}>TECNOLOGIA COMPATÍVEL AOS ECOSSISTEMAS DE</p>
+        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700, padding: '0 20px' }}>TECNOLOGIA COMPATÍVEL AOS ECOSSISTEMAS DE</p>
         
         <div className={styles.logobarInner}>
           {Array(2).fill([
@@ -590,7 +590,7 @@ export default function Home() {
           <div className={styles.metricCard}>
             <div className={styles.metricBig}>- 45%</div>
             <div className={styles.metricTitle}>Mitigação de Churn</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Identifica a probabilidade de um aluno evangelho evadir 60 dias antes dele deixar de pagar a mensalidade.</p>
+            <p className={styles.metricDesc}><strong>O que representa:</strong> Identifica a probabilidade de um aluno evadir até 60 dias antes dele deixar de pagar a mensalidade.</p>
           </div>
 
           <div className={styles.metricCard}>

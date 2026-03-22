@@ -608,5 +608,8 @@
 }
 
 @media (max-width: 480px) {
+  .heroAdapta { padding: 100px 16px 60px; }
+  .heroH1Adapta { font-size: 2rem; }
+  .section { padding: 60px 16px; }
   .resultadosGridMetrics { grid-template-columns: 1fr; }
 }
