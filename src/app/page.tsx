@@ -183,82 +183,85 @@ export default function Home() {
           <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Do dado bruto à decisão executiva</h2>
         </div>
         
-        <div className={styles.solucaoGrid}>
-          {/* LEFT: Camadas do Pipeline */}
-          <div className={styles.camadas}>
-            <div className={styles.camada}>
-              <div className={styles.camadaBar}></div>
-              <div className={styles.camadaContent}>
-                <div className={styles.camadaTag}>Camada 1</div>
-                <div className={styles.camadaName}>Fontes de Dados</div>
-                <div className={styles.camadaDesc}>ERP, CRM, financeiro, marketing, operações, planilhas e dados externos integrados.</div>
-              </div>
+        <div className={styles.solucaoHero}>
+          {/* Left: Arch Video Thumbnail */}
+          <div className={styles.videoArchContainer}>
+            <div className={styles.videoTopBadge}>
+              <span>▶</span> Conheça a Arkos
             </div>
-            <div className={styles.camada}>
-              <div className={styles.camadaBar}></div>
-              <div className={styles.camadaContent}>
-                <div className={styles.camadaTag}>Camada 2</div>
-                <div className={styles.camadaName}>Integração & Pipelines</div>
-                <div className={styles.camadaDesc}>APIs, ETL automático, governança de dados limpos e modelagem unificada via Data Lake Node.</div>
-              </div>
-            </div>
-            <div className={styles.camada}>
-              <div className={styles.camadaBar}></div>
-              <div className={styles.camadaContent}>
-                <div className={styles.camadaTag}>Camada 3</div>
-                <div className={styles.camadaName}>Analytics Estruturado</div>
-                <div className={styles.camadaDesc}>Modelos estatísticos, segmentações e cruzamento correlacional de alta fidelidade Node.</div>
-              </div>
-            </div>
-            <div className={styles.camada}>
-              <div className={styles.camadaBar}></div>
-              <div className={styles.camadaContent}>
-                <div className={styles.camadaTag}>Camada 4</div>
-                <div className={styles.camadaName}>Inteligência Ativa</div>
-                <div className={styles.camadaDesc}>Dashboards dinâmicos, alertas configuráveis de métricas e copiloto analítico de auditoria.</div>
-              </div>
+            {/* O vídeo deve ser adicionado na pasta public/ com o nome "hero-arkos-video.mp4" */}
+            <video 
+              autoPlay loop muted playsInline 
+              className={styles.videoPlayer}
+              poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
+            >
+              <source src="/hero-arkos-video.mp4" type="video/mp4" />
+            </video>
+            <div className={styles.videoBtmBadge}>
+              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>E retorne ao</span> caminho certo <span style={{ color: '#C8F542' }}>&rarr;</span>
             </div>
           </div>
 
-          {/* RIGHT: Video and Differentiators */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            {/* Video Thumbnail Hero */}
-            <div className={styles.videoContainer}>
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                poster="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
-                className={styles.videoPlayer}
-              >
-                {/* O usuário precisará adicionar o arquivo video-executivos.mp4 na pasta public */}
-                <source src="/video-executivos.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeos.
-              </video>
-              <div className={styles.videoOverlay}>
-                <div className={styles.videoTag}>Decisão Estratégica em Tempo Real</div>
-              </div>
-            </div>
-
-            <div>
-              <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
-              <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px', lineHeight: '1.2' }}>Não vendemos software. Vendemos infraestrutura.</h3>
-              <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '24px' }}>A vantagem real não está na tecnologia — está na cultura, nos dados proprietários e na capacidade analítica integrada às regras de negócio da empresa.</p>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
-                  <Shield size={20} color="#C8F542" />
-                  <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Operamos em analytics de alto nível — onde menos de 5% das empresas operam.</span>
+          {/* Right: Differentiators Accordion */}
+          <div>
+            <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos infraestrutura.</h3>
+            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>A vantagem real não está na simples tecnologia — está na cultura, nos dados proprietários e na capacidade educacional integrada às regras de negócio da empresa. O homem, chamado a analisar dados de excelência, não nasce pronto.</p>
+            
+            <div className={styles.accList}>
+              <div className={styles.accItem}>
+                <div className={styles.accHeader}>
+                  <div className={styles.accTitleBlock}>
+                    <Shield size={20} color="#C8F542" />
+                    <span className={styles.accTitle}>Operação Analítica de Alto Nível</span>
+                  </div>
+                  <span style={{ color: '#8A8F99' }}>+</span>
                 </div>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '16px', background: '#111318', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.03)' }}>
-                  <Users size={20} color="#C8F542" />
-                  <span style={{ fontSize: '0.813rem', color: '#F4F2ED' }}>Letramento nativo para que sua equipe decida com autonomia de longo prazo.</span>
+                <div className={styles.accText}>
+                  Operamos em analytics avançado, conectando referências para todo o conhecimento executivo da corporação. Menos de 5% das empresas cruzam bases com esse grau de assertividade em tempo real sem ficarem alienadas das suas metas logísticas reais.
+                </div>
+              </div>
+
+              <div className={styles.accItem}>
+                <div className={styles.accHeader}>
+                  <div className={styles.accTitleBlock}>
+                    <Users size={20} color="#C8F542" />
+                    <span className={styles.accTitle}>Letramento Nativo de Equipe</span>
+                  </div>
+                  <span style={{ color: '#8A8F99' }}>+</span>
+                </div>
+                <div className={styles.accText}>
+                  Modelos preditivos instalados, letramento nativo ativado. Sua equipe de diretoria passa a decidir com autonomia de longo prazo, examinando ideias e evidências baseadas em regressões de inteligência corporativa, tornando a liderança apta a extrair a rentabilidade que a empresa demanda de forma autossustentável.
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Pipeline Layers Horizontal Grid */}
+        <div className={styles.camadasHorizontal}>
+          <div className={styles.camadaH}>
+            <div className={styles.camadaTag}>Camada 1</div>
+            <div className={styles.camadaName}>Fontes de Dados</div>
+            <div className={styles.camadaDesc}>ERP, CRM, financeiro, marketing, planilhas e dados externos conectados passivamente de forma segura.</div>
+          </div>
+          <div className={styles.camadaH}>
+            <div className={styles.camadaTag}>Camada 2</div>
+            <div className={styles.camadaName}>Data Lake Node</div>
+            <div className={styles.camadaDesc}>Pipelines, ETL e modelagem unificada que limpa os dados brutos injetando regras de negócios e compliance.</div>
+          </div>
+          <div className={styles.camadaH}>
+            <div className={styles.camadaTag}>Camada 3</div>
+            <div className={styles.camadaName}>Analytics Estruturado</div>
+            <div className={styles.camadaDesc}>Processamento analítico que gera correlações, constrói modelagem econométrica fiel e segmentações de machine learning.</div>
+          </div>
+          <div className={styles.camadaH}>
+            <div className={styles.camadaTag}>Camada 4</div>
+            <div className={styles.camadaName}>Inteligência Ativa</div>
+            <div className={styles.camadaDesc}>Avisos, interações do Copiloto Executivo em texto natural, alertas dinâmicos pre-configurados nos painéis de ativação.</div>
+          </div>
+        </div>
+
       </section>
 
       {/* ── 3. MÓDULOS ─────────────────────────────────────────── */}
