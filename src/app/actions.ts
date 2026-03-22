@@ -20,7 +20,7 @@ export async function signIn(formData: FormData) {
       redirect(`/login?error=${encodeURIComponent(error.message)}`)
     }
 
-    redirect('/dashboard')
+    redirect('/dashboard/modulos')
   } catch (err: any) {
     if (err.message && err.message.includes('NEXT_REDIRECT')) throw err;
     redirect(`/login?error=${encodeURIComponent(err.message || 'Erro ao entrar')}`)
@@ -68,7 +68,7 @@ export async function signUp(formData: FormData) {
       })
     }
 
-    redirect('/dashboard')
+    redirect('/dashboard/modulos')
   } catch (err: any) {
     if (err.message && err.message.includes('NEXT_REDIRECT')) throw err;
     redirect(`/login?error=${encodeURIComponent(err.message || 'Erro ao cadastrar')}`)

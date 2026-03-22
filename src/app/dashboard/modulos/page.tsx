@@ -40,6 +40,7 @@ export default function ModulosSelector() {
               icon: <FileText size={22} />,
               color: '#C8F542',
               hasAccess: true,
+              foto: '/arkos_dashboard_decision_1774133572097.png'
             },
             {
               id: 'crm',
@@ -51,6 +52,7 @@ export default function ModulosSelector() {
               icon: <ShoppingCart size={22} />,
               color: '#3B82F6',
               hasAccess: false,
+              foto: '/arkos_real_executive_dashboard_1774143584596.png'
             },
             {
               id: 'recrutamento',
@@ -62,6 +64,7 @@ export default function ModulosSelector() {
               icon: <Users size={22} />,
               color: '#8B5CF6',
               hasAccess: false,
+              foto: '/arkos_executive_dashboard_1774143501248.png'
             },
             {
               id: 'pedidos',
@@ -73,34 +76,50 @@ export default function ModulosSelector() {
               icon: <Package size={22} />,
               color: '#06B6D4',
               hasAccess: false,
+              foto: '/arkos_data_dashboard_holo_1774143471858.png'
             }
           ].map((modulo) => {
             const CardContent = (
               <div 
                 className={styles.card} 
-                style={!modulo.hasAccess ? { opacity: 0.45, cursor: 'not-allowed', userSelect: 'none', position: 'relative' } : { position: 'relative' }}
+                style={{ 
+                  padding: 0, 
+                  height: 'auto', 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  border: modulo.hasAccess ? '1px solid rgba(200,245,66,0.3)' : '1px solid rgba(255,255,255,0.04)',
+                  boxShadow: modulo.hasAccess ? '0 0 24px rgba(200,245,66,0.06)' : 'none',
+                  opacity: modulo.hasAccess ? 1 : 0.65,
+                  cursor: modulo.hasAccess ? 'pointer' : 'default'
+                }}
               >
-                {!modulo.hasAccess && (
-                  <div style={{ position: 'absolute', top: '16px', right: '16px', color: '#8A8F99' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  </div>
-                )}
-                
-                <div className={styles.cardHeader}>
-                  <div className={styles.iconWrapper} style={modulo.id !== 'clm' ? { background: `rgba(${modulo.id === 'crm' ? '59, 130, 246' : modulo.id === 'recrutamento' ? '139, 92, 246' : '6, 182, 212'}, 0.1)`, color: modulo.color } : {}}>
-                    {modulo.icon}
-                  </div>
-                  <span className={styles.accentTag} style={modulo.id !== 'clm' ? { background: `rgba(${modulo.id === 'crm' ? '59, 130, 246' : modulo.id === 'recrutamento' ? '139, 92, 246' : '6, 182, 212'}, 0.1)`, color: modulo.color } : {}}>
-                    {modulo.tag}
-                  </span>
+                {/* Imagem de Capa */}
+                <div style={{ height: '150px', width: '100%', position: 'relative', overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <img src={modulo.foto} alt={modulo.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {!modulo.hasAccess && (
+                    <div style={{ position: 'absolute', top: '12px', right: '12px', background: '#D97706', color: '#FFF', fontSize: '9px', fontWeight: 800, padding: '4px 8px', borderRadius: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      Em desenvolvimento
+                    </div>
+                  )}
                 </div>
-                
-                <h2 className={styles.cardTitle}>{modulo.titulo}</h2>
-                <p className={styles.cardDesc}>{modulo.desc}</p>
-                
-                <div className={styles.cardFooter} style={modulo.id !== 'clm' ? { color: modulo.color } : {}}>
-                  <span>{modulo.hasAccess ? 'Acessar' : 'Bloqueado'}</span>
-                  <ArrowRight size={14} style={{ opacity: modulo.hasAccess ? 1 : 0.5 }} />
+
+                <div style={{ padding: '24px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.iconWrapper} style={modulo.id !== 'clm' ? { background: `rgba(${modulo.id === 'crm' ? '59, 130, 246' : modulo.id === 'recrutamento' ? '139, 92, 246' : '6, 182, 212'}, 0.1)`, color: modulo.color } : {}}>
+                      {modulo.icon}
+                    </div>
+                    <span className={styles.accentTag} style={modulo.id !== 'clm' ? { background: `rgba(${modulo.id === 'crm' ? '59, 130, 246' : modulo.id === 'recrutamento' ? '139, 92, 246' : '6, 182, 212'}, 0.1)`, color: modulo.color } : {}}>
+                      {modulo.tag}
+                    </span>
+                  </div>
+                  
+                  <h2 className={styles.cardTitle}>{modulo.titulo}</h2>
+                  <p className={styles.cardDesc} style={{ margin: 0, flexGrow: 1 }}>{modulo.desc}</p>
+                  
+                  <div className={styles.cardFooter} style={{ marginTop: '20px', color: modulo.hasAccess ? '#C8F542' : '#94A3B8' }}>
+                    <span>{modulo.hasAccess ? 'Acessar módulo' : 'Aguardando liberação'}</span>
+                    <ArrowRight size={14} style={{ opacity: modulo.hasAccess ? 1 : 0.5 }} />
+                  </div>
                 </div>
               </div>
             );
@@ -110,9 +129,9 @@ export default function ModulosSelector() {
             }
 
             return modulo.externo ? (
-              <a href={modulo.link} target="_blank" rel="noopener noreferrer" className="flex" key={modulo.id}>{CardContent}</a>
+              <a href={modulo.link} target="_blank" rel="noopener noreferrer" className="flex" key={modulo.id} style={{ textDecoration: 'none' }}>{CardContent}</a>
             ) : (
-              <Link href={modulo.link} className="flex" key={modulo.id}>{CardContent}</Link>
+              <Link href={modulo.link} className="flex" key={modulo.id} style={{ textDecoration: 'none' }}>{CardContent}</Link>
             );
           })}
         </div>
