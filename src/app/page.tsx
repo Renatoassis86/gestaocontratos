@@ -120,32 +120,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── LOGOBAR ─── */}
-      <div className={styles.logobar} style={{ padding: '40px 0', borderTop: '1px solid rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.03)', background: 'rgba(0,0,0,0.2)' }}>
-        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700 }}>APLICADO E APOIADO POR INSTITUIÇÕES COMO</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', justifyContent: 'center', alignItems: 'center', maxWidth: '1100px', margin: '0 auto', padding: '0 20px', opacity: 0.5 }}>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFF' }}>
-            <span style={{ fontWeight: 900, fontSize: '1.3rem', letterSpacing: '2px', fontFamily: 'sans-serif' }}>DIEESE</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFF' }}>
-            <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '1px' }}>E-CONSULT</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#FFF' }}>
-            <Shield size={24} />
-            <span style={{ fontWeight: 700, fontSize: '1.1rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Cidade Viva</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#FFF' }}>
-            <span style={{ fontWeight: 400, fontSize: '1.4rem', fontFamily: 'serif', letterSpacing: '2px' }}>FICV</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#FFF' }}>
-            <span style={{ fontWeight: 800, fontSize: '1.25rem', letterSpacing: '1px' }}>SINTAJ</span>
-          </div>
-
+      <div className={styles.logobar}>
+        <p style={{ fontSize: '0.75rem', color: '#8A8F99', marginBottom: '2rem', textAlign: 'center', fontFamily: 'monospace', letterSpacing: '1.5px', textTransform: 'uppercase', fontWeight: 700 }}>TECNOLOGIA COMPATÍVEL AOS ECOSSISTEMAS DE</p>
+        
+        <div className={styles.logobarInner}>
+          {Array(2).fill([
+            { name: 'MICROSOFT', weight: 800, size: '1.25rem' },
+            { name: 'SALESFORCE', weight: 800, size: '1.2rem', ls: '1px' },
+            { name: 'SAP', weight: 900, size: '1.4rem', ls: '2px' },
+            { name: 'ORACLE', weight: 700, size: '1.3rem', ls: '2px' },
+            { name: 'IBM', weight: 900, size: '1.5rem', ls: '3px', font: 'serif' },
+            { name: 'NVIDIA', weight: 800, size: '1.25rem', ls: '2px' },
+            { name: 'AMAZON AWS', weight: 700, size: '1.1rem', ls: '1px' },
+            { name: 'GOOGLE CLOUD', weight: 600, size: '1.1rem', ls: '1px' },
+          ]).flat().map((company, idx) => (
+            <div key={idx} className={styles.logoItem}>
+              <span style={{ 
+                fontWeight: company.weight, 
+                fontSize: company.size, 
+                letterSpacing: company.ls || '0px', 
+                fontFamily: company.font || 'sans-serif' 
+              }}>
+                {company.name}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 

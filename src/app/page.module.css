@@ -168,15 +168,41 @@
   background: var(--sig); width: 24px; border-radius: 4px;
 }
 
-/* ── LOGOBAR ─────────────────────────────────────────────── */
+/* ── LOGOBAR ─ MARQUEE ─────────────────────────────────────────── */
 .logobar {
   border-bottom: 1px solid rgba(255,255,255,0.03); 
-  background: rgba(10,12,15,0.6); padding: 40px 20px;
+  border-top: 1px solid rgba(255,255,255,0.03); 
+  background: rgba(0,0,0,0.2); 
+  padding: 40px 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.logoGrid {
-  display: flex; justify-content: center; gap: 40px; align-items: center; flex-wrap: wrap;
+.logobarInner {
+  display: flex;
+  width: max-content;
+  animation: scrollMarquee 40s linear infinite;
+  align-items: center;
+  gap: 80px; 
 }
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.logoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFF;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+.logoItem:hover { opacity: 0.8; }
 
 /* ── SECTIONS ───────────────────────────────────────────── */
 .section {
