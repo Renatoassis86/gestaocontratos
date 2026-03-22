@@ -479,8 +479,8 @@ export default function Home() {
 
           {/* Renato */}
           <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/renato_assis_co.jpg" alt="Renato Silva de Assis" className={styles.equipeImage} />
+            <div className={styles.equipeImageWrapper} style={{ height: 'auto', overflow: 'visible', background: '#0a0c10' }}>
+              <img src="/renato_assis_co.jpg" alt="Renato Silva de Assis" className={styles.equipeImage} style={{ objectFit: 'contain', height: 'auto', width: '100%', display: 'block' }} />
             </div>
             <div className={styles.equipeContent}>
               <h3 className={styles.equipeName}>Renato Silva de Assis</h3>
