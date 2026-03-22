@@ -10,39 +10,57 @@ export default function DashboardPage() {
 
   const apps = [
     { 
-      id: 'clm', 
-      title: 'Ópera CLM', 
-      status: 'Disponível', 
-      desc: 'Gestão Inteligente de Ciclo de Vida de Contratos e Documentos Corporativos.', 
-      icon: <FileText size={32} />, 
-      color: '#C8F542', 
-      link: '/dashboard/clm' 
+      id: 'marketing', 
+      title: 'Marketing Intelligence', 
+      status: 'Em Desenvolvimento', 
+      desc: 'Funil comercial, satisfação e mercado. O módulo de entrada para ROI rápido.', 
+      image: '/arkos_executive_dashboard_1774143501248.png', 
+      color: '#38BDF8', 
+      link: '#' 
     },
     { 
-      id: 'analytics', 
-      title: 'Enterprise Analytics', 
+      id: 'data', 
+      title: 'Arkos Data', 
       status: 'Em Desenvolvimento', 
-      desc: 'Cruzamento de dados BI em tempo real e Dashboards Executivos de alta performance.', 
-      icon: <BarChart2 size={32} />, 
+      desc: 'Data warehouse, pipelines e governança de dados estruturada.', 
+      image: '/arkos_data_stream_1774143375030.png', 
       color: '#A855F7', 
       link: '#' 
     },
     { 
-      id: 'talent', 
-      title: 'Talent Management', 
+      id: 'clm', 
+      title: 'Sistema CLM (Contratos e Documentos)', 
+      status: 'Disponível', 
+      desc: 'Gestão Inteligente de Ciclo de Vida de Contratos e Documentos Corporativos.', 
+      image: '/arkos_dashboard_decision_1774133572097.png', 
+      color: '#C8F542', 
+      link: '/dashboard/clm' 
+    },
+    { 
+      id: 'ai', 
+      title: 'Arkos AI', 
       status: 'Em Desenvolvimento', 
-      desc: 'Onboarding digital, triagem e gestão operacional de recursos humanos.', 
-      icon: <Users size={32} />, 
-      color: '#06B6D4', 
+      desc: 'Copilots executivos, previsões de churn e notificações de anomalia.', 
+      image: '/arkos_data_brain_1774143436679.png', 
+      color: '#F472B6', 
       link: '#' 
     },
     { 
-      id: 'cyber', 
-      title: 'SecOps & LGPD', 
+      id: 'strategy', 
+      title: 'Arkos Strategy', 
       status: 'Em Desenvolvimento', 
-      desc: 'Auditoria de segurança de dados e centro de conformidade LGPD centralizado.', 
-      icon: <Shield size={32} />, 
-      color: '#F43F5E', 
+      desc: 'Planejamento estratégico estruturado e cruzamento de cenários econômicos.', 
+      image: '/arkos_business_strategy_1774143055983.png', 
+      color: '#34D399', 
+      link: '#' 
+    },
+    { 
+      id: 'academy', 
+      title: 'Arkos Academy', 
+      status: 'Em Desenvolvimento', 
+      desc: 'Capacitação corporativa e formação de gestores orientados por dados.', 
+      image: '/arkos_corporate_boardroom_1774143669395.png', 
+      color: '#FBBF24', 
       link: '#' 
     }
   ]
@@ -75,80 +93,99 @@ export default function DashboardPage() {
       </div>
 
       {/* 2. GRID DE APLICATIVOS */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
         {apps.map((app) => (
           <div 
             key={app.id} 
             style={{ 
-              background: '#111318', 
+              background: '#0D0E12', 
               border: '1px solid #1F242D', 
-              borderRadius: '16px', 
-              padding: '1.5rem', 
+              borderRadius: '20px', 
               display: 'flex', 
               flexDirection: 'column', 
-              justifyContent: 'space-between', 
-              gap: '1.5rem', 
+              justifyContent: 'flex-end', 
               position: 'relative', 
-              overflow: 'hidden' 
+              overflow: 'hidden',
+              minHeight: '340px',
+              opacity: app.status === 'Disponível' ? 1 : 0.65,
+              transition: 'all 0.3s ease',
+              boxShadow: app.status === 'Disponível' ? `0 20px 40px rgba(200, 245, 66, 0.05)` : 'none'
             }}
           >
-            {/* Glossy top bar decoration */}
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: app.color }}></div>
-
-            <div>
-              <div style={{ color: app.color, background: 'rgba(255,255,255,0.03)', width: 'fit-content', padding: '0.75rem', borderRadius: '12px', marginBottom: '1rem', border: '1px solid rgba(255,255,255,0.02)' }}>
-                {app.icon}
-              </div>
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#F4F2ED', marginBottom: '0.25rem' }}>{app.title}</h3>
-              <span style={{ fontSize: '0.688rem', color: app.status === 'Disponível' ? app.color : '#8A8F99', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '0.05em' }}>
-                {app.status}
-              </span>
-              <p style={{ color: '#8A8F99', fontSize: '0.813rem', marginTop: '0.75rem', lineHeight: '1.5' }}>{app.desc}</p>
+            {/* Imagem de Fundo por IA */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+              <img src={app.image} alt={app.title} style={{ width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'luminosity', opacity: 0.25 }} />
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, rgba(13,14,18,0.4) 0%, rgba(13,14,18,0.95) 100%)' }}></div>
             </div>
 
-            {app.id === 'clm' ? (
-              <Link 
-                href={app.link} 
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  gap: '6px', 
-                  background: app.color, 
-                  color: '#0A0C0F', 
-                  padding: '0.75rem', 
-                  borderRadius: '10px', 
-                  fontWeight: 800, 
-                  fontSize: '0.813rem', 
-                  textDecoration: 'none', 
-                  boxShadow: `0 0 16px rgba(200, 245, 66, 0.1)` 
-                }}
-              >
-                Acessar Módulo <ArrowRight size={16} />
-              </Link>
-            ) : (
-              <button 
-                onClick={() => { setMaintenanceItem(app.title); setActiveTab('maintenance'); }} 
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  gap: '6px', 
-                  background: 'transparent', 
-                  color: '#F4F2ED', 
-                  padding: '0.75rem', 
-                  borderRadius: '10px', 
-                  fontWeight: 800, 
-                  fontSize: '0.813rem', 
-                  border: '1px solid #1F242D', 
-                  cursor: 'pointer' 
-                }}
-              >
-                Iniciar Módulo
-              </button>
-            )}
+            {/* Glossy top bar decoration */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: app.color, zIndex: 1 }}></div>
+
+            <div style={{ padding: '1.5rem', zIndex: 2, width: '100%' }}>
+              <span style={{ fontSize: '0.625rem', padding: '4px 8px', background: app.status === 'Disponível' ? 'rgba(200,245,66,0.1)' : '#1F242D', color: app.status === 'Disponível' ? '#C8F542' : '#8A8F99', borderRadius: '4px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {app.status === 'Disponível' ? 'Módulo Ativo' : 'Em Desenvolvimento'}
+              </span>
+              
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#F4F2ED', marginTop: '0.75rem', marginBottom: '0.4rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>{app.title}</h3>
+              <p style={{ color: '#8A8F99', fontSize: '0.813rem', lineHeight: '1.5', marginBottom: '1.5rem' }}>{app.desc}</p>
+
+              {app.id === 'clm' ? (
+                <Link 
+                  href={app.link} 
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    gap: '6px', 
+                    background: app.color, 
+                    color: '#0A0C0F', 
+                    padding: '0.75rem', 
+                    borderRadius: '10px', 
+                    fontWeight: 800, 
+                    fontSize: '0.813rem', 
+                    textDecoration: 'none', 
+                    boxShadow: `0 0 16px rgba(200, 245, 66, 0.15)`,
+                    transition: 'transform 0.2s'
+                  }}
+                >
+                  Acessar Ferramenta <ArrowRight size={16} />
+                </Link>
+              ) : (
+                <button 
+                  disabled
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    gap: '6px', 
+                    background: 'rgba(255,255,255,0.03)', 
+                    color: '#5A5F6A', 
+                    padding: '0.75rem', 
+                    borderRadius: '10px', 
+                    fontWeight: 800, 
+                    fontSize: '0.813rem', 
+                    border: '1px solid #1F242D', 
+                    cursor: 'not-allowed',
+                    width: '100%'
+                  }}
+                >
+                  Em Breve
+                </button>
+              )}
+            </div>
           </div>
         ))}
+      </div>
+
+      {/* 3. TERMO DE INTEGRAÇÃO METODOLÓGICA */}
+      <div style={{ background: '#111318', border: '1px solid #1F242D', padding: '1.5rem', borderRadius: '16px', display: 'flex', gap: '16px', alignItems: 'center', marginTop: '1rem' }}>
+        <div style={{ background: 'rgba(200,245,66,0.05)', padding: '12px', borderRadius: '12px', color: '#C8F542' }}>
+          <ArrowRight size={24} style={{ transform: 'rotate(-45deg)' }} />
+        </div>
+        <div>
+          <h4 style={{ color: '#F4F2ED', fontSize: '0.938rem', fontWeight: 800, marginBottom: '4px' }}>Letramento e Organização Plena</h4>
+          <p style={{ color: '#8A8F99', fontSize: '0.813rem', lineHeight: '1.5' }}>Cada empresa pode contratar funcionalidades avulsas, porém, a metodologia de análise e previsibilidade **ARKOS se dá de forma plena apenas quando todos os módulos operam integrados**.</p>
+        </div>
       </div>
 
     </div>
