@@ -315,8 +315,8 @@ export default function Home() {
               </div>
               <div className={styles.streamText}>
                 <span className={styles.streamLabel} style={{ color: '#C8F542' }}>ETAPA 02</span>
-                <h3>Predição: Modelagem de Cenários (Machine Learning)</h3>
-                <p>O que vai acontecer? Projete comportamentos futuros, flutuações financeiras e tendências de mercado com base em pipelines de dados preditivos e redes neurais estruturadas.</p>
+                <h3>Predição: Modelagem (Machine Learning)</h3>
+                <p>O que vai acontecer? Projete comportamentos e cenários futuros em <strong>todas as áreas da empresa</strong> (comercial, operacional, financeira). Antecipe tendências, riscos de churn e gargalos produtivos cruzando dados <strong>estruturados e não-estruturados</strong> através de redes neurais avançadas.</p>
               </div>
             </div>
           </div>
