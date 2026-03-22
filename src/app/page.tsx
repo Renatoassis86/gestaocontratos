@@ -681,68 +681,47 @@ export default function Home() {
         <p style={{ color: '#8A8F99', fontSize: '1rem', marginBottom: '60px', maxWidth: '600px', margin: '0 auto 60px auto' }}>Métricas médias de rentabilidade e eficiência entregues na jornada das empresas que adotam a infraestrutura ARKOS.</p>
         
         <div className={styles.resultadosGridMetrics}>
-          
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>↓ 25%</div>
-            <div className={styles.metricTitle}>Redução de CAC</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Otimização direta do Custo de Aquisição de Clientes, bloqueando investimentos sem ROI.</p>
-          </div>
+          <div className={styles.resultadosInner}>
+            {[
+              { b: '↓ 25%', t: 'Redução de CAC', d: 'Otimização direta do Custo de Aquisição de Clientes, bloqueando investimentos sem ROI.' },
+              { b: '↑ 40%', t: 'Eficiência Analítica', d: 'Fim do trabalho manual. O RH e Financeiro focam em aprovar estratégias em vez de montar planilhas.' },
+              { b: '8h → 3s', t: 'Aceleração de Resposta', d: 'O tempo necessário para a diretoria compilar vendas vs. a resposta no painel inteligenteizado.' },
+              { b: '↑ 30%', t: 'Crescimento de LTV', d: 'Algoritmos predizem produtos que o cliente quer comprar e notificam o comercial.' },
+              { b: '99,9%', t: 'Precisão Operacional', d: 'Fim dos cálculos errados, contratos defasados não reajustados pela inflação.' },
+              { b: '↓ 18%', t: 'Redução de Opex', d: 'Redução nas despesas operacionais devido à consolidação de ferramentas de software em um hub.' },
+              { b: '360°', t: 'Abolição de Silos', d: 'Financeiro e Marketing lendo a mesma fonte. O fim dos "meus dados vs. os seus dados".' },
+              { b: 'D-0', t: 'Preditibilidade Caixa', d: 'Modulação antecipada (predictive cashflow). O sistema simula calotes antes de ocorrerem.' },
+              { b: '- 45%', t: 'Mitigação de Churn', d: 'Identifica a probabilidade de um aluno evadir até 60 dias antes dele deixar de pagar a mensalidade.' },
+              { b: '100%', t: 'Autonomia Capital', d: 'Letramento do time e posse total. A inteligência fica retida para a empresa, sem depender de consultorias.' }
+            ].map((m, i) => (
+              <div key={i} className={styles.metricCard}>
+                <div className={styles.metricBig}>{m.b}</div>
+                <div className={styles.metricTitle}>{m.t}</div>
+                <p className={styles.metricDesc}><strong>O que representa:</strong> {m.d}</p>
+              </div>
+            ))}
 
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>↑ 40%</div>
-            <div className={styles.metricTitle}>Eficiência Analítica</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Fim do trabalho manual. O RH e Financeiro focam em aprovar estratégias em vez de montar planilhas.</p>
+            {/* Duplicata para o loop Marquee continuo em Mobile */}
+            {[
+              { b: '↓ 25%', t: 'Redução de CAC', d: 'Otimização direta do Custo de Aquisição de Clientes, bloqueando investimentos sem ROI.' },
+              { b: '↑ 40%', t: 'Eficiência Analítica', d: 'Fim do trabalho manual. O RH e Financeiro focam em aprovar estratégias em vez de montar planilhas.' },
+              { b: '8h → 3s', t: 'Aceleração de Resposta', d: 'O tempo necessário para a diretoria compilar vendas vs. a resposta no painel inteligenteizado.' },
+              { b: '↑ 30%', t: 'Crescimento de LTV', d: 'Algoritmos predizem produtos que o cliente quer comprar e notificam o comercial.' },
+              { b: '99,9%', t: 'Precisão Operacional', d: 'Fim dos cálculos errados, contratos defasados não reajustados pela inflação.' },
+              { b: '↓ 18%', t: 'Redução de Opex', d: 'Redução nas despesas operacionais devido à consolidação de ferramentas de software em um hub.' },
+              { b: '360°', t: 'Abolição de Silos', d: 'Financeiro e Marketing lendo a mesma fonte. O fim dos "meus dados vs. os seus dados".' },
+              { b: 'D-0', t: 'Preditibilidade Caixa', d: 'Modulação antecipada (predictive cashflow). O sistema simula calotes antes de ocorrerem.' },
+              { b: '- 45%', t: 'Mitigação de Churn', d: 'Identifica a probabilidade de um aluno evadir até 60 dias antes dele deixar de pagar a mensalidade.' },
+              { b: '100%', t: 'Autonomia Capital', d: 'Letramento do time e posse total. A inteligência fica retida para a empresa, sem depender de consultorias.' }
+            ].map((m, i) => (
+              <div key={`dup-${i}`} className={`${styles.metricCard} ${styles.onlyOnMobile}`}>
+                <div className={styles.metricBig}>{m.b}</div>
+                <div className={styles.metricTitle}>{m.t}</div>
+                <p className={styles.metricDesc}><strong>O que representa:</strong> {m.d}</p>
+              </div>
+            ))}
           </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>8h → 3s</div>
-            <div className={styles.metricTitle}>Aceleração de Resposta</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> O tempo necessário para a diretoria compilar vendas vs. a resposta no painel inteligenteizado.</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>↑ 30%</div>
-            <div className={styles.metricTitle}>Crescimento de LTV</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Algoritmos predizem produtos que o cliente quer comprar e notificam o comercial.</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>99,9%</div>
-            <div className={styles.metricTitle}>Precisão Operacional</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Fim dos cálculos errados, contratos defasados não reajustados pela inflação.</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>↓ 18%</div>
-            <div className={styles.metricTitle}>Redução de Opex</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Redução nas despesas operacionais devido à consolidação de ferramentas de software em um hub.</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>360°</div>
-            <div className={styles.metricTitle}>Abolição de Silos</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Financeiro e Marketing lendo a mesma fonte. O fim dos "meus dados vs. os seus dados".</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>D-0</div>
-            <div className={styles.metricTitle}>Preditibilidade Caixa</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Modulação antecipada (predictive cashflow). O sistema simula calotes antes de ocorrerem.</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>- 45%</div>
-            <div className={styles.metricTitle}>Mitigação de Churn</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Identifica a probabilidade de um aluno evadir até 60 dias antes dele deixar de pagar a mensalidade.</p>
-          </div>
-
-          <div className={styles.metricCard}>
-            <div className={styles.metricBig}>100%</div>
-            <div className={styles.metricTitle}>Autonomia Capital</div>
-            <p className={styles.metricDesc}><strong>O que representa:</strong> Letramento do time e posse total. A inteligência fica retida para a empresa, sem depender de consultorias.</p>
-          </div>
-
-        </div>
+      </div>
       </section>
 
       {/* ── FOOTER MEGA ────────────────────────────────────────── */}

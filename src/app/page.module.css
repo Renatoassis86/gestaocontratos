@@ -545,6 +545,10 @@
   border: 1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column;
 }
 
+.onlyOnMobile {
+  display: none;
+}
+
 .metricBig {
   font-size: 2.25rem; font-weight: 800; color: var(--sig); margin-bottom: 8px; line-height: 1;
 }
@@ -629,6 +633,17 @@
   /* Esconder botões Entrar/Consultor no Mobile do Topo */
   .headerActions {
     display: none !important;
+  }
+
+  .onlyOnMobile {
+    display: block !important;
+  }
+
+  .resultadosInner {
+    display: flex !important;
+    width: max-content;
+    animation: scrollMarquee 35s linear infinite;
+    gap: 16px;
   }
 
   .navLinkDropdown {
