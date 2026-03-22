@@ -58,7 +58,7 @@ export default function DashboardPage() {
       id: 'academy', 
       title: 'Arkos Academy', 
       status: 'Em Desenvolvimento', 
-      desc: 'Capacitação corporativa e formação de gestores orientados por dados.', 
+      desc: 'Capacitação corporativa e EdTech white-label para faculdades. Gestão preditiva baseada nos dados e métricas de interação dos alunos.', 
       image: '/arkos_corporate_boardroom_1774143669395.png', 
       color: '#FBBF24', 
       link: '#' 

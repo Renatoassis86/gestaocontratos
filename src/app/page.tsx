@@ -260,7 +260,7 @@ export default function Home() {
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>LETRAMENTO</div>
             <h3 className={styles.moduloTitle}>Arkos Academy</h3>
-            <p className={styles.moduloDesc}>Trilhas educacionais corporativas e formação de gestores orientados por evidência e dados.</p>
+            <p className={styles.moduloDesc}>Trilhas educacionais corporativas, EdTechs white-label para faculdades e sistemas de ensino. Unimos rigor acadêmico com métricas preditivas de gestão e resultados a partir do comportamento e interação digital dos alunos.</p>
           </div>
         </div>
       </section>
