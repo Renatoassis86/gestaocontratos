@@ -143,7 +143,7 @@ export default function CompetidoresSeccion() {
                       <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5' }} dangerouslySetInnerHTML={{ __html: c.text }} />
                     </div>
                  </div>
-              ))
+              ))}
             </div>
           </div>
 
