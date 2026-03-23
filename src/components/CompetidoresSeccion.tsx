@@ -159,7 +159,7 @@ export default function CompetidoresSeccion() {
                 { name: 'UPS', logo: '/ups_logo_1774225354790.png', text: 'Investiu no sistema ORION, que otimiza rotas de 55 mil motoristas diariamente, gerando economia de centenas de milhões de dólares ao ano em combustível.' },
                 { name: 'Caesars Entertainment', logo: '/caesars_logo_1774222462389.png', text: 'Revolucionou o setor de cassinos fidelizando clientes por meio de análise de dados no ponto de venda para ofertas personalizadas em tempo real.' },
                 { name: 'Progressive', logo: '/progressive_logo_1774226810879.png', text: 'Destaca-se pelo program Snapshot, precificando seguros dinamicamente ao coletar dados reais sobre como o cliente dirige (velocidade, freadas).' },
-                { name: 'Times Esportivos (Patriots)', logo: '/patriots_logo_final_1774222536717.png', text: 'Patriots e Oakland A\\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia e força mental dos atletas.' }
+                { name: 'Times Esportivos (Patriots)', logo: '/patriots_logo_final_1774222536717.png', text: 'Patriots e Oakland A\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia e força mental dos atletas.' }
               ].map((c) => (
                  <div key={c.name} style={{ background: '#111318', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <img src={c.logo} style={{ height: '32px', width: 'fit-content', filter: 'brightness(0) invert(1)', opacity: 0.8, objectFit: 'contain' }} alt={c.name} />
