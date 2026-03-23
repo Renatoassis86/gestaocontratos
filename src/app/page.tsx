@@ -297,6 +297,18 @@ export default function Home() {
 
           {/* Right: Differentiators Accordion */}
           <div>
+            {/* NOVO TEXTO DE APRESENTAÇÃO ARKOS */}
+            <div style={{ marginBottom: '40px', paddingBottom: '32px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>A INFRAESTRUTURA ARKOS</div>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px', lineHeight: '1.3' }}>A Espinha Dorsal Operacional e Analítica do seu Negócio</h3>
+              <p style={{ color: '#F4F2ED', fontSize: '0.95rem', lineHeight: '1.8', marginBottom: '16px', opacity: 0.9 }}>
+                Para empresas que ainda operam com dados fragmentados e processos manuais, o nível de competidores como Netflix e Amazon parece distante. A **ARKOS** foi concebida exatamente para fechar esse gap. 
+              </p>
+              <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.8' }}>
+                Atuamos como a inteligência que unifica seus sistemas, automatiza a coleta e aplica modelos preditivos sobre a sua realidade. Nós não apenas apontamos o caminho: **construímos a estrada tecnológica** que permite à sua empresa escalar com controle absoluto das suas margens e custos operacionais.
+              </p>
+            </div>
+
             <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE NOS DIFERENCIA</div>
             <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos <em style={{ color: '#C8F542', fontStyle: 'italic' }}>infraestrutura e inteligência.</em></h3>
             <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>Nossa diferenciacão não está em uma licença de ferramenta. Estão na arquitetura de dados que construímos, na inteligência que treinamos sobre os seus processos e na capacidade analítica que formamos dentro do seu time.</p>
@@ -768,7 +780,7 @@ export default function Home() {
 
         </div>
         
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', fontSize: '11px', color: '#5A5F6A', marginTop: '60px', gap: '16px' }} className={styles.footerBottomBar}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', fontSize: '11px', color: '#5A5F6A', marginTop: '30px', gap: '16px' }} className={styles.footerBottomBar}>
           
           {/* Esquerda: Privacidade */}
           <div style={{ textAlign: 'left' }}>

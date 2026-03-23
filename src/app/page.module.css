@@ -465,7 +465,7 @@
 
 /* ── FOOTER MEGA ─────────────────────────────────────────── */
 .footerMega {
-  padding: 80px 40px 140px 40px; border-top: 1px solid rgba(255,255,255,0.03); background: #07080a;
+  padding: 40px 40px 60px 40px; border-top: 1px solid rgba(255,255,255,0.03); background: #07080a;
 }
 
 .footerGrid {
@@ -537,8 +537,17 @@
 
 /* ── RESULTADOS METRICS ─────────────────────────────────── */
 .resultadosGridMetrics {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; text-align: left;
+  width: 100%;
+  overflow: hidden;
 }
+
+.resultadosInner {
+  display: flex !important;
+  width: max-content;
+  animation: scrollMarquee 45s linear infinite;
+  gap: 16px;
+}
+
 
 .metricCard {
   padding: 24px 20px; background: #111318; border-radius: 12px;
