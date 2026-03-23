@@ -31,13 +31,13 @@ export default function ManualMoodlePage() {
     },
     {
       namespace: '`mod_quiz_*` & `mod_assign_*`',
-      dados: '**Tentativas de testes**, respostas exatas de cada questão, PDFs anexados em trabalhos entregues.',
+      dados: 'Tentativas de testes, respostas exatas de cada questão, PDFs anexados em trabalhos entregues.',
       inteligencia: 'Micro-Inteligência: Saber o percentual de erro por questão para auditar a qualidade da prova.',
       color: 'var(--primary)'
     },
     {
       namespace: '`core_log_*`',
-      dados: '**Logs de Cliques de Segundo a Segundo**. Identifica cada arquivo aberto, vídeo assistido ou clique dado.',
+      dados: 'Logs de Cliques de Segundo a Segundo. Identifica cada arquivo aberto, vídeo assistido ou clique dado.',
       inteligencia: 'Predictive Churn: Monitorar queda de atividade diária para antever desistências (Evasão).',
       color: '#F59E0B'
     },
@@ -157,14 +157,14 @@ export default function ManualMoodlePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <div className={styles.highlightCard}>
               <span className={styles.highlightTitle}>Notas por Disciplinas (`notas_disciplinas`)</span>
-              <p className={styles.highlightDesc}>**Estrutura**: String com divisor (`|`). Ex: *"A1: 8.5 | A2: 9.0"*</p>
-              <p className={styles.highlightDesc} style={{ color: '#F59E0B', marginTop: '0.25rem' }}>**Operação ETL**: Aplicar Split e Regex `([\w\s]+):\s?(\d+\.?\d*)` para extrair pares chave-valor para séries de notas.</p>
+              <p className={styles.highlightDesc}>Estrutura: String com divisor (`|`). Ex: *"A1: 8.5 | A2: 9.0"*</p>
+              <p className={styles.highlightDesc} style={{ color: '#F59E0B', marginTop: '0.25rem' }}>Operação ETL: Aplicar Split e Regex `([\w\s]+):\s?(\d+\.?\d*)` para extrair pares chave-valor para séries de notas.</p>
             </div>
 
             <div className={styles.highlightCard}>
               <span className={styles.highlightTitle}>Diferenciação Docente vs Discente</span>
-              <p className={styles.highlightDesc}>**Estrutura**: Lista de inscritos agrega todos os papéis.</p>
-              <p className={styles.highlightDesc} style={{ color: '#F59E0B', marginTop: '0.25rem' }}>**Operação ETL**: Filtro direto no backend usando o array `roles` ou o shorthand de permissões (`editingteacher`).</p>
+              <p className={styles.highlightDesc}>Estrutura: Lista de inscritos agrega todos os papéis.</p>
+              <p className={styles.highlightDesc} style={{ color: '#F59E0B', marginTop: '0.25rem' }}>Operação ETL: Filtro direto no backend usando o array `roles` ou o shorthand de permissões (`editingteacher`).</p>
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function ManualMoodlePage() {
             <Box size={18} style={{ color: 'var(--primary)' }} />
             <h3 className={styles.cardTitle}>4. Guia de Endpoints Disponíveis (Universo Completo Moodle)</h3>
           </div>
-          <p className={styles.cardDesc}>O Moodle Cidade Viva expõe **+400 funções WebService**. Abaixo estão as categorias de dados que o sistema pode mapear, divididos por famílias de funções (Namespaces).</p>
+          <p className={styles.cardDesc}>O Moodle Cidade Viva expõe +400 funções WebService. Abaixo estão as categorias de dados que o sistema pode mapear, divididos por famílias de funções (Namespaces).</p>
           
           <div className={styles.tableContainer}>
             <table className={styles.table}>

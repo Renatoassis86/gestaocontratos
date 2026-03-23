@@ -313,7 +313,7 @@ export default function NovoTemplatePage() {
                     </tbody>
                   </table>
                   <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(16,185,129,0.05)', borderRadius: '10px', border: '1px solid rgba(16,185,129,0.1)' }}>
-                    <p style={{ fontSize: '0.85rem' }}>🧬 **Fórmula Geral do C.R.A:** <code style={{ color: '#10b981' }}>(Soma das Médias Finais / Total de Disciplinas)</code></p>
+                    <p style={{ fontSize: '0.85rem' }}>🧬 Fórmula Geral do C.R.A: <code style={{ color: '#10b981' }}>(Soma das Médias Finais / Total de Disciplinas)</code></p>
                   </div>
                 </div>
               )}
@@ -437,7 +437,7 @@ export default function NovoTemplatePage() {
                 <h3 style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Definir Variáveis no Documento</h3>
               </div>
               <p style={{ fontSize: '0.82rem', color: 'var(--secondary)', marginBottom: '1rem' }}>
-                👉 **Como fazer:** Arraste o mouse sobre qualquer área do documento abaixa para "Desenhar" o local da variável (Ex: Nome, Notas...).
+                👉 Como fazer: Arraste o mouse sobre qualquer área do documento abaixa para "Desenhar" o local da variável (Ex: Nome, Notas...).
               </p>
 
               <div style={{ position: 'relative', width: '100%', height: '700px', background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.4)', border: '1px solid var(--border)' }}>

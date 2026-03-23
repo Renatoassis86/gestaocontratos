@@ -388,7 +388,7 @@ export default function Home() {
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>GESTÃO DE TALENTOS E PERFORMANCE</div>
             <h3 className={styles.moduloTitle}>Arkos Talent Intelligence</h3>
-            <p className={styles.moduloDesc}>Automatiza o funil de recrutamento, onboarding e departamento pessoal. Mapeia a demografia e rotinas corporativas para gerar **Previsão de Turnover** (saída de funcionários) e insights de produtividade, permitindo que a liderança retenha talentos de forma científica.</p>
+            <p className={styles.moduloDesc}>Automatiza o funil de recrutamento, onboarding e departamento pessoal. Mapeia a demografia e rotinas corporativas para gerar Previsão de Turnover (saída de funcionários) e insights de produtividade, permitindo que a liderança retenha talentos de forma científica.</p>
           </div>
           <div className={styles.moduloCard}>
             <div className={styles.moduloSub}>INTELIGÊNCIA AUTOMÁTICA</div>
@@ -594,7 +594,7 @@ export default function Home() {
         <div style={{ background: '#111318', padding: '32px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', maxWidth: '800px', margin: '0 auto 40px auto', textAlign: 'center' }}>
           <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '16px', lineHeight: '1.3' }}>A Espinha Dorsal Operacional e Analítica do seu Negócio</h3>
           <p style={{ color: '#F4F2ED', fontSize: '0.95rem', lineHeight: '1.8', marginBottom: '16px', opacity: 0.9 }}>
-            Para empresas que ainda operam com dados fragmentados e processos manuais, o nível de competidores de alta maturidade analítica parece distante. A **ARKOS** foi concebida exatamente para fechar esse gap. 
+            Para empresas que ainda operam com dados fragmentados e processos manuais, o nível de competidores de alta maturidade analítica parece distante. A ARKOS foi concebida exatamente para fechar esse gap. 
           </p>
           <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.8' }}>
             Atuamos como a inteligência que unifica seus sistemas, automatiza a coleta e aplica modelos preditivos sobre a sua realidade. Nós não apenas apontamos o caminho: <strong style={{color: '#C8F542'}}>construímos a estrada tecnológica</strong> que permite à sua empresa escalar com controle absoluto das suas margens e custos operacionais.
