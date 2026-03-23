@@ -25,53 +25,20 @@ export default function CompetidoresSeccion() {
         {/* --- HEADER --- */}
         <div className={styles.header}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>O BENCHMARK MÁXIMO</div>
-          <h2 className={styles.title}>A Elite dos Competidores Analíticos</h2>
-          <p className={styles.description}>
-            Empresas no Nível 5 utilizam a ciência de dados de forma ampla, sistemática e como sua principal vantagem sustentável. É esse patamar que a ARKOS ajuda você a pavimentar.
-          </p>
-        </div>
 
-        {/* --- CAROUSEL MONOCRO --- */}
-        <div className={styles.carouselWrapper}>
-          <motion.div 
-            animate={{ x: [0, -1200] }} 
-            transition={{ repeat: Infinity, duration: 25, ease: 'linear' }} 
-            style={{ display: 'flex', gap: '80px', width: 'max-content' }}
-          >
-            {[...empresas, ...empresas].map((e, index) => (
-              <div key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-                <img 
-                  src={e.logo} 
-                  alt={e.name} 
-                  style={{ 
-                    height: '35px', 
-                    maxWidth: '120px', 
-                    objectFit: 'contain', 
-                    filter: 'brightness(0) invert(1)', 
-                    opacity: 0.8 
-                  }} 
-                />
-              </div>
-            ))}
-          </motion.div>
-        </div>
 
-        {/* --- O CASO NETFLIX --- */}
-        <div className={styles.caseWrapper} style={{ position: 'relative', overflow: 'hidden' }}>
-          
-          {/* Background Video Iframe */}
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.1, overflow: 'hidden' }}>
-            <iframe 
-              src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1&mute=1&controls=0&loop=1&playlist=GV3HUDMQ-F8&modestbranding=1&rel=0" 
-              style={{ width: '100%', height: '100%', transform: 'scale(1.3)', border: 'none', pointerEvents: 'none', position: 'absolute', top: 0, left: 0 }}
-              allow="autoplay; encrypted-media"
-            />
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(180deg, transparent, rgba(9,10,12,0.95))' }}></div>
-          </div>
+
+
+
+
+
 
           <div className={styles.caseGrid} style={{ position: 'relative', zIndex: 1 }}>
             
-            <div>
+            <div style={{ position: 'relative', overflow: 'hidden', padding: '32px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(200,245,66,0.02), rgba(17,19,24,0.95))', border: '1px solid rgba(255,255,255,0.03)' }}>
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <h3 style={{ color: '#F4F2ED', fontSize: '2.25rem', fontWeight: 800, fontFamily: 'Sora, sans-serif' }}>O Caso Netflix</h3>
               </div>
@@ -96,7 +63,8 @@ export default function CompetidoresSeccion() {
                   </div>
                 ))}
               </div>
-            </div>
+            
+              </div></div>
 
             <div className={styles.caseStats} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div className={styles.statsGrid}>
@@ -162,7 +130,7 @@ export default function CompetidoresSeccion() {
                 { name: 'Times Esportivos (Patriots)', logo: '/patriots_logo_final_1774222536717.png', text: 'Patriots e Oakland A\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia e força mental dos atletas.' }
               ].map((c) => (
                  <div key={c.name} style={{ background: '#111318', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <img src={c.logo} style={{ height: '32px', width: 'fit-content', filter: 'brightness(0) invert(1)', opacity: 0.8, objectFit: 'contain' }} alt={c.name} />
+                    <img src={c.logo} style={{ height: '32px', width: 'fit-content', filter: 'none', opacity: 0.8, objectFit: 'contain' }} alt={c.name} />
                     <div>
                       <div style={{ color: '#F4F2ED', fontSize: '1rem', fontWeight: 800, marginBottom: '6px' }}>{c.name}</div>
                       <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5' }}>{c.text}</p>

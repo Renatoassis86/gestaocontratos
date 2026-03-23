@@ -254,7 +254,7 @@ export default function DiagnosticoHub() {
             </div>
 
             <div className={styles.mediaWrapperDelta}>
-               <img src="/modelo_delta_empresarial.png" alt="Grupo Estratégico Modelo DELTA" className={styles.mediaDelta} />
+               <img src="/modelo_delta_empresarial_v2.png" alt="Grupo Estratégico Modelo DELTA" className={styles.mediaDelta} />
                <div className={styles.imageOverlayLight} />
             </div>
 
