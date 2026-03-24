@@ -123,7 +123,7 @@ export default function Home() {
           <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Solução</span></Link>
           <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Ecossistema</span></Link>
           <Link href="#aplicativos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Hub Arkos</span></Link>
-          <Link href="#diagnostico" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diagnóstico</span></Link>
+          <Link href="/diagnostico" target="_blank" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diagnóstico</span></Link>
           <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferencial</span></Link>
         </nav>
 
@@ -285,7 +285,7 @@ export default function Home() {
                 ref={solucaoVideoRef}
                 autoPlay loop muted playsInline 
                 className={styles.videoPlayer}
-                poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
+                
               >
                 <source src="/hero-arkos-video.mp4" type="video/mp4" />
               </video>
