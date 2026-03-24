@@ -14,11 +14,11 @@ export default function DiagnosticoPage() {
   const [scoreData, setScoreData] = useState<any>(null)
 
   const blocosMotivacionais: Record<number, string> = {
-    0: "Para que a análise funcione, os líderes precisam exigir fatos em vez de palpites. Como sua diretoria decide?",
-    4: "Ótimo começo! Empresas analíticas não operam em silos. Quão integrada é a sua operação?",
-    8: "Quase na metade! Dados são o fundamento que estrutura a realidade. Como você gerencia essa matéria-prima?",
-    12: "Falta pouco! Você não pode ser analítico em tudo. Qual é o seu alvo competitivo?",
-    16: "Última etapa! O algoritmo é cego sem mentes analíticas para guiá-lo. Quem pilota seus dados?"
+    0: "Para um diagnóstico preciso, responda com o cenário real da sua empresa. Vamos começar?",
+    4: "Bloco concluído! Lembre-se: não há respostas certas ou erradas, apenas o retrato atual do seu negócio.",
+    8: "Chegamos à metade do formulário! Suas respostas sinceras nos ajudam a mapear os reais gargalos da operação.",
+    12: "Falta pouco! Continue avançando para que possamos gerar sua rota de competitividade analítica.",
+    16: "Última etapa! Você está a poucos cliques de descobrir o diagnóstico e o estágio do seu negócio."
   }
 
   const perguntas = [
