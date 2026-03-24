@@ -75,7 +75,7 @@
 .btnText:hover { border-color: #C8F542; color: #C8F542; background: rgba(200, 245, 66, 0.04); }
 
 .btnPrimary {
-  display: inline-flex; align-items: center; gap: 8px; border: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none;
   background: var(--sig); color: var(--ob); font-size: 0.75rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.08em; padding: 12px 24px;
   border-radius: 6px; cursor: pointer; transition: background 0.2s, transform 0.1s;
@@ -83,7 +83,7 @@
 .btnPrimary:hover { background: #A8D422; transform: translateY(-1px); }
 
 .btnSecondary {
-  display: inline-flex; align-items: center; gap: 8px; background: transparent;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: transparent;
   border: 1px solid rgba(255,255,255,0.12); color: var(--wht); font-size: 0.75rem;
   font-weight: 500; text-transform: uppercase; padding: 12px 24px; border-radius: 6px;
   cursor: pointer; transition: border-color 0.2s;

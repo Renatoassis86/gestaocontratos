@@ -40,7 +40,7 @@ export async function POST(
       dadosPreenchimento['CRA'] = (soma / notas.length).toFixed(1)
     }
 
-    const tituloDoc = `${template.titulo} - ${row['NOME_ALUNO'] || 'Emitido'}`
+    const tituloDoc = `${template.titulo} - ${row['NOME DO ALUNO'] || row['NOME_ALUNO'] || row['NOME DO ALUNO'] || 'Emitido'}`
 
     const { data: contrato } = await supabase
       .from('contratos')

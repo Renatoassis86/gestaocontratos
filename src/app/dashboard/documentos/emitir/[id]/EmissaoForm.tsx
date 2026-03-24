@@ -41,7 +41,10 @@ export default function EmissaoForm({ template, campos }: EmissaoFormProps) {
     const dadosPreenchimento: Record<string, any> = {}
 
     campos.forEach(c => {
-      dadosPreenchimento[c.nome_campo] = formData.get(c.nome_campo)
+      const fieldKey = c.nome_campo || c.chave_tag || c.rotulo;
+      if (fieldKey) {
+        dadosPreenchimento[fieldKey] = formData.get(fieldKey);
+      }
     })
 
     const response = await fetch(`/api/documentos/batch/${template.id}`, {
@@ -94,11 +97,15 @@ export default function EmissaoForm({ template, campos }: EmissaoFormProps) {
           <hr style={{ border: 'none', borderBottom: '1px solid rgba(0,0,0,0.05)' }} />
 
           {campos.map(c => {
-            if (c.nome_campo === 'NOME_ALUNO' || c.nome_campo === 'CRA') return null;
+            const fieldKey = c.nome_campo || c.chave_tag || c.rotulo || '';
+            const fieldLabel = c.label || c.rotulo || fieldKey.replace(/_/g, ' ').replace('{{', '').replace('}}', '').toUpperCase();
+            
+            if (fieldKey === 'NOME_ALUNO' || fieldKey === 'CRA' || fieldKey === '{{nome_aluno}}') return null;
+            
             return (
-              <div key={c.id}>
-                <label style={{ display: 'block', marginBottom: '0.4rem', fontSize: '0.85rem', fontWeight: 'bold' }}>{c.label || c.nome_campo.replace(/_/g, ' ')}</label>
-                <input name={c.nome_campo} type={c.tipo_input === 'numero' ? 'number' : 'text'} step="0.1" style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--border)', borderRadius: '8px' }} required />
+              <div key={c.id || fieldKey}>
+                <label style={{ display: 'block', marginBottom: '0.4rem', fontSize: '0.85rem', fontWeight: 'bold' }}>{fieldLabel}</label>
+                <input name={fieldKey} type={c.tipo_input === 'numero' ? 'number' : 'text'} step="0.1" style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--border)', borderRadius: '8px' }} required />
               </div>
             )
           })}
@@ -110,7 +117,7 @@ export default function EmissaoForm({ template, campos }: EmissaoFormProps) {
       {tab === 'excel' && (
         <div style={{ background: 'white', padding: '1.5rem', border: '1px solid var(--border)', borderRadius: '16px' }}>
           <h4 style={{ fontSize: '0.9rem', marginBottom: '0.8rem' }}>Subir Carga em Massa</h4>
-          <p style={{ fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '1rem' }}>Sua planilha deve conter cabeçalhos idênticos aos placeholders do template: {campos.map(c => c.nome_campo).join(', ')}</p>
+          <p style={{ fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '1rem' }}>Sua planilha deve conter cabeçalhos idênticos aos placeholders do template: {campos.map(c => c.nome_campo || c.rotulo || c.chave_tag).filter(Boolean).join(', ')}</p>
 
           <input type="file" accept=".xlsx, .xls, .csv" onChange={handleExcelUpload} style={{ width: '100%', padding: '0.8rem', border: '1px dashed var(--border)', borderRadius: '8px', background: 'var(--sidebar)' }} />
 

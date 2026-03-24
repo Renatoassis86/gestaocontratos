@@ -65,6 +65,17 @@
   border: 1px solid rgba(255,255,255,0.03);
 }
 
+.videoBg {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.35);
+  border: none;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .statsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -84,6 +95,9 @@
   }
   .caseContent {
     padding: 20px !important;
+  }
+  .videoBg {
+    transform: scale(2.8) !important;
   }
   .caseGrid {
     grid-template-columns: 1fr;
