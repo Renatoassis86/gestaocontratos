@@ -318,7 +318,21 @@ export default function DiagnosticoPage() {
                 <p style={{ color: '#8A8F99', fontSize: '0.9rem', marginBottom: '8px' }}>Seu maior gargalo estratégico:</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F4F2ED', fontWeight: 700 }}>
                   <AlertTriangle size={20} color="#C8F542" /> {scoreData.gargalo}
-                }</div>
+                </div>
+              </div>
+
+              <div style={{ background: '#1F242D', padding: '24px', borderRadius: '12px', marginBottom: '30px', textAlign: 'left', border: '1px solid rgba(200,245,66,0.1)' }}>
+                <p style={{ color: '#C8F542', fontSize: '0.9rem', fontWeight: 800, marginBottom: '8px', letterSpacing: '1px' }}>RECOMENDAÇÃO ARKOS:</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <p style={{ color: '#F4F2ED', fontSize: '1.2rem', fontWeight: 700 }}>
+                    {scoreData.gargalo === 'DADOS' && '🚀 Arkos Platform & Arkos Data'}
+                    {(scoreData.gargalo === 'LIDERANÇA' || scoreData.gargalo === 'ANALISTAS') && '🎓 Arkos Academy & Arkos Strategy'}
+                    {(scoreData.gargalo === 'EMPREENDIMENTO' || scoreData.gargalo === 'ALVOS') && '💼 Arkos Systems & Arkos Market Intelligence'}
+                  </p>
+                  <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6' }}>
+                    Esta solução foi selecionada estrategicamente para atuar na raiz do seu maior gargalo e acelerar sua jornada rumo ao Estágio 5 de Competitividade Analítica.
+                  </p>
+                </div>
               </div>
 
               <button className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center' }} onClick={() => window.open('https://calendly.com/', '_blank')}>
