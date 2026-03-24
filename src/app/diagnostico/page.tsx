@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ShieldCheck, Trophy, Sparkles, AlertTriangle } from 'lucide-react'
+import Link from 'next/link'
 import { saveDiagnostico } from '@/app/actions/save-diagnostico'
 import styles from '@/components/DiagnosticoHub.module.css'
 
@@ -233,6 +234,11 @@ export default function DiagnosticoPage() {
           <div style={{ height: '100%', background: '#C8F542', width: `${currentProgress}%`, transition: 'width 0.3s ease' }} />
         </div>
       )}
+
+      {/* Logo Arkos no Topo */}
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px', marginBottom: '10px' }}>
+        <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '28px', opacity: 0.9 }} />
+      </div>
 
       <AnimatePresence mode='wait'>
         {step === 'lead' && (
