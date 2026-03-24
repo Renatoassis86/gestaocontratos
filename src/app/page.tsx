@@ -297,7 +297,7 @@ export default function Home() {
 
           {/* Right: Differentiators Accordion */}
           <div>
-            <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '12px' }}>O QUE NOS DIFERENCIA</div>
+            <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '12px' }}>A ARKOS É SUA SOLUÇÃO</div>
             <p style={{ color: '#F4F2ED', fontSize: '1.125rem', fontWeight: 700, marginBottom: '20px', lineHeight: '1.5', fontFamily: 'Sora, sans-serif' }}>Para escalar sua empresa ao patamar das gigantes analíticas, a <strong>ARKOS</strong> atua como a espinha dorsal da sua inteligência corporativa.</p>
             <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos <em style={{ color: '#C8F542', fontStyle: 'italic' }}>infraestrutura e inteligência.</em></h3>
             <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>Nossa diferenciacão não está em uma licença de ferramenta. Estão na arquitetura de dados que construímos, na inteligência que treinamos sobre os seus processos e na capacidade analítica que formamos dentro do seu time.</p>
