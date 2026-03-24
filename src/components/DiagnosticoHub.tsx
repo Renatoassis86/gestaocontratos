@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, CheckCircle2, Award, Zap, Building2, UserCircle2, Mail, Users, Compass, ShieldCheck } from 'lucide-react'
 import { saveDiagnostico } from '@/app/actions/save-diagnostico'
@@ -233,9 +234,9 @@ export default function DiagnosticoHub() {
           {/* Botão High-Light Centered */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '50px', gap: '12px' }}>
             <p style={{ color: '#8A8F99', fontSize: '0.85rem', textAlign: 'center' }}>Faça nosso teste rápido e saiba em qual patamar sua empresa se encontra.</p>
-            <button className={styles.btnLargeHero} onClick={() => setStep('lead')}>
+            <Link href="/diagnostico" className={styles.btnLargeHero} target="_blank">
               Iniciar Diagnóstico de Maturidade <ArrowRight size={22} color="#000" />
-            </button>
+            </Link>
           </div>
         </section>
       )}

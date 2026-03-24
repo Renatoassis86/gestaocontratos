@@ -2,157 +2,173 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, ShieldCheck } from 'lucide-react'
+import { ArrowRight, ShieldCheck, Trophy, Sparkles, AlertTriangle } from 'lucide-react'
 import { saveDiagnostico } from '@/app/actions/save-diagnostico'
 import styles from '@/components/DiagnosticoHub.module.css'
 
 export default function DiagnosticoPage() {
-  const [step, setStep] = useState<'lead' | 'quiz' | 'loading' | 'result'>('lead')
+  const [step, setStep] = useState<'lead' | 'mural' | 'quiz' | 'loading' | 'result'>('lead')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [lead, setLead] = useState({ nome: '', empresa: '', email: '', whatsapp: '' })
   const [scoreData, setScoreData] = useState<any>(null)
 
+  const blocosMotivacionais: Record<number, string> = {
+    0: "Para que a análise funcione, os líderes precisam exigir fatos em vez de palpites. Como sua diretoria decide?",
+    4: "Ótimo começo! Empresas analíticas não operam em silos. Quão integrada é a sua operação?",
+    8: "Quase na metade! Dados são o fundamento que estrutura a realidade. Como você gerencia essa matéria-prima?",
+    12: "Falta pouco! Você não pode ser analítico em tudo. Qual é o seu alvo competitivo?",
+    16: "Última etapa! O algoritmo é cego sem mentes analíticas para guiá-lo. Quem pilota seus dados?"
+  }
+
   const perguntas = [
-    // Bloco 1: LIDERANÇA (L)
     { id: 1, block: 'LIDERANÇA', text: 'Em grandes decisões estratégicas, qual é a atitude do CEO ou Diretoria?', options: [
-      { id: 'A', text: 'Decidem puramente baseados em instinto e experiência passada.' },
-      { id: 'B', text: 'Pedem relatórios, mas cada diretor defende os números do seu próprio silo.' },
-      { id: 'C', text: 'Exigem dados corporativos consistentes, mas a TI demora a entregá-lo.' },
-      { id: 'D', text: 'Agem como "farejadores de dados", usando dashboards para decisões rápidas e preditivas.' }
+      { id: 'A', text: 'Decidem puramente baseados em instinto e experiência passada.', pts: 1 },
+      { id: 'B', text: 'Pedem relatórios, mas cada diretor defende os números do seu próprio silo.', pts: 2 },
+      { id: 'C', text: 'Exigem dados corporativos consistentes, mas a TI demora a entregá-los.', pts: 3 },
+      { id: 'D', text: 'Agem como "farejadores de dados", usando dashboards para decisões rápidas e preditivas.', pts: 4 }
     ]},
     { id: 2, block: 'LIDERANÇA', text: 'Quando um dado analítico contraria a opinião de um gerente experiente, o que ocorre?', options: [
-      { id: 'A', text: 'O dado é ignorado e a intuição vence.' },
-      { id: 'B', text: 'Há ceticismo e o dado é torturado até confessar o que o gerente quer.' },
-      { id: 'C', text: 'O dado é aceito, mas a mudança real na operação é muito lenta.' },
-      { id: 'D', text: 'A empresa tem uma cultura ágil de "teste e aprendizado" e muda a rota na hora.' }
+      { id: 'A', text: 'O dado é ignorado e a intuição vence.', pts: 1 },
+      { id: 'B', text: 'Há ceticismo e o dado é "torturado" até confessar o que o gerente quer.', pts: 2 },
+      { id: 'C', text: 'O dado é aceito, mas a mudança real na operação é muito lenta.', pts: 3 },
+      { id: 'D', text: 'A empresa tem uma cultura ágil de "teste e aprendizado" e muda a rota na hora.', pts: 4 }
     ]},
     { id: 3, block: 'LIDERANÇA', text: 'Qual a visão da empresa sobre investimentos em Inteligência e Dados?', options: [
-      { id: 'A', text: 'Um custo que deve ser mantido ao mínimo.' },
-      { id: 'B', text: 'Um projeto da TI que o negócio não entende muito bem.' },
-      { id: 'C', text: 'Uma necessidade, mas ainda sofre para provar seu ROI.' },
-      { id: 'D', text: 'O pilar da vantagem competitiva, com patrocínio apaixonado do alto escalão.' }
+      { id: 'A', text: 'Um custo que deve ser mantido ao mínimo.', pts: 1 },
+      { id: 'B', text: 'Um projeto da TI que o negócio não entende muito bem.', pts: 2 },
+      { id: 'C', text: 'Uma necessidade, mas ainda sofre para provar seu ROI.', pts: 3 },
+      { id: 'D', text: 'O pilar da vantagem competitiva, com patrocínio apaixonado do alto escalão.', pts: 4 }
     ]},
     { id: 4, block: 'LIDERANÇA', text: 'Os líderes da sua empresa promovem uma cultura meritocrática baseada em números?', options: [
-      { id: 'A', text: 'Não, avaliações são subjetivas e políticas.' },
-      { id: 'B', text: 'Apenas em áreas óbvias, como metas de vendas isoladas.' },
-      { id: 'C', text: 'Sim, mas faltam indicadores claros que unam a empresa toda.' },
-      { id: 'D', text: 'Sim, métricas guiam bônus, promoções e a gestão implacável da operação.' }
+      { id: 'A', text: 'Não, avaliações são subjetivas e políticas.', pts: 1 },
+      { id: 'B', text: 'Apenas em áreas óbvias, como metas de vendas isoladas.', pts: 2 },
+      { id: 'C', text: 'Sim, mas faltam indicadores claros que unam a empresa toda.', pts: 3 },
+      { id: 'D', text: 'Sim, métricas guiam bônus, promoções e a gestão implacável da operação.', pts: 4 }
     ]},
-    
-    // Bloco 2: Empreendimento (E)
     { id: 5, block: 'EMPREENDIMENTO', text: 'Como os dados fluem pela empresa (Finanças, Vendas, RH, Logística)?', options: [
-      { id: 'A', text: 'Temos "ilhas de dados". Os departamentos não se falam.' },
-      { id: 'B', text: 'Planilhas (geralmente com erros) são trocadas por e-mail.' },
-      { id: 'C', text: 'Temos sistemas robustos, mas os dados ainda precisam de conciliação manual.' },
-      { id: 'D', text: 'Possuímos uma "única versão da verdade", gerida com uma perspectiva empresarial.' }
+      { id: 'A', text: 'Temos "ilhas de dados". Os departamentos não se falam.', pts: 1 },
+      { id: 'B', text: 'Planilhas (geralmente com erros) são trocadas por e-mail.', pts: 2 },
+      { id: 'C', text: 'Temos sistemas robustos, mas os dados ainda precisam de conciliação manual.', pts: 3 },
+      { id: 'D', text: 'Possuímos uma única versão da verdade, gerida com uma perspectiva empresarial total.', pts: 4 }
     ]},
-    { id: 6, block: 'EMPREENDIMENTO', text: 'Quando há um problema complexo (margem caindo), como ele é investigado?', options: [
-      { id: 'A', text: 'No escuro. Descobrimos tarde demais.' },
-      { id: 'B', text: 'Cada departamento apresenta sua versão e a culpa é transferida.' },
-      { id: 'C', text: 'Um comitê se reúne para tentar cruzar dados de diferentes bases.' },
-      { id: 'D', text: 'Plataformas visuais mostram a raiz do problema quase em tempo real.' }
+    { id: 6, block: 'EMPREENDIMENTO', text: 'Quando há um problema complexo (ex: margem de um produto caindo), como ele é investigado?', options: [
+      { id: 'A', text: 'No escuro. Descobrimos tarde demais.', pts: 1 },
+      { id: 'B', text: 'Cada departamento apresenta sua versão e a culpa é transferida.', pts: 2 },
+      { id: 'C', text: 'Um comitê se reúne para tentar cruzar dados de diferentes bases.', pts: 3 },
+      { id: 'D', text: 'Plataformas visuais mostram a raiz do problema quase em tempo real.', pts: 4 }
     ]},
     { id: 7, block: 'EMPREENDIMENTO', text: 'O financiamento de tecnologia na sua empresa é feito como?', options: [
-      { id: 'A', text: 'Quando quebra, a gente compra.' },
-      { id: 'B', text: 'Cada área compra seus softwares, gerando fragmentação.' },
-      { id: 'C', text: 'Centralizado na TI, mas sem grande alinhamento com a estratégia.' },
-      { id: 'D', text: 'TI e Negócios operam lado a lado, investindo em vantagem competitiva.' }
+      { id: 'A', text: 'Quando quebra, a gente compra.', pts: 1 },
+      { id: 'B', text: 'Cada área compra seus softwares, gerando fragmentação.', pts: 2 },
+      { id: 'C', text: 'Centralizado na TI, mas sem grande alinhamento com a estratégia do negócio.', pts: 3 },
+      { id: 'D', text: 'TI e Negócios operam lado a lado, investindo no que traz vantagem competitiva.', pts: 4 }
     ]},
     { id: 8, block: 'EMPREENDIMENTO', text: 'Qual o nível de automação das decisões táticas diárias?', options: [
-      { id: 'A', text: 'Zero. Tudo depende de aprovação humana manual.' },
-      { id: 'B', text: 'Apenas em aprovações financeiras básicas de sistema.' },
-      { id: 'C', text: 'Algumas regras de negócio alertam gestores sobre exceções.' },
-      { id: 'D', text: 'Algoritmos tomam decisões automatizadas e integradas (Ex: preços e rotas).' }
+      { id: 'A', text: 'Zero. Tudo depende de aprovação humana manual.', pts: 1 },
+      { id: 'B', text: 'Apenas em aprovações financeiras básicas de sistema.', pts: 2 },
+      { id: 'C', text: 'Algumas regras de negócio alertam gestores sobre exceções.', pts: 3 },
+      { id: 'D', text: 'Algoritmos tomam decisões automatizadas e integradas.', pts: 4 }
     ]},
-
-    // Bloco 3: Dados (D)
     { id: 9, block: 'DADOS', text: 'Qual a qualidade atual da base de dados da empresa?', options: [
-      { id: 'A', text: 'Inconsistente, cheia de duplicidades e falta de padrão.' },
-      { id: 'B', text: 'Requer semanas de limpeza manual (processo doloroso).' },
-      { id: 'C', text: 'Organizada, mas presa dentro dos sistemas de origem (ERP/CRM).' },
-      { id: 'D', text: 'Dados integrados, precisos e disponíveis em repositórios corporativos.' }
+      { id: 'A', text: 'Inconsistente, cheia de duplicidades e falta de padrão.', pts: 1 },
+      { id: 'B', text: 'Requer semanas de limpeza manual.', pts: 2 },
+      { id: 'C', text: 'Organizada, mas presa dentro dos sistemas de origem (ERP/CRM).', pts: 3 },
+      { id: 'D', text: 'Dados integrados, precisos e disponíveis em repositórios corporativos.', pts: 4 }
     ]},
-    { id: 10, block: 'DADOS', text: 'O que vocês fazem com o gigantesco volume de dados gerado?', options: [
-      { id: 'A', text: 'Não armazenamos, ou só guardamos por obrigação fiscal.' },
-      { id: 'B', text: 'Criamos relatórios para ver "o que aconteceu" no passado.' },
-      { id: 'C', text: 'Tentamos responder "por que aconteceu" com cruzamento de dados.' },
-      { id: 'D', text: 'Usamos algoritmos para saber "o que vai acontecer" (Análise Preditiva).' }
+    { id: 10, block: 'DADOS', text: 'O que vocês fazem com o gigantesco volume de dados gerado todos os dias?', options: [
+      { id: 'A', text: 'Não armazenamos, ou só guardamos por obrigação fiscal.', pts: 1 },
+      { id: 'B', text: 'Criamos relatórios para ver "o que aconteceu" (Análise Descritiva).', pts: 2 },
+      { id: 'C', text: 'Tentamos responder "por que aconteceu" com cruzamento de dados.', pts: 3 },
+      { id: 'D', text: 'Usamos algoritmos para saber "o que vai acontecer" (Preditiva e Prescritiva).', pts: 4 }
     ]},
-    { id: 11, block: 'DADOS', text: 'Como vocês utilizam dados não-estruturados e informações externas?', options: [
-      { id: 'A', text: 'Nunca usamos.' },
-      { id: 'B', text: 'De forma pontual, lendo notícias ou relatórios esporádicos.' },
-      { id: 'C', text: 'Compramos dados de terceiros, mas não integramos aos nossos.' },
-      { id: 'D', text: 'Vasculhamos o mercado e cruzamos variáveis externas o tempo todo.' }
+    { id: 11, block: 'DADOS', text: 'Como vocês utilizam informações externas (mercado, concorrência, clima)?', options: [
+      { id: 'A', text: 'Nunca usamos.', pts: 1 },
+      { id: 'B', text: 'De forma pontual, lendo notícias ou relatórios esporádicos.', pts: 2 },
+      { id: 'C', text: 'Compramos dados de terceiros, mas não integramos aos nossos.', pts: 3 },
+      { id: 'D', text: 'Vasculhamos o mercado e cruzamos variáveis externas aos nossos algoritmos.', pts: 4 }
     ]},
-    { id: 12, block: 'DADOS', text: 'Quem em sua empresa tem facilidade de acessar insights nos dados?', options: [
-      { id: 'A', text: 'Ninguém confia nos dados atuais.' },
-      { id: 'B', text: 'Apenas especialistas de TI que extraem os relatórios.' },
-      { id: 'C', text: 'Gerentes que recebem dashboards padronizados.' },
-      { id: 'D', text: 'Gestores da linha de frente possuem "análise de autoatendimento" em tempo real.' }
+    { id: 12, block: 'DADOS', text: 'Quem na empresa tem facilidade de acessar insights nos dados?', options: [
+      { id: 'A', text: 'Ninguém confia nos dados atuais.', pts: 1 },
+      { id: 'B', text: 'Apenas especialistas de TI que extraem os relatórios.', pts: 2 },
+      { id: 'C', text: 'Gerentes que recebem dashboards padronizados.', pts: 3 },
+      { id: 'D', text: 'Gestores possuem "análise de autoatendimento" e painéis em tempo real.', pts: 4 }
     ]},
-
-    // Bloco 4: Alvos (T)
     { id: 13, block: 'ALVOS', text: 'Ao traçar a estratégia, onde a empresa aplica seus maiores esforços de análise?', options: [
-      { id: 'A', text: 'Atiramos para todos os lados sem alvo definido.' },
-      { id: 'B', text: 'Tentamos melhorar atividades funcionais desconexas.' },
-      { id: 'C', text: 'Escolhemos métricas-chave, mas reagimos em vez de antecipar.' },
-      { id: 'D', text: 'Focamos pesadamente na nossa competência distintiva para dominar o mercado.' }
+      { id: 'A', text: 'Atiramos para todos os lados sem alvo definido.', pts: 1 },
+      { id: 'B', text: 'Tentamos melhorar atividades funcionais desconexas.', pts: 2 },
+      { id: 'C', text: 'Escolhemos métricas-chave, mas reagimos em vez de antecipar.', pts: 3 },
+      { id: 'D', text: 'Focamos pesadamente na nossa competência distintiva para dominar o mercado.', pts: 4 }
     ]},
     { id: 14, block: 'ALVOS', text: 'Na hora de gerir clientes, qual é o nível de precisão?', options: [
-      { id: 'A', text: 'Tratamos todos os clientes exatamente da mesma forma.' },
-      { id: 'B', text: 'Dividimos em blocos demográficos amplos.' },
-      { id: 'C', text: 'Identificamos os mais rentáveis e focamos neles.' },
-      { id: 'D', text: 'Calculamos propensão de compra e LTV para ofertas hiperpersonalizadas.' }
+      { id: 'A', text: 'Tratamos todos os clientes exatamente da mesma forma.', pts: 1 },
+      { id: 'B', text: 'Dividimos em blocos demográficos amplos.', pts: 2 },
+      { id: 'C', text: 'Identificamos os mais rentáveis e focamos neles.', pts: 3 },
+      { id: 'D', text: 'Calculamos a propensão de compra para ofertas hiperpersonalizadas em tempo real.', pts: 4 }
     ]},
     { id: 15, block: 'ALVOS', text: 'Como vocês precificam produtos ou serviços?', options: [
-      { id: 'A', text: 'Baseado no custo mais uma margem, ou copiando o concorrente.' },
-      { id: 'B', text: 'Fazemos descontos quando as vendas caem.' },
-      { id: 'C', text: 'Usamos planilhas que sugerem faixas de preços sazonais.' },
-      { id: 'D', text: 'Otimização algorítmica: precificação dinâmica ajustada à demanda.' }
+      { id: 'A', text: 'Baseado no custo mais uma margem, ou copiando o concorrente.', pts: 1 },
+      { id: 'B', text: 'Fazemos descontos quando as vendas caem.', pts: 2 },
+      { id: 'C', text: 'Usamos planilhas que sugerem faixas de preços sazonais.', pts: 3 },
+      { id: 'D', text: 'Precificação dinâmica ajustada à curva de demanda e elasticidade.', pts: 4 }
     ]},
-    { id: 16, block: 'ALVOS', text: 'Na hora de inovar, lançar um produto, qual é a base da decisão?', options: [
-      { id: 'A', text: 'Palpite do dono ou cópia do mercado.' },
-      { id: 'B', text: 'Pesquisas tradicionais e longas reuniões de comitê.' },
-      { id: 'C', text: 'Observamos o histórico do que deu certo antes.' },
-      { id: 'D', text: 'Simulações profundas, modelagem preditiva e testes rigorosos.' }
+    { id: 16, block: 'ALVOS', text: 'Na hora de inovar ou lançar um produto, qual é a base da decisão?', options: [
+      { id: 'A', text: 'Palpite do dono ou cópia do mercado.', pts: 1 },
+      { id: 'B', text: 'Pesquisas tradicionais e longas reuniões de comitê.', pts: 2 },
+      { id: 'C', text: 'Observamos o histórico do que deu certo antes.', pts: 3 },
+      { id: 'D', text: 'Simulações profundas, modelagem preditiva e testes experimentais rigorosos.', pts: 4 }
     ]},
-
-    // Bloco 5: Analistas (A)
     { id: 17, block: 'ANALISTAS', text: 'Quem é o responsável por gerar inteligência competitiva hoje?', options: [
-      { id: 'A', text: 'Não temos essa função.' },
-      { id: 'B', text: 'Funcionários usando Excel que perdem 80% do tempo arrumando planilhas.' },
-      { id: 'C', text: 'Analistas que estão ilhados em departamentos específicos.' },
-      { id: 'D', text: 'Um CDAO e equipe centralizada de cientistas de dados altamente capacitados.' }
+      { id: 'A', text: 'Não temos essa função.', pts: 1 },
+      { id: 'B', text: 'Funcionários usando Excel que perdem 80% do tempo arrumando planilhas.', pts: 2 },
+      { id: 'C', text: 'Analistas que estão ilhados em departamentos específicos.', pts: 3 },
+      { id: 'D', text: 'Um CDAO e uma equipe centralizada de cientistas de dados.', pts: 4 }
     ]},
     { id: 18, block: 'ANALISTAS', text: 'Como é o treinamento para letramento em dados (data literacy) da sua equipe?', options: [
-      { id: 'A', text: 'Inexistente.' },
-      { id: 'B', text: 'Restrito a ensinar a equipe a apertar os botões do sistema.' },
-      { id: 'C', text: 'Gestores são treinados para ler indicadores de performance.' },
-      { id: 'D', text: 'Constante. Exigimos habilidades numéricas e experimentais desde o recrutamento.' }
+      { id: 'A', text: 'Inexistente.', pts: 1 },
+      { id: 'B', text: 'Restrito a ensinar a equipe a operar o sistema de gestão.', pts: 2 },
+      { id: 'C', text: 'Gestores são treinados para ler indicadores de performance.', pts: 3 },
+      { id: 'D', text: 'Constante. Exigimos habilidades numéricas desde o recrutamento.', pts: 4 }
     ]},
     { id: 19, block: 'ANALISTAS', text: 'Quais ferramentas a equipe de estratégia utiliza no dia a dia?', options: [
-      { id: 'A', text: 'Calculadoras, cadernos e instinto.' },
-      { id: 'B', text: 'Excel e funções matemáticas.' },
-      { id: 'C', text: 'Ferramentas de Business Intelligence (BI) para relatórios visuais.' },
-      { id: 'D', text: 'Softwares predíticos, aprendizado de máquina, R ou Python.' }
+      { id: 'A', text: 'Calculadoras, cadernos e instinto.', pts: 1 },
+      { id: 'B', text: 'Excel e funções matemáticas.', pts: 2 },
+      { id: 'C', text: 'Ferramentas de Business Intelligence (BI) para relatórios visuais.', pts: 3 },
+      { id: 'D', text: 'Softwares preditivos, Machine Learning, R ou Python.', pts: 4 }
     ]},
-    { id: 20, block: 'ANALISTAS', text: 'O que acontece quando os dados apresentam um cenário "fora da caixa"?', options: [
-      { id: 'A', text: 'Geram desconfiança e são rapidamente engavetados.' },
-      { id: 'B', text: 'Acham interessante, mas a empresa não sabe como executar.' },
-      { id: 'C', text: 'O RH ou a TI são culpados pelos números.' },
-      { id: 'D', text: 'A liderança confia no modelo, ajusta a estratégia e cria novos testes.' }
+    { id: 20, block: 'ANALISTAS', text: 'O que acontece quando os dados apresentam um cenário contraintuitivo?', options: [
+      { id: 'A', text: 'Geram desconfiança e são rapidamente engavetados.', pts: 1 },
+      { id: 'B', text: 'Acham interessante, mas a empresa não sabe como executar.', pts: 2 },
+      { id: 'C', text: 'O RH ou a TI são culpados pelos números "estranhos".', pts: 3 },
+      { id: 'D', text: 'A liderança confia no modelo, ajusta a estratégia e cria testes experimentais.', pts: 4 }
     ]}
   ]
 
   const totalQuestions = perguntas.length
   const currentProgress = totalQuestions > 0 ? ((currentQuestion) / totalQuestions) * 100 : 0
 
+  const handleStartQuiz = () => {
+    // Passo 0: Captura de Lead
+    if (!lead.nome || !lead.empresa || !lead.email || !lead.whatsapp) {
+      alert('Preencha todos os campos obrigatórios.')
+      return
+    }
+    setStep('mural')
+  }
+
   const handleAnswerSelect = (optId: string) => {
     setAnswers(prev => ({ ...prev, [perguntas[currentQuestion].id]: optId }))
+    
     setTimeout(() => {
-      if (currentQuestion < totalQuestions - 1) {
-        setCurrentQuestion(prev => prev + 1)
+      const nextQ = currentQuestion + 1;
+      if (nextQ < totalQuestions) {
+        if (blocosMotivacionais[nextQ]) {
+          // If next question lands on a block transition index
+          setCurrentQuestion(nextQ)
+          setStep('mural')
+        } else {
+          setCurrentQuestion(nextQ)
+        }
       } else {
         handleSubmit()
       }
@@ -161,58 +177,157 @@ export default function DiagnosticoPage() {
 
   const handleSubmit = async () => {
     setStep('loading')
-    const result = await saveDiagnostico(lead, answers)
+    // Calculate average score
+    let totalScore = 0;
+    let counts: Record<string, number> = { 'LIDERANÇA': 0, 'EMPREENDIMENTO': 0, 'DADOS': 0, 'ALVOS': 0, 'ANALISTAS': 0 };
+    let aggregates: Record<string, number> = { 'LIDERANÇA': 0, 'EMPREENDIMENTO': 0, 'DADOS': 0, 'ALVOS': 0, 'ANALISTAS': 0 };
+
+    perguntas.forEach(q => {
+      const ansId = answers[q.id];
+      const opt = q.options.find(o => o.id === ansId);
+      if (opt) {
+          totalScore += opt.pts;
+          aggregates[q.block] += opt.pts;
+          counts[q.block] += 1;
+      }
+    });
+
+    const averageScore = totalScore / 20;
+    
+    // Find bottleneck (mínima nota média)
+    let minAvg = 4.0;
+    let gargalo = 'DADOS';
+    Object.keys(aggregates).forEach(b => {
+      const avg = aggregates[b] / counts[b];
+      if (avg < minAvg) {
+        minAvg = avg;
+        gargalo = b;
+      }
+    });
+
+    const result = await saveDiagnostico(lead, answers); // Already updates score inline
     if (result.success) {
-      setScoreData(result.data)
-      setStep('result')
+      setScoreData({ score: averageScore, gargalo: gargalo });
+      setStep('result');
     } else {
-      alert('Erro ao salvar. Tente novamente.')
-      setStep('quiz')
+      alert('Erro ao processar. Prosseguindo simulado.');
+      setScoreData({ score: averageScore, gargalo: gargalo });
+      setStep('result');
     }
   }
 
-  const getEstagioNome = (lvl: number) => {
-    const list = ['Deficientes Analíticos','Empresas de Análise Localizada','Aspirantes Analíticos','Empresas Analíticas','Competidores Analíticos']
-    return list[lvl - 1] || 'Deficientes Analíticos'
+  const getEstagioNome = (score: number) => {
+    if (score >= 3.9) return { nome: 'Estágio 5: Competidores Analíticos', target: 'Arkos Systems' }
+    if (score >= 3.5) return { nome: 'Estágio 4: Empresas Analíticas', target: 'Arkos Market Intelligence' }
+    if (score >= 2.7) return { nome: 'Estágio 3: Aspirantes Analíticos', target: 'Arkos Data' }
+    if (score >= 1.9) return { nome: 'Estágio 2: Análise Localizada', target: 'Arkos Academy' }
+    return { nome: 'Estágio 1: Deficientes Analíticos', target: 'Arkos Strategy' }
   }
 
   return (
-    <div className={styles.container} style={{ minHeight: '100vh', paddingTop: '80px' }}>
-      {(step === 'lead' || step === 'quiz' || step === 'loading') && (
-        <section className={styles.quizSection}>
-          <div className={styles.quizContainer}>
-            <div className={styles.progressBar} style={{ width: `${currentProgress}%` }} />
-            <AnimatePresence mode='wait'>
-              {step === 'lead' && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <h3 className={styles.title} style={{ fontSize: '1.5rem', textAlign: 'center' }}>Qualificação do Negócio</h3>
-                  <input className={styles.input} placeholder="Nome Completo" value={lead.nome} onChange={e => setLead(p => ({ ...p, nome: e.target.value }))} />
-                  <input className={styles.input} placeholder="Nome da Empresa" value={lead.empresa} onChange={e => setLead(p => ({ ...p, empresa: e.target.value }))} />
-                  <input className={styles.input} placeholder="E-mail Corporativo" value={lead.email} onChange={e => setLead(p => ({ ...p, email: e.target.value }))} />
-                  <input className={styles.input} placeholder="WhatsApp" value={lead.whatsapp} onChange={e => setLead(p => ({ ...p, whatsapp: e.target.value }))} />
-                  <button className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center' }} onClick={() => setStep('quiz')}>Iniciar Diagnóstico</button>
-                </motion.div>
-              )}
-              {step === 'quiz' && perguntas[currentQuestion] && (
-                <motion.div key={currentQuestion} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'monospace', color: '#C8F542', fontSize: '0.75rem' }}>
-                    <span>{perguntas[currentQuestion].block}</span>
-                    <span>{currentQuestion + 1} / {totalQuestions}</span>
-                  </div>
-                  <h4 style={{ fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.4 }}>{perguntas[currentQuestion].text}</h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {perguntas[currentQuestion].options.map((opt) => (
-                      <button key={opt.id} className={`${styles.optionCard} ${answers[perguntas[currentQuestion].id] === opt.id ? styles.optionCardActive : ''}`} onClick={() => handleAnswerSelect(opt.id)}>
-                        <span style={{ color: '#C8F542', fontWeight: 800, marginRight: '8px' }}>{opt.id})</span> {opt.text}
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </section>
+    <div className={styles.container} style={{ minHeight: '100vh', background: '#0A0C0F', color: '#F4F2ED', paddingTop: '40px' }}>
+      
+      {/* Barra de Progresso Superior */}
+      {(step === 'mural' || step === 'quiz') && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '4px', background: '#111318', zIndex: 1000 }}>
+          <div style={{ height: '100%', background: '#C8F542', width: `${currentProgress}%`, transition: 'width 0.3s ease' }} />
+        </div>
       )}
+
+      <AnimatePresence mode='wait'>
+        {step === 'lead' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.quizSection} style={{ padding: '20px' }}>
+            <div className={styles.quizContainer} style={{ background: '#111318', border: '1px solid #1F242D', maxWidth: '500px', margin: '60px auto' }}>
+              <h3 className={styles.title} style={{ fontSize: '1.75rem', textAlign: 'center', color: '#C8F542' }}>Descubra a Maturidade Analítica da sua Empresa</h3>
+              <p className={styles.description} style={{ color: '#8A8F99', textAlign: 'center' }}>Preencha os dados obrigatórios para iniciar o questionário.</p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '20px' }}>
+                <input className={styles.input} placeholder="Nome Completo" value={lead.nome} onChange={e => setLead(p => ({ ...p, nome: e.target.value }))} />
+                <input className={styles.input} placeholder="Nome da Empresa" value={lead.empresa} onChange={e => setLead(p => ({ ...p, empresa: e.target.value }))} />
+                <input className={styles.input} placeholder="E-mail Corporativo" value={lead.email} onChange={e => setLead(p => ({ ...p, email: e.target.value }))} />
+                <input className={styles.input} placeholder="WhatsApp" value={lead.whatsapp} onChange={e => setLead(p => ({ ...p, whatsapp: e.target.value }))} />
+                
+                <button className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }} onClick={handleStartQuiz}>
+                  Iniciar Diagnóstico <ArrowRight size={20} color="#0A0C0F" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {step === 'mural' && (
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className={styles.quizSection}>
+            <div className={styles.quizContainer} style={{ textAlign: 'center', padding: '40px', background: 'transparent' }}>
+              <Sparkles size={40} color="#C8F542" style={{ margin: '0 auto 20px auto' }} />
+              <h2 style={{ fontSize: '1.8rem', color: '#C8F542', fontWeight: 800, marginBottom: '20px' }}>
+                {perguntas[currentQuestion]?.block}
+              </h2>
+              <p style={{ fontSize: '1.2rem', color: '#F4F2ED', maxWidth: '600px', margin: '0 auto 30px auto', lineHeight: 1.6 }}>
+                "{blocosMotivacionais[currentQuestion]}"
+              </p>
+              <button className={styles.btnPrimary} style={{ margin: '0 auto' }} onClick={() => setStep('quiz')}>
+                Continuar <ArrowRight size={20} color="#0A0C0F" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+        {step === 'quiz' && perguntas[currentQuestion] && (
+          <motion.div key={currentQuestion} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} className={styles.quizSection}>
+            <div className={styles.quizContainer} style={{ background: '#111318', border: '1px solid #1F242D', maxWidth: '700px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', color: '#C8F542', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+                <span>{perguntas[currentQuestion].block}</span>
+                <span>{currentQuestion + 1} / {totalQuestions}</span>
+              </div>
+              <h4 style={{ fontSize: '1.35rem', color: '#F4F2ED', fontWeight: 700, marginBottom: '24px', lineHeight: 1.4 }}>
+                {perguntas[currentQuestion].text}
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {perguntas[currentQuestion].options.map((opt) => (
+                  <button key={opt.id} className={`${styles.optionCard} ${answers[perguntas[currentQuestion].id] === opt.id ? styles.optionCardActive : ''}`} onClick={() => handleAnswerSelect(opt.id)}>
+                    <span style={{ color: '#C8F542', fontWeight: 800, marginRight: '8px' }}>{opt.id})</span> {opt.text}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {step === 'loading' && (
+          <motion.div className={styles.quizSection} style={{ textAlign: 'center', padding: '100px 0' }}>
+            <div className={styles.pulseMeter}>...</div>
+            <p style={{ color: '#C8F542' }}>Processando Inteligência de Dados...</p>
+          </motion.div>
+        )}
+
+        {step === 'result' && scoreData && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.quizSection}>
+            <div className={styles.quizContainer} style={{ background: '#111318', border: '1px solid #1F242D', maxWidth: '600px', textAlign: 'center' }}>
+              <Trophy size={48} color="#C8F542" style={{ margin: '0 auto 20px auto' }} />
+              <h2 style={{ fontSize: '1.5rem', color: '#F4F2ED', marginBottom: '12px' }}>Resultado do Diagnóstico</h2>
+              
+              <div className={styles.pulseMeter} style={{ color: '#C8F542', borderColor: '#C8F542' }}>
+                {scoreData.score.toFixed(1)}
+              </div>
+
+              <h3 style={{ fontSize: '1.5rem', color: '#C8F542', fontWeight: 800, marginBottom: '24px' }}>
+                {getEstagioNome(scoreData.score).nome}
+              </h3>
+
+              <div style={{ background: '#1F242D', padding: '20px', borderRadius: '8px', marginBottom: '30px', textAlign: 'left' }}>
+                <p style={{ color: '#8A8F99', fontSize: '0.9rem', marginBottom: '8px' }}>Seu maior gargalo estratégico:</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#F4F2ED', fontWeight: 700 }}>
+                  <AlertTriangle size={20} color="#C8F542" /> {scoreData.gargalo}
+                }</div>
+              </div>
+
+              <button className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center' }} onClick={() => window.open('https://calendly.com/', '_blank')}>
+                Agende sua Mentoria Estratégica e Avance para o Estágio 5
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
