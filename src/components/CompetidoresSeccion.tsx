@@ -132,13 +132,21 @@ export default function CompetidoresSeccion() {
                 { name: 'Capital One', logo: '/logos/capital_one.svg', text: 'A <strong>Capital One</strong> é pioneira em "estratégias baseadas em informações", conduzindo cerca de 8.000 testes de marketing por ano para atrair clientes lucrativos com precisão.' },
                 { name: 'Google', logo: '/logos/google.png', text: 'O <strong>Google</strong> aplica o rigor analítico a algoritmos de busca e ao "People Operations", utilizando ciência de dados para formar melhores líderes e estratégias de retenção.' },
                 { name: 'Walmart', logo: '/logos/walmart.svg', text: 'O <strong>Walmart</strong> é referência em supply-chain, compartilhando dados em tempo real com 60 mil fornecedores via Retail Link, prevendo demandas sazonais ou atípicas.' },
-                { name: 'UPS', logo: '/logos/ups.png', text: 'A <strong>UPS</strong> investiu no sistema ORION, que otimiza rotas de 55 mil motoristas diariamente, gerando economia de centenas de milhões de dólares ao ano.' },
+                { name: 'UPS', logo: '/logos/ups.svg', text: 'A <strong>UPS</strong> investiu no sistema ORION, que otimiza rotas de 55 mil motoristas diariamente, gerando economia de centenas de milhões de dólares ao ano.' },
                 { name: 'Caesars Entertainment', logo: '/logos/caesars.svg', text: 'A <strong>Caesars Entertainment</strong> revolucionou o setor de cassinos fidelizando clientes por meio de análise de dados no ponto de venda para ofertas personalizadas.' },
                 { name: 'Progressive', logo: '/logos/progressive.svg', text: 'A <strong>Progressive</strong> destaca-se pelo programa Snapshot, precificando seguros dinamicamente ao coletar dados reais sobre como o cliente dirige.' },
-                { name: 'Times Esportivos (Patriots)', logo: '/logos/patriots.svg', text: 'Os <strong>Patriots</strong> e Oakland A\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia dos atletas.' }
+                { name: 'Times Esportivos (Patriots)', logo: ['/logos/patriots.svg', '/logos/oakland_as.svg'], text: 'Os <strong>Patriots</strong> e Oakland A\'s utilizam estatística avançada para montar equipes e definir jogadas, avaliando a psicologia dos atletas.' }
               ].map((c) => (
                  <div key={c.name} style={{ background: '#111318', padding: '24px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <img src={c.logo} style={{ height: '40px', width: 'fit-content', filter: 'brightness(0) invert(1)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
+                    <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                       {Array.isArray(c.logo) ? (
+                           c.logo.map((l, i) => (
+                               <img key={i} src={l} style={{ height: '40px', width: 'fit-content', maxWidth: '140px', filter: 'brightness(0) invert(1)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
+                           ))
+                       ) : (
+                           <img src={c.logo} style={{ height: '40px', width: 'fit-content', maxWidth: '140px', filter: 'brightness(0) invert(1)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
+                       )}
+                    </div>
                     <div>
                       <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5' }} dangerouslySetInnerHTML={{ __html: c.text }} />
                     </div>
