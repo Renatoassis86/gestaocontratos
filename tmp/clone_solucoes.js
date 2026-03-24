@@ -9,6 +9,8 @@ const modulosCssPath = path.join('d:', 'repositorio_geral', 'app_gestao_contrato
 if (fs.existsSync(modulosPath)) {
     let modulos = fs.readFileSync(modulosPath, 'utf-8');
     
+    fs.mkdirSync(path.dirname(solucoesPath), { recursive: true });
+
     // Copy CSS to create standalone module
     if (fs.existsSync(modulosCssPath)) {
         fs.writeFileSync(solucoesCssPath, fs.readFileSync(modulosCssPath, 'utf-8'), 'utf-8');
@@ -29,10 +31,9 @@ import styles from './solucoes.module.css'
 
 export default function SolucoesPage() {
   return (
-    <div className={styles.container} style={{ minHeight: '100vh', background: '#0A0C0F', paddingTop: '40px' }}>
+    <div className={styles.container} style={{ minHeight: '100vh', background: '#0A0C0F', paddingTop: '45px' }}>
       <main className="flex-1 flex flex-col items-center justify-center">
         
-        {/* Superior Back Button to Diagnose results */}
         <Link href="/diagnostico" style={{ color: '#8A8F99', textDecoration: 'none', marginBottom: '16px', fontSize: '0.85rem' }}>
           ← Voltar para Resultados
         </Link>
@@ -62,7 +63,6 @@ export default function SolucoesPage() {
                     width: '100%'
                   }}
                 >
-                  {/* Capa */}
                   <div style={{ height: '140px', width: '100%', position: 'relative', overflow: 'hidden', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                     <img src={modulo.foto} alt={modulo.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
@@ -107,7 +107,6 @@ export default function SolucoesPage() {
     </div>
   )
 }`;
-        fs.mkdirSync(path.dirname(solucoesPath), { recursive: true });
         fs.writeFileSync(solucoesPath, standalonePage, 'utf-8');
         console.log("Public /solucoes page standalone accurately cloned!");
     } else {
