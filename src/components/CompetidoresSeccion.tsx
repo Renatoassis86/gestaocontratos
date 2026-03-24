@@ -35,7 +35,7 @@ export default function CompetidoresSeccion() {
 
           <div className={styles.caseGrid} style={{ position: 'relative', zIndex: 1 }}>
             
-            <div style={{ position: 'relative', overflow: 'hidden', padding: '32px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(200,245,66,0.02), rgba(17,19,24,0.95))', border: '1px solid rgba(255,255,255,0.03)' }}>
+            <div className={styles.caseContent}>
               <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.4, overflow: 'hidden', borderRadius: '16px' }}>
                 <iframe 
                   src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1&mute=1&controls=0&loop=1&playlist=GV3HUDMQ-F8&modestbranding=1&rel=0" 

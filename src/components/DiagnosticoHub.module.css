@@ -167,12 +167,12 @@
 
 @media (max-width: 768px) {
   .stairRow {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
   }
   .stairVector {
-    width: 60px !important; /* Retrai no mobile para focar no card */
-    height: 40px !important;
+    display: none !important;
   }
 }
 

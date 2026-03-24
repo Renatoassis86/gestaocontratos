@@ -706,10 +706,13 @@
     -webkit-overflow-scrolling: touch;
   }
   .resultadosGridMetrics::-webkit-scrollbar { display: none; }
-  .resultadosGridMetrics > div { 
-    flex: 0 0 calc(70% - 16px); 
-    scroll-snap-align: center; 
-    min-width: 220px; 
+  .resultadosInner .metricCard { 
+    flex: 0 0 260px !important; 
+    width: 260px !important;
+    height: 260px !important; 
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
   }
   
   .compMegaHeader { display: none; }
