@@ -758,3 +758,10 @@
     justify-content: center !important;
   }
 }
+@media (max-width: 768px) {
+  .solucaoHero h2, .resultadosHero h2, .camadasHero h2, .doresHero h2 { font-size: 1.8rem !important; }
+  .btnLargeHero { padding: 14px 32px; font-size: 1rem !important; }
+  .statsGrid { grid-template-columns: 1fr !important; }
+  .compMegaRow { grid-template-columns: 1fr !important; }
+  .resultadosGridMetrics { grid-template-columns: 1fr !important; }
+}

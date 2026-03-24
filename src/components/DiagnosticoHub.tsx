@@ -206,7 +206,7 @@ export default function DiagnosticoHub() {
                 {/* Vetor Laser Escada */}
                 <div 
                   className={styles.stairVector} 
-                  style={{ width: `${200 + item.lvl * 50}px` }}
+                  style={{ width: `${30 + item.lvl * 12}%` }}
                 >
                   <span className={styles.stairIndex}>Stage {item.lvl}</span>
                 </div>

@@ -473,3 +473,12 @@
   margin: 0 auto 20px auto;
   box-shadow: 0 0 40px rgba(200,245,66,0.3);
 }
+
+@media (max-width: 768px) {
+  .title { font-size: 1.8rem !important; }
+  .pulseMeter { width: 100px; height: 100px; font-size: 2rem; }
+  .btnLargeHero { padding: 14px 32px; font-size: 1.1rem; }
+  .stairVector { width: 150px !important; height: 60px !important; display: flex; align-items: center; justify-content: center; }
+  .stairIndex { position: relative; top: -10px !important; right: auto !important; left: 12px !important; margin: 0; }
+  .btnPrimary { width: 100% !important; justify-content: center; }
+}
