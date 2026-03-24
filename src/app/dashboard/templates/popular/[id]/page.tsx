@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@/infrastructure/supabase/client'
 import { ArrowLeft, FileText, Check, Upload, Database, Users } from 'lucide-react'
 import Link from 'next/link'
+import * as XLSX from 'xlsx'
 
 const CURSOS_FICV = [
   "BACHARELADO EM TEOLOGIA EAD",
@@ -32,6 +33,8 @@ export default function PopularTemplatePage() {
   
   const [values, setValues] = useState<Record<string, string>>({})
   const [selectedCourse, setSelectedCourse] = useState('')
+  const [excelRows, setExcelRows] = useState<any[]>([])
+  const [successCount, setSuccessCount] = useState<number | null>(null)
 
   // Campos para carregar do Banco de Dados Dinamicamente
   const [dbCourses, setDbCourses] = useState<any[]>([])
@@ -64,8 +67,44 @@ export default function PopularTemplatePage() {
   }
 
   const handleSpreadsheetUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      alert('✅ Planilha "' + e.target.files[0].name + '" carregada com sucesso! (Simulação de processamento)')
+    const file = e.target.files?.[0]
+    if (!file) return;
+
+    const reader = new FileReader()
+    reader.onload = (evt) => {
+      const bstr = evt.target?.result
+      const wb = XLSX.read(bstr, { type: 'binary' })
+      const wsname = wb.SheetNames[0]
+      const ws = wb.Sheets[wsname]
+      const data = XLSX.utils.sheet_to_json(ws)
+      setExcelRows(data)
+      alert(`✅ Planilha "${file.name}" carregada com êxito! Encontrados ${data.length} registros.`)
+    }
+    reader.readAsBinaryString(file)
+  }
+
+  const handleBulkSubmit = async () => {
+    if (excelRows.length === 0) return;
+    setLoading(true);
+
+    try {
+      // Create body rows based on accurate spreadsheet headers mapping to placeholders tags keys or columns.
+      // E.g. excel data { "NOME DO ALUNO": "Fulano", "CPF": "123" }
+      const response = await fetch(`/api/documentos/batch/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(excelRows)
+      });
+  
+      if (response.ok) {
+        setSuccessCount(excelRows.length)
+      } else {
+        alert("Erro ao enviar pacotes de em massa.");
+      }
+    } catch (err) {
+      alert("Erro de conexão ao enviar dados.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -245,7 +284,7 @@ export default function PopularTemplatePage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
               {fields
-                .filter((f) => !selectedDbCourse || f.chave_tag.toLowerCase() !== '{{notas_disciplinas}}')
+                .filter((f) => !selectedDbCourse || f.chave_tag?.toLowerCase() !== '{{notas_disciplinas}}')
                 .map((f) => (
                 <div key={f.id || f.chave_tag}>
                   <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--secondary)', marginBottom: '5px' }}>{f.rotulo}:</label>
@@ -297,6 +336,23 @@ export default function PopularTemplatePage() {
                 📂 Selecionar Arquivo
               </button>
             </div>
+
+            {excelRows.length > 0 && (
+              <div style={{ marginTop: '1.5rem' }}>
+                <div style={{ fontSize: '0.85rem', background: 'rgba(200,245,66,0.05)', color: 'var(--primary)', padding: '0.8rem', borderRadius: '8px', marginBottom: '1rem', border: '1px solid rgba(200,245,66,0.1)' }}>
+                  🎉 Planilha lida com êxito! Encontrados <strong>{excelRows.length}</strong> registros prontos para emissão.
+                </div>
+                <button onClick={handleBulkSubmit} disabled={loading} style={{ width: '100%', background: '#10b981', color: 'white', border: 'none', padding: '0.8rem', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  {loading ? 'Tratando fila...' : 'Processar Carga em Lote'}
+                </button>
+              </div>
+            )}
+
+            {successCount !== null && (
+              <div style={{ marginTop: '1rem', background: 'rgba(16,185,129,0.1)', color: '#10b981', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', border: '1px solid rgba(16,185,129,0.2)' }}>
+                ✅ <strong>{successCount}</strong> documentos criados com sucesso! Verifique na lista principal.
+              </div>
+            )}
           </div>
         )}
 
