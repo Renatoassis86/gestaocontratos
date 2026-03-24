@@ -42,24 +42,25 @@ export default function PopularTemplatePage() {
   const spreadsheetInputRef = useRef<HTMLInputElement>(null)
 
   const handleDownloadTemplate = () => {
-    // Gerar um CSV simples com os cabeçalhos das variáveis do template
-    let headers = fields.map(f => f.rotulo)
-    
-    // Se houver disciplinas carregadas, adicioná-las aos cabeçalhos
+    let headers = fields.map(f => f.rotulo || f.chave_tag)
     if (dbDisciplines.length > 0) {
       dbDisciplines.forEach(d => {
         headers.push(`NOTA_${d.nome.toUpperCase().replace(/\s+/g, '_')}`)
       })
     }
 
-    const csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + "\n"
-    const encodedUri = encodeURI(csvContent)
-    const link = document.createElement("a")
-    link.setAttribute("href", encodedUri)
-    link.setAttribute("download", `modelo_${template?.titulo || 'documento'}.csv`)
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    // Add ﻿ BOM starting text string to enforce strict UTF-8 CSV parsing in Microsoft Excel Windows
+    const csvContent = "\uFEFF" + headers.join(',') + "\n";
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `modelo_${template?.titulo || 'documento'}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   const handleSpreadsheetUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,7 +113,7 @@ export default function PopularTemplatePage() {
           finalFields = [...flds]
         } else {
           // Fallback: extrair variáveis do corpo se não houver
-          const matches = temp.corpo_template.match(/\{\{([^}]+)\}\}/g) || []
+          const matches = temp.corpo_template ? (temp.corpo_template.match(/\{\{([^}]+)\}\}/g) || []) : []
           const fallbackFields = matches.map((tag: string) => ({
             chave_tag: tag,
             rotulo: tag.replace('{{', '').replace('}}', '').toUpperCase()
