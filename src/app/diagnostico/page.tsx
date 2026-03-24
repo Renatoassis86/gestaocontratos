@@ -335,9 +335,9 @@ export default function DiagnosticoPage() {
                 </div>
               </div>
 
-              <button className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center' }} onClick={() => window.open('https://calendly.com/', '_blank')}>
-                Agende sua Mentoria Estratégica e Avance para o Estágio 5
-              </button>
+              <Link href="/dashboard/modulos" className={styles.btnPrimary} style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}>
+                Conheça as Soluções no Hub Arkos e Avance para o Estágio 5
+              </Link>
             </div>
           </motion.div>
         )}
