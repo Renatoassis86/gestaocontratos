@@ -141,10 +141,10 @@ export default function CompetidoresSeccion() {
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                        {Array.isArray(c.logo) ? (
                            c.logo.map((l, i) => (
-                               <img key={i} src={l} style={{ height: '40px', width: 'fit-content', maxWidth: '140px', filter: 'brightness(0) invert(1)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
+                               <img key={i} src={l} style={{ height: '40px', width: 'fit-content', maxWidth: '140px', filter: 'grayscale(1) contrast(1.3) brightness(1.2)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
                            ))
                        ) : (
-                           <img src={c.logo} style={{ height: '40px', width: 'fit-content', maxWidth: '140px', filter: 'brightness(0) invert(1)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
+                           <img src={c.logo} style={{ height: '40px', width: 'fit-content', maxWidth: '140px', filter: 'grayscale(1) contrast(1.3) brightness(1.2)', opacity: 1.0, objectFit: 'contain' }} alt={c.name} />
                        )}
                     </div>
                     <div>
