@@ -119,15 +119,11 @@ export default function RelatoriosPage() {
   })
 
   const handleExport = () => {
-    // Adicionar BOM (\uFEFF) para garantir que o Excel abra com codificação UTF-8 correta (sem acentos corrompidos)
-    let csvContent = "\uFEFFdata:text/csv;charset=utf-8,"
-    
-    // Alinhar os títulos das colunas com os nomes das variáveis do Moodle
     const headers = availableColumns
       .filter(c => selectedColumns.includes(c.id))
-      .map(c => c.label.toUpperCase()) // Pode ser ajustado para c.id se quiserem a tag exata
+      .map(c => c.label.toUpperCase())
       .join(",")
-    csvContent += headers + "\n"
+    let csvContent = headers + "\n"
 
     filteredAlunos.forEach(aluno => {
       const row = availableColumns
@@ -141,13 +137,15 @@ export default function RelatoriosPage() {
       csvContent += row + "\n"
     })
 
-    const encodedUri = encodeURI(csvContent)
+    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
-    link.setAttribute("href", encodedUri)
+    link.setAttribute("href", url)
     link.setAttribute("download", `relatorio_moodle_curso_${selectedCourse}.csv`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   return (
