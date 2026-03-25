@@ -234,12 +234,12 @@ export default function DiagnosticoHub() {
               ))}
             </div>
 
-            {/* Coluna Direita: Imagem Shield do Nível 5 */}
+            {/* Coluna Direita: Infográfico 3D da Pirâmide */}
             <div className={styles.imageColumn}>
-              <div style={{ position: 'relative', width: '100%', maxWidth: '500px', height: '550px', borderRadius: '40px 40px 250px 250px', overflow: 'hidden', border: '1px solid rgba(200,245,66,0.2)', boxShadow: '0 25px 60px rgba(200,245,66,0.12)', background: '#111318' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '520px', height: '580px', borderRadius: '40px 40px 280px 280px', overflow: 'hidden', border: '1px solid rgba(200,245,66,0.3)', boxShadow: '0 30px 80px rgba(200,245,66,0.15)', background: '#0A0C0F' }}>
                 <img 
-                  src="/maturity_level5_vibrant_1774438346831.png" 
-                  alt="Maturidade Analítica Nível 5" 
+                  src="/pyramid_maturity_graphic_1774459978489.png" 
+                  alt="Infográfico Pirâmide de Maturidade Analítica" 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                 />
               </div>
