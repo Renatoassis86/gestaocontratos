@@ -1,9 +1,9 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import { createClient } from '../../../../../infrastructure/supabase/client'
 import { FileText, Download, Filter, Check, ListFilter, RefreshCw, AlertCircle } from 'lucide-react'
 import { getMoodleCourses, testMoodleConnection } from '../../../../actions'
+import * as XLSX from 'xlsx'
 
 export default function RelatoriosPage() {
   const [loading, setLoading] = useState(false)
@@ -122,26 +122,36 @@ export default function RelatoriosPage() {
     const headers = availableColumns
       .filter(c => selectedColumns.includes(c.id))
       .map(c => c.label.toUpperCase())
-      .join(",")
-    let csvContent = headers + "\n"
 
-    filteredAlunos.forEach(aluno => {
-      const row = availableColumns
+    const rows = filteredAlunos.map(aluno => {
+      return availableColumns
         .filter(c => selectedColumns.includes(c.id))
         .map(c => {
           const val = aluno[c.id]
-          if (typeof val === 'object') return `"${JSON.stringify(val).replace(/"/g, '""')}"`
-          return `"${String(val || '').replace(/"/g, '""')}"`
+          if (typeof val === 'object') return JSON.stringify(val);
+          return String(val || '')
         })
-        .join(",")
-      csvContent += row + "\n"
     })
 
-    const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' })
+    const wb = XLSX.utils.book_new()
+    const ws = XLSX.utils.aoa_to_sheet([headers, ...rows])
+    XLSX.utils.book_append_sheet(wb, ws, 'Relatório Moodle')
+
+    const wopts: any = { bookType: 'xlsx', bookSST: false, type: 'binary' }
+    const wbout = XLSX.write(wb, wopts)
+
+    function s2ab(s: any) {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
+    const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
     link.setAttribute("href", url)
-    link.setAttribute("download", `relatorio_moodle_curso_${selectedCourse}.csv`)
+    link.setAttribute("download", `relatorio_moodle_curso_${selectedCourse}.xlsx`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

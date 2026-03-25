@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@/infrastructure/supabase/client'
 import { ArrowLeft, FileText, Check, Upload, Database, Users } from 'lucide-react'
 import Link from 'next/link'
 import * as XLSX from 'xlsx'
+import { getMoodleCourses, testMoodleConnection } from '../../../../actions'
 
 const CURSOS_FICV = [
   "BACHARELADO EM TEOLOGIA EAD",
@@ -44,22 +45,112 @@ export default function PopularTemplatePage() {
 
   const spreadsheetInputRef = useRef<HTMLInputElement>(null)
 
+  // Estados Integração Moodle
+  function parseMoodleItem(fullname: string) {
+    // Padrao 1: DIREITO - 2024.1 - P1 - DIREITO CIVIL I
+    const p1 = fullname.match(/^(.+?)\s*-\s*(\d{4}\.\d+)\s*-\s*(P\d+)\s*-\s*(.+)$/);
+    if (p1) return { curso: p1[1].trim(), periodo: p1[2].trim(), modulo: p1[3].trim(), disciplina: p1[4].trim() };
+
+    // Padrao 2: PÓS EAD - 2024.1 - POSECC/T3 - 06 VERDADE, BONDADE E BELEZA
+    const p2 = fullname.match(/^PÓS EAD\s*-\s*(\d{4}\.\d+)\s*-\s*([^/]+)\/T(\d+)\s*-\s*(.+)$/);
+    if (p2) return { curso: `PÓS EAD (${p2[2].trim()})`, periodo: p2[1].trim(), modulo: `T${p2[3].trim()}`, disciplina: p2[4].trim() };
+
+    // Padrao 3: EAD - 2020.2 - P1 - ETICA I
+    const p3 = fullname.match(/^EAD\s*-\s*(\d{4}\.\d+)\s*-\s*(P\d+)\s*-\s*(.+)$/);
+    if (p3) return { curso: 'EAD', periodo: p3[1].trim(), modulo: p3[2].trim(), disciplina: p3[3].trim() };
+
+    // Padrao 4: EBCV - 2023.1 - Introdução...
+    const p4 = fullname.match(/^EBCV\s*-\s*(\d{4}\.\d+)\s*-\s*(.+)$/);
+    if (p4) return { curso: 'EBCV', periodo: p4[1].trim(), modulo: '-', disciplina: p4[2].trim() };
+
+    return { curso: 'Extracurricular/Livre', periodo: '-', modulo: '-', disciplina: fullname };
+  }
+
+  function getAllDescendantCategoryIds(catId: string, list: any[]): string[] {
+    let res = [catId];
+    const children = list.filter(c => String(c.parent) === catId).map(c => String(c.id));
+    for (const child of children) {
+      res = [...res, ...getAllDescendantCategoryIds(child, list)];
+    }
+    return res;
+  }
+
+  const [moodleCategories, setMoodleCategories] = useState<any[]>([])
+  const [moodleCourses, setMoodleCourses] = useState<any[]>([])
+  const [moodleCategoryChain, setMoodleCategoryChain] = useState<string[]>(['all'])
+  const [moodleSelectedAno, setMoodleSelectedAno] = useState<string>('all')
+  const [moodleSelectedCursoSub, setMoodleSelectedCursoSub] = useState<string>('all')
+  const [moodleSelectedModulo, setMoodleSelectedModulo] = useState<string>('all')
+  const [moodleSelectedCourseState, setMoodleSelectedCourseState] = useState<string>('all')
+  const [moodleAlunos, setMoodleAlunos] = useState<any[]>([])
+  const [moodleLoadingAlunos, setMoodleLoadingAlunos] = useState(false)
+  const [moodleSelectedAlunoLocal, setMoodleSelectedAlunoLocal] = useState<any | null>(null)
+
+  const currentCategoryCoursesFiltered = useMemo(() => {
+    return moodleCourses.filter((c: any) => {
+      const activeCatId = moodleCategoryChain[moodleCategoryChain.length - 1] === 'all' 
+        ? (moodleCategoryChain.length > 1 ? moodleCategoryChain[moodleCategoryChain.length - 2] : 'all') 
+        : moodleCategoryChain[moodleCategoryChain.length - 1];
+
+      if (activeCatId !== 'all') {
+        const descendantIds = getAllDescendantCategoryIds(activeCatId, moodleCategories);
+        return descendantIds.includes(String(c.categoryid));
+      }
+      return true;
+    }).map((c: any) => ({
+      ...c,
+      parsed: parseMoodleItem(c.fullname)
+    }));
+  }, [moodleCourses, moodleCategoryChain, moodleCategories]);
+
+  const distinctAnos = useMemo(() => {
+    return Array.from(new Set(currentCategoryCoursesFiltered.map((c: any) => c.parsed.periodo).filter((p: any) => p !== '-'))).sort().reverse();
+  }, [currentCategoryCoursesFiltered]);
+
+  const distinctCursos = useMemo(() => {
+    return Array.from(new Set(currentCategoryCoursesFiltered.map((c: any) => c.parsed.curso).filter((c: any) => c !== '-'))).sort();
+  }, [currentCategoryCoursesFiltered]);
+
+  const distinctModulos = useMemo(() => {
+    return Array.from(new Set(currentCategoryCoursesFiltered.map((c: any) => c.parsed.modulo).filter((m: any) => m !== '-'))).sort();
+  }, [currentCategoryCoursesFiltered]);
+
   const handleDownloadTemplate = () => {
     let headers = fields.map(f => f.rotulo || f.chave_tag)
+    
+    // Forçar CPF e NOME DO ALUNO no início
+    const priority = ['CPF', 'NOME ALUNO', 'NOME DO ALUNO']
+    headers = [
+      ...priority.filter(p => headers.includes(p)),
+      ...headers.filter(h => !priority.includes(h))
+    ]
+
     if (dbDisciplines.length > 0) {
       dbDisciplines.forEach(d => {
         headers.push(`NOTA_${d.nome.toUpperCase().replace(/\s+/g, '_')}`)
       })
     }
 
-    // Add ﻿ BOM starting text string to enforce strict UTF-8 CSV parsing in Microsoft Excel Windows
-    const csvContent = "\uFEFF" + headers.join(',') + "\n";
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const wb = XLSX.utils.book_new()
+    const ws = XLSX.utils.aoa_to_sheet([headers])
+    XLSX.utils.book_append_sheet(wb, ws, 'Modelo Importacao')
+
+    const wopts: any = { bookType: 'xlsx', bookSST: false, type: 'binary' }
+    const wbout = XLSX.write(wb, wopts)
+
+    function s2ab(s: any) {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
+    const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
     
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `modelo_${template?.titulo || 'documento'}.csv`);
+    link.setAttribute("download", `modelo_${template?.titulo || 'documento'}.xlsx`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -197,6 +288,21 @@ export default function PopularTemplatePage() {
     }
     loadDisciplines()
   }, [selectedDbCourse])
+
+  // Efeito para carregar categorias e cursos do Moodle
+  useEffect(() => {
+    if (tab !== 'moodle' || moodleCategories.length > 0) return;
+    async function loadMoodleData() {
+      try {
+        const result = await getMoodleCourses()
+        if (result.success) {
+          setMoodleCourses(result.courses || [])
+          setMoodleCategories(result.categories || [])
+        }
+      } catch (err) {}
+    }
+    loadMoodleData()
+  }, [tab, moodleCategories.length])
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -360,35 +466,220 @@ export default function PopularTemplatePage() {
         {tab === 'moodle' && (
           <div style={{ display: 'grid', gap: '1.2rem' }}>
             <h3 style={{ color: 'white', marginBottom: '10px' }}>Buscar dados do Moodle</h3>
-            <p style={{ color: 'var(--secondary)', fontSize: '0.85rem' }}>Selecione a turma e o curso no Moodle para carregar as notas e dados dos alunos automaticamente.</p>
+            <p style={{ color: 'var(--secondary)', fontSize: '0.85rem' }}>Filtre para carregar alunos e médias de forma consolidada e popular o documento.</p>
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.8rem' }}>
+              {moodleCategoryChain.map((catId, idx) => {
+                const parentId = idx === 0 ? 0 : Number(moodleCategoryChain[idx - 1]);
+                if (idx > 0 && moodleCategoryChain[idx - 1] === 'all') return null; 
+
+                const items = moodleCategories.filter(cat => Number(cat.parent) === parentId);
+                if (items.length === 0 && idx > 0) return null; 
+
+                return (
+                  <div key={idx}>
+                    <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>
+                      {idx === 0 ? 'Unidade / Instituição:' : 
+                       idx === 1 ? 'Departamento / Escola:' : 
+                       'Área / Núcleo:'}
+                    </label>
+                    <select 
+                      value={catId} 
+                      onChange={(e) => { 
+                        const val = e.target.value;
+                        let newChain = [...moodleCategoryChain.slice(0, idx), val];
+                        if (val !== 'all') {
+                          const hasKids = moodleCategories.some(cat => Number(cat.parent) === Number(val));
+                          if (hasKids) newChain.push('all');
+                        }
+                        setMoodleCategoryChain(newChain);
+                        setMoodleSelectedCourseState('all');
+                        setMoodleAlunos([]);
+                        setMoodleSelectedAlunoLocal(null);
+                      }}
+                      style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white', fontSize: '0.85rem' }}
+                    >
+                      <option value="all">{idx === 0 ? 'Ver Todas' : 'Todas'}</option>
+                      {items.map(cat => (
+                        <option key={cat.id} value={String(cat.id)}>{cat.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--secondary)', marginBottom: '5px' }}>Selecione o Curso:</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>Curso:</label>
                 <select 
-                  value={selectedCourse}
-                  onChange={(e) => setSelectedCourse(e.target.value)}
-                  style={{ width: '100%', padding: '0.75rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white' }}
+                  value={moodleSelectedCursoSub} 
+                  onChange={(e) => { setMoodleSelectedCursoSub(e.target.value); setMoodleAlunos([]); setMoodleSelectedCourseState('all'); }}
+                  style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white', fontSize: '0.85rem' }}
                 >
-                  <option value="">--- Selecione ---</option>
-                  {CURSOS_FICV.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
+                  <option value="all">Ver Todos</option>
+                  {distinctCursos.map((c: any) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
+
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--secondary)', marginBottom: '5px' }}>Selecione a Turma:</label>
-                <select style={{ width: '100%', padding: '0.75rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white' }}>
-                  <option>--- Selecione ---</option>
-                  <option>Turma 2024.1</option>
-                  <option>Turma 2024.2</option>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>Ano / Período:</label>
+                <select 
+                  value={moodleSelectedAno} 
+                  onChange={(e) => { setMoodleSelectedAno(e.target.value); setMoodleAlunos([]); setMoodleSelectedCourseState('all'); }}
+                  style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white', fontSize: '0.85rem' }}
+                >
+                  <option value="all">Ver Todos</option>
+                  {distinctAnos.map((a: any) => <option key={a} value={a}>{a}</option>)}
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>Módulo:</label>
+                <select 
+                  value={moodleSelectedModulo} 
+                  onChange={(e) => { setMoodleSelectedModulo(e.target.value); setMoodleAlunos([]); setMoodleSelectedCourseState('all'); }}
+                  style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white', fontSize: '0.85rem' }}
+                >
+                  <option value="all">Ver Todos</option>
+                  {distinctModulos.map((m: any) => <option key={m} value={m}>{m}</option>)}
                 </select>
               </div>
             </div>
 
-            <button style={{ justifySelf: 'start', marginTop: '1rem', padding: '0.8rem 1.5rem', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Users size={18} /> Sincronizar Alunos
+            <div>
+              <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--secondary)', marginBottom: '5px' }}>Disciplina / Filtro Final:</label>
+              <select 
+                value={moodleSelectedCourseState} 
+                onChange={(e) => { setMoodleSelectedCourseState(e.target.value); setMoodleAlunos([]); setMoodleSelectedAlunoLocal(null); }}
+                style={{ width: '100%', padding: '0.6rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white', fontSize: '0.85rem' }}
+              >
+                <option value="all">Todas as Disciplinas</option>
+                {currentCategoryCoursesFiltered
+                  .filter((c: any) => {
+                    const matchYear = moodleSelectedAno === 'all' || c.parsed.periodo === moodleSelectedAno;
+                    const matchCurso = moodleSelectedCursoSub === 'all' || c.parsed.curso === moodleSelectedCursoSub;
+                    const matchModulo = moodleSelectedModulo === 'all' || c.parsed.modulo === moodleSelectedModulo;
+                    return matchYear && matchCurso && matchModulo;
+                  })
+                  .map((c: any) => (
+                    <option key={c.id} value={String(c.id)}>{c.parsed.disciplina}</option>
+                  ))
+                }
+              </select>
+            </div>
+
+            <button 
+              style={{ justifySelf: 'start', marginTop: '0.5rem', padding: '0.8rem 1.5rem', background: 'var(--primary)', color: '#000', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px', opacity: moodleLoadingAlunos ? 0.6 : 1 }}
+              disabled={moodleLoadingAlunos}
+              onClick={async () => {
+                setMoodleLoadingAlunos(true);
+                setMoodleSelectedAlunoLocal(null);
+                try {
+                  const coursesToSync = moodleSelectedCourseState !== 'all' 
+                    ? currentCategoryCoursesFiltered.filter((c: any) => String(c.id) === moodleSelectedCourseState)
+                    : currentCategoryCoursesFiltered.filter((c: any) => {
+                        const matchYear = moodleSelectedAno === 'all' || c.parsed.periodo === moodleSelectedAno;
+                        const matchCurso = moodleSelectedCursoSub === 'all' || c.parsed.curso === moodleSelectedCursoSub;
+                        const matchModulo = moodleSelectedModulo === 'all' || c.parsed.modulo === moodleSelectedModulo;
+                        return matchYear && matchCurso && matchModulo;
+                      });
+
+                  if (coursesToSync.length === 0) {
+                    alert('Nenhum curso correspondente aos filtros atuais para sincronizar.');
+                    setMoodleLoadingAlunos(false);
+                    return;
+                  }
+
+                  // Limitar a lotes de 10 cursos para evitar sobrecarga e lentidão na API
+                  const batch = coursesToSync.slice(0, 10);
+                  const results = await Promise.all(batch.map((c: any) => testMoodleConnection(String(c.id), 'historico')));
+                  
+                  let aggregatedUsers: any[] = [];
+                  for (const res of results) {
+                    if (res.success && res.allUsers) {
+                      aggregatedUsers = [...aggregatedUsers, ...res.allUsers];
+                    }
+                  }
+
+                  const uniqueUsers = Array.from(new Map(aggregatedUsers.map((u: any) => [u.id, u])).values());
+                  setMoodleAlunos(uniqueUsers);
+
+                  if (uniqueUsers.length === 0) {
+                    alert('Nenhum aluno encontrado para os cursos selecionados no Moodle.');
+                  } else if (coursesToSync.length > 10) {
+                    alert(`Sincronizados alunos dos primeiros 10 cursos (${uniqueUsers.length} alunos). Refine os filtros para mais precisão.`);
+                  }
+                } catch (e) {
+                  console.error(e);
+                }
+                setMoodleLoadingAlunos(false);
+              }}
+            >
+              <Users size={18} /> {moodleLoadingAlunos ? 'Sincronizando...' : 'Sincronizar Alunos'}
             </button>
+
+            {moodleAlunos.length > 0 && (
+              <div style={{ marginTop: '0.5rem' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', color: 'var(--secondary)', marginBottom: '5px' }}>Selecione o Aluno para Carregar:</label>
+                <select 
+                  onChange={(e) => {
+                    const selected = moodleAlunos.find(a => String(a.id) === e.target.value);
+                    setMoodleSelectedAlunoLocal(selected || null);
+                    if (selected) {
+                      setValues(prev => ({
+                        ...prev,
+                        '{{nome_aluno}}': selected.fullname || '',
+                        '{{cpf}}': selected.cpf || '',
+                        '{{email}}': selected.email || '',
+                        '{{nome_curso}}': moodleCourses.find(c => String(c.id) === moodleSelectedCourseState)?.fullname || ''
+                      }));
+                    }
+                  }}
+                  style={{ width: '100%', padding: '0.75rem', background: '#0a0a0b', border: '1px solid var(--border)', borderRadius: '8px', color: 'white' }}
+                >
+                  <option value="">--- Selecione um Aluno ---</option>
+                  {moodleAlunos.map((a) => (
+                    <option key={a.id} value={String(a.id)}>{a.fullname} - {a.cpf || 'Sem CPF'}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {moodleSelectedAlunoLocal && (
+              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', marginTop: '0.5rem' }}>
+                <h4 style={{ color: 'var(--primary)', fontSize: '0.85rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>📥 Dados Moodle Mapeados:</h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem', marginBottom: '1rem' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'white' }}><strong>Nome:</strong> {moodleSelectedAlunoLocal.fullname}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'white' }}><strong>CPF:</strong> {moodleSelectedAlunoLocal.cpf || 'Não informado'}</div>
+                </div>
+
+                {moodleSelectedAlunoLocal.notas_disciplinas && moodleSelectedAlunoLocal.notas_disciplinas !== '-' && (
+                  <div>
+                    <h5 style={{ color: 'var(--secondary)', fontSize: '0.75rem', marginBottom: '6px' }}>Médias Finais das Disciplinas:</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px' }}>
+                      {moodleSelectedAlunoLocal.notas_disciplinas.split(' | ').map((n: string, i: number) => {
+                        const [name, score] = n.split(':');
+                        return (
+                          <div key={i} style={{ background: '#0a0a0b', padding: '0.5rem', borderRadius: '6px', fontSize: '0.75rem', display: 'flex', justifyContent: 'space-between', border: '1px solid rgba(255,255,255,0.02)' }}>
+                            <span style={{ color: 'var(--secondary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }} title={name}>{name}</span>
+                            <span style={{ fontWeight: 800, color: 'var(--primary)' }}>{score || '-'}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                
+                <button 
+                  onClick={() => { setTab('manual'); alert('✅ Dados pré-populados na aba Manual!'); }} 
+                  style={{ marginTop: '1rem', padding: '0.6rem 1rem', background: '#10b981', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}
+                >
+                  Concluir e Ver Formulário
+                </button>
+              </div>
+            )}
+            
           </div>
         )}
 

@@ -25,7 +25,7 @@ export default function ExploradorMoodle() {
   const [cursos, setCursos] = useState<any[]>([])
   const [categories, setCategories] = useState<any[]>([])
   
-  const [selectedCourse, setSelectedCourse] = useState<string>('')
+  const [selectedCourse, setSelectedCourse] = useState<string>('all')
   const [alunos, setAlunos] = useState<any[]>([])
   const [loadingAlunos, setLoadingAlunos] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -54,9 +54,7 @@ export default function ExploradorMoodle() {
         if (result.success) {
           setCursos(result.courses || [])
           setCategories(result.categories || [])
-          if (result.courses && result.courses.length > 0) {
-            setSelectedCourse(String(result.courses[0].id))
-          }
+          setSelectedCourse('all')
         } else {
           setError(result.error || "Falha ao carregar metadados estruturais do Moodle.")
         }
@@ -107,17 +105,35 @@ export default function ExploradorMoodle() {
   const loadMultipleCourseStudents = async (ids: string[]) => {
     setLoadingAlunos(true)
     setMoodleLogs([])
-    let combined: any[] = []
+    setAlunos([]) // Limpar anteriores para streaming visível
+    
     try {
-      for (const id of ids) {
-        const result = await testMoodleConnection(id, 'historico')
-        if (result.success && result.allUsers) {
-          combined = [...combined, ...result.allUsers]
+      const BATCH_SIZE = 8; // Processar de 8 em 8 cursos em paralelo para velocidade ideal sem pane
+      for (let i = 0; i < ids.length; i += BATCH_SIZE) {
+        const batch = ids.slice(i, i + BATCH_SIZE);
+        const results = await Promise.all(
+          batch.map(id => testMoodleConnection(id, 'historico').catch(() => ({ success: false })))
+        );
+
+        let batchUsers: any[] = []
+        results.forEach(result => {
+          const res = result as any;
+          if (res && res.success && res.allUsers) {
+            batchUsers = [...batchUsers, ...res.allUsers]
+          }
+        });
+
+        if (batchUsers.length > 0) {
+          setAlunos(prev => {
+             // Evitar duplicados se o mesmo aluno estiver em múltiplos cursos
+             const unique = new Map();
+             [...prev, ...batchUsers].forEach(u => unique.set(`${u.id}-${u.curso}`, u));
+             return Array.from(unique.values());
+          });
         }
       }
-      setAlunos(combined)
     } catch (e) {
-      setAlunos([])
+      console.error(e);
     } finally {
       setLoadingAlunos(false)
     }
@@ -364,7 +380,7 @@ export default function ExploradorMoodle() {
                   onChange={(e) => setSelectedCourse(e.target.value)}
                   className={styles.select}
                 >
-                  <option value="all">Selecione...</option>
+                  <option value="all">Todas</option>
                   {cursos
                     .filter(c => {
                       const matchSearch = courseSearch === '' || c.fullname.toLowerCase().includes(courseSearch.toLowerCase());
@@ -408,7 +424,7 @@ export default function ExploradorMoodle() {
                 <label>Status:</label>
                 <select 
                   value={statusFilter} 
-                  onChange={(e: any) => setStatusFilter(e.target.value)}
+                  onChange={(e) => setStatusFilter(e.target.value as any)}
                   className={styles.select}
                 >
                   <option value="all">Ver Todos</option>
@@ -434,9 +450,37 @@ export default function ExploradorMoodle() {
               <div className={styles.inputGroup}>
                 <button 
                   className={styles.nlpButton} 
-                  style={{ width: '100%', padding: '0.625rem', justifyContent: 'center', background: selectedCourse === 'all' ? 'var(--secondary)' : 'var(--primary)', color: '#000', fontWeight: 800, opacity: selectedCourse === 'all' ? 0.3 : 1 }} 
-                  onClick={() => selectedCourse !== 'all' && loadCourseStudents(selectedCourse)}
-                  disabled={selectedCourse === 'all'}
+                  style={{ width: '100%', padding: '0.625rem', justifyContent: 'center', background: 'var(--primary)', color: '#000', fontWeight: 800, opacity: 1 }} 
+                  onClick={() => {
+                    if (selectedCourse !== 'all') {
+                      loadCourseStudents(selectedCourse);
+                    } else {
+                      const filteredCourseIds = cursos
+                        .filter(c => {
+                          const matchSearch = courseSearch === '' || c.fullname.toLowerCase().includes(courseSearch.toLowerCase());
+                          if (!matchSearch) return false;
+
+                          const activeCatId = categoryChain[categoryChain.length - 1] === 'all' 
+                            ? (categoryChain.length > 1 ? categoryChain[categoryChain.length - 2] : 'all') 
+                            : categoryChain[categoryChain.length - 1];
+
+                          if (activeCatId !== 'all') {
+                            const descendantIds = getAllDescendantCategoryIds(activeCatId, categories);
+                            const matchCat = descendantIds.includes(String(c.categoryid));
+                            if (!matchCat) return false;
+                          }
+
+                          const matchYear = selectedAno === 'all' || c.fullname.includes(selectedAno);
+                          return matchYear;
+                        })
+                        .map(c => String(c.id));
+
+                      if (filteredCourseIds.length > 0) {
+                        loadMultipleCourseStudents(filteredCourseIds);
+                      }
+                    }
+                  }}
+                  disabled={false}
                 >
                   Carregar
                 </button>
