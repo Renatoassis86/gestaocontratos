@@ -195,55 +195,53 @@ export default function DiagnosticoHub() {
             <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center' }}>O Caminho para a Competitividade</h2>
           </div>
           
-          <div className={styles.stairsFlexGroup} style={{ padding: '0 20px' }}>
-            <div className={styles.stairInfographic} style={{ flex: 1.2 }}>
+          <div className={styles.stairsFlexGroup}>
+            <div className={styles.stairInfographic} style={{ alignItems: 'center', flex: 1.5 }}>
               {[
-                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio.', highlight: true },
-                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.' },
-                { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados em repositórios centrais.' },
-                { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
-                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' }
+                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio.', population: 'Top 5%' },
+                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.', population: '≈ 15%' },
+                { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados centralmente.', population: '≈ 30%' },
+                { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em silos funcionais, sem integração empresarial.', population: '≈ 40%' },
+                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico da liderança.', population: '90% do Mercado' }
               ].map((item, idx) => (
                 <div 
                   key={item.lvl} 
                   className={styles.stairRow}
-                  style={{ justifyContent: 'flex-start', marginBottom: '14px', width: '100%' }}
+                  style={{ justifyContent: 'center', width: '100%', marginBottom: '-1px' }} /* Stacking tight like a pyramid */
                 >
-                  {/* Card Descrição atuando como bloco da escada */}
                   <div 
                     className={styles.statCard} 
                     style={{ 
-                      border: '1px solid #C8F542',
-                      background: item.highlight ? 'rgba(200,245,66,0.05)' : '#111318',
-                      // @ts-ignore
-                      '--card-width': `min(${300 + item.lvl * 70}px, 100%)`,
-                      boxShadow: '0 4px 20px rgba(200,245,66,0.05)',
-                      flex: 'none'
+                      width: `${100 - (item.lvl * 12)}%`, /* Decreasing width for higher levels */
+                      minWidth: '280px',
+                      maxWidth: '850px',
+                      borderRadius: item.lvl === 5 ? '12px 12px 0 0' : item.lvl === 1 ? '0 0 12px 12px' : '0',
+                      borderBottomColor: item.lvl === 1 ? '#C8F542' : 'rgba(200,245,66,0.2)',
+                      background: item.lvl === 5 ? 'rgba(200,245,66,0.08)' : '#111318',
+                      position: 'relative'
                     } as React.CSSProperties}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.8rem', fontFamily: 'monospace' }}>NÍVEL {item.lvl}</span>
-                      <span style={{ color: '#8A8F99', fontSize: '0.7rem', opacity: 0.6 }}>Stage {item.lvl}</span>
+                    <div style={{ position: 'absolute', top: '10px', left: '16px', fontSize: '0.625rem', color: '#C8F542', fontWeight: 800, opacity: 0.8 }}>
+                      {item.population}
                     </div>
-                    <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#F4F2ED', marginBottom: '6px' }}>{item.t}</div>
-                    <div style={{ fontSize: '0.875rem', color: '#8A8F99', lineHeight: '1.6' }}>{item.d}</div>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px', paddingTop: '10px' }}>
+                      <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.9rem', fontFamily: 'monospace', letterSpacing: '2px' }}>NÍVEL {item.lvl}</span>
+                    </div>
+                    <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#F4F2ED', marginBottom: '6px', textAlign: 'center' }}>{item.t}</div>
+                    <div style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.5', textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}>{item.d}</div>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Coluna Direita: Imagem Shield do Nível 5 */}
-            <div style={{ flex: 0.8, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-              <div style={{ position: 'relative', width: '100%', maxWidth: '380px', height: '440px', borderRadius: '40px 40px 240px 240px', overflow: 'hidden', border: '1px solid rgba(200,245,66,0.15)', boxShadow: '0 20px 50px rgba(200,245,66,0.08)', background: '#111318' }}>
+            <div className={styles.imageColumn}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '500px', height: '550px', borderRadius: '40px 40px 250px 250px', overflow: 'hidden', border: '1px solid rgba(200,245,66,0.2)', boxShadow: '0 25px 60px rgba(200,245,66,0.12)', background: '#111318' }}>
                 <img 
-                  src="/arkos_executive_dashboard_1774143501248.png" 
-                  alt="Escalar ao Nivel 5" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8, filter: 'grayscale(40%)' }} 
+                  src="/maturity_level5_vibrant_1774438346831.png" 
+                  alt="Maturidade Analítica Nível 5" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                 />
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, rgba(13,14,18,0.2) 0%, rgba(13,14,18,1) 100%)' }} />
-                <div style={{ position: 'absolute', bottom: '30px', left: '0', right: '0', textAlign: 'center', color: '#C8F542', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                  Chegue ao Nível 5
-                </div>
               </div>
             </div>
           </div>
@@ -272,7 +270,7 @@ export default function DiagnosticoHub() {
             </div>
 
             <div className={styles.mediaWrapperDelta}>
-                <img src="/modelo_delta_empresarial_v3.png" alt="Grupo Estratégico Modelo DELTA" className={styles.mediaDelta} />
+                <img src="/modelo_delta_full_names_1774438372619.png" alt="Grupo Estratégico Modelo DELTA" className={styles.mediaDelta} />
 
             </div>
 

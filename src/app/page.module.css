@@ -283,7 +283,7 @@
 }
 
 .videoPlayer {
-  width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.3s;
+  width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 0.3s;
 }
 
 .videoArchContainer:hover .videoPlayer { opacity: 1; }

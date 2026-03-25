@@ -289,7 +289,8 @@ export default function Home() {
                 ref={solucaoVideoRef}
                 autoPlay loop muted playsInline 
                 className={styles.videoPlayer}
-                src="/hero-arkos-video.mp4"
+                src="/hero-main-arkos.mp4"
+                poster="/maturity_level5_vibrant_1774438346831.png"
               />
             </div>
             <div className={styles.videoBtmBadge}>

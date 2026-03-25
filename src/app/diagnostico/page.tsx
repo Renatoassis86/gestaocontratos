@@ -235,17 +235,23 @@ export default function DiagnosticoPage() {
         </div>
       )}
 
-      {/* Logo Arkos no Topo */}
-      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px', marginBottom: '10px' }}>
+      {/* Persistent Logo Header for perfect alignment */}
+      <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', paddingTop: '20px', zIndex: 10 }}>
         <Link href="/">
-          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '28px', opacity: 0.9, cursor: 'pointer' }} />
+          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '32px', opacity: 1, cursor: 'pointer' }} />
         </Link>
       </div>
 
       <AnimatePresence mode='wait'>
         {step === 'lead' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.quizSection} style={{ padding: '20px' }}>
-            <div className={styles.quizContainer} style={{ background: '#111318', border: '1px solid #1F242D', maxWidth: '500px', margin: '60px auto' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0 }} 
+            className={styles.quizSection} 
+            style={{ padding: '40px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          >
+            <div className={styles.quizContainer} style={{ background: '#111318', border: '1px solid #1F242D', maxWidth: '500px', width: '100%', margin: '0' }}>
               <h3 className={styles.title} style={{ fontSize: '1.75rem', textAlign: 'center', color: '#C8F542' }}>Descubra a Maturidade Analítica da sua Empresa</h3>
               <p className={styles.description} style={{ color: '#8A8F99', textAlign: 'center' }}>Preencha os dados obrigatórios para iniciar o questionário.</p>
               

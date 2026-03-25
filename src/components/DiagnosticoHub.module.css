@@ -153,58 +153,79 @@
 
 .stairsFlexGroup {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   width: 100%;
+  padding: 0 40px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .stairsFlexGroup {
-    flex-direction: column !important;
-    gap: 30px;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
   }
 }
 
 .stairInfographic {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  width: 100%;
+  gap: 12px;
+  flex: 1.2;
 }
 
 .stairRow {
   display: flex;
   align-items: center;
-  gap: 24px;
   width: 100%;
+  margin-bottom: 8px;
+}
+
+.level1, .level2, .level3, .level4, .level5 { margin-left: 0; }
+
+@media (max-width: 1024px) {
+  .level1, .level2, .level3, .level4, .level5 {
+    margin-left: 0 !important;
+  }
 }
 
 .statCard {
   background: #111318;
   padding: 24px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.02);
+  border: 1px solid #C8F542;
   width: var(--card-width, 100%);
   max-width: 100%;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(200, 245, 66, 0.05);
+}
+
+.statCard:hover {
+  transform: translateX(10px);
+  background: rgba(200, 245, 66, 0.03);
+  box-shadow: 0 8px 30px rgba(200, 245, 66, 0.1);
 }
 
 @media (max-width: 768px) {
   .statCard {
-    width: 100% !important;
+    /* Manter formato pirâmide mesmo no mobile, mas com largura mínima segura */
+    min-width: 280px;
   }
 }
 
-@media (max-width: 768px) {
-  .stairRow {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 16px !important;
-  }
-  .stairVector {
-    display: none !important;
+.imageColumn {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .imageColumn {
+    max-width: 400px;
   }
 }
 
