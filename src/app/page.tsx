@@ -289,10 +289,8 @@ export default function Home() {
                 ref={solucaoVideoRef}
                 autoPlay loop muted playsInline 
                 className={styles.videoPlayer}
-                
-              >
-                <source src="/hero-arkos-video.mp4" type="video/mp4" />
-              </video>
+                src="/hero-arkos-video.mp4"
+              />
             </div>
             <div className={styles.videoBtmBadge}>
               <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Sua operação movida a</span> Inteligência Estrutural <span style={{ color: '#C8F542' }}>&rarr;</span>
@@ -302,20 +300,20 @@ export default function Home() {
           {/* Right: Differentiators Accordion */}
           <div>
             <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '12px' }}>A ARKOS É SUA SOLUÇÃO</div>
-            <p style={{ color: '#F4F2ED', fontSize: '1.125rem', fontWeight: 700, marginBottom: '20px', lineHeight: '1.5', fontFamily: 'Sora, sans-serif' }}>Para escalar sua empresa ao patamar das gigantes analíticas, a <strong>ARKOS</strong> atua como a espinha dorsal da sua inteligência corporativa.</p>
-            <h3 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos <em style={{ color: '#C8F542', fontStyle: 'italic' }}>infraestrutura e inteligência.</em></h3>
-            <p style={{ color: '#8A8F99', fontSize: '0.938rem', lineHeight: '1.8', marginBottom: '32px' }}>Nossa diferenciacão não está em uma licença de ferramenta. Estão na arquitetura de dados que construímos, na inteligência que treinamos sobre os seus processos e na capacidade analítica que formamos dentro do seu time.</p>
+            <p style={{ color: '#F4F2ED', fontSize: '1.25rem', fontWeight: 700, marginBottom: '20px', lineHeight: '1.5', fontFamily: 'Sora, sans-serif' }}>Para escalar sua empresa ao patamar das gigantes analíticas, a <strong>ARKOS</strong> atua como a espinha dorsal da sua inteligência corporativa.</p>
+            <h3 style={{ fontSize: '2rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '20px', lineHeight: '1.3' }}>Não vendemos software. Vendemos <em style={{ color: '#C8F542', fontStyle: 'italic' }}>infraestrutura e inteligência.</em></h3>
+            <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.8', marginBottom: '32px' }}>Nossa diferenciacão não está em uma licença de ferramenta. Estão na arquitetura de dados que construímos, na inteligência que treinamos sobre os seus processos e na capacidade analítica que formamos dentro do seu time.</p>
             
             <div className={styles.accList}>
               <div className={styles.accItem}>
                 <div className={styles.accHeader}>
                   <div className={styles.accTitleBlock}>
-                    <Shield size={20} color="#C8F542" />
-                    <span className={styles.accTitle}>Operação Analítica de Alto Nível</span>
+                    <Shield size={22} color="#C8F542" />
+                    <span className={styles.accTitle} style={{ fontSize: '1.15rem' }}>Operação Analítica de Alto Nível</span>
                   </div>
                   <span style={{ color: '#8A8F99' }}>+</span>
                 </div>
-                <div className={styles.accText}>
+                <div className={styles.accText} style={{ fontSize: '0.925rem' }}>
                   Operamos em analytics avançado, conectando referências para todo o conhecimento executivo da corporação. Menos de 5% das empresas cruzam bases com esse grau de assertividade em tempo real sem ficarem alienadas das suas metas logísticas reais.
                 </div>
               </div>
