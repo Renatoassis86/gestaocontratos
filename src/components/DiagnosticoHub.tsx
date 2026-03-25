@@ -216,7 +216,7 @@ export default function DiagnosticoHub() {
                       border: '1px solid #C8F542',
                       background: item.highlight ? 'rgba(200,245,66,0.05)' : '#111318',
                       // @ts-ignore
-                      '--card-width': `${300 + (6 - item.lvl) * 70}px`,
+                      '--card-width': `min(${300 + item.lvl * 70}px, 100%)`,
                       boxShadow: '0 4px 20px rgba(200,245,66,0.05)',
                       flex: 'none'
                     } as React.CSSProperties}
