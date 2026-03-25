@@ -203,29 +203,32 @@ export default function DiagnosticoHub() {
               { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
               { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' }
             ].map((item, idx) => (
-              <div key={item.lvl} className={styles.stairRow}>
-                {/* Vetor Laser Escada */}
-                <div 
-                  className={styles.stairVector} 
-                  style={{ width: `${200 + item.lvl * 50}px` }}
-                >
-                  <span className={styles.stairIndex}>Stage {item.lvl}</span>
-                </div>
-
-                {/* Card Descrição */}
+              <div 
+                key={item.lvl} 
+                className={styles.stairRow}
+                style={{ justifyContent: 'flex-start', marginBottom: '14px', width: '100%' }}
+              >
+                {/* Card Descrição atuando como bloco da escada */}
                 <div 
                   className={styles.statCard} 
                   style={{ 
-                    borderLeft: item.highlight ? '4px solid #C8F542' : '4px solid rgba(255,255,255,0.1)',
-                    background: item.highlight ? 'rgba(200,245,66,0.02)' : '#111318',
-                    flex: 1
+                    border: '1px solid #C8F542',
+                    background: item.highlight ? 'rgba(200,245,66,0.05)' : '#111318',
+                    width: `${300 + item.lvl * 70}px`,
+                    maxWidth: '100%',
+                    padding: '24px',
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 20px rgba(200,245,66,0.05)',
+                    transition: 'all 0.3s ease',
+                    flex: 'none'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ fontWeight: 800, color: item.highlight ? '#C8F542' : '#8A8F99', fontSize: '0.85rem' }}>NÍVEL {item.lvl}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                    <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.8rem', fontFamily: 'monospace' }}>NÍVEL {item.lvl}</span>
+                    <span style={{ color: '#8A8F99', fontSize: '0.7rem', opacity: 0.6 }}>Stage {item.lvl}</span>
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: '1.1rem', color: '#F4F2ED', marginBottom: '4px' }}>{item.t}</div>
-                  <div style={{ fontSize: '0.85rem', color: '#8A8F99', lineHeight: '1.5' }}>{item.d}</div>
+                  <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#F4F2ED', marginBottom: '6px' }}>{item.t}</div>
+                  <div style={{ fontSize: '0.875rem', color: '#8A8F99', lineHeight: '1.6' }}>{item.d}</div>
                 </div>
               </div>
             ))}

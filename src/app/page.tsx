@@ -47,27 +47,29 @@ export default function Home() {
         
         // Kick off first video immediately
         videos[0].play().catch(() => {});
-
-        // Resilient Play Trigger FOR MOBILE layout on user hydration/scroll to bypass low-power blockers
-        const handleInteraction = () => {
-          videos.forEach(v => {
-            if (v && v.paused) v.play().catch(() => {});
-          });
-          if (solucaoVideoRef.current && solucaoVideoRef.current.paused) {
-            solucaoVideoRef.current.play().catch(() => {});
-          }
-          window.removeEventListener('scroll', handleInteraction);
-          window.removeEventListener('touchstart', handleInteraction);
-        };
-        window.addEventListener('scroll', handleInteraction, { passive: true });
-        window.addEventListener('touchstart', handleInteraction, { passive: true });
-        
-        if (solucaoVideoRef.current) {
-          solucaoVideoRef.current.playbackRate = 0.7;
-          solucaoVideoRef.current.play().catch(() => {});
-        }
       }
     }, 400);
+
+    // Resilient Play Trigger FOR MOBILE layout on user hydration/scroll to bypass low-power blockers
+    const handleInteraction = () => {
+      const videos = videoRefs.map(r => r.current).filter(Boolean) as HTMLVideoElement[];
+      videos.forEach(v => {
+        if (v && v.paused) v.play().catch(() => {});
+      });
+      if (solucaoVideoRef.current && solucaoVideoRef.current.paused) {
+        solucaoVideoRef.current.play().catch(() => {});
+      }
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+    window.addEventListener('scroll', handleInteraction, { passive: true });
+    window.addEventListener('touchstart', handleInteraction, { passive: true });
+    
+    // Disparo imediato para o vídeo solução
+    if (solucaoVideoRef.current) {
+      solucaoVideoRef.current.playbackRate = 0.7;
+      solucaoVideoRef.current.play().catch(() => {});
+    }
 
     return () => {
       clearInterval(checkRefs);
@@ -76,6 +78,8 @@ export default function Home() {
           if (loadedHandlers[i]) v.removeEventListener('ended', loadedHandlers[i]);
         });
       }
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

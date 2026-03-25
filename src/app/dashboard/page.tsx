@@ -151,26 +151,27 @@ export default function DashboardPage() {
                   Acessar Ferramenta <ArrowRight size={16} />
                 </Link>
               ) : (
-                <button 
-                  disabled
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    gap: '6px', 
-                    background: 'rgba(255,255,255,0.03)', 
-                    color: '#5A5F6A', 
-                    padding: '0.75rem', 
-                    borderRadius: '10px', 
-                    fontWeight: 800, 
-                    fontSize: '0.813rem', 
-                    border: '1px solid #1F242D', 
-                    cursor: 'not-allowed',
-                    width: '100%'
-                  }}
-                >
-                  Em Breve
-                </button>
+                  <button 
+                    onClick={() => { setActiveTab('maintenance'); setMaintenanceItem(app.title); }}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      gap: '6px', 
+                      background: 'rgba(255,255,255,0.04)', 
+                      color: '#F4F2ED', 
+                      padding: '0.75rem', 
+                      borderRadius: '10px', 
+                      fontWeight: 800, 
+                      fontSize: '0.813rem', 
+                      border: '1px solid rgba(255,255,255,0.05)', 
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'background 0.2s'
+                    }}
+                  >
+                    Saiba Mais <ArrowRight size={16} color="#8A8F99" />
+                  </button>
               )}
             </div>
           </div>
