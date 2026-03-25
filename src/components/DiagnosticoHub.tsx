@@ -195,43 +195,60 @@ export default function DiagnosticoHub() {
             <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center' }}>O Caminho para a Competitividade</h2>
           </div>
           
-          <div className={styles.stairInfographic}>
-            {[
-              { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio.', highlight: true },
-              { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.' },
-              { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados em repositórios centrais.' },
-              { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
-              { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' }
-            ].map((item, idx) => (
-              <div 
-                key={item.lvl} 
-                className={styles.stairRow}
-                style={{ justifyContent: 'flex-start', marginBottom: '14px', width: '100%' }}
-              >
-                {/* Card Descrição atuando como bloco da escada */}
+          <div style={{ display: 'flex', gap: '40px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+            <div className={styles.stairInfographic} style={{ flex: 1.2 }}>
+              {[
+                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio.', highlight: true },
+                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.' },
+                { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados em repositórios centrais.' },
+                { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em "ilhas" (silos funcionais), sem integração na empresa.' },
+                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam "no escuro", sem dados padronizados e com liderança sem interesse na análise.' }
+              ].map((item, idx) => (
                 <div 
-                  className={styles.statCard} 
-                  style={{ 
-                    border: '1px solid #C8F542',
-                    background: item.highlight ? 'rgba(200,245,66,0.05)' : '#111318',
-                    width: `${300 + item.lvl * 70}px`,
-                    maxWidth: '100%',
-                    padding: '24px',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 20px rgba(200,245,66,0.05)',
-                    transition: 'all 0.3s ease',
-                    flex: 'none'
-                  }}
+                  key={item.lvl} 
+                  className={styles.stairRow}
+                  style={{ justifyContent: 'flex-start', marginBottom: '14px', width: '100%' }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                    <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.8rem', fontFamily: 'monospace' }}>NÍVEL {item.lvl}</span>
-                    <span style={{ color: '#8A8F99', fontSize: '0.7rem', opacity: 0.6 }}>Stage {item.lvl}</span>
+                  {/* Card Descrição atuando como bloco da escada */}
+                  <div 
+                    className={styles.statCard} 
+                    style={{ 
+                      border: '1px solid #C8F542',
+                      background: item.highlight ? 'rgba(200,245,66,0.05)' : '#111318',
+                      width: `${300 + (6 - item.lvl) * 70}px`,
+                      maxWidth: '100%',
+                      padding: '24px',
+                      borderRadius: '12px',
+                      boxShadow: '0 4px 20px rgba(200,245,66,0.05)',
+                      transition: 'all 0.3s ease',
+                      flex: 'none'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.8rem', fontFamily: 'monospace' }}>NÍVEL {item.lvl}</span>
+                      <span style={{ color: '#8A8F99', fontSize: '0.7rem', opacity: 0.6 }}>Stage {item.lvl}</span>
+                    </div>
+                    <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#F4F2ED', marginBottom: '6px' }}>{item.t}</div>
+                    <div style={{ fontSize: '0.875rem', color: '#8A8F99', lineHeight: '1.6' }}>{item.d}</div>
                   </div>
-                  <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#F4F2ED', marginBottom: '6px' }}>{item.t}</div>
-                  <div style={{ fontSize: '0.875rem', color: '#8A8F99', lineHeight: '1.6' }}>{item.d}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Coluna Direita: Imagem Shield do Nível 5 */}
+            <div style={{ flex: 0.8, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div style={{ position: 'relative', width: '100%', maxWidth: '380px', height: '440px', borderRadius: '40px 40px 240px 240px', overflow: 'hidden', border: '1px solid rgba(200,245,66,0.15)', boxShadow: '0 20px 50px rgba(200,245,66,0.08)', background: '#111318' }}>
+                <img 
+                  src="/arkos_executive_dashboard_1774143501248.png" 
+                  alt="Escalar ao Nivel 5" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8, filter: 'grayscale(40%)' }} 
+                />
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, rgba(13,14,18,0.2) 0%, rgba(13,14,18,1) 100%)' }} />
+                <div style={{ position: 'absolute', bottom: '30px', left: '0', right: '0', textAlign: 'center', color: '#C8F542', fontWeight: 800, fontSize: '1.1rem', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                  Chegue ao Nível 5
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
           {/* Botão High-Light Centered */}
