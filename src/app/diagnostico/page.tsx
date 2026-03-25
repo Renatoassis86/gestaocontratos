@@ -237,7 +237,9 @@ export default function DiagnosticoPage() {
 
       {/* Logo Arkos no Topo */}
       <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px', marginBottom: '10px' }}>
-        <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '28px', opacity: 0.9 }} />
+        <Link href="/">
+          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '28px', opacity: 0.9, cursor: 'pointer' }} />
+        </Link>
       </div>
 
       <AnimatePresence mode='wait'>
