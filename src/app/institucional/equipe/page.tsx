@@ -21,7 +21,7 @@ export default function ConhecaEquipe() {
         },
         {
           icon: <Code2 size={24} color="#C8F542" style={{ flexShrink: 0 }} />,
-          title: 'Stack Tecnológica & Dados',
+          title: 'Stack Tecnológica e Dados',
           desc: 'SPSS, Stata, R, SQL, Python, Pandas, Power BI, IA Generativa aplicada à Gestão e Modelagem de Data Warehouse (BI).'
         }
       ],
@@ -29,7 +29,7 @@ export default function ConhecaEquipe() {
     },
     {
       nome: 'Emanuel Peixoto',
-      cargo: 'CO-FOUNDER & PRODUTO & DESIGN',
+      cargo: 'CO-FOUNDER e PRODUTO e DESIGN',
       foto: '/arkos_team_emanuel.png',
       headline: 'Concepção visual para lucidez na tomada de decisão.',
       bio: [
@@ -39,7 +39,7 @@ export default function ConhecaEquipe() {
       tags: [
         {
           icon: <Code2 size={24} color="#C8F542" style={{ flexShrink: 0 }} />,
-          title: 'Expertise & Stack',
+          title: 'Expertise e Stack',
           desc: 'UI/UX Architecture, Product Design, Figma, Interactive Prototyping, Design Systems, Interface Engineering.'
         }
       ],
@@ -47,7 +47,7 @@ export default function ConhecaEquipe() {
     },
     {
       nome: 'Gabriel Mamede',
-      cargo: 'CO-FOUNDER & ARQUITETURA DE DADOS',
+      cargo: 'CO-FOUNDER e ARQUITETURA DE DADOS',
       foto: '/arkos_team_gabriel.png',
       headline: 'A espinha dorsal lógica da inteligência corporativa.',
       bio: [
@@ -57,7 +57,7 @@ export default function ConhecaEquipe() {
       tags: [
         {
           icon: <Code2 size={24} color="#C8F542" style={{ flexShrink: 0 }} />,
-          title: 'Expertise & Stack',
+          title: 'Expertise e Stack',
           desc: 'Database Architecture, SQL, NoSQL, Data Governance, Backend Services, Microservices Engineering, System Scalability.'
         }
       ],
@@ -65,7 +65,7 @@ export default function ConhecaEquipe() {
     },
     {
       nome: 'Lucas Machado',
-      cargo: 'CO-FOUNDER & INTELIGÊNCIA ARTIFICIAL',
+      cargo: 'CO-FOUNDER e INTELIGÊNCIA ARTIFICIAL',
       foto: '/arkos_team_lucas_ai.png',
       headline: 'Hiper-automação reduzindo cliques ao limite mínimo.',
       bio: [
@@ -75,7 +75,7 @@ export default function ConhecaEquipe() {
       tags: [
         {
           icon: <Code2 size={24} color="#C8F542" style={{ flexShrink: 0 }} />,
-          title: 'Expertise & Stack',
+          title: 'Expertise e Stack',
           desc: 'Artificial Intelligence, Machine Learning Algorithms, Python, workflow automation, Generative AI nodes and LLM fine-tuning.'
         }
       ],
@@ -83,7 +83,7 @@ export default function ConhecaEquipe() {
     },
     {
       nome: 'Williams Calado',
-      cargo: 'CO-FOUNDER & INTEGRAÇÕES & INFRA',
+      cargo: 'CO-FOUNDER e INTEGRAÇÕES e INFRA',
       foto: '/arkos_team_julio.png', // Usando Julio foto para Williams que faltava foto local
       headline: 'APIs integradas e infraestrutura corporativa robusta.',
       bio: [

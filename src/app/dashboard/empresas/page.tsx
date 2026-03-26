@@ -28,8 +28,8 @@ export default async function EmpresasPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Empresas</h1>
-      <p className={styles.subtitle}>Gestão de Tenants que você pertence.</p>
+      <h1 className={styles.title}>Sistemas / Unidades / Setores</h1>
+      <p className={styles.subtitle}>Gestão de Tenants, Empresas e Unidades Organizacionais.</p>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.5rem' }}>
         <AddCompanyModal createAction={createCompany} />

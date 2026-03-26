@@ -344,9 +344,26 @@
 
 .moduloCard {
   background: var(--ob2); border: 1px solid rgba(255,255,255,0.03);
-  border-radius: 12px; padding: 32px 28px; transition: border-color 0.2s;
+  border-radius: 20px; padding: 32px 28px; transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 12px;
 }
-.moduloCard:hover { border-color: rgba(255,255,255,0.1); }
+.moduloCard:hover { 
+  border-color: rgba(255,255,255,0.1); 
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.02);
+}
+
+.moduloHeader {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.moduloTag {
+  font-family: monospace; font-size: 0.625rem; font-weight: 800;
+  padding: 4px 8px; border-radius: 6px; color: #000;
+  letter-spacing: 0.05em;
+}
 
 .moduloTitle { font-size: 1.25rem; font-weight: 600; color: var(--wht); margin-bottom: 8px; }
 

@@ -12,25 +12,25 @@ export default function ManualMoodlePage() {
 
   const curatedRows = [
     {
-      namespace: '`core_users_*` & `core_enrol_*`',
+      namespace: '`core_users_*` e `core_enrol_*`',
       dados: 'Dados de Perfil completos, Emails, CPF, Telefone, Histórico de Matrículas e Datas de Ingressos.',
       inteligencia: 'Censo Acadêmico: Diagnóstico demográfico e volumetria de novas matrículas.',
       color: 'var(--primary)'
     },
     {
-      namespace: '`core_course_*` & `core_notes_*`',
+      namespace: '`core_course_*` e `core_notes_*`',
       dados: 'Ementas, Sumários de Tópicos, Atividades, links, e anotações feitas por professores sobre os alunos.',
       inteligencia: 'NLP Ativo: Análise de sentimento de feedback docente e auditoria de cobertura de ementas.',
       color: '#F59E0B'
     },
     {
-      namespace: '`gradereport_*` & `core_grades_*`',
+      namespace: '`gradereport_*` e `core_grades_*`',
       dados: 'Notas estruturadas, Pesos de Avaliações, Médias das Disciplinas e Cálculo de aprovação por módulo.',
       inteligencia: 'Série de Desempenho: Curva de aprendizagem e gargalos de aprovação.',
       color: '#38BDF8'
     },
     {
-      namespace: '`mod_quiz_*` & `mod_assign_*`',
+      namespace: '`mod_quiz_*` e `mod_assign_*`',
       dados: 'Tentativas de testes, respostas exatas de cada questão, PDFs anexados em trabalhos entregues.',
       inteligencia: 'Micro-Inteligência: Saber o percentual de erro por questão para auditar a qualidade da prova.',
       color: 'var(--primary)'
@@ -42,7 +42,7 @@ export default function ManualMoodlePage() {
       color: '#F59E0B'
     },
     {
-      namespace: '`core_badges_*` & `core_competency_*`',
+      namespace: '`core_badges_*` e `core_competency_*`',
       dados: 'Medalhas eletrônicas recebidas, Trilhas de Habilidades completadas e certificações de competência.',
       inteligencia: 'Gamificação: Ranking de habilidades e engajamento da turma.',
       color: '#38BDF8'
@@ -212,7 +212,7 @@ export default function ManualMoodlePage() {
               <thead className={styles.thead}>
                 <tr>
                   <th className={styles.th}>Família de Funções (Namespace)</th>
-                  <th className={styles.th}>Dados que Entrega (Estruturados & Não Estruturados)</th>
+                  <th className={styles.th}>Dados que Entrega (Estruturados e Não Estruturados)</th>
                   <th className={styles.th}>Poder de Análise / Inteligência</th>
                 </tr>
               </thead>

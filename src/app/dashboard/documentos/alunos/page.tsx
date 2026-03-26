@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import styles from '../../dashboard.module.css'
 import Link from 'next/link'
-import { Trash2, Edit, Mail, Phone, FileDown, Filter, Search, CheckSquare } from 'lucide-react'
+import { Trash2, Edit, Mail, Phone, FileDown, Filter, Search, CheckSquare, ArrowRight } from 'lucide-react'
 import { createClient } from '@/infrastructure/supabase/client'
 import { testMoodleConnection, getMoodleCourses } from '@/app/actions'
 
@@ -352,7 +352,7 @@ export default function AlunosDocumentosPage() {
           </span>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button style={{ background: 'var(--primary)', color: '#000', padding: '8px 16px', borderRadius: '8px', fontWeight: 800, border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <FileDown size={16} /> Emitir & Baixar em Lote
+              <FileDown size={16} /> Emitir e Baixar em Lote
             </button>
           </div>
         </div>

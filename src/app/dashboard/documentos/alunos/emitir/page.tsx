@@ -72,7 +72,7 @@ export default function EmitirCertificadosPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Emissão de Certificados & Históricos</h1>
+      <h1 className={styles.title}>Emissão de Certificados e Históricos</h1>
       <p className={styles.subtitle} style={{ marginBottom: '2rem' }}>Selecione a origem dos dados dos alunos para gerar os documentos (FICV).</p>
 
       {success && (
@@ -304,7 +304,7 @@ export default function EmitirCertificadosPage() {
                 marginTop: '1rem', padding: '14px', borderRadius: '12px', background: 'var(--primary)', color: '#000', fontWeight: 800, border: 'none', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1
               }}
             >
-              {loading ? 'Calculando & Gerando Documentos...' : 'Processar Emissão em Lote'}
+              {loading ? 'Calculando e Gerando Documentos...' : 'Processar Emissão em Lote'}
             </button>
           </form>
         </div>

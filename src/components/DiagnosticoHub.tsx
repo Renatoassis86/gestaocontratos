@@ -191,18 +191,20 @@ export default function DiagnosticoHub() {
       {step === 'intro' && (
         <section className={styles.sectionFull}>
           <div className={styles.headerCentered}>
-            <div className={styles.tag}>Os 5 Estágios de Maturidade</div>
-            <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '40px' }}>ALINHAMENTO ESTRATÉGICO: PIRÂMIDE DE MATURIDADE</h2>
+            <div className={styles.tag}>Framework: Competição Analítica</div>
+            <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '40px', textTransform: 'uppercase' }}>Os 5 Estágios de Maturidade Analítica</h2>
           </div>
           
-          <div className={styles.stairsFlexGroup}>
-            <div className={styles.stairInfographic} style={{ alignItems: 'center', flex: 1.5, gap: '0px', padding: '0px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: '60px' }}>
+            
+            {/* Os Blocos da Pirâmide Centralizados */}
+            <div className={styles.stairInfographic} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: '0px', padding: '0px' }}>
               {[
-                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável.', population: 'Top 5%', width: '300px' },
-                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa e usam análise para se diferenciar no mercado.', population: '≈ 15%', width: '450px' },
-                { lvl: 3, t: 'Aspirantes Analíticos', d: 'Reconhecem a importância e iniciam integração de dados centralmente.', population: '≈ 30%', width: '600px' },
-                { lvl: 2, t: 'Análise Localizada', d: 'O uso de dados ocorre em silos funcionais sem integração corporativa.', population: '≈ 40%', width: '750px' },
-                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico.', population: '90% do Mercado', width: '900px' }
+                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável.', width: '300px' },
+                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa e usam análise para se diferenciar no mercado.', width: '450px' },
+                { lvl: 3, t: 'Aspirantes Analíticos', d: 'Reconhecem a importância e iniciam integração de dados centralmente.', width: '600px' },
+                { lvl: 2, t: 'Análise Localizada', d: 'O uso de dados ocorre em silos funcionais sem integração corporativa.', width: '750px' },
+                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico.', width: '900px' }
               ].map((item, idx) => (
                 <div 
                   key={item.lvl} 
@@ -213,8 +215,7 @@ export default function DiagnosticoHub() {
                     margin: '0', 
                     padding: '0',
                     zIndex: 10 - idx,
-                    transform: 'none',
-                    marginLeft: '0 !important' /* Force-killing the stair offset */
+                    transform: 'none'
                   }}
                 >
                   <div 
@@ -235,9 +236,6 @@ export default function DiagnosticoHub() {
                       flexShrink: 0
                     } as React.CSSProperties}
                   >
-                    <div style={{ position: 'absolute', top: '12px', left: '18px', fontSize: '0.625rem', color: '#C8F542', fontWeight: 800, letterSpacing: '1px' }}>
-                      {item.population}
-                    </div>
                     <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px', paddingTop: '6px' }}>
                       <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.85rem', fontFamily: 'monospace', opacity: 0.7, letterSpacing: '2px' }}>ESTÁGIO {item.lvl}</span>
                     </div>
@@ -246,17 +244,6 @@ export default function DiagnosticoHub() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Coluna Direita: Infográfico 3D da Pirâmide */}
-            <div className={styles.imageColumn}>
-              <div style={{ position: 'relative', width: '100%', maxWidth: '520px', height: '580px', borderRadius: '40px 40px 280px 280px', overflow: 'hidden', border: '1px solid rgba(200,245,66,0.3)', boxShadow: '0 30px 80px rgba(200,245,66,0.15)', background: '#0A0C0F' }}>
-                <img 
-                  src="/pyramid_maturity_graphic_1774459978489.png" 
-                  alt="Infográfico Pirâmide de Maturidade Analítica" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-              </div>
             </div>
           </div>
 
@@ -283,9 +270,20 @@ export default function DiagnosticoHub() {
               </p>
             </div>
 
-            <div className={styles.mediaWrapperDelta}>
-                <img src="/modelo_delta_full_names_1774438372619.png" alt="Grupo Estratégico Modelo DELTA" className={styles.mediaDelta} />
-
+            <div className={styles.mediaWrapperDelta} style={{ padding: '0 20px', width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+                <img 
+                  src="/modelo_delta_v4_8k.png" 
+                  alt="Modelo DELTA de Maturidade Analítica - Alta Resolução" 
+                  className={styles.mediaDelta} 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    borderRadius: '24px', 
+                    boxShadow: '0 40px 100px rgba(0,0,0,0.4), 0 0 20px rgba(200,245,66,0.1)',
+                    border: '1px solid rgba(0,0,0,0.1)',
+                    display: 'block'
+                  }} 
+                />
             </div>
 
             <div className={styles.deltaGridHorizontal}>

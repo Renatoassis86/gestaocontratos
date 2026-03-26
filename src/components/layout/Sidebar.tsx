@@ -47,7 +47,7 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
       items: [
         { name: 'Fornecedores', path: '/dashboard/pessoas', icon: <Users size={20} /> },
         ...(isAdmin ? [
-          { name: 'Empresas', path: '/dashboard/empresas', icon: <Building2 size={20} /> },
+          { name: 'Unidades / Setores', path: '/dashboard/empresas', icon: <Building2 size={20} /> },
           { name: 'Gestão de Usuários', path: '/dashboard/usuarios', icon: <Users size={20} /> }
         ] : []),
       ]
@@ -70,9 +70,8 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
 
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.header} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '1.5rem' }}>
-        <img src="/logo-high-res.svg" alt="Arkos" style={{ width: '30px', height: '30px', objectFit: 'contain' }} />
-        <span style={{ fontWeight: 'bold', fontSize: '1.25rem', color: '#FFFFFF', letterSpacing: '0.5px', fontFamily: 'var(--sans)' }}>ARKOS</span>
+      <div className={styles.header} style={{ display: 'flex', justifyContent: 'center', padding: '2rem 1.5rem' }}>
+        <img src="/logo-high-res.svg" alt="Arkos" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
       </div>
 
       <nav className={styles.nav}>

@@ -29,6 +29,153 @@ export default function ModulosSelector() {
     }
   }, [])
 
+  const modulos = [
+    {
+      id: 'marketing',
+      titulo: 'Marketing Intelligence',
+      tag: 'MI',
+      desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda: pesquisas de mercado, NPS, testes de lançamentos e análise de sentimento.',
+      link: '#',
+      externo: false,
+      icon: <BarChart2 size={22} />,
+      color: '#FF4D4D',
+      hasAccess: false,
+      foto: '/arkos_marketing_intelligence_hero_v1_1774542591336.png'
+    },
+    {
+      id: 'data',
+      titulo: 'Governança de Dados e BI',
+      tag: 'GDB',
+      desc: 'Data warehouse, pipelines conectadas e dashboards preditivos de alta performance para a tomada de decisão baseada em números reais.',
+      link: '#',
+      externo: false,
+      icon: <Cpu size={22} />,
+      color: '#EC4899',
+      hasAccess: false,
+      foto: '/arkos_data_stream_1774143375030.png'
+    },
+    {
+      id: 'crm',
+      titulo: 'Gestão Comercial (CRM)',
+      tag: 'CRM',
+      desc: 'Otimize o funil de vendas, propostas comerciais e conversões estratégicas em tempo real, permitindo previsões de caixa assertivas.',
+      link: 'https://comercial.cidadeviva.education',
+      externo: true,
+      icon: <ShoppingCart size={22} />,
+      color: '#3B82F6',
+      hasAccess: false,
+      foto: '/arkos_real_executive_dashboard_1774143584596.png'
+    },
+    {
+      id: 'clm',
+      titulo: 'Gestão de Contratos (CLM)',
+      tag: 'CLM',
+      desc: 'Centraliza a espinha dorsal financeira e física do negócio: faturamento, fardamento, contratos e histórico acadêmico.',
+      link: '/dashboard/documentos',
+      externo: false,
+      icon: <FileText size={22} />,
+      color: '#C8F542',
+      hasAccess: true,
+      foto: '/arkos_dashboard_decision_1774133572097.png'
+    },
+    {
+      id: 'recrutamento',
+      titulo: 'Arkos Talent Intelligence',
+      tag: 'ATI',
+      desc: 'Redesenho organizacional via NLP e Otimização Matemática. Transforma relatos funcionais em evidência objetiva para estruturação de cargos e processos.',
+      link: 'https://recrutamento.cidadeviva.education/',
+      externo: true,
+      icon: <Users size={22} />,
+      color: '#8B5CF6',
+      hasAccess: false,
+      foto: '/arkos_executive_dashboard_1774143501248.png'
+    },
+    {
+      id: 'ai',
+      titulo: 'Agentes de IA e Automação',
+      tag: 'AIA',
+      desc: 'Agentes autônomos treinados com as regras do seu negócio para resolver chamados e automatizar fluxos complexos.',
+      link: '#',
+      externo: false,
+      icon: <Cpu size={22} />,
+      color: '#F472B6',
+      hasAccess: false,
+      foto: '/arkos_data_brain_1774143436679.png'
+    },
+    {
+      id: 'commerce',
+      titulo: 'Central de Comércio Inteligente',
+      tag: 'CCI',
+      desc: 'Motor financeiro robusto B2B integrado à gestão para e-commerce, recorrência, subscrições de produtos e faturamento agnóstico.',
+      link: '#',
+      externo: false,
+      icon: <ShoppingCart size={22} />,
+      color: '#F43F5E',
+      hasAccess: false,
+      foto: '/arkos_laptop_mockup_1774143172389.png'
+    },
+    {
+      id: 'growth',
+      titulo: 'Aceleração de Crescimento (Growth)',
+      tag: 'ACG',
+      desc: 'Squads avançados operando tráfego pago escalável, ROI preditivo e SEO técnico para empresas que precisam de escala acelerada.',
+      link: '#',
+      externo: false,
+      icon: <BarChart2 size={22} />,
+      color: '#2DD4BF',
+      hasAccess: false,
+      foto: '/arkos_growth_acceleration_hero_v1_1774542610685.png'
+    },
+    {
+      id: 'strategy',
+      titulo: 'Planejamento Estratégico e Cenários',
+      tag: 'PEC',
+      desc: 'Formulação completa e acompanhamento de planos estratégicos dinâmicos. Orientamos desde a identidade organizacional até a operação tática.',
+      link: '#',
+      externo: false,
+      icon: <Shield size={22} />,
+      color: '#F59E0B',
+      hasAccess: false,
+      foto: '/arkos_business_strategy_1774143055983.png'
+    },
+    {
+      id: 'academy',
+      titulo: 'Edtech Academy',
+      tag: 'EDT',
+      desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva. Acoplamos todo o ecossistema para elevar a eficiência.',
+      link: '#',
+      externo: false,
+      icon: <Users size={22} />,
+      color: '#EF4444',
+      hasAccess: false,
+      foto: '/arkos_edtech_portal_hero_v1_1774542625280.png'
+    },
+    {
+      id: 'infra',
+      titulo: 'Gestão de Tecnologia e Cyber',
+      tag: 'GTC',
+      desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes. Atuamos como seu braço direito de TI.',
+      link: '#',
+      externo: false,
+      icon: <Shield size={22} />,
+      color: '#14B8A6',
+      hasAccess: false,
+      foto: '/arkos_corporate_presenting_1774143639165.png'
+    },
+    {
+      id: 'pedidos',
+      titulo: 'Governança de Service Desk e Demandas',
+      tag: 'GSD',
+      desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência operacional e suporte inteligente.',
+      link: 'https://appgestaocontratos.vercel.app/',
+      externo: true,
+      icon: <Package size={22} />,
+      color: '#06B6D4',
+      hasAccess: false,
+      foto: '/arkos_data_dashboard_holo_1774143471858.png'
+    }
+  ]
+
   return (
     <div className={styles.container}>
       {/* Video Transition Overlay */}
@@ -60,7 +207,6 @@ export default function ModulosSelector() {
               objectFit: 'cover'
             }}
           />
-          
         </div>
       )}
 
@@ -74,152 +220,7 @@ export default function ModulosSelector() {
         </div>
 
         <div className={styles.grid}>
-          {[
-            {
-              id: 'clm',
-              titulo: 'Gestão de Contratos',
-              tag: 'CLM',
-              desc: 'Controle de emissão, histórico acadêmico, certificados e fluxos CLM corporativos.',
-              link: '/dashboard/documentos',
-              externo: false,
-              icon: <FileText size={22} />,
-              color: '#C8F542',
-              hasAccess: true,
-              foto: '/arkos_dashboard_decision_1774133572097.png'
-            },
-            {
-              id: 'crm',
-              titulo: 'Gestão Comercial',
-              tag: 'CRM',
-              desc: 'Otimize funil de vendas, propostas comerciais e conversões em tempo real.',
-              link: 'https://comercial.cidadeviva.education',
-              externo: true,
-              icon: <ShoppingCart size={22} />,
-              color: '#3B82F6',
-              hasAccess: false,
-              foto: '/arkos_real_executive_dashboard_1774143584596.png'
-            },
-            {
-              id: 'recrutamento',
-              titulo: 'Gestão de Talentos (HR)',
-              tag: 'HRMS',
-              desc: 'Onboarding, departamento pessoal e previsão de Turnover com insights de produtividade integrados.',
-              link: 'https://recrutamento.cidadeviva.education/',
-              externo: true,
-              icon: <Users size={22} />,
-              color: '#8B5CF6',
-              hasAccess: false,
-              foto: '/arkos_executive_dashboard_1774143501248.png'
-            },
-            {
-              id: 'pedidos',
-              titulo: 'Pedidos e Demandas',
-              tag: 'ERP',
-              desc: 'Controle de requisições, chamados internos e fluxos de atendimento.',
-              link: 'https://appgestaocontratos.vercel.app/',
-              externo: true,
-              icon: <Package size={22} />,
-              color: '#06B6D4',
-              hasAccess: false,
-              foto: '/arkos_data_dashboard_holo_1774143471858.png'
-            },
-            {
-              id: 'commerce',
-              titulo: 'Arkos Commerce Suite',
-              tag: 'COMM',
-              desc: 'Motor financeiro B2B robusto integrado à gestão para e-commerce e recorrência.',
-              link: '#',
-              externo: false,
-              icon: <ShoppingCart size={22} />,
-              color: '#F43F5E',
-              hasAccess: false,
-              foto: '/arkos_laptop_mockup_1774143172389.png'
-            },
-            {
-              id: 'growth',
-              titulo: 'Arkos Growth Agency',
-              tag: 'GRWT',
-              desc: 'Squads avançados operando desenvolvimento de tráfego pago escalável.',
-              link: '#',
-              externo: false,
-              icon: <BarChart2 size={22} />,
-              color: '#2DD4BF',
-              hasAccess: false,
-              foto: '/arkos_real_executive_dashboard_1774143584596.png'
-            },
-            {
-              id: 'marketing',
-              titulo: 'Marketing Intelligence',
-              tag: 'MKTI',
-              desc: 'Aquisição de leads, ROI de campanhas e inteligência profunda de sentimentos de mercado.',
-              link: '#',
-              externo: false,
-              icon: <BarChart2 size={22} />,
-              color: '#10B981',
-              hasAccess: false,
-              foto: '/arkos_laptop_mockup_1774143172389.png'
-            },
-            {
-              id: 'data',
-              titulo: 'Arkos Data',
-              tag: 'DATA',
-              desc: 'Data warehouse, pipelines conectadas e governança de dados estruturados para C-Level.',
-              link: '#',
-              externo: false,
-              icon: <Cpu size={22} />,
-              color: '#EC4899',
-              hasAccess: false,
-              foto: '/arkos_data_stream_1774143375030.png'
-            },
-            {
-              id: 'ai',
-              titulo: 'Arkos AI Agents',
-              tag: 'AI',
-              desc: 'Agentes autônomos treinados para resolução preditiva e automação de regras de negócios.',
-              link: '#',
-              externo: false,
-              icon: <Cpu size={22} />,
-              color: '#F472B6',
-              hasAccess: false,
-              foto: '/arkos_data_brain_1774143436679.png'
-            },
-            {
-              id: 'strategy',
-              titulo: 'Arkos Strategy',
-              tag: 'STRAT',
-              desc: 'Formulação de planos estratégicos autônomos e cruzamento de cenários econômicos.',
-              link: '#',
-              externo: false,
-              icon: <Shield size={22} />,
-              color: '#F59E0B',
-              hasAccess: false,
-              foto: '/arkos_business_strategy_1774143055983.png'
-            },
-            {
-              id: 'academy',
-              titulo: 'Arkos Academy',
-              tag: 'ACDM',
-              desc: 'Letramento de equipe e plataforma EaD para capacitação preditiva e retenção de alunos.',
-              link: '#',
-              externo: false,
-              icon: <Users size={22} />,
-              color: '#EF4444',
-              hasAccess: false,
-              foto: '/arkos_corporate_boardroom_1774143669395.png'
-            },
-            {
-              id: 'infra',
-              titulo: 'Arkos Tech Management',
-              tag: 'ITIF',
-              desc: 'Gestão compartilhada de TI, segurança de servidores e otimização de redes corporativas.',
-              link: '#',
-              externo: false,
-              icon: <Shield size={22} />,
-              color: '#14B8A6',
-              hasAccess: false,
-              foto: '/arkos_corporate_presenting_1774143639165.png'
-            }
-          ].map((modulo) => {
+          {modulos.map((modulo) => {
             const CardContent = (
               <div 
                 className={`${styles.card} ${modulo.hasAccess ? styles.cardActive : styles.cardInactive}`} 
@@ -287,7 +288,7 @@ export default function ModulosSelector() {
             return (
               <div key={modulo.id} style={{ display: 'flex' }}>
                 <Link 
-                  href={modulo.hasAccess ? (modulo.externo ? modulo.link : modulo.link) : detailLink} 
+                  href={modulo.hasAccess ? modulo.link : detailLink} 
                   target={modulo.hasAccess && modulo.externo ? "_blank" : "_self"} 
                   rel="noopener noreferrer" 
                   style={{ textDecoration: 'none', display: 'flex' }}
@@ -343,4 +344,3 @@ export default function ModulosSelector() {
     </div>
   )
 }
-

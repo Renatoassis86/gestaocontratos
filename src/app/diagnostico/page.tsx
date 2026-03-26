@@ -236,10 +236,17 @@ export default function DiagnosticoPage() {
       )}
 
       {/* Persistent Logo Header for perfect alignment */}
-      <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', paddingTop: '20px', zIndex: 10 }}>
-        <Link href="/">
-          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '32px', opacity: 1, cursor: 'pointer' }} />
-        </Link>
+      <div style={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '20px', zIndex: 10 }}>
+        <div style={{ maxWidth: '500px', width: '100%', position: 'relative', display: 'flex', justifyContent: 'center' }}>
+          {/* Back Button */}
+          <Link href="/" style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)', color: '#8A8F99', textDecoration: 'none', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} /> Voltar
+          </Link>
+          
+          <Link href="/">
+            <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '32px', opacity: 1, cursor: 'pointer' }} />
+          </Link>
+        </div>
       </div>
 
       <AnimatePresence mode='wait'>
@@ -341,9 +348,9 @@ export default function DiagnosticoPage() {
                 <div style={{ background: '#1F242D', padding: '20px', borderRadius: '12px', marginBottom: '24px', border: '1px solid rgba(200,245,66,0.1)' }}>
                   <p style={{ color: '#C8F542', fontSize: '0.85rem', fontWeight: 800, marginBottom: '6px', letterSpacing: '1px' }}>RECOMENDAÇÃO:</p>
                   <p style={{ color: '#F4F2ED', fontSize: '1.1rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {scoreData.gargalo === 'DADOS' && '🚀 Arkos Platform & Arkos Data'}
-                    {(scoreData.gargalo === 'LIDERANÇA' || scoreData.gargalo === 'ANALISTAS') && '🎓 Arkos Academy & Arkos Strategy'}
-                    {(scoreData.gargalo === 'EMPREENDIMENTO' || scoreData.gargalo === 'ALVOS') && '💼 Arkos Systems & Arkos Market Intelligence'}
+                    {scoreData.gargalo === 'DADOS' && '🚀 Arkos Hub e Governança de Dados'}
+                    {(scoreData.gargalo === 'LIDERANÇA' || scoreData.gargalo === 'ANALISTAS') && '🎓 Arkos EdTech e Planejamento Estratégico'}
+                    {(scoreData.gargalo === 'EMPREENDIMENTO' || scoreData.gargalo === 'ALVOS') && '💼 Arkos Suite e Inteligência de Mercado'}
                   </p>
                   <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5' }}>
                     Esta solução foi selecionada para atuar na raiz do seu gargalo e acelerar sua jornada rumo ao Estágio 5.

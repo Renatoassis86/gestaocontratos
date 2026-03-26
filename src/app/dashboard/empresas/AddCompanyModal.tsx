@@ -50,7 +50,7 @@ export function AddCompanyModal({ createAction }: { createAction: (formData: For
         }}
       >
 
-        <Plus size={16} /> Cadastrar Empresa
+        <Plus size={16} /> Novo Registro
       </button>
 
       {open && (
@@ -81,8 +81,8 @@ export function AddCompanyModal({ createAction }: { createAction: (formData: For
               <X size={20} />
             </button>
 
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'white', marginBottom: '0.5rem' }}>Nova Empresa</h2>
-            <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1.5rem' }}>Preencha os dados corporativos da nova empresa.</p>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'white', marginBottom: '0.5rem' }}>Nova Unid. / Setor / Sistema</h2>
+            <p style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '1.5rem' }}>Preencha os dados cadastrais para o novo registro estratégico.</p>
 
             {error && (
               <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#EF4444', padding: '10px', borderRadius: '12px', fontSize: '0.85rem', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '1rem' }}>
@@ -92,18 +92,18 @@ export function AddCompanyModal({ createAction }: { createAction: (formData: For
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <label style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 600 }}>Razão Social</label>
-                <input name="razao_social" required placeholder="Ex: Minha Empresa LTDA" style={{ padding: '0.75rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)', color: 'white' }} />
+                <label style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 600 }}>Nome Completo (Razão/Setor)</label>
+                <input name="razao_social" required placeholder="Ex: Arkos Education ou RH" style={{ padding: '0.75rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)', color: 'white' }} />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <label style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 600 }}>Nome Fantasia</label>
-                <input name="nome_fantasia" placeholder="Ex: Arkos" style={{ padding: '0.75rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)', color: 'white' }} />
+                <label style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 600 }}>Sigla / Apelido</label>
+                <input name="nome_fantasia" placeholder="Ex: ARK-01" style={{ padding: '0.75rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)', color: 'white' }} />
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                <label style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 600 }}>CNPJ</label>
-                <input name="cnpj" placeholder="00.000.000/0000-00" style={{ padding: '0.75rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)', color: 'white' }} />
+                <label style={{ color: '#94A3B8', fontSize: '0.8rem', fontWeight: 600 }}>Identificador (CNPJ ou Cód)</label>
+                <input name="cnpj" placeholder="Ex: 00.000.000/0000-00 ou ID-INTERNO" style={{ padding: '0.75rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)', color: 'white' }} />
               </div>
 
               <button 
@@ -121,8 +121,7 @@ export function AddCompanyModal({ createAction }: { createAction: (formData: For
                   opacity: loading ? 0.7 : 1
                 }}
               >
-
-                {loading ? 'Salvando...' : 'Criar Empresa'}
+                {loading ? 'Salvando...' : 'Finalizar Cadastro'}
               </button>
             </form>
           </div>

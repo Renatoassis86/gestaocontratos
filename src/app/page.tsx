@@ -358,7 +358,6 @@ export default function Home() {
             <div className={styles.camadaDesc}>Avisos, interações do Copiloto Executivo em texto natural, alertas dinâmicos pre-configurados nos painéis de ativação.</div>
           </div>
         </div>
-
       </section>
 
       {/* ── 3. ECOSSISTEMA MÓDULOS ─────────────────────────────────────────── */}
@@ -369,61 +368,29 @@ export default function Home() {
         </div>
 
         <div className={styles.modulosGrid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>ENTRADA VISUAL E DECISÓRIA</div>
-            <h3 className={styles.moduloTitle}>Marketing Intelligence</h3>
-            <p className={styles.moduloDesc}>O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda: pesquisas quantitativas e qualitativas de mercado, NPS, testes de lançamentos e preços, monitoramento de menções e análise de sentimento nas redes sociais. Tudo convertido em inteligência para a sua tomada de decisão.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>DADOS NATIVOS</div>
-            <h3 className={styles.moduloTitle}>Arkos Data</h3>
-            <p className={styles.moduloDesc}>Data warehouse, APIs, pipelines e governança de dados. Ou seja: criamos uma central única que organiza todas as informações da sua empresa. Isso elimina planilhas soltas e garante que você tome decisões baseadas em números reais, e não em achismos.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTÃO DE RELACIONAMENTO E VENDAS</div>
-            <h3 className={styles.moduloTitle}>Arkos Client Matrix</h3>
-            <p className={styles.moduloDesc}>Rastreia toda a jornada do cliente, desde o primeiro contato até o pós-venda. Alimenta o Data Lake com taxas de conversão, velocidade do funil e comportamento de compra. Estes dados permitem que os algoritmos da Arkos prevejam fluxos de caixa futuros e antecipem oportunidades comerciais com precisão científica.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTAO OPERACIONAL E FINANCEIRA</div>
-            <h3 className={styles.moduloTitle}>Arkos Operation Matrix</h3>
-            <p className={styles.moduloDesc}>Centraliza a espinha dorsal financeira e física do negócio: faturamento, contas a pagar, gestão de fornecedores, suprimentos e contratos. É o gerador supremo de dados de custos e margens de lucro, fornecendo a base histórica sólida para as modelagens e auditorias econométricas do ecossistema.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTÃO DE TALENTOS E PERFORMANCE</div>
-            <h3 className={styles.moduloTitle}>Arkos Talent Intelligence</h3>
-            <p className={styles.moduloDesc}>Automatiza o funil de recrutamento, onboarding e departamento pessoal. Mapeia a demografia e rotinas corporativas para gerar Previsão de Turnover (saída de funcionários) e insights de produtividade, permitindo que a liderança retenha talentos de forma científica.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>INTELIGÊNCIA AUTOMÁTICA</div>
-            <h3 className={styles.moduloTitle}>Arkos AI Agents</h3>
-            <p className={styles.moduloDesc}>Agentes autônomos treinados com as regras do seu negócio para resolver chamados diretamente via WhatsApp, reduzindo drasticamente custos de suporte.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>VENDAS DIGITAIS</div>
-            <h3 className={styles.moduloTitle}>Arkos Commerce Suite</h3>
-            <p className={styles.moduloDesc}>Motor financeiro robusto B2B integrado à gestão para e-commerce, recorrência, subscrições de produtos e integrações bancárias diretas.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>TRAÇÃO E AGÊNCIA</div>
-            <h3 className={styles.moduloTitle}>Arkos Growth Agency</h3>
-            <p className={styles.moduloDesc}>Squads avançados para empresas parceiras operando desenvolvimento web, landing pages exclusivas, tráfego pago escalável e produção audiovisual de marca.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>PLANEJAMENTO ESTRATÉGICO</div>
-            <h3 className={styles.moduloTitle}>Arkos Strategy Master</h3>
-            <p className={styles.moduloDesc}>Formulação completa e acompanhamento de planejamento estratégico. Oferecemos duas vias: através de um sistema autônomo e visual que orienta todos os passos, desde a identidade organizacional até a operação tática; ou via nossa consultoria especializada (remota ou presencial) para estruturar todo o plano junto à sua equipe.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>LETRAMENTO E GESTÃO EAD</div>
-            <h3 className={styles.moduloTitle}>Arkos Academy (EdTech)</h3>
-            <p className={styles.moduloDesc}>Plataforma de ensino dupla. Internamente, treina e atualiza seus clientes e líderes em dados, economia competitiva e análise de mercado. Externamente, atua como Portal EAD completo para faculdades, escolas e sistemas de ensino. Acoplamos todo o ecossistema fornecendo diagnóstico, predição e prescrição para elevar os resultados de gestão e a eficiência acadêmica dos alunos.</p>
-          </div>
-          <div className={styles.moduloCard}>
-            <div className={styles.moduloSub}>GESTAO TECNOLÓGICA</div>
-            <h3 className={styles.moduloTitle}>Arkos Tech Management</h3>
-            <p className={styles.moduloDesc}>Gestão compartilhada de TI a distância. Atuamos como seu departamento de ponta, elevando a eficiência de empresas que possuem setores legados ou que só operam o básico. Cuidamos desde a segurança da infraestrutura de servidores até a administração web e atualizações complexas da sua operação digital.</p>
-          </div>
+          {[
+            { tag: 'MI', color: '#FF4D4D', sub: 'ENTRADA VISUAL E DECISÓRIA', title: 'Marketing Intelligence', desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda: pesquisas de mercado, NPS, testes de lançamentos e análise de sentimento.' },
+            { tag: 'GDB', color: '#EC4899', sub: 'GOVERNANÇA DE ATIVOS DIGITAIS', title: 'Governança de Dados e BI', desc: 'Data warehouse, pipelines conectadas e dashboards preditivos de alta performance para a tomada de decisão baseada em números reais.' },
+            { tag: 'CRM', color: '#3B82F6', sub: 'RELAÇÕES COMERCIAIS', title: 'Gestão Comercial (CRM)', desc: 'Otimize o funil de vendas, propostas comerciais e conversões estratégicas em tempo real, permitindo previsões de caixa assertivas.' },
+            { tag: 'CLM', color: '#C8F542', sub: 'ESPINHA DORSAL ADMINISTRATIVA', title: 'Gestão de Contratos (CLM)', desc: 'Centraliza a espinha dorsal financeira e física do negócio: faturamento, fardamento, contratos e histórico acadêmico.' },
+            { tag: 'ATI', color: '#8B5CF6', sub: 'ALOCAÇÃO ESTRATÉGICA', title: 'Arkos Talent Intelligence', desc: 'Redesenho organizacional via NLP e Otimização Matemática. Transforma relatos funcionais em evidência objetiva para estruturação de cargos e processos.' },
+            { tag: 'AIA', color: '#F472B6', sub: 'SISTEMAS AUTÔNOMOS', title: 'Agentes de IA e Automação', desc: 'Agentes autônomos treinados com as regras do seu negócio para resolver chamados e automatizar fluxos complexos.' },
+            { tag: 'CCI', color: '#F43F5E', sub: 'ECONOMIA DIGITAL', title: 'Central de Comércio Inteligente', desc: 'Motor financeiro robusto B2B integrado à gestão para e-commerce, recorrência, subscrições de produtos e faturamento agnóstico.' },
+            { tag: 'ACG', color: '#2DD4BF', sub: 'TRAÇÃO DE MERCADO', title: 'Aceleração de Crescimento (Growth)', desc: 'Squads avançados operando tráfego pago escalável, ROI preditivo e SEO técnico para empresas que precisam de escala acelerada.' },
+            { tag: 'PEC', color: '#F59E0B', sub: 'MODELAGEM DE FUTURO', title: 'Planejamento Estratégico e Cenários', desc: 'Formulação completa e acompanhamento de planos estratégicos dinâmicos. Orientamos desde a identidade organizacional até a operação tática.' },
+            { tag: 'EDT', color: '#EF4444', sub: 'LETRAMENTO E CAPACITAÇÃO', title: 'Edtech Academy', desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva. Acoplamos todo o ecossistema para elevar a eficiência.' },
+            { tag: 'GTC', color: '#14B8A6', sub: 'GESTAO TECNOLÓGICA E CYBER', title: 'Gestão de Tecnologia e Cyber', desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes. Atuamos como seu braço direito de TI.' },
+            { tag: 'GSD', color: '#06B6D4', sub: 'GOVERNANÇA DE SERVIÇOS', title: 'Governança de Service Desk e Demandas', desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência operacional e suporte inteligente.' },
+          ].map((m, i) => (
+            <div key={i} className={styles.moduloCard}>
+              <div className={styles.moduloHeader}>
+                <div className={styles.moduloSub}>{m.sub}</div>
+                <div className={styles.moduloTag} style={{ background: m.color }}>{m.tag}</div>
+              </div>
+              <h3 className={styles.moduloTitle}>{m.title}</h3>
+              <p className={styles.moduloDesc}>{m.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -756,18 +723,18 @@ export default function Home() {
 
           <div className={styles.footerCol}>
             <h4>Ecossistema Hub</h4>
-            <Link href="#aplicativos">Arkos C-Level (Operação Diária)</Link>
-            <Link href="#aplicativos">Arkos Data Lake Node</Link>
-            <Link href="#aplicativos">Arkos Growth Intelligence</Link>
-            <Link href="#aplicativos">Arkos Smart Contracts</Link>
-            <Link href="#aplicativos">Arkos Financial Intelligence</Link>
-            <Link href="#aplicativos">Arkos Client Matrix</Link>
-            <Link href="#aplicativos">Arkos Operation Matrix</Link>
-            <Link href="#aplicativos">Arkos Talent Intelligence</Link>
-            <Link href="#aplicativos">Arkos Tech Management</Link>
-            <Link href="#aplicativos">Arkos Commerce Suite</Link>
-            <Link href="#aplicativos">Arkos Strategy Master</Link>
-            <Link href="#aplicativos">Arkos Academy</Link>
+            <Link href="#modulos">Marketing Intelligence (MI)</Link>
+            <Link href="#modulos">Governança de Dados e BI (GDB)</Link>
+            <Link href="#modulos">Gestão Comercial (CRM)</Link>
+            <Link href="#modulos">Gestão de Contratos (CLM)</Link>
+            <Link href="#modulos">Arkos Talent Intelligence (ATI)</Link>
+            <Link href="#modulos">Agentes de IA e Automação (AIA)</Link>
+            <Link href="#modulos">Central de Comércio Inteligente (CCI)</Link>
+            <Link href="#modulos">Aceleração de Crescimento (ACG)</Link>
+            <Link href="#modulos">Planejamento Estratégico e Cenários (PEC)</Link>
+            <Link href="#modulos">Edtech Academy (EDT)</Link>
+            <Link href="#modulos">Gestão de Tecnologia e Cyber (GTC)</Link>
+            <Link href="#modulos">Governança de Service Desk e Demandas (GSD)</Link>
           </div>
 
           <div className={styles.footerCol}>

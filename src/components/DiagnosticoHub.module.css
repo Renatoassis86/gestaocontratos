@@ -320,7 +320,7 @@
   border: 1px solid rgba(10,12,15,0.03);
   background: #111318;
   width: 100%;
-  aspect-ratio: 21 / 9; /* Mais retangular e menos alta */
+  aspect-ratio: 16 / 8; /* Um pouco mais alta para não cortar pessoas/objetos */
   margin-bottom: 50px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
@@ -329,6 +329,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 60%; /* Ajustado para focar levemente mais abaixo (tabelas/mesa) sem cortar rostos */
 }
 
 .imageOverlayLight {
