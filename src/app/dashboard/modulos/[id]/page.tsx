@@ -5,52 +5,19 @@ import Link from 'next/link'
 import { ArrowLeft, CheckCircle, MessageCircle } from 'lucide-react'
 
 const moduleDetails: Record<string, { title: string, desc: string, benefits: string[], banner: string }> = {
-  crm: { 
-    title: 'Arkos Client Matrix', 
-    desc: 'Otimize funil de vendas, propostas comerciais e conversões em tempo real. Uma visão 360º do seu cliente que previne o churn e antecipa necessidades.', 
-    benefits: [
-      'Gestão de Leads em tempo real com score preditivo',
-      'Dashboards visuais de funil e velocidade de fechamento',
-      'Integração direta com o motor financeiro e de contratos (CLM)',
-      'Previsão de receitas e otimização do fluxo de caixa preventivo'
-    ],
-    banner: '/arkos_real_executive_dashboard_1774143584596.png'
-  },
-  recrutamento: { 
-    title: 'Arkos HRMS (Talentos)', 
-    desc: 'Automatize onboarding, departamento pessoal e previsão de turnover com insights de produtividade integrados.',
-    benefits: [
-      'Rankeamento de currículos por Inteligência Artificial',
-      'Geração de Dossiê automatizado de candidatos',
-      'Previsão de Turnover com antecipação de substituições',
-      'Integração nativa com controles de folha e KPIs organizacionais'
-    ],
-    banner: '/arkos_executive_dashboard_1774143501248.png'
-  },
-  pedidos: { 
-    title: 'Pedidos e Demandas (ERP)', 
-    desc: 'Controle de requisições, chamados internos, faturamento e fluxos de atendimento operacional.', 
-    benefits: [
-      'Central de Requisições Unificada (Tickets)',
-      'Acompanhamento de compras e faturamento integrado',
-      'Simulações e auditorias econométricas nativas',
-      'Histórico sólido de custos e controle de margem de lucro'
-    ],
-    banner: '/arkos_data_dashboard_holo_1774143471858.png'
-  },
   marketing: { 
     title: 'Marketing Intelligence', 
-    desc: 'Aquisição de leads, ROI de campanhas e inteligência profunda de sentimentos de mercado em um dashboard dinâmico.', 
+    desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda.', 
     benefits: [
-      'Retorno sobre Investimento (ROI) de campanhas por clique/lead',
-      'Rastreabilidade ponta a ponta de marketing para vendas',
-      'Análise preditiva de sentimentos em redes e feedbacks',
-      'Cruzamento direto com leads do sistema CRM'
+      'Análise de sentimento baseada em NLP',
+      'Trackeamento de ROI em tempo real',
+      'Testes A/B para novos lançamentos',
+      'Monitoramento de marca e concorrentes'
     ],
-    banner: '/arkos_laptop_mockup_1774143172389.png'
+    banner: '/arkos_marketing_intelligence_hero_v1_1774542591336.png'
   },
   data: { 
-    title: 'Arkos Data', 
+    title: 'Governança de Dados e BI', 
     desc: 'Central de governança de dados estruturada para governar dados e sustentar C-Level.', 
     benefits: [
       'Data Warehouse e Pipelines escaláveis sem fricção',
@@ -60,8 +27,41 @@ const moduleDetails: Record<string, { title: string, desc: string, benefits: str
     ],
     banner: '/arkos_data_stream_1774143375030.png'
   },
+  crm: { 
+    title: 'Gestão Comercial (CRM)', 
+    desc: 'Otimize funil de vendas, propostas comerciais e conversões em tempo real.', 
+    benefits: [
+      'Gestão de Leads em tempo real com score preditivo',
+      'Dashboards visuais de funil e velocidade de fechamento',
+      'Integração direta com o motor financeiro e CLM',
+      'Previsão de receitas e otimização de caixa'
+    ],
+    banner: '/arkos_real_executive_dashboard_1774143584596.png'
+  },
+  clm: { 
+    title: 'Gestão de Contratos (CLM)', 
+    desc: 'Centraliza a espinha dorsal financeira e física do negócio: faturamento, fardamento e contratos.', 
+    benefits: [
+      'Geração automática de minutas e aditivos',
+      'Assinatura digital integrada ao fluxo',
+      'Controle rigoroso de prazos e vigências',
+      'Auditoria nativa de documentos acadêmicos'
+    ],
+    banner: '/arkos_dashboard_decision_1774133572097.png'
+  },
+  recrutamento: { 
+    title: 'Arkos Talent Intelligence', 
+    desc: 'Redesenho organizacional via NLP e Otimização Matemática para estruturação de cargos e processos.',
+    benefits: [
+      'Rankeamento de currículos por IA',
+      'Geração de Dossiê automatizado de candidatos',
+      'Previsão de Turnover dinâmica',
+      'Matrizes RACI baseadas em dados reais'
+    ],
+    banner: '/arkos_executive_dashboard_1774143501248.png'
+  },
   ai: { 
-    title: 'Arkos AI Agents', 
+    title: 'Agentes de IA e Automação', 
     desc: 'Copilots executivos que automatizam tarefas repetitivas e alertam anomalias preventivamente.', 
     benefits: [
       'Resolutores autônomos por chat (WhatsApp, Slack)',
@@ -71,38 +71,71 @@ const moduleDetails: Record<string, { title: string, desc: string, benefits: str
     ],
     banner: '/arkos_data_brain_1774143436679.png'
   },
-  strategy: { 
-    title: 'Arkos Strategy', 
-    desc: 'Aproveite modelos matemáticos avançados para prever riscos e definir sua identidade estratégica.', 
+  commerce: { 
+    title: 'Central de Comércio Inteligente', 
+    desc: 'Motor financeiro robusto B2B integrado à gestão para e-commerce e recorrência.', 
     benefits: [
-      'Mapeamento de riscos e cruzamento de dados de mercado',
+      'Faturamento agnóstico a gateways bancários',
+      'Gestão de subscrições e planos recorrentes',
+      'Split de pagamentos automático',
+      'Dashboard de performance de vendas B2B'
+    ],
+    banner: '/arkos_laptop_mockup_1774143172389.png'
+  },
+  growth: { 
+    title: 'Aceleração de Crescimento (Growth)', 
+    desc: 'Squads avançados operando tráfego pago escalável e ROI preditivo.', 
+    benefits: [
+      'Gestão de performance em Google e Meta Ads',
+      'SEO técnico para conversão orgânica',
+      'Modelagem de custos de aquisição (CAC)',
+      'Aumento sistemático do LTV dos clientes'
+    ],
+    banner: '/arkos_growth_acceleration_hero_v1_1774542610685.png'
+  },
+  strategy: { 
+    title: 'Planejamento Estratégico e Cenários', 
+    desc: 'Aproveite modelos matemáticos avançados para prever riscos e definir sua estratégia.', 
+    benefits: [
+      'Mapeamento de riscos e cruzamento de mercado',
       'Automação de planos estratégicos de 5 anos',
-      'Vetorização de metas em cascata para equipes kpis',
+      'Vetorização de metas em cascata para equipes',
       'Acessível via Copilots de recomendação ARKOS'
     ],
     banner: '/arkos_business_strategy_1774143055983.png'
   },
   academy: { 
-    title: 'Arkos Academy EaD', 
-    desc: 'Letramento e retenção de alunos/colaboradores através de portais white-label preditivos.', 
+    title: 'Edtech Academy', 
+    desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva.', 
     benefits: [
       'Ambiente de Ensino Inteligente com rastreio de foco',
       'Geração de Alertas de Churn de alunos por engajamento',
       'Integração com módulos de faturamento e CRM',
       'Relatórios e certificados automatizados'
     ],
-    banner: '/arkos_corporate_boardroom_1774143669395.png'
+    banner: '/arkos_edtech_portal_hero_v1_1774542625280.png'
   },
   infra: { 
-    title: 'Arkos Tech Management', 
-    desc: 'Infraestrutura blindada com monitoramento 24h para suportar ecossistemas de dados auditáveis.', 
+    title: 'Gestão de Tecnologia e Cyber', 
+    desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes.', 
     benefits: [
-      'Compartilhamento de TI síncrono e segurança lógica de API',
-      'Monitoramento de carga e estabilidade de servidores',
+      'Monitoramento de carga síncrono 24/7',
+      'Segurança lógica e proteção contra invasões',
       'Backups determinísticos e auditáveis',
-      'Mitigação ágil de gargalos e proteção contra anomalias'
+      'Otimização de custos de infraestrutura cloud'
     ],
     banner: '/arkos_corporate_presenting_1774143639165.png'
+  },
+  pedidos: { 
+    title: 'Governança de Service Desk e Demandas', 
+    desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis.', 
+    benefits: [
+      'Central de Requisições Unificada (Tickets)',
+      'Acompanhamento de compras e faturamento',
+      'Simulações e auditorias econométricas nativas',
+      'Controle de SLA e eficiência operacional'
+    ],
+    banner: '/arkos_data_dashboard_holo_1774143471858.png'
   }
 }
 

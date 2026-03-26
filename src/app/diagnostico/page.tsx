@@ -349,7 +349,7 @@ export default function DiagnosticoPage() {
                   <p style={{ color: '#C8F542', fontSize: '0.85rem', fontWeight: 800, marginBottom: '6px', letterSpacing: '1px' }}>RECOMENDAÇÃO:</p>
                   <p style={{ color: '#F4F2ED', fontSize: '1.1rem', fontWeight: 700, marginBottom: '6px' }}>
                     {scoreData.gargalo === 'DADOS' && '🚀 Arkos Hub e Governança de Dados'}
-                    {(scoreData.gargalo === 'LIDERANÇA' || scoreData.gargalo === 'ANALISTAS') && '🎓 Arkos EdTech e Planejamento Estratégico'}
+                    {(scoreData.gargalo === 'LIDERANÇA' || scoreData.gargalo === 'ANALISTAS') && '🎓 Edtech Academy e Planejamento Estratégico'}
                     {(scoreData.gargalo === 'EMPREENDIMENTO' || scoreData.gargalo === 'ALVOS') && '💼 Arkos Suite e Inteligência de Mercado'}
                   </p>
                   <p style={{ color: '#8A8F99', fontSize: '0.8rem', lineHeight: '1.5' }}>

@@ -93,7 +93,7 @@ export default function ConhecaEquipe() {
       tags: [
         {
           icon: <Code2 size={24} color="#C8F542" style={{ flexShrink: 0 }} />,
-          title: 'Expertise & Stack',
+          title: 'Expertise e Stack',
           desc: 'API Integrations, Microservices Architecture, API Security Core, Cloud Architectures, Distributed Nodes, Edge Computations.'
         }
       ],

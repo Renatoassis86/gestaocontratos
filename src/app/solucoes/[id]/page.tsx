@@ -6,17 +6,18 @@ import styles from '../solucoes.module.css'
 import { ArrowLeft, CheckCircle2, ShoppingCart, Users, FileText, Package, BarChart2, Cpu, Shield } from 'lucide-react'
 
 const catalog: Record<string, any> = {
-  clm: { title: 'Gestão de Contratos (CLM)', desc: 'Geração e tracking automático de documentos.', image: '/arkos_dashboard_decision_1774133572097.png' },
-  crm: { title: 'Gestão Comercial (CRM)', desc: 'Funil avançado e tração de propostas.', image: '/arkos_real_executive_dashboard_1774143584596.png' },
-  recrutamento: { title: 'Gestão de Talentos (HRMS)', desc: 'DP e Previsão de Turnover dinâmica.', image: '/arkos_executive_dashboard_1774143501248.png' },
-  pedidos: { title: 'Pedidos e Demandas (ERP)', desc: 'Fluxos integrados e chamados de SLA.', image: '/arkos_data_dashboard_holo_1774143471858.png' },
-  commerce: { title: 'Arkos Commerce Suite', desc: 'Motor financeiro B2B e E-commerce.', image: '/arkos_laptop_mockup_1774143172389.png' },
-  growth: { title: 'Arkos Growth Agency', desc: 'Squads de tráfego pago e escala ROI.', image: '/arkos_real_executive_dashboard_1774143584596.png' },
-  marketing: { title: 'Marketing Intelligence', desc: 'Aquisição de leads e análise de sentimentos.', image: '/arkos_laptop_mockup_1774143172389.png' },
-  data: { title: 'Arkos Data', desc: 'Data warehouse e pipelines conectadas.', image: '/arkos_data_stream_1774143375030.png' },
-  ai: { title: 'Arkos AI Agents', desc: 'Agentes autônomos e resolução preditiva.', image: '/arkos_data_brain_1774143436679.png' },
-  strategy: { title: 'Arkos Strategy', desc: 'Planos estatísticos e Cruzamento de cenários.', image: '/arkos_business_strategy_1774143055983.png' },
-  academy: { title: 'Arkos Academy', desc: 'Plataforma EaD e Letramento avançado.', image: '/arkos_corporate_boardroom_1774143669395.png' }
+  marketing: { title: 'Marketing Intelligence', desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda.', image: '/arkos_marketing_intelligence_hero_v1_1774542591336.png' },
+  data: { title: 'Governança de Dados e BI', desc: 'Data warehouse, pipelines conectadas e dashboards preditivos de alta performance.', image: '/arkos_data_stream_1774143375030.png' },
+  crm: { title: 'Gestão Comercial (CRM)', desc: 'Otimize o funil de vendas, propostas comerciais e conversões estratégicas em tempo real.', image: '/arkos_real_executive_dashboard_1774143584596.png' },
+  clm: { title: 'Gestão de Contratos (CLM)', desc: 'Centraliza a espinha dorsal financeira e física do negócio: faturamento, fardamento e contratos.', image: '/arkos_dashboard_decision_1774133572097.png' },
+  recrutamento: { title: 'Arkos Talent Intelligence', desc: 'Redesenho organizacional via NLP e Otimização Matemática. Estruturação de cargos e processos.', image: '/arkos_executive_dashboard_1774143501248.png' },
+  ai: { title: 'Agentes de IA e Automação', desc: 'Agentes autônomos treinados com as regras do seu negócio para resolver chamados e fluxos.', image: '/arkos_data_brain_1774143436679.png' },
+  commerce: { title: 'Central de Comércio Inteligente', desc: 'Motor financeiro robusto B2B integrado à gestão para e-commerce e recorrência.', image: '/arkos_laptop_mockup_1774143172389.png' },
+  growth: { title: 'Aceleração de Crescimento (Growth)', desc: 'Squads avançados operando tráfego pago escalável, ROI preditivo e SEO técnico.', image: '/arkos_growth_acceleration_hero_v1_1774542610685.png' },
+  strategy: { title: 'Planejamento Estratégico e Cenários', desc: 'Formulação completa e acompanhamento de planos estratégicos dinâmicos e operação tática.', image: '/arkos_business_strategy_1774143055983.png' },
+  academy: { title: 'Edtech Academy', desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva.', image: '/arkos_edtech_portal_hero_v1_1774542625280.png' },
+  infra: { title: 'Gestão de Tecnologia e Cyber', desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes.', image: '/arkos_corporate_presenting_1774143639165.png' },
+  pedidos: { title: 'Governança de Service Desk e Demandas', desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência.', image: '/arkos_data_dashboard_holo_1774143471858.png' }
 };
 
 export default function SolucoesDetails() {
