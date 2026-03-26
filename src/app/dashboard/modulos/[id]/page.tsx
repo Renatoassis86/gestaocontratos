@@ -113,7 +113,7 @@ const moduleDetails: Record<string, { title: string, desc: string, benefits: str
       'Integração com módulos de faturamento e CRM',
       'Relatórios e certificados automatizados'
     ],
-    banner: '/arkos_edtech_portal_hero_v1_1774542625280.png'
+    banner: '/edtech_academy_watching_class_v1_1774549826855.png'
   },
   infra: { 
     title: 'Gestão de Tecnologia e Cyber', 

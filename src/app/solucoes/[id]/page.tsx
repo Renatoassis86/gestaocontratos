@@ -15,7 +15,7 @@ const catalog: Record<string, any> = {
   commerce: { title: 'Central de Comércio Inteligente', desc: 'Motor financeiro robusto B2B integrado à gestão para e-commerce e recorrência.', image: '/arkos_laptop_mockup_1774143172389.png' },
   growth: { title: 'Aceleração de Crescimento (Growth)', desc: 'Squads avançados operando tráfego pago escalável, ROI preditivo e SEO técnico.', image: '/arkos_growth_acceleration_hero_v1_1774542610685.png' },
   strategy: { title: 'Planejamento Estratégico e Cenários', desc: 'Formulação completa e acompanhamento de planos estratégicos dinâmicos e operação tática.', image: '/arkos_business_strategy_1774143055983.png' },
-  academy: { title: 'Edtech Academy', desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva.', image: '/arkos_edtech_portal_hero_v1_1774542625280.png' },
+  academy: { title: 'Edtech Academy', desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva.', image: '/edtech_academy_watching_class_v1_1774549826855.png' },
   infra: { title: 'Gestão de Tecnologia e Cyber', desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes.', image: '/arkos_corporate_presenting_1774143639165.png' },
   pedidos: { title: 'Governança de Service Desk e Demandas', desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência.', image: '/arkos_data_dashboard_holo_1774143471858.png' }
 };

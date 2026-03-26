@@ -148,7 +148,7 @@ export default function ModulosSelector() {
       icon: <Users size={22} />,
       color: '#EF4444',
       hasAccess: false,
-      foto: '/arkos_edtech_portal_hero_v1_1774542625280.png'
+      foto: '/edtech_academy_watching_class_v1_1774549826855.png'
     },
     {
       id: 'infra',
@@ -157,7 +157,7 @@ export default function ModulosSelector() {
       desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes. Atuamos como seu braço direito de TI.',
       link: '#',
       externo: false,
-      icon: <Shield size={22} />,
+      icon: <Shield size={24} />,
       color: '#14B8A6',
       hasAccess: false,
       foto: '/arkos_corporate_presenting_1774143639165.png'
@@ -169,7 +169,7 @@ export default function ModulosSelector() {
       desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência operacional e suporte inteligente.',
       link: 'https://appgestaocontratos.vercel.app/',
       externo: true,
-      icon: <Package size={22} />,
+      icon: <Package size={24} />,
       color: '#06B6D4',
       hasAccess: false,
       foto: '/arkos_data_dashboard_holo_1774143471858.png'

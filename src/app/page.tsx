@@ -294,7 +294,7 @@ export default function Home() {
               />
             </div>
             <div className={styles.videoBtmBadge}>
-              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Sua operação movida a</span> Inteligência Estrutural <span style={{ color: '#C8F542' }}>&rarr;</span>
+              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>Sua operação movida a</span> Inteligência Estrutural <span style={{ color: '#C8F542' }}>→</span>
             </div>
           </div>
 
@@ -759,7 +759,7 @@ export default function Home() {
 
           {/* Centro: Direitos Autorais */}
           <div style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>
-            &copy; 2026 Arkos Intelligence. Todos os direitos reservados.
+            © 2026 Arkos Intelligence. Todos os direitos reservados.
           </div>
           
           {/* Direita: Criado por */}
