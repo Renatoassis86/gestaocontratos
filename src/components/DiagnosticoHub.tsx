@@ -192,43 +192,57 @@ export default function DiagnosticoHub() {
         <section className={styles.sectionFull}>
           <div className={styles.headerCentered}>
             <div className={styles.tag}>Os 5 Estágios de Maturidade</div>
-            <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center' }}>O Caminho para a Competitividade</h2>
+            <h2 className={styles.title} style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '40px' }}>ALINHAMENTO ESTRATÉGICO: PIRÂMIDE DE MATURIDADE</h2>
           </div>
           
           <div className={styles.stairsFlexGroup}>
-            <div className={styles.stairInfographic} style={{ alignItems: 'center', flex: 1.5 }}>
+            <div className={styles.stairInfographic} style={{ alignItems: 'center', flex: 1.5, gap: '0px', padding: '0px' }}>
               {[
-                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável em todo o negócio.', population: 'Top 5%' },
-                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa de dados e usam a análise para se diferenciar no mercado.', population: '≈ 15%' },
-                { lvl: 3, t: 'Aspirantes Analíticos', d: 'A liderança reconhece a importância e inicia esforços para integrar dados centralmente.', population: '≈ 30%' },
-                { lvl: 2, t: 'Empresas de Análise Localizada', d: 'O uso de dados ocorre em silos funcionais, sem integração empresarial.', population: '≈ 40%' },
-                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico da liderança.', population: '90% do Mercado' }
+                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável.', population: 'Top 5%', width: '300px' },
+                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa e usam análise para se diferenciar no mercado.', population: '≈ 15%', width: '450px' },
+                { lvl: 3, t: 'Aspirantes Analíticos', d: 'Reconhecem a importância e iniciam integração de dados centralmente.', population: '≈ 30%', width: '600px' },
+                { lvl: 2, t: 'Análise Localizada', d: 'O uso de dados ocorre em silos funcionais sem integração corporativa.', population: '≈ 40%', width: '750px' },
+                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico.', population: '90% do Mercado', width: '900px' }
               ].map((item, idx) => (
                 <div 
                   key={item.lvl} 
-                  className={styles.stairRow}
-                  style={{ justifyContent: 'center', width: '100%', marginBottom: '-1px' }} /* Stacking tight like a pyramid */
+                  style={{ 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    width: '100%', 
+                    margin: '0', 
+                    padding: '0',
+                    zIndex: 10 - idx,
+                    transform: 'none',
+                    marginLeft: '0 !important' /* Force-killing the stair offset */
+                  }}
                 >
                   <div 
                     className={styles.statCard} 
                     style={{ 
-                      width: `${100 - (item.lvl * 12)}%`, /* Decreasing width for higher levels */
+                      width: item.width,
                       minWidth: '280px',
-                      maxWidth: '850px',
-                      borderRadius: item.lvl === 5 ? '12px 12px 0 0' : item.lvl === 1 ? '0 0 12px 12px' : '0',
-                      borderBottomColor: item.lvl === 1 ? '#C8F542' : 'rgba(200,245,66,0.2)',
-                      background: item.lvl === 5 ? 'rgba(200,245,66,0.08)' : '#111318',
-                      position: 'relative'
+                      maxWidth: '96%',
+                      borderRadius: item.lvl === 5 ? '20px 20px 0 0' : item.lvl === 1 ? '0 0 20px 20px' : '0',
+                      border: '1px solid rgba(200,245,66,0.3)',
+                      borderBottom: item.lvl === 1 ? '2px solid #C8F542' : 'none',
+                      borderTop: item.lvl === 5 ? '2px solid #C8F542' : idx === 0 ? '2px solid #C8F542' : '1px solid rgba(200,245,66,0.2)',
+                      background: item.lvl === 5 ? 'linear-gradient(to top, #111318, rgba(200,245,66,0.15))' : '#111318',
+                      position: 'relative',
+                      margin: '0 auto',
+                      padding: '28px',
+                      boxShadow: item.lvl === 5 ? '0 0 50px rgba(200,245,66,0.25)' : 'none',
+                      flexShrink: 0
                     } as React.CSSProperties}
                   >
-                    <div style={{ position: 'absolute', top: '10px', left: '16px', fontSize: '0.625rem', color: '#C8F542', fontWeight: 800, opacity: 0.8 }}>
+                    <div style={{ position: 'absolute', top: '12px', left: '18px', fontSize: '0.625rem', color: '#C8F542', fontWeight: 800, letterSpacing: '1px' }}>
                       {item.population}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px', paddingTop: '10px' }}>
-                      <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.9rem', fontFamily: 'monospace', letterSpacing: '2px' }}>NÍVEL {item.lvl}</span>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px', paddingTop: '6px' }}>
+                      <span style={{ fontWeight: 800, color: '#C8F542', fontSize: '0.85rem', fontFamily: 'monospace', opacity: 0.7, letterSpacing: '2px' }}>ESTÁGIO {item.lvl}</span>
                     </div>
-                    <div style={{ fontWeight: 800, fontSize: '1.2rem', color: '#F4F2ED', marginBottom: '6px', textAlign: 'center' }}>{item.t}</div>
-                    <div style={{ fontSize: '0.813rem', color: '#8A8F99', lineHeight: '1.5', textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}>{item.d}</div>
+                    <div style={{ fontWeight: 800, fontSize: '1.4rem', color: '#F4F2ED', marginBottom: '6px', textAlign: 'center' }}>{item.t}</div>
+                    <div style={{ fontSize: '0.813rem', color: '#8F94A3', lineHeight: '1.5', textAlign: 'center', maxWidth: '420px', margin: '0 auto' }}>{item.d}</div>
                   </div>
                 </div>
               ))}
