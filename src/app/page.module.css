@@ -12,7 +12,7 @@
   background: var(--ob);
   color: var(--wht);
   min-height: 100vh;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--sans);
   overflow-x: hidden;
   position: relative;
 }
@@ -111,7 +111,7 @@
 }
 
 .heroH1Adapta {
-  font-family: 'Outfit', 'Inter', sans-serif; font-size: 3.8rem; font-weight: 900; line-height: 1.05; /* Reduced size of font scale slightly */
+  font-family: var(--heading); font-size: 3.8rem; font-weight: 900; line-height: 1.05; /* Reduced size of font scale slightly */
   letter-spacing: -0.04em; color: var(--wht); margin-bottom: 24px;
 }
 

@@ -21,7 +21,7 @@ export default function OHubArkos() {
           </h1>
           
           <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.9', marginBottom: '32px' }}>
-            O Hub Arkos é a materialização da **Inteligência Centralizada**. Uma interface de alto padrão desenhada para ser intuitiva para executivos e poderosa para analistas. A partir de um único login, você acessa todos os seus ativos digitais, de dashboards de BI a ferramentas de colaboração em tempo real, garantindo que toda a empresa esteja operando em uníssono.
+            O Hub Arkos é a materialização da <strong style={{ color: '#F4F2ED' }}>Inteligência Centralizada</strong>. Uma interface de alto padrão desenhada para ser intuitiva para executivos e poderosa para analistas. A partir de um único login, você acessa todos os seus ativos digitais, de dashboards de BI a ferramentas de colaboração em tempo real, garantindo que toda a empresa esteja operando em uníssono.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>

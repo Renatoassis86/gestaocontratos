@@ -21,7 +21,7 @@ export default function Diferencial() {
           </h1>
           
           <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.9', marginBottom: '32px' }}>
-            O que separa a Arkos Intelligence de qualquer outra solução de software é o nosso **Compromisso com o Princípio (Arché)**. Não entregamos apenas código; entregamos clareza e poder de comando. Operamos na intersecção entre a ciência econômica rigorosa e a engenharia de precisão, garantindo uma proteção institucional que outras ferramentas simplesmente não alcançam.
+            O que separa a Arkos Intelligence de qualquer outra solução de software é o nosso <strong style={{ color: '#F4F2ED' }}>Compromisso com o Princípio (Arché)</strong>. Não entregamos apenas código; entregamos clareza e poder de comando. Operamos na intersecção entre a ciência econômica rigorosa e a engenharia de precisão, garantindo uma proteção institucional que outras ferramentas simplesmente não alcançam.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>

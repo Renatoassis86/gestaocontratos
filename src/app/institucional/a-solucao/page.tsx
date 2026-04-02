@@ -21,7 +21,7 @@ export default function ASolucao() {
           </h1>
           
           <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.9', marginBottom: '32px' }}>
-            A Arkos Intelligence resolve o caos corporativo através de uma **Arquitetura de Harmonização**. Integramos as camadas mais profundas de dados em uma única plataforma centralizada que combina **Engenharia de Decisão** com **Automação de Governanca**. Deixamos de ser apenas uma ferramenta para nos tornarmos a "Espinha Dorsal Digital" da sua empresa, garantindo que cada contrato, cada lead e cada processo esteja alinhado à visão estratégica do fundador.
+            A Arkos Intelligence resolve o caos corporativo através de uma <strong style={{ color: '#F4F2ED' }}>Arquitetura de Harmonização</strong>. Integramos as camadas mais profundas de dados em uma única plataforma centralizada que combina <strong style={{ color: '#F4F2ED' }}>Engenharia de Decisão</strong> com <strong style={{ color: '#F4F2ED' }}>Automação de Governanca</strong>. Deixamos de ser apenas uma ferramenta para nos tornarmos a "Espinha Dorsal Digital" da sua empresa, garantindo que cada contrato, cada lead e cada processo esteja alinhado à visão estratégica do fundador.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
