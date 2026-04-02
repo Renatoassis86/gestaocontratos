@@ -489,7 +489,7 @@ export default function Home() {
       <section id="equipe" className={styles.section} style={{ background: '#090a0c' }}>
         <div className={styles.sectionHeader}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>IDEALIZADOR & FOUNDER</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>A Mente por Trás da ARKOS</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>A mente por trás da Arkos</h2>
         </div>
         <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '600px', margin: '0 auto 48px auto' }}>Economista, cientista de dados e estrategista. A visão que une análise econômica, governança de dados e inteligência artificial para transformar a gestão corporativa.</p>
 
