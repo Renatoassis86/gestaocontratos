@@ -145,7 +145,7 @@ export default function ConhecaEquipe() {
               Renato Silva de Assis é economista formado pela UFPB, Mestre em Economia Regional pela UFRN e bacharel em Ciências de Dados para Negócios. Natural de João Pessoa (PB), construiu ao longo de mais de 16 anos uma carreira sólida na interseção entre <strong style={{ color: '#F4F2ED' }}>ciência econômica, pesquisa aplicada e gestão estratégica de dados</strong>.
             </p>
             <p style={{ color: '#8A8F99', fontSize: '0.95rem', lineHeight: 1.9, marginBottom: '18px' }}>
-              Como supervisor técnico do DIEESE nos estados da Paraíba e Rio Grande do Norte (2008–2024), coordenou dezenas de pesquisas sobre mercado de trabalho, conjuntura econômica e estudos setoriais — acumulando uma bagagem metodológica rara no país. Atuou também no escritório nacional do DIEESE em projetos de abrangência federal.
+              Como supervisor técnico do <strong style={{ color: '#F4F2ED' }}>DIEESE (Departamento Intersindical de Estatística e Estudos Socioeconômicos)</strong> nos estados da Paraíba e Rio Grande do Norte (2008–2024), coordenou dezenas de pesquisas sobre mercado de trabalho, conjuntura econômica e estudos setoriais — acumulando uma bagagem metodológica rara no país. Atuou também no escritório nacional do DIEESE em projetos de abrangência federal.
             </p>
             <p style={{ color: '#8A8F99', fontSize: '0.95rem', lineHeight: 1.9, marginBottom: '28px' }}>
               Fundador da <strong style={{ color: '#F4F2ED' }}>Econsult</strong>, empresa de consultoria organizacional especializada em planejamento estratégico, gestão financeira, perícia contábil e pesquisas quantitativas, Renato acumula experi\u00AAncia tanto no setor público quanto no privado. Hoje, além de atuar como gerente do sistema no Cidade Viva Education e professor de pós-graduação na FICV, é o idealizador e founder da <strong style={{ color: '#C8F542' }}>Arkos Intelligence</strong> — infraestrutura analítica que traduz décadas de expertise em tecnologia de gestão de alto impacto.
@@ -282,7 +282,7 @@ export default function ConhecaEquipe() {
             Sobre o Projeto
           </div>
           <p style={{ color: '#8A8F99', fontSize: '0.92rem', lineHeight: 1.85, maxWidth: '700px', margin: '0 auto 0 auto' }}>
-            A <strong style={{ color: '#C8F542' }}>Arkos Intelligence</strong> nasce da convergência de uma trajetória singular: mais de uma década analisando mercados e trabalhadores pelo DIEESE, anos construindo soluções de consultoria pela Econsult, e a formação contínua em ciência de dados e tecnologia. É a síntese de tudo que Renato aprendeu no campo — transformado em infraestrutura tecnológica que qualquer empresa pode usar para tomar decisões melhores, mais rápidas e mais fundamentadas.
+            A <strong style={{ color: '#C8F542' }}>Arkos Intelligence</strong> nasce da convergência de uma trajetória singular: mais de uma década analisando mercados e trabalhadores pelo <strong style={{ color: '#F4F2ED' }}>DIEESE (Departamento Intersindical de Estatística e Estudos Socioeconômicos)</strong>, anos construindo soluções de consultoria pela Econsult, e a formação contínua em ciência de dados e tecnologia. É a síntese de tudo que Renato aprendeu no campo — transformado em infraestrutura tecnológica que qualquer empresa pode usar para tomar decisões melhores, mais rápidas e mais fundamentadas.
           </p>
         </div>
 
