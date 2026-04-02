@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import Footer from '@/components/Footer'
 
 export default function InstitucionalLayout({
   children,
@@ -19,6 +20,7 @@ export default function InstitucionalLayout({
       <main>
         {children}
       </main>
+      <Footer />
     </div>
   )
 }

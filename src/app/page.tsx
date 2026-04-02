@@ -6,6 +6,7 @@ import styles from './page.module.css'
 import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2, Cloud, Video, Globe, Handshake, Workflow, Calendar } from 'lucide-react'
 import DiagnosticoHub from '@/components/DiagnosticoHub'
 import CompetidoresSeccion from '@/components/CompetidoresSeccion'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -123,12 +124,12 @@ export default function Home() {
             </div>
           </div>
 
-          <Link href="#problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>O Problema</span></Link>
-          <Link href="#solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Solução</span></Link>
-          <Link href="#modulos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Ecossistema</span></Link>
-          <Link href="#aplicativos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Hub Arkos</span></Link>
+          <Link href="/institucional/o-problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>O Problema</span></Link>
+          <Link href="/institucional/a-solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Solução</span></Link>
+          <Link href="/institucional/o-ecossistema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Ecossistema</span></Link>
+          <Link href="/institucional/o-hub-arkos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Hub Arkos</span></Link>
           <Link href="/diagnostico" target="_blank" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diagnóstico</span></Link>
-          <Link href="#vantagem" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferencial</span></Link>
+          <Link href="/institucional/diferencial" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferencial</span></Link>
         </nav>
 
         <div className={styles.headerActions}>
@@ -485,72 +486,65 @@ export default function Home() {
       {/* ── 6. EQUIPE (CREATORS) ────────────────────────────────── */}
       <section id="equipe" className={styles.section} style={{ background: '#090a0c' }}>
         <div className={styles.sectionHeader}>
-          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>CONHEÇA NOSSA EQUIPE</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Os Criadores da ARKOS</h2>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>IDEALIZADOR & FOUNDER</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>A Mente por Trás da ARKOS</h2>
         </div>
-        <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '600px', margin: '0 auto 40px auto' }}>Profissionais multidisciplinares unindo Ciência da Computação, Economia e Inteligência de Mercado.</p>
+        <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '600px', margin: '0 auto 48px auto' }}>Economista, cientista de dados e estrategista. A visão que une análise econômica, governança de dados e inteligência artificial para transformar a gestão corporativa.</p>
 
-        <div className={styles.equipeGrid}>
-          {/* Renato - Idealizador (Moved to Top) */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/renato_assis_co.jpg" alt="Renato Assis" className={styles.equipeImage} style={{ objectPosition: 'top center' }} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Renato Assis</h3>
-              <span className={styles.equipeRole}>Idealizador e Founder | Cientista de Dados</span>
-              <p className={styles.equipeBio}>Idealizador do conceito da ARKOS, vislumbrou uma infraestrutura que unisse economia analítica e inteligência real para o C-Level. Orquestra a estratégia de expansão do ecossistema ao lado de co-fundadores especialistas.</p>
-            </div>
+        {/* Single Founder — Wide Card */}
+        <div style={{ maxWidth: '860px', margin: '0 auto', background: '#111318', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden', display: 'grid', gridTemplateColumns: '340px 1fr' }}>
+          {/* Foto */}
+          <div style={{ position: 'relative', background: '#090a0c', minHeight: '460px' }}>
+            <img
+              src="/renato_assis_co.jpg"
+              alt="Renato Silva de Assis"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
+            />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40%', background: 'linear-gradient(to top, rgba(9,10,12,0.85), transparent)' }} />
           </div>
 
-          {/* Emanuel */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_emanuel.png" alt="Emanuel Peixoto" className={styles.equipeImage} />
+          {/* Bio */}
+          <div style={{ padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '20px' }}>
+            <div>
+              <h3 style={{ fontSize: '1.9rem', fontWeight: 900, color: '#F4F2ED', lineHeight: 1.1, margin: '0 0 6px 0' }}>
+                Renato Silva <span style={{ color: '#C8F542' }}>de Assis</span>
+              </h3>
+              <div style={{ fontFamily: 'monospace', fontSize: '0.65rem', color: '#5A5F6A', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                Idealizador &amp; Founder · Economista · Cientista de Dados
+              </div>
             </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Emanuel Peixoto</h3>
-              <span className={styles.equipeRole}>Coordenador de Estratégias Visuais</span>
-              <p className={styles.equipeBio}>Especialista na concepção visual e user-experience do ecosssistema Arkos. Aplica design para resolver dores operacionais e trazer lucidez à tomada de decisão.</p>
+
+            <p style={{ color: '#8A8F99', fontSize: '0.88rem', lineHeight: 1.85, margin: 0 }}>
+              Economista (UFPB), Mestre em Economia Regional (UFRN) e bacharel em Ciências de Dados para Negócios. Com <strong style={{ color: '#F4F2ED' }}>mais de 16 anos como supervisor técnico do DIEESE</strong> (PB e RN), especializou-se em análise de mercado de trabalho, conjuntura econômica e pesquisa socioeconômica de alta complexidade. Fundador da Econsult — consultoria de planejamento estratégico, gestão financeira e perícia contábil. Atualmente gerente de sistema no Cidade Viva Education e professor de pós-graduação na FICV. Criou a Arkos Intelligence para transformar décadas de expertise analítica em infraestrutura tecnológica de alto impacto para o C-Level.
+            </p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              {['SPSS', 'Stata', 'R', 'Python', 'SQL', 'Power BI', 'IA Generativa'].map((t, i) => (
+                <span key={i} style={{ padding: '4px 10px', background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.15)', borderRadius: '5px', fontSize: '0.7rem', color: '#C8F542', fontFamily: 'monospace' }}>{t}</span>
+              ))}
+            </div>
+
+            <div style={{ padding: '16px 20px', background: 'rgba(200,245,66,0.03)', borderRadius: '10px', borderLeft: '3px solid #C8F542' }}>
+              <p style={{ color: '#F4F2ED', fontSize: '0.85rem', lineHeight: 1.7, fontStyle: 'italic', margin: 0 }}>
+                "Construir processos <strong style={{ color: '#C8F542' }}>com pessoas e para pessoas</strong>. A tecnologia precisa gerar impacto de escala e melhorar o bem-estar dos times."
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '24px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '20px' }}>
+              <div>
+                <div style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: '#C8F542', letterSpacing: '0.1em', marginBottom: '4px' }}>FORMAÇÃO</div>
+                <div style={{ color: '#F4F2ED', fontSize: '0.78rem' }}>UFPB · UFRN · FICV</div>
+              </div>
+              <div>
+                <div style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: '#C8F542', letterSpacing: '0.1em', marginBottom: '4px' }}>ORIGEM</div>
+                <div style={{ color: '#F4F2ED', fontSize: '0.78rem' }}>João Pessoa, PB</div>
+              </div>
+              <div>
+                <div style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: '#C8F542', letterSpacing: '0.1em', marginBottom: '4px' }}>EXPERIÊNCIA</div>
+                <div style={{ color: '#F4F2ED', fontSize: '0.78rem' }}>+16 anos</div>
+              </div>
             </div>
           </div>
-
-          {/* Gabriel */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_gabriel.png" alt="Gabriel Mamede" className={styles.equipeImage} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Gabriel Mamede</h3>
-              <span className={styles.equipeRole}>Coordenador de Infraestrutura de Dados</span>
-              <p className={styles.equipeBio}>Responsável por estruturar a espinha dorsal lógica do banco de dados na Arkos. Foca em garantia de escalabilidade e confiabilidade no processamento corporativo.</p>
-            </div>
-          </div>
-
-          {/* Lucas */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="/arkos_team_lucas_ai.png" alt="Lucas Machado" className={styles.equipeImage} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Lucas Machado</h3>
-              <span className={styles.equipeRole}>Inovação E IA Algorithms</span>
-              <p className={styles.equipeBio}>Integra fluxos de Inteligência Artificial generativa e processamento automatizado, reduzindo o volume de cliques da equipe técnica ao limite mínimo.</p>
-            </div>
-          </div>
-
-          {/* Williams */}
-          <div className={styles.equipeCard}>
-            <div className={styles.equipeImageWrapper}>
-              <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&w=800&q=80" alt="Williams Calado" className={styles.equipeImage} />
-            </div>
-            <div className={styles.equipeContent}>
-              <h3 className={styles.equipeName}>Williams Calado</h3>
-              <span className={styles.equipeRole}>Engenheiro de Integrações E Infraestrutura</span>
-              <p className={styles.equipeBio}>Desenvolvedor especialista em Integrações. Formado em Ciência da Computação, garante a robustez das APIs e integridade de governança do ecossistema.</p>
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -709,74 +703,8 @@ export default function Home() {
           </div>
       </div>
       </section>
-
-      {/* ── FOOTER MEGA ────────────────────────────────────────── */}
-      <footer className={styles.footerMega}>
-        <div className={styles.footerGrid}>
-          
-          <div className={styles.footerCol}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-              <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: '24px' }} />
-            </div>
-            <p style={{ lineHeight: '1.6', maxWidth: '240px' }}>A infraestrutura de inteligência da nova economia. Data · Intelligence · Decision.</p>
-          </div>
-
-          <div className={styles.footerCol}>
-            <h4>Ecossistema Hub</h4>
-            <Link href="#modulos">Marketing Intelligence (MI)</Link>
-            <Link href="#modulos">Governança de Dados e BI (GDB)</Link>
-            <Link href="#modulos">Gestão Comercial (CRM)</Link>
-            <Link href="#modulos">Gestão de Contratos (CLM)</Link>
-            <Link href="#modulos">Arkos Talent Intelligence (ATI)</Link>
-            <Link href="#modulos">Agentes de IA e Automação (AIA)</Link>
-            <Link href="#modulos">Central de Comércio Inteligente (CCI)</Link>
-            <Link href="#modulos">Aceleração de Crescimento (ACG)</Link>
-            <Link href="#modulos">Planejamento Estratégico e Cenários (PEC)</Link>
-            <Link href="#modulos">Edtech Academy (EDT)</Link>
-            <Link href="#modulos">Gestão de Tecnologia e Cyber (GTC)</Link>
-            <Link href="#modulos">Governança de Service Desk e Demandas (GSD)</Link>
-          </div>
-
-          <div className={styles.footerCol}>
-            <h4>Fale Conosco</h4>
-            <p>contato@arkos.com</p>
-            <p>+55 (83) 98195-7737</p>
-          </div>
-
-          <div className={styles.footerCol}>
-            <h4>Localização</h4>
-            <p style={{ lineHeight: '1.5' }}>Avenida João Machado, 849, Sala 801<br />Centro, João Pessoa - PB<br />CEP: 58013-522</p>
-          </div>
-
-        </div>
-        
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '24px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', fontSize: '11px', color: '#5A5F6A', marginTop: '30px', gap: '16px' }} className={styles.footerBottomBar}>
-          
-          {/* Esquerda: Privacidade */}
-          <div style={{ textAlign: 'left' }}>
-            <Link href="/privacidade" style={{ color: '#C8F542', textDecoration: 'none', fontWeight: 600 }}>Privacidade E Termos</Link>
-          </div>
-
-          {/* Centro: Direitos Autorais */}
-          <div style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>
-            © 2026 Arkos Intelligence. Todos os direitos reservados.
-          </div>
-          
-          {/* Direita: Criado por */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px' }}>
-            <span>Criado por</span>
-            <svg viewBox="0 0 560 100" style={{ height: '24px', width: 'auto', display: 'block', flexShrink: 0 }}>
-              <line x1="50" y1="10" x2="10"  y2="90" stroke="#F4F2ED" strokeWidth="11" strokeLinecap="round"/>
-              <line x1="50" y1="10" x2="90"  y2="90" stroke="#F4F2ED" strokeWidth="11" strokeLinecap="round"/>
-              <line x1="24" y1="58" x2="76"  y2="58" stroke="#C8F542" strokeWidth="8"  strokeLinecap="round"/>
-              <circle cx="50" cy="10" r="7"           fill="#C8F542"/>
-              <line x1="118" y1="22" x2="118" y2="78" stroke="#272D38" strokeWidth="1"/>
-              <text x="136" y="63" fontFamily="'Courier New', monospace" fontWeight="600" fontSize="42" letterSpacing="14" fill="#F4F2ED">ARKOS</text>
-            </svg>
-          </div>
-        </div>
-      </footer>
-
+      <Footer />
+      
       {/* ── MOBILE BOTTOM NAVBAR ────────────────────────────────── */}
       <nav className={styles.mobileNavbar}>
         <Link href="#" className={styles.navItem}><HomeIcon size={20} /><span>Início</span></Link>

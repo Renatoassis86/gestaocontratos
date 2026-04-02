@@ -341,11 +341,51 @@
   background: linear-gradient(to top, rgba(244,242,237,0.5), transparent);
 }
 
-.deltaGridHorizontal {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+.deltaVerticalList {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   width: 100%;
+}
+
+.deltaItemVertical {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid rgba(10,12,15,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  transition: all 0.3s ease;
+  align-items: center;
+}
+
+.deltaItemVertical:hover {
+  transform: translateX(8px);
+  border-color: #C8F542;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.deltaLetterSmall {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #C8F542;
+  background: #0A0C0F;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(200, 245, 66, 0.2);
+}
+
+@media (max-width: 960px) {
+  .deltaLayoutGrid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
 }
 
 .deltaCard {
@@ -357,20 +397,6 @@
   flex-direction: column;
   box-shadow: 0 4px 15px rgba(0,0,0,0.02);
   transition: transform 0.2s;
-}
-
-.deltaCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-}
-
-.deltaLetter {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #0A0C0F;
-  margin-bottom: 12px;
-  font-family: 'Sora', sans-serif;
-  opacity: 0.15;
 }
 
 @media (max-width: 900px) {

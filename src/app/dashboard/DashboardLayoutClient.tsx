@@ -7,21 +7,21 @@ import { ArrowRight, LogOut } from 'lucide-react'
 
 export function DashboardLayoutClient({ children, activeCompany, empresas, isAdmin, perfilName, perfilAvatar }: any) {
   const pathname = usePathname()
-  const isHub = pathname === '/dashboard' || pathname === '/dashboard/modulos'
+  const isPageWithoutSidebar = pathname?.startsWith('/dashboard/modulos') || pathname === '/dashboard'
 
   return (
-    <div className={`${styles.layout} ${isHub ? styles.layoutHub : ''}`}>
-      {!isHub && <Sidebar currentPath={pathname} activeCompany={activeCompany} isAdmin={isAdmin} />}
+    <div className={`${styles.layout} ${isPageWithoutSidebar ? styles.layoutHub : ''}`}>
+      {!isPageWithoutSidebar && <Sidebar currentPath={pathname} activeCompany={activeCompany} isAdmin={isAdmin} />}
 
-      <div className={`${styles.content} ${isHub ? styles.contentHub : ''}`}>
+      <div className={`${styles.content} ${isPageWithoutSidebar ? styles.contentHub : ''}`}>
         <header className={styles.header}>
           <div className={styles.leftHeader} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {isHub && (
+            {isPageWithoutSidebar && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <img src="/logo-high-res.svg" alt="Arkos" style={{ height: '32px', objectFit: 'contain' }} />
+                <img src="/logo-high-res.svg" alt="Arkos" style={{ height: '32px', width: 'auto', objectFit: 'contain' }} />
               </div>
             )}
-            {!isHub && <CompanySwitcher empresas={empresas} activeCompany={activeCompany} />}
+            {!isPageWithoutSidebar && <CompanySwitcher empresas={empresas} activeCompany={activeCompany} />}
           </div>
 
           {/* Espaço Customizável Removido a pedido */}
@@ -63,7 +63,7 @@ export function DashboardLayoutClient({ children, activeCompany, empresas, isAdm
           </div>
         </header>
 
-        <main className={`${styles.main} ${isHub ? styles.mainHub : ''}`}>
+        <main className={`${styles.main} ${isPageWithoutSidebar ? styles.mainHub : ''}`}>
           {children}
         </main>
       </div>

@@ -270,36 +270,42 @@ export default function DiagnosticoHub() {
               </p>
             </div>
 
-            <div className={styles.mediaWrapperDelta} style={{ padding: '0 20px', width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
-                <img 
-                  src="/modelo_delta_v4_8k.png" 
-                  alt="Modelo DELTA de Maturidade Analítica - Alta Resolução" 
-                  className={styles.mediaDelta} 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    borderRadius: '24px', 
-                    boxShadow: '0 40px 100px rgba(0,0,0,0.4), 0 0 20px rgba(200,245,66,0.1)',
-                    border: '1px solid rgba(0,0,0,0.1)',
-                    display: 'block'
-                  }} 
-                />
-            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '40px', width: '100%', maxWidth: '1200px', margin: '0 auto', alignItems: 'center' }} className={styles.deltaLayoutGrid}>
+              
+              {/* VÍDEO (LADO ESQUERDO) */}
+              <div className={styles.mediaWrapperDelta} style={{ margin: 0, height: '440px' }}>
+                <video 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  poster="/modelo_delta_v4_8k.png"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px' }}
+                >
+                  <source src="/videos/modelo_delta_mastery.mp4" type="video/mp4" />
+                  {/* prompt para Veo 3: Cinematic, high-contrast video of diverse high-level executives interacting with a glowing holographic 3D D.E.L.T.A. framework in an ultra-modern dark boardroom. Hologram pulses with green neon energy. Photorealistic, 8k. */}
+                </video>
+                <div className={styles.imageOverlayLight}></div>
+              </div>
 
-            <div className={styles.deltaGridHorizontal}>
-              {[
-                { l: 'D', t: 'DATA', d: 'Dados integrados, precisos e limpos como o principal ativo estratégico invisível.' },
-                { l: 'E', t: 'ENTERPRISE', d: 'A quebra de silos departamentais unificando a tecnologia unificadamente.' },
-                { l: 'L', t: 'LEADERSHIP', d: 'Executivos que exigem decisões baseadas em fatos em vez de intuições.' },
-                { l: 'T', t: 'TARGETS', d: 'Foco estratégico onde algoritmos direcionam para o maior ROI competitivo.' },
-                { l: 'A', t: 'ANALYSTS', d: 'Combinação entre ciência de dados e talento executivo ágil.' }
-              ].map((d) => (
-                <div key={d.l} className={styles.deltaCard}>
-                  <div className={styles.deltaLetter}>{d.l}</div>
-                  <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0A0C0F', marginBottom: '6px' }}>{d.t}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#5A5F6A', lineHeight: '1.4' }}>{d.d}</div>
-                </div>
-              ))}
+              {/* LISTA VERTICAL (LADO DIREITO) */}
+              <div className={styles.deltaVerticalList}>
+                {[
+                  { l: 'D', t: 'DATA', d: 'Dados integrados e precisos como ativo estratégico.' },
+                  { l: 'E', t: 'ENTERPRISE', d: 'Quebra de silos departamentais unificando a tecnologia.' },
+                  { l: 'L', t: 'LEADERSHIP', d: 'Executivos que exigem decisões baseadas em fatos.' },
+                  { l: 'T', t: 'TARGETS', d: 'Foco estratégico onde algoritmos direcionam o ROI.' },
+                  { l: 'A', t: 'ANALYSTS', d: 'Ciência de dados unida ao talento executivo ágil.' }
+                ].map((d) => (
+                  <div key={d.l} className={styles.deltaItemVertical}>
+                    <div className={styles.deltaLetterSmall}>{d.l}</div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0A0C0F', marginBottom: '2px' }}>{d.t}</div>
+                      <div style={{ fontSize: '0.85rem', color: '#5A5F6A', lineHeight: '1.4' }}>{d.d}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
           </div>

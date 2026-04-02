@@ -34,44 +34,44 @@ export default function ModulosSelector() {
       id: 'marketing',
       titulo: 'Marketing Intelligence',
       tag: 'MI',
-      desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda: pesquisas de mercado, NPS, testes de lançamentos e análise de sentimento.',
-      link: '#',
+      desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda.',
+      link: '/dashboard/modulos/marketing',
       externo: false,
       icon: <BarChart2 size={22} />,
       color: '#FF4D4D',
       hasAccess: false,
-      foto: '/arkos_marketing_intelligence_hero_v1_1774542591336.png'
+      foto: '/arkos_marketing_v2_1775140793051.png'
     },
     {
       id: 'data',
       titulo: 'Governança de Dados e BI',
       tag: 'GDB',
-      desc: 'Data warehouse, pipelines conectadas e dashboards preditivos de alta performance para a tomada de decisão baseada em números reais.',
-      link: '#',
+      desc: 'Data warehouse, pipelines conectadas e dashboards preditivos de alta performance para tomada de decisão.',
+      link: '/dashboard/modulos/data',
       externo: false,
       icon: <Cpu size={22} />,
       color: '#EC4899',
       hasAccess: false,
-      foto: '/arkos_data_stream_1774143375030.png'
+      foto: '/arkos_data_v2_1775140815684.png'
     },
     {
       id: 'crm',
       titulo: 'Gestão Comercial (CRM)',
       tag: 'CRM',
-      desc: 'Otimize o funil de vendas, propostas comerciais e conversões estratégicas em tempo real, permitindo previsões de caixa assertivas.',
-      link: 'https://comercial.cidadeviva.education',
-      externo: true,
+      desc: 'Otimize o funil de vendas, propostas comerciais e conversões estratégicas em tempo real.',
+      link: '/dashboard/modulos/crm',
+      externo: false,
       icon: <ShoppingCart size={22} />,
       color: '#3B82F6',
       hasAccess: false,
-      foto: '/arkos_real_executive_dashboard_1774143584596.png'
+      foto: '/arkos_crm_clm_v2_1775140837645.png'
     },
     {
       id: 'clm',
       titulo: 'Gestão de Contratos (CLM)',
       tag: 'CLM',
-      desc: 'Centraliza a espinha dorsal financeira e física do negócio: faturamento, fardamento, contratos e histórico acadêmico.',
-      link: '/dashboard/documentos',
+      desc: 'Centraliza a espinha dorsal financeira e física do negócio: faturamento, fardamento e contratos.',
+      link: '/dashboard/contratos',
       externo: false,
       icon: <FileText size={22} />,
       color: '#C8F542',
@@ -82,97 +82,97 @@ export default function ModulosSelector() {
       id: 'recrutamento',
       titulo: 'Arkos Talent Intelligence',
       tag: 'ATI',
-      desc: 'Redesenho organizacional via NLP e Otimização Matemática. Transforma relatos funcionais em evidência objetiva para estruturação de cargos e processos.',
-      link: 'https://recrutamento.cidadeviva.education/',
-      externo: true,
+      desc: 'Redesenho organizacional via NLP e Otimização Matemática para estruturação de cargos e processos.',
+      link: '/dashboard/modulos/recrutamento',
+      externo: false,
       icon: <Users size={22} />,
       color: '#8B5CF6',
       hasAccess: false,
-      foto: '/arkos_executive_dashboard_1774143501248.png'
+      foto: '/arkos_talent_v2_1775140860229.png'
     },
     {
       id: 'ai',
       titulo: 'Agentes de IA e Automação',
       tag: 'AIA',
-      desc: 'Agentes autônomos treinados com as regras do seu negócio para resolver chamados e automatizar fluxos complexos.',
-      link: '#',
+      desc: 'Agentes autônomos treinados com as regras do seu negócio para resolver chamados e automatizar fluxos.',
+      link: '/dashboard/modulos/ai',
       externo: false,
       icon: <Cpu size={22} />,
       color: '#F472B6',
       hasAccess: false,
-      foto: '/arkos_data_brain_1774143436679.png'
+      foto: '/arkos_ai_v2_1775140880134.png'
     },
     {
       id: 'commerce',
       titulo: 'Central de Comércio Inteligente',
       tag: 'CCI',
-      desc: 'Motor financeiro robusto B2B integrado à gestão para e-commerce, recorrência, subscrições de produtos e faturamento agnóstico.',
-      link: '#',
+      desc: 'Motor financeiro robusto para B2B integrado à gestão para e-commerce e faturamento agnóstico.',
+      link: '/dashboard/modulos/commerce',
       externo: false,
       icon: <ShoppingCart size={22} />,
       color: '#F43F5E',
       hasAccess: false,
-      foto: '/arkos_laptop_mockup_1774143172389.png'
+      foto: '/arkos_commerce_v2_1775141111185.png'
     },
     {
       id: 'growth',
-      titulo: 'Aceleração de Crescimento (Growth)',
+      titulo: 'Aceleração de Crescimento',
       tag: 'ACG',
-      desc: 'Squads avançados operando tráfego pago escalável, ROI preditivo e SEO técnico para empresas que precisam de escala acelerada.',
-      link: '#',
+      desc: 'Squads avançados operando tráfego pago escalável e ROI preditivo para empresas que precisam de escala.',
+      link: '/dashboard/modulos/growth',
       externo: false,
       icon: <BarChart2 size={22} />,
       color: '#2DD4BF',
       hasAccess: false,
-      foto: '/arkos_growth_acceleration_hero_v1_1774542610685.png'
+      foto: '/arkos_growth_v2_1775140991666.png'
     },
     {
       id: 'strategy',
-      titulo: 'Planejamento Estratégico e Cenários',
+      titulo: 'Planejamento Estratégico',
       tag: 'PEC',
-      desc: 'Formulação completa e acompanhamento de planos estratégicos dinâmicos. Orientamos desde a identidade organizacional até a operação tática.',
-      link: '#',
+      desc: 'Formulação completa e acompanhamento de planos estratégicos dinâmicos orientados por dados.',
+      link: '/dashboard/modulos/strategy',
       externo: false,
       icon: <Shield size={22} />,
       color: '#F59E0B',
       hasAccess: false,
-      foto: '/arkos_business_strategy_1774143055983.png'
+      foto: '/arkos_strategy_v2_1775141013223.png'
     },
     {
       id: 'academy',
       titulo: 'Edtech Academy',
       tag: 'EDT',
-      desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva. Acoplamos todo o ecossistema para elevar a eficiência.',
-      link: '#',
+      desc: 'Plataforma LMS completa para letramento digital da equipe e capacitação preditiva.',
+      link: '/dashboard/modulos/academy',
       externo: false,
       icon: <Users size={22} />,
       color: '#EF4444',
       hasAccess: false,
-      foto: '/edtech_academy_watching_class_v1_1774549826855.png'
+      foto: '/arkos_academy_v2_1775141033972.png'
     },
     {
       id: 'infra',
       titulo: 'Gestão de Tecnologia e Cyber',
       tag: 'GTC',
-      desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes. Atuamos como seu braço direito de TI.',
-      link: '#',
+      desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes.',
+      link: '/dashboard/modulos/infra',
       externo: false,
       icon: <Shield size={24} />,
       color: '#14B8A6',
       hasAccess: false,
-      foto: '/arkos_corporate_presenting_1774143639165.png'
+      foto: '/arkos_infra_v2_1775141129587.png'
     },
     {
       id: 'pedidos',
-      titulo: 'Governança de Service Desk e Demandas',
+      titulo: 'Governança de Service Desk',
       tag: 'GSD',
-      desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência operacional e suporte inteligente.',
-      link: 'https://appgestaocontratos.vercel.app/',
-      externo: true,
+      desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência.',
+      link: '/dashboard/modulos/pedidos',
+      externo: false,
       icon: <Package size={24} />,
       color: '#06B6D4',
       hasAccess: false,
-      foto: '/arkos_data_dashboard_holo_1774143471858.png'
+      foto: '/arkos_service_v2_1775141149450.png'
     }
   ]
 

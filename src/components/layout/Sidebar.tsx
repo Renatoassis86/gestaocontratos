@@ -70,8 +70,8 @@ export function Sidebar({ activeCompany, isAdmin }: SidebarProps) {
 
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.header} style={{ display: 'flex', justifyContent: 'center', padding: '2rem 1.5rem' }}>
-        <img src="/logo-high-res.svg" alt="Arkos" style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
+      <div className={styles.header} style={{ display: 'flex', justifyContent: 'center', padding: '1.5rem' }}>
+        <img src="/logo-high-res.svg" alt="Arkos" style={{ height: '32px', width: 'auto', objectFit: 'contain' }} />
       </div>
 
       <nav className={styles.nav}>

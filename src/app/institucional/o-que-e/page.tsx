@@ -1,5 +1,5 @@
 "use client"
-import { Shield, Database, Cpu } from 'lucide-react'
+import { Shield, Database, Cpu, Sparkles, Workflow, Layout } from 'lucide-react'
 import styles from '../../page.module.css'
 
 export default function OQueEArkos() {
@@ -7,7 +7,7 @@ export default function OQueEArkos() {
     <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '100px 24px' }}>
       <div className={styles.solucaoHero}>
         <div className={styles.videoArchWrapper}>
-          <div className={styles.videoArchContainer} style={{ background: 'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <div className={styles.videoArchContainer} style={{ background: 'url("/arkos_arche_foundation_1775140657952.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
           </div>
           <div className={styles.videoBtmBadge}>
              <span style={{ fontWeight: 400, opacity: 0.8, fontSize: '0.875rem' }}>O verdadeiro</span> Software Corporation <span style={{ color: '#C8F542' }}>&rarr;</span>
@@ -15,30 +15,53 @@ export default function OQueEArkos() {
         </div>
 
         <div>
-          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '1px', marginBottom: '16px' }}>O QUE É A ARKOS</div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', marginBottom: '24px', lineHeight: '1.2' }}>Mais que software. O princípio gerador da sua empresa.</h1>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.625rem', letterSpacing: '2px', marginBottom: '16px', fontWeight: 800 }}>CONCEPT · ARCHÉ · ORIGIN</div>
+          <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3rem)', fontWeight: '900', color: '#F4F2ED', marginBottom: '24px', lineHeight: '1.1', letterSpacing: '-0.02em' }}>
+            Arkos: O Princípio Gerador <br/>da Inteligência Corporativa.
+          </h1>
           
-          <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.8', marginBottom: '24px' }}>
-            A palavra <strong>ARKOS</strong> tem origem no conceito grego de <em>Arché</em> (ἀρχή), que para os filósofos socráticos significava "o princípio fundamental", a origem comandante, a força subjacente e imutável que estrutura todas as coisas no universo.
+          <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.9', marginBottom: '24px' }}>
+            Na Grécia Antiga, o termo <strong>Arkos</strong> (ou <em>Arché</em>) designava o princípio fundamental. Para os filósofos socráticos, era a origem comandante, o elemento subjacente e imutável que dava estrutura e sentido a todo o universo. Sem a Arché, haveria apenas o caos primordial.
           </p>
 
-          <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.8', marginBottom: '32px' }}>
-            Trazendo isso para a nova economia, a ARKOS atua exatamente como esse princípio gerador para negócios de alta performance. Nós não somos apenas mais um painel de BI ou um sistema isolado. Nós nos tornamos a espinha dorsal analítica e operacional da sua operação, estruturando o caos de informações espalhadas (em ERPs, CRMs e planilhas) e transformando a raiz do seu fluxo de dados na fonte de decisões mais segura e assertiva que uma liderança pode ter.
+          <p style={{ color: '#8A8F99', fontSize: '1rem', lineHeight: '1.9', marginBottom: '32px' }}>
+            Na economia do século XXI, a <strong>Arkos Intelligence</strong> assume esse papel. Não somos apenas um software de gestão ou uma plataforma de BI. Somos a infraestrutura que atua como o "DNA analítico" de uma organização. Conectamos dados dispersos, processos fragmentados e decisões isoladas em um único organismo de inteligência, garantindo que o crescimento seja uma consequência lógica de uma estrutura imperturbável.
           </p>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-              <Database size={24} color="#C8F542" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
+            <div style={{ padding: '24px', background: '#111318', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(200,245,66,0.06)', p: '12px', borderRadius: '12px', border: '1px solid rgba(200,245,66,0.15)' }}>
+                <Database size={24} color="#C8F542" />
+              </div>
               <div>
-                <strong style={{ display: 'block', color: '#FFF', fontSize: '0.95rem', marginBottom: '6px' }}>O Único Ponto de Verdade (SSOT)</strong>
-                <span style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.6' }}>Conectamos tudo em um ecossistema unificado, destruindo os silos institucionais. Um sistema operando em nuvem com rigor econométrico, desenhado para que sua empresa ganhe imunidade aos achismos metodológicos e blinde seu futuro corporativo.</span>
+                <strong style={{ display: 'block', color: '#F4F2ED', fontSize: '1.05rem', marginBottom: '8px' }}>O Ponto Único de Verdade (SSOT)</strong>
+                <span style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.7' }}>
+                  Eliminamos os "silos de informação" que paralisam diretorias. Através da nossa infraestrutura, todos os dados da empresa convergem para um núcleo de verdade absoluta, processado com rigor econométrico e pronto para auditorias de alta complexidade. 
+                </span>
               </div>
             </div>
-            <div style={{ padding: '20px', background: '#111318', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-              <Shield size={24} color="#C8F542" style={{ flexShrink: 0, marginTop: '2px' }} />
+
+            <div style={{ padding: '24px', background: '#111318', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(200,245,66,0.06)', p: '12px', borderRadius: '12px', border: '1px solid rgba(200,245,66,0.15)' }}>
+                <Shield size={24} color="#C8F542" />
+              </div>
               <div>
-                <strong style={{ display: 'block', color: '#FFF', fontSize: '0.95rem', marginBottom: '6px' }}>Imunidade Analítica Corporativa</strong>
-                <span style={{ color: '#8A8F99', fontSize: '0.85rem', lineHeight: '1.6' }}>Deixamos o achismo no passado. Toda decisão – orçamentária, educacional ou mercadológica – passa a ser amparada pelo cruzamento estatístico da sua "Arché" de dados, transformando risco em governança previsível.</span>
+                <strong style={{ display: 'block', color: '#F4F2ED', fontSize: '1.05rem', marginBottom: '8px' }}>Governance as an Engine</strong>
+                <span style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.7' }}>
+                  A governança deixa de ser um "manual de regras" para se tornar parte do motor operacional. Transformamos risco em previsibilidade ao ancorar cada clique e cada transação em modelos de governança nativos, desenhados para proteger a perpetuidade da corporação.
+                </span>
+              </div>
+            </div>
+            
+            <div style={{ padding: '24px', background: 'rgba(200,245,66,0.02)', borderRadius: '16px', border: '1px solid rgba(200,245,66,0.1)', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(200,245,66,0.06)', p: '12px', borderRadius: '12px', border: '1px solid rgba(200,245,66,0.15)' }}>
+                <Sparkles size={24} color="#C8F542" />
+              </div>
+              <div>
+                <strong style={{ display: 'block', color: '#F4F2ED', fontSize: '1.05rem', marginBottom: '8px' }}>Evolução Analítica Constante</strong>
+                <span style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.7' }}>
+                  Não somos estáticos. A Arkos aprende com o fluxo de cada departamento, entregando melhorias iterativas que reduzem a fricção operacional ao mínimo possível, permitindo que o C-Level foque exclusivamente na expansão.
+                </span>
               </div>
             </div>
           </div>
