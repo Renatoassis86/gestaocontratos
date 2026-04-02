@@ -194,18 +194,54 @@ export default function Home() {
           </p>
           
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10 }}>
-            <Link href="https://wa.me/5583981957737" target="_blank">
+            <Link href="/diagnostico" target="_blank">
               <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
                 <span>Diagnóstico Gratuito</span>
                 <ArrowRight size={16} />
               </button>
             </Link>
-            <Link href="#solucao" className={styles.hideOnMobile}>
+            <Link href="#equipe" className={styles.hideOnMobile}>
               <button className={styles.btnSecondary}>
-                <span>Ver Como Funciona</span>
+                <span>Conhecer o Time</span>
               </button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── 0. EQUIPE / CREATORS ─────────────────────────────── */}
+      <section id="equipe" className={styles.section} style={{ paddingBottom: '0' }}>
+        <div className={styles.sectionHeader}>
+          <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>OS CREATORS</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>O Hub é feito por quem constrói a nova economia</h2>
+        </div>
+        <p className={styles.sectionIntro}>Conheça os estrategistas e arquitetos de dados por trás da infraestrutura Arkos.</p>
+
+        <div className={styles.equipeGrid}>
+          {[
+            { n: 'Renato Silva de Assis', r: 'Founder · Strategy & Data Science', i: '/renato_assis_co.jpg', d: 'Estrategista líder focado na integração entre teoria econômica e ciência de dados aplicada a negócios reais.' },
+            { n: 'Emmanuel Peixoto', r: 'Co-Founder · Technology & Architecture', i: '/arkos_team_emanuel.png', d: 'Arquiteto de sistemas distribuídos e infraestrutura de alta performance para processamento massivo de dados.' },
+            { n: 'Gabriel Mamede', r: 'Co-Founder · Analytics & Modelagem', i: '/arkos_team_gabriel.png', d: 'Especialista em analytics preditivo e modelagem estatística para suporte à decisão executiva.' },
+            { n: 'Julio Cesar', r: 'Co-Founder · Inteligência de Mercado', i: '/arkos_team_julio_cesar.png', d: 'Líder de inteligência estratégica focado no mapeamento de ecossistemas e competitividade analítica.' },
+            { n: 'Lucas Silveira', r: 'Co-Founder · AI Intelligence', i: '/arkos_team_lucas_ai.png', d: 'Especialista em inteligência artificial e orquestração de redes neurais para automação de complexidade.' },
+            { n: 'Wiliam Silva', r: 'Co-Founder · Operations & Growth', i: '/arkos_team_julio.png', d: 'Estrategista de operações e crescimento, garantindo a sustentabilidade e escala do ecossistema Arkos.' }
+          ].map((c, i) => (
+            <div key={i} className={styles.equipeCard}>
+              <div className={styles.equipeImgRing}>
+                <img src={c.i} alt={c.n} className={styles.equipeImg} />
+              </div>
+              <div className={styles.equipeInfo}>
+                <h3 className={styles.equipeName}>{c.n}</h3>
+                <div className={styles.equipeRole}>{c.r}</div>
+                <p className={styles.equipeBio}>{c.d}</p>
+                <div className={styles.equipeCta}>
+                  <Link href="/institucional/equipe" style={{ color: '#C8F542', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    Ver Currículo <ArrowRight size={12} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

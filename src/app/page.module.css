@@ -148,6 +148,10 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(10,12,15,0.6) 0%, rgba(10,12,15,1) 100%);
+  background-image: url('/arkos_dashboard_decision_1774133572097.png'), linear-gradient(to bottom, rgba(10,12,15,0.6) 0%, rgba(10,12,15,1) 100%);
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
   z-index: 1;
 }
 
@@ -497,36 +501,44 @@
 
 /* ── EQUIPE GRID ────────────────────────────────────────── */
 .equipeGrid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px;
 }
 
 .equipeCard {
   background: var(--ob2); border: 1px solid rgba(255,255,255,0.03);
-  border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s;
+  border-radius: 20px; padding: 40px 32px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
 }
 .equipeCard:hover {
-  transform: translateY(-4px); border-color: rgba(200,245,66,0.2);
+  transform: translateY(-8px); border-color: rgba(200,245,66,0.3);
+  background: rgba(200,245,66,0.02);
+  box-shadow: 0 20px 40px -20px rgba(0,0,0,0.5);
 }
 
-.equipeImageWrapper {
-  width: 100%; height: 280px; background: #000; position: relative; overflow: hidden;
+.equipeImgRing {
+  width: 120px; height: 120px; border-radius: 50%; padding: 4px;
+  background: linear-gradient(135deg, var(--sig) 0%, transparent 100%);
+  margin-bottom: 24px; position: relative;
 }
 
-.equipeImage {
-  width: 100%; height: 100%; object-fit: cover; filter: grayscale(50%); transition: filter 0.3s, transform 0.3s;
+.equipeImg {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+  border: 4px solid var(--ob2); filter: grayscale(100%); transition: filter 0.3s;
 }
-.equipeCard:hover .equipeImage { filter: grayscale(0%); transform: scale(1.03); }
+.equipeCard:hover .equipeImg { filter: grayscale(0%); }
 
-.equipeContent { padding: 24px; }
+.equipeInfo { flex: 1; display: flex; flex-direction: column; }
 
-.equipeName { font-size: 1.125rem; font-weight: 800; color: var(--wht); margin-bottom: 4px; }
+.equipeName { font-size: 1.25rem; font-weight: 800; color: var(--wht); margin-bottom: 6px; }
 
 .equipeRole {
-  font-family: monospace; font-size: 0.625rem; color: var(--sig);
-  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; display: block;
+  font-family: monospace; font-size: 0.688rem; color: var(--sig);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;
 }
 
-.equipeBio { font-size: 0.75rem; color: var(--mut); line-height: 1.6; }
+.equipeBio { font-size: 0.813rem; color: var(--mut); line-height: 1.7; margin-bottom: 24px; }
+
+.equipeCta { margin-top: auto; }
 
 /* CSS Duplicado removido. As classes .compMegaTable, .compMegaHeader e .compMegaRow certas já estão definidas nas linhas 393. */
 
