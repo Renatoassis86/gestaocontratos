@@ -28,8 +28,8 @@
 
   /* Fontes do Brandbook (Premium Arkos) */
   --serif: 'DM Serif Display', serif;
-  --sans: var(--font-inter), 'Inter', sans-serif;
-  --heading: var(--font-outfit), 'Outfit', sans-serif;
+  --sans: 'Inter', sans-serif;
+  --heading: var(--font-geist-sans), 'Inter', sans-serif;
   --mono: 'DM Mono', monospace;
 }
 
@@ -52,7 +52,6 @@ html, body {
   background: var(--background);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
