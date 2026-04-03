@@ -1,10 +1,34 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import styles from './CompetidoresSeccion.module.css'
 
 export default function CompetidoresSeccion() {
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  useEffect(() => {
+    // Force the iframe to reload with autoplay when it enters viewport (mobile workaround)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && iframeRef.current) {
+            const src = iframeRef.current.src
+            if (!src.includes('autoplay=1')) return
+            // Reset src to force reload and trigger autoplay
+            iframeRef.current.src = ''
+            setTimeout(() => {
+              if (iframeRef.current) iframeRef.current.src = src
+            }, 100)
+          }
+        })
+      },
+      { threshold: 0.3 }
+    )
+    if (iframeRef.current) observer.observe(iframeRef.current)
+    return () => observer.disconnect()
+  }, [])
   const empresas = [
     { name: 'Netflix', logo: '/netflix_logo_final_1774226938106.png' },
     { name: 'Amazon', logo: '/amazon_logo_1774226927016.png' },
@@ -37,10 +61,19 @@ export default function CompetidoresSeccion() {
             
             <div className={styles.caseContent}>
               <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.4, overflow: 'hidden', borderRadius: '16px' }}>
+                {/* Poster fallback behind the iframe */}
+                <img 
+                  src="/arkos_performance_reengineering_1775140701063.png" 
+                  alt="" 
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
                 <iframe 
-                  src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1&mute=1&controls=0&loop=1&playlist=GV3HUDMQ-F8&modestbranding=1&rel=0" 
+                  ref={iframeRef}
+                  src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1&mute=1&controls=0&loop=1&playlist=GV3HUDMQ-F8&modestbranding=1&rel=0&playsinline=1&enablejsapi=1" 
                   className={styles.videoBg}
-                  allow="autoplay; encrypted-media"
+                  allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                  allowFullScreen
+                  title="Netflix Analytics"
                 />
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(180deg, transparent, rgba(17,19,24,0.95))' }}></div>
               </div>

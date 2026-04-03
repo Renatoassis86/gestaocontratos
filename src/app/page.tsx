@@ -3,13 +3,13 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2, Cloud, Video, Globe, Handshake, Workflow, Calendar } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2, Cloud, Video, Globe, Handshake, Workflow, Calendar, Layout as LayoutIcon } from 'lucide-react'
 import DiagnosticoHub from '@/components/DiagnosticoHub'
 import CompetidoresSeccion from '@/components/CompetidoresSeccion'
 import Footer from '@/components/Footer'
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [activeVideo, setActiveVideo] = useState<0|1|2>(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const videoRefs = [
@@ -19,78 +19,79 @@ export default function Home() {
   ];
   const solucaoVideoRef = useRef<HTMLVideoElement>(null);
 
-  // Wire up the 3-video circular crossfade after mount with a resilient retry setup for hydration
+  // 1. Initial Mount: Setup persistent interaction listeners & prime initial videos
   useEffect(() => {
-    let checkRefs: NodeJS.Timeout;
-    let loadedVideos: HTMLVideoElement[] = [];
-    let loadedHandlers: (() => void)[] = [];
-
-    checkRefs = setInterval(() => {
-      const videos = videoRefs.map(r => r.current).filter(Boolean) as HTMLVideoElement[];
-      if (videos.length === 3) {
-        clearInterval(checkRefs);
-        loadedVideos = videos;
-
-        const interval = setInterval(() => {
-          setActiveVideo(prev => {
-            const nextIdx = (prev + 1) % 3;
-            const next = videos[nextIdx];
-            if (next) {
-              next.currentTime = 0;
-              next.play().catch(() => {});
-            }
-            return nextIdx as 0|1|2;
-          });
-        }, 5000);
-
-        // Armazenar o interval para limpeza
-        checkRefs = interval; 
-        
-        // Kick off first video immediately
-        videos[0].play().catch(() => {});
-      }
-    }, 400);
-
-    // Resilient Play Trigger FOR MOBILE layout on user hydration/scroll to bypass low-power blockers
     const handleInteraction = () => {
-      const videos = videoRefs.map(r => r.current).filter(Boolean) as HTMLVideoElement[];
-      videos.forEach(v => {
-        if (v && v.paused) v.play().catch(() => {});
+      // Aggressively attempt to play ALL videos on any interaction
+      videoRefs.forEach(ref => {
+        if (ref.current && ref.current.paused) {
+          ref.current.play().catch(() => {});
+        }
       });
       if (solucaoVideoRef.current && solucaoVideoRef.current.paused) {
         solucaoVideoRef.current.play().catch(() => {});
       }
-      window.removeEventListener('scroll', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
     };
+
+    document.addEventListener('touchstart', handleInteraction, { passive: true, once: false });
+    document.addEventListener('click', handleInteraction, { once: false });
     window.addEventListener('scroll', handleInteraction, { passive: true });
-    window.addEventListener('touchstart', handleInteraction, { passive: true });
-    
-    // Disparo imediato para o vídeo solução
-    if (solucaoVideoRef.current) {
-      solucaoVideoRef.current.playbackRate = 0.7;
-      solucaoVideoRef.current.play().catch(() => {});
-    }
+
+    // Initial check for refs with high frequency
+    let retryCount = 0;
+    const checkRefs = setInterval(() => {
+      retryCount++;
+      const videos = videoRefs.map(r => r.current).filter(Boolean);
+      if (videos.length === 3 || retryCount > 50) {
+        clearInterval(checkRefs);
+        if (videos[0]) (videos[0] as HTMLVideoElement).play().catch(() => {});
+      }
+    }, 200);
 
     return () => {
       clearInterval(checkRefs);
-      if (loadedVideos.length && loadedHandlers.length) {
-        loadedVideos.forEach((v, i) => {
-          if (loadedHandlers[i]) v.removeEventListener('ended', loadedHandlers[i]);
-        });
-      }
+      document.removeEventListener('scroll', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('click', handleInteraction);
       window.removeEventListener('scroll', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 2. Slider Logic: Single timer synchronized with current state
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % 3);
-    }, 4000);
+      const nextIdx = ((activeVideo + 1) % 3) as 0|1|2;
+      const nextVideo = videoRefs[nextIdx].current;
+      
+      if (nextVideo) {
+        // Prepare next video
+        nextVideo.currentTime = 0;
+        nextVideo.play().catch(() => {
+          // If play fails, it will attempt again on the next user interaction
+        });
+      }
+      setActiveVideo(nextIdx);
+    }, 5000);
+
     return () => clearInterval(timer);
-  }, []);
+  }, [activeVideo]);
+
+  const mobileNavbar = (
+    <nav className={styles.mobileNavbar}>
+      <Link href="#" className={styles.navItem}><HomeIcon size={18} /><span>Home</span></Link>
+      <Link href="#solucao" className={styles.navItem}><CheckCircle2 size={18} /><span>Solução</span></Link>
+      
+      {/* Central Primary Action */}
+      <Link href="#diagnostico" className={`${styles.navItem} ${styles.navItemPrimary}`}>
+        <LayoutIcon size={22} strokeWidth={2.5} />
+      </Link>
+      
+      <Link href="#aplicativos" className={styles.navItem}><Grid size={18} /><span>Hub</span></Link>
+      <Link href="/login" className={styles.navItem} style={{ color: '#C8F542' }}><LogIn size={18} /><span>Entrar</span></Link>
+    </nav>
+  );
+
   return (
     <div className={styles.page}>
       
@@ -148,65 +149,105 @@ export default function Home() {
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className={styles.heroAdapta}>
         
-        {/* Background Video — 3-video crossfade loop */}
         <div className={styles.heroVideoBg}>
           <video
             ref={videoRefs[0]}
-            autoPlay muted playsInline
+            autoPlay muted playsInline loop
             className={styles.heroVideoElement}
-            style={{ opacity: activeVideo === 0 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            poster="/arkos_growth_acceleration_hero_v1_1774542610685.png"
+            style={{ 
+              opacity: activeVideo === 0 ? 1 : 0, 
+              transition: 'opacity 1.5s ease-in-out', 
+              position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' 
+            }}
           >
-            <source src="/hero-arkos-video.mp4" type="video/mp4" />
+            <source src="/hero-main-arkos.mp4" type="video/mp4" />
           </video>
           <video
             ref={videoRefs[1]}
-            autoPlay muted playsInline
+            autoPlay muted playsInline loop
             className={styles.heroVideoElement}
-            style={{ opacity: activeVideo === 1 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            poster="/arkos_marketing_intelligence_hero_v1_1774542591336.png"
+            style={{ 
+              opacity: activeVideo === 1 ? 1 : 0, 
+              transition: 'opacity 1.5s ease-in-out', 
+              position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' 
+            }}
           >
             <source src="/hero-secondary-arkos.mp4" type="video/mp4" />
           </video>
           <video
             ref={videoRefs[2]}
-            autoPlay muted playsInline
+            autoPlay muted playsInline loop
             className={styles.heroVideoElement}
-            style={{ opacity: activeVideo === 2 ? 1 : 0, transition: 'opacity 1.5s ease-in-out', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            poster="/arkos_hub_dashboard_interface_1775141882974.png"
+            style={{ 
+              opacity: activeVideo === 2 ? 1 : 0, 
+              transition: 'opacity 1.5s ease-in-out', 
+              position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' 
+            }}
           >
-            <source src="/hero-main-arkos.mp4" type="video/mp4" />
+            <source src="/hero-arkos-video.mp4" type="video/mp4" />
           </video>
           <div className={styles.heroVideoOverlay}></div>
         </div>
 
         {/* Foreground Content */}
-        <div className={styles.heroContentWrapper}>
-          <div className={styles.heroTag} style={{ background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.12)', color: '#C8F542' }}>
+        <motion.div 
+          className={styles.heroContentWrapper}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          <motion.div 
+            className={styles.heroTag} 
+            style={{ background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.12)', color: '#C8F542' }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             <Sparkles size={12} />
             <span>Infraestrutura de Inteligência</span>
-          </div>
-
-          <h1 className={styles.heroH1Adapta}>
+          </motion.div>
+          
+          <motion.h1 
+            className={styles.heroH1Adapta}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6 }}
+          >
             A Infraestrutura de <br />
             <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Inteligência</span> da nova economia, aliada a ciências de dados para negócios.
-          </h1>
+          </motion.h1>
 
-          <p className={styles.heroPAdapta}>
+          <motion.p 
+            className={styles.heroPAdapta}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
             Do dado bruto à decisão executiva. A ARKOS conecta sistemas, dados, analytics e gestão em uma única arquitetura operacional.
-          </p>
+          </motion.p>
           
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10 }}>
-            <Link href="https://wa.me/5583981957737" target="_blank">
+          <motion.div 
+            style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '40px', zIndex: 10, flexWrap: 'wrap' }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+          >
+            <Link href="#diagnostico">
               <button className={styles.btnPrimary} style={{ padding: '14px 28px' }}>
                 <span>Diagnóstico Gratuito</span>
                 <ArrowRight size={16} />
               </button>
             </Link>
             <Link href="#solucao" className={styles.hideOnMobile}>
-              <button className={styles.btnSecondary}>
+              <button className={styles.btnSecondary} style={{ padding: '14px 28px' }}>
                 <span>Ver Como Funciona</span>
               </button>
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
 
@@ -707,14 +748,8 @@ export default function Home() {
       </section>
       <Footer />
       
-      {/* ── MOBILE BOTTOM NAVBAR ────────────────────────────────── */}
-      <nav className={styles.mobileNavbar}>
-        <Link href="#" className={styles.navItem}><HomeIcon size={20} /><span>Início</span></Link>
-        <Link href="#solucao" className={styles.navItem}><CheckCircle2 size={20} /><span>Solução</span></Link>
-        <Link href="#aplicativos" className={styles.navItem}><Grid size={20} /><span>Hub</span></Link>
-        <Link href="https://wa.me/5583981957737" target="_blank" className={styles.navItem} style={{ color: '#A3A3A3' }}><MessageCircle size={20} /><span>Suporte</span></Link>
-        <Link href="/login" className={styles.navItem} style={{ color: '#C8F542' }}><LogIn size={20} /><span>Entrar</span></Link>
-      </nav>
+      {/* ── MOBILE BOTTOM NAVBAR (PREMIUM DOCK) ────────────────── */}
+      {mobileNavbar}
 
     </div>
   )

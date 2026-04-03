@@ -32,7 +32,7 @@ export default async function DashboardLayout({
     .single()
 
   // 3. Obter Empresas (Bypass para admin)
-  const isAdmin = user.email === 'renato086@gmail.com';
+  const isAdmin = user.email === 'renato@arkosintelligence.com';
   let empresas: any[] = []
 
   if (isAdmin) {

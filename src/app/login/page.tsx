@@ -38,7 +38,7 @@ export default function LoginPage({
           <form action={signIn} className={styles.form}>
             <div className={styles.formGroup}>
               <label htmlFor="email">E-mail</label>
-              <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+              <input type="email" id="email" name="email" required placeholder="renato@arkosintelligence.com" />
             </div>
 
             <div className={styles.formGroup}>

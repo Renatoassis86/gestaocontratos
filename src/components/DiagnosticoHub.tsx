@@ -219,11 +219,8 @@ export default function DiagnosticoHub() {
                   }}
                 >
                   <div 
-                    className={styles.statCard} 
+                    className={`${styles.statCard} ${styles[`level${item.lvl}`]}`}
                     style={{ 
-                      width: item.width,
-                      minWidth: '280px',
-                      maxWidth: '96%',
                       borderRadius: item.lvl === 5 ? '20px 20px 0 0' : item.lvl === 1 ? '0 0 20px 20px' : '0',
                       border: '1px solid rgba(200,245,66,0.3)',
                       borderBottom: item.lvl === 1 ? '2px solid #C8F542' : 'none',
@@ -274,17 +271,11 @@ export default function DiagnosticoHub() {
               
               {/* VÍDEO (LADO ESQUERDO) */}
               <div className={styles.mediaWrapperDelta} style={{ margin: 0, height: '440px' }}>
-                <video 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  poster="/modelo_delta_v4_8k.png"
+                <img 
+                  src="/modelo_delta_v4_8k.png" 
+                  alt="Estrutura DELTA"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px' }}
-                >
-                  <source src="/videos/modelo_delta_mastery.mp4" type="video/mp4" />
-                  {/* prompt para Veo 3: Cinematic, high-contrast video of diverse high-level executives interacting with a glowing holographic 3D D.E.L.T.A. framework in an ultra-modern dark boardroom. Hologram pulses with green neon energy. Photorealistic, 8k. */}
-                </video>
+                />
                 <div className={styles.imageOverlayLight}></div>
               </div>
 

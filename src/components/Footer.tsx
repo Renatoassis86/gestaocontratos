@@ -54,7 +54,7 @@ export default function Footer() {
         {/* Coluna Contato */}
         <div className={styles.footerCol}>
           <h4>Fale Conosco</h4>
-          <p>contato@arkos.com</p>
+          <p>renato@arkosintelligence.com</p>
           <p>+55 (83) 98195-7737</p>
           <Link href="https://wa.me/5583981957737" target="_blank" style={{ color: '#C8F542', fontWeight: 600, borderBottom: '1px solid currentColor' }}>
             Falar com Consultor

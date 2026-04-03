@@ -18,7 +18,7 @@ export default function GestaoUsuariosPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
 
-      if (user.email === 'renato086@gmail.com') {
+      if (user.email === 'renato@arkosintelligence.com') {
         setIsAdmin(true)
         // Carregar Todos os Usuarios
         const { data: perfis } = await supabase

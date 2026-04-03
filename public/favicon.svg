@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32">
+  <!-- ARKOS Symbol (BLACK VERSION) -->
+  <line x1="50" y1="10" x2="10"  y2="90" stroke="#0A0C0F" stroke-width="11" stroke-linecap="round"/>
+  <line x1="50" y1="10" x2="90"  y2="90" stroke="#0A0C0F" stroke-width="11" stroke-linecap="round"/>
+  <line x1="24" y1="58" x2="76"  y2="58" stroke="#C8F542" stroke-width="8"  stroke-linecap="round"/>
+  <circle cx="50" cy="10" r="7"           fill="#C8F542"/>
+</svg>

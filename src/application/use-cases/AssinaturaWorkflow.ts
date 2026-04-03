@@ -86,7 +86,7 @@ export class AssinaturaWorkflow {
 
     // 3. Chamar Signature Provider
     const mappedSigners = signatarios.map((s: any) => ({
-      email: s.pessoas?.email_contato || 'test@example.com',
+      email: s.pessoas?.email_contato || 'renato@arkosintelligence.com',
       nome: s.pessoas?.nome_razao_social || 'Sem Nome',
       papel: s.papel_assinatura
     }))
@@ -108,7 +108,7 @@ export class AssinaturaWorkflow {
 
     // 5. Atualizar Links Individuais em contrato_signatarios
     for (const rSign of envelope.signatarios) {
-      const dbSignatario = signatarios.find((s: any) => (s.pessoas?.email_contato || 'test@example.com') === rSign.email)
+      const dbSignatario = signatarios.find((s: any) => (s.pessoas?.email_contato || 'renato@arkosintelligence.com') === rSign.email)
       
       if (dbSignatario) {
         await supabase

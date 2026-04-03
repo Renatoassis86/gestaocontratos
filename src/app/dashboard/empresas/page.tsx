@@ -9,7 +9,7 @@ export default async function EmpresasPage() {
 
   // 1. Obter todas as empresas vinculadas ao usuário
   const { data: { user } } = await supabase.auth.getUser()
-  const isAdmin = user?.email === 'renato086@gmail.com'
+  const isAdmin = user?.email === 'renato@arkosintelligence.com'
   let empresas: any[] = []
 
   if (isAdmin) {
