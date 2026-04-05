@@ -1,129 +1,125 @@
 "use client"
-import { GraduationCap, Code2, Briefcase, Users, Star, MapPin, BookOpen, Target } from 'lucide-react'
+import { ExternalLink, MessageCircle, ArrowLeft } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 export default function ConhecaEquipe() {
-  const equipe = [
-    {
-      nome: 'Renato Silva de Assis',
-      cargo: 'CEO & Founder',
-      specialty: 'Strategy & Data Science',
-      foto: '/renato_assis_co.jpg',
-      bio: 'Economista, Mestre em Economia Regional e Cientista de Dados. Idealizador da Arkos, une 16 anos de expertise analítica à arquitetura de dados corporativos.',
-      linkedin: 'https://linkedin.com/in/renatoassis'
-    },
-    {
-      nome: 'Emmanuel Peixoto',
-      cargo: 'Co-Founder',
-      specialty: 'Technology & Architecture',
-      foto: '/arkos_team_emanuel.png',
-      bio: 'Arquiteto de sistemas focado em escalabilidade e microsserviços. Garante a robustez técnica e a fluidez do ecossistema de dados Arkos.',
-      linkedin: '#'
-    },
-    {
-      nome: 'Gabriel Mamede',
-      cargo: 'Co-Founder',
-      specialty: 'Analytics & Modelagem',
-      foto: '/arkos_team_gabriel.png',
-      bio: 'Especialista em inteligência de dados e modelagem econométrica. Sua missão é transformar fluxos complexos em auditoria diagnóstica precisa.',
-      linkedin: '#'
-    },
-    {
-      nome: 'Julio Cesar',
-      cargo: 'Co-Founder',
-      specialty: 'Inteligência de Mercado',
-      foto: '/arkos_team_julio.png',
-      bio: 'Estrategista de mercado focado em posicionamento e competitividade. Conecta a infraestrutura Arkos às necessidades reais do C-Level.',
-      linkedin: '#'
-    },
-    {
-      nome: 'Lucas AI',
-      cargo: 'Co-Founder',
-      specialty: 'AI & Advanced Analytics',
-      foto: '/arkos_team_lucas_ai.png',
-      bio: 'Lidera a integração de IA generativa e agentes autônomos no hub, elevando a automação cognitiva a um patamar estratégico.',
-      linkedin: '#'
-    },
-    {
-      nome: 'Wiliam',
-      cargo: 'Co-Founder',
-      specialty: 'Security & Infrastructure',
-      foto: '/arkos_preview.png', // Generic fallback as per previous check
-      bio: 'Especialista em segurança cibernética e infraestrutura em nuvem. Blindagem de dados e conformidade técnica são seus pilares na Arkos.',
-      linkedin: '#'
-    }
-  ]
-
-  const experiences = [
-    // ... existing experiences for Renato or general? 
-    // Actually, I'll keep the experiences section but maybe generalize it or keep it as Renato's for now since he is the main Founder.
-  ]
-
   return (
-    <div style={{ background: '#0A0C0F', minHeight: '100vh', paddingTop: '80px', fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ background: '#0A0C0F', minHeight: '100vh', paddingTop: '100px', fontFamily: "'Inter', sans-serif", color: '#F4F2ED' }}>
+      
+      {/* ── NAVEGAÇÃO SUPERIOR ── */}
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px 40px' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#8A8F99', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <ArrowLeft size={16} />
+          Voltar para Home
+        </Link>
+      </div>
 
       {/* ── HERO ── */}
-      <div style={{ textAlign: 'center', padding: '80px 24px 60px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(rgba(200,245,66,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(200,245,66,0.025) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
-        <div style={{ position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '300px', borderRadius: '50%', background: 'radial-gradient(ellipse at center, rgba(200,245,66,0.06) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div style={{ textAlign: 'center', padding: '0 24px 80px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(rgba(200,245,66,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(200,245,66,0.02) 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '20px', marginBottom: '24px', background: 'rgba(200,245,66,0.06)', border: '1px solid rgba(200,245,66,0.2)' }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#C8F542', display: 'inline-block' }} />
-            <span style={{ fontFamily: 'monospace', fontSize: '0.625rem', color: '#C8F542', letterSpacing: '0.12em', fontWeight: 800 }}>A EQUIPE DE CO-CRIADORES</span>
+            <span style={{ fontFamily: 'monospace', fontSize: '0.625rem', color: '#C8F542', letterSpacing: '0.12em', fontWeight: 800 }}>FUNDADOR & IDEALIZADOR</span>
           </div>
-          <h1 style={{ fontSize: 'clamp(2.1rem, 5vw, 3.5rem)', fontWeight: 900, color: '#F4F2ED', lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '20px' }}>
-            As mentes por trás da <span style={{ color: '#C8F542' }}>Arkos</span>.
+          <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, color: '#F4F2ED', lineHeight: 1, letterSpacing: '-0.04em', marginBottom: '24px' }}>
+            A visão por trás da <span style={{ color: '#C8F542' }}>Arkos</span>.
           </h1>
-          <p style={{ color: '#8A8F99', fontSize: '1.05rem', maxWidth: '700px', margin: '0 auto', lineHeight: 1.8, fontWeight: 300 }}>
-            Uma sinergia entre Economia Aplicada, Ciência de Dados e Engenharia de Software focada em desatar gargalos corporativos.
+          <p style={{ color: '#8A8F99', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7, fontWeight: 300 }}>
+            Conheça o estrategista que une economia aplicada, ciência de dados e gestão executiva para transformar o C-Level.
           </p>
         </div>
       </div>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px 120px' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px 100px' }}>
         
-        {/* ── GRID DA EQUIPE ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px', marginBottom: '100px' }}>
-          {equipe.map((m, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              style={{ padding: '32px', background: '#111318', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)', position: 'relative', overflow: 'hidden' }}
-            >
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px' }}>
-                <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(200,245,66,0.2)', flexShrink: 0 }}>
-                  <img src={m.foto} alt={m.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div>
-                  <h3 style={{ color: '#F4F2ED', fontSize: '1.15rem', fontWeight: 800, margin: 0 }}>{m.nome}</h3>
-                  <div style={{ color: '#C8F542', fontFamily: 'monospace', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: '4px' }}>{m.cargo}</div>
-                  <div style={{ color: '#5A5F6A', fontSize: '0.75rem', marginTop: '2px' }}>{m.specialty}</div>
-                </div>
-              </div>
-              <p style={{ color: '#8A8F99', fontSize: '0.88rem', lineHeight: 1.8, marginBottom: '20px', minHeight: '80px' }}>{m.bio}</p>
-              
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.7rem', color: '#5A5F6A', fontFamily: 'monospace' }}>© ARKOS 2026</span>
-                <a href={m.linkedin} target="_blank" style={{ color: '#C8F542', fontSize: '0.8rem', textDecoration: 'none', fontWeight: 600 }}>LinkedIn →</a>
-              </div>
-              
-              <div style={{ position: 'absolute', top: '-10px', right: '-10px', width: '100px', height: '100px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(200,245,66,0.03) 0%, transparent 70%)', pointerEvents: 'none' }} />
-            </motion.div>
-          ))}
-        </div>
+        {/* ── CARD FUNDADOR ÚNICO ── */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          style={{ 
+            background: '#111318', 
+            borderRadius: '32px', 
+            border: '1px solid rgba(255,255,255,0.05)', 
+            overflow: 'hidden', 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            boxShadow: '0 50px 100px -20px rgba(0,0,0,0.5)'
+          }}
+        >
+          {/* Foto com Efeito de Arco */}
+          <div style={{ position: 'relative', background: '#090a0c', minHeight: '520px', overflow: 'hidden' }}>
+            {/* Badge */}
+            <div style={{ 
+              position: 'absolute', top: '24px', left: '24px', background: '#2D63ED', color: '#FFF', 
+              fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', padding: '10px 18px', 
+              borderRadius: '30px', display: 'flex', alignItems: 'center', gap: '8px', zIndex: 10,
+              boxShadow: '0 4px 12px rgba(45, 99, 237, 0.4)'
+            }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Conheça-nos
+            </div>
 
-        {/* ── QUOTE DE FOUNDER ── */}
-        <div style={{ maxWidth: '800px', margin: '0 auto 100px', textAlign: 'center' }}>
-          <div style={{ padding: '60px 40px', background: 'linear-gradient(135deg, rgba(200,245,66,0.05) 0%, transparent 100%)', borderRadius: '24px', border: '1px solid rgba(200,245,66,0.1)', position: 'relative' }}>
-            <span style={{ position: 'absolute', top: '20px', left: '20px', fontSize: '100px', color: 'rgba(200,245,66,0.05)', fontFamily: 'serif', lineHeight: 1 }}>“</span>
-            <p style={{ color: '#F4F2ED', fontSize: '1.4rem', fontWeight: 300, lineHeight: 1.7, fontStyle: 'italic', margin: 0, position: 'relative', zIndex: 1 }}>
-              A tecnologia pela tecnologia não se sustenta: ela precisa gerar <strong style={{ color: '#C8F542' }}>bem-estar real</strong> e valor de escala. Na Arkos, cada linha de código serve a um propósito econômico e humano.
-            </p>
-            <div style={{ marginTop: '32px', color: '#8A8F99', fontSize: '0.9rem', fontFamily: 'monospace' }}>— Renato Silva de Assis, Idealizador</div>
+            <img 
+              src="/renato_assis_co.jpg" 
+              alt="Renato Silva de Assis" 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover', 
+                objectPosition: 'top center',
+                borderRadius: '0 0 500px 500px', /* O efeito de arco solicitado */
+                display: 'block'
+              }} 
+            />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40%', background: 'linear-gradient(to top, rgba(9,10,12,0.9), transparent)' }} />
           </div>
+
+          {/* Bio Completa */}
+          <div style={{ padding: '60px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '28px' }}>
+            <div>
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 900, color: '#F4F2ED', lineHeight: 1.1, margin: '0 0 8px 0' }}>
+                Renato Silva <span style={{ color: '#C8F542' }}>de Assis</span>
+              </h2>
+              <div style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: '#C8F542', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 800 }}>
+                CEO · Founder · Strategist
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', color: '#8A8F99', fontSize: '0.95rem', lineHeight: 1.8 }}>
+              <p>
+                Economista (UFPB), Mestre em Economia Regional (UFRN) e bacharel em Ciências de Dados para Negócios. Com <strong style={{ color: '#F4F2ED' }}>mais de 16 anos como supervisor técnico do DIEESE</strong> (PB e RN), especializou-se em análise de mercado de trabalho, conjuntura econômica e pesquisa socioeconômica de alta complexidade.
+              </p>
+              <p>
+                Fundador da Econsult — consultoria de planejamento estratégico, gestão financeira e perícia contábil. Atualmente gerente de sistema no Cidade Viva Education e professor de pós-graduação na FICV.
+              </p>
+              <p>
+                Criou a Arkos Intelligence para transformar décadas de expertise analítica e visão sistêmica em infraestrutura tecnológica de alto impacto e governança de dados para o C-Level moderno.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '10px' }}>
+              <a href="https://linkedin.com/in/renatoassis" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                <button style={{ background: '#C8F542', color: '#0A0C0F', padding: '12px 24px', borderRadius: '8px', border: 'none', fontWeight: 800, fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  LinkedIn Profile <ExternalLink size={14} />
+                </button>
+              </a>
+              <a href="https://wa.me/5583981957737" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                <button style={{ background: 'transparent', color: '#FFF', padding: '12px 24px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', fontWeight: 600, fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                  <MessageCircle size={14} /> Falar com Renato
+                </button>
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── CITATION ── */}
+        <div style={{ marginTop: '120px', textAlign: 'center' }}>
+          <p style={{ color: '#F4F2ED', fontSize: '1.6rem', fontWeight: 300, lineHeight: 1.6, fontStyle: 'italic', maxWidth: '800px', margin: '0 auto' }}>
+            "A tecnologia pela tecnologia não se sustenta: ela precisa gerar <strong style={{ color: '#C8F542' }}>bem-estar real</strong> e valor de escala. Cada linha de código deve servir a um propósito econômico e humano."
+          </p>
         </div>
 
       </div>

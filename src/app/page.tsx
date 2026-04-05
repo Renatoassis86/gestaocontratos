@@ -408,7 +408,7 @@ export default function Home() {
       </section>
 
       {/* ── 3. ECOSSISTEMA MÓDULOS ─────────────────────────────────────────── */}
-      <section id="modulos" className={styles.section}>
+      <section id="modulos" className={styles.section} style={{ borderRadius: '48px', margin: '20px 10px', background: '#0a0c10', padding: '100px 24px' }}>
         <div className={styles.sectionHeader}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>A INFRAESTRUTURA COMPLETA</div>
           <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Plataformas Modulares ARKOS</h2>
@@ -442,10 +442,10 @@ export default function Home() {
       </section>
 
       {/* ── 4. APLICATIVOS (HUB) ─────────────────────────────────────────── */}
-      <section id="aplicativos" className={styles.section} style={{ background: '#0a0c10', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
+      <section id="aplicativos" className={styles.section} style={{ background: '#F4F2ED', borderRadius: '48px', margin: '20px 10px', padding: '100px 24px' }}>
         <div className={styles.sectionHeader} style={{ marginBottom: '60px' }}>
-          <div style={{ display: 'inline-flex', padding: '6px 14px', background: 'rgba(255,255,255,0.06)', borderRadius: '20px', color: '#FFF', fontSize: '0.75rem', fontWeight: '700', gap: '6px', alignItems: 'center', margin: '0 auto 12px auto' }}>HUB DE RECURSOS</div>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', letterSpacing: '-0.03em' }}>Ferramentas nativas prontas<br />para a sua rotina executiva.</h2>
+          <div style={{ display: 'inline-flex', padding: '6px 14px', background: 'rgba(0,0,0,0.06)', borderRadius: '20px', color: '#0A0C0F', fontSize: '0.75rem', fontWeight: '700', gap: '6px', alignItems: 'center', margin: '0 auto 12px auto' }}>HUB DE RECURSOS</div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#0A0C0F', letterSpacing: '-0.03em' }}>Ferramentas nativas prontas<br />para a sua rotina executiva.</h2>
         </div>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
@@ -458,13 +458,21 @@ export default function Home() {
             { tag: 'Arkos Smart Booking', icon: Calendar, desc: 'Links de reunião e formulários de prospecção autônomos por sistema web que despacham lembretes e agendamentos pelo WhatsApp automaticamente.', title: 'Agendamentos Inteligentes' },
           ].map((app, idx) => {
             const Icon = app.icon;
+            // Intercalar cores dos cartões: alguns claros, outros mais densos para profundidade
+            const isDarkCard = idx % 2 === 1;
             return (
-              <div key={idx} style={{ background: '#111318', border: '1px solid rgba(255,255,255,0.03)', padding: '32px', borderRadius: '12px' }}>
+              <div key={idx} style={{ 
+                background: isDarkCard ? '#0F1116' : '#FFFFFF', 
+                border: '1px solid rgba(0,0,0,0.05)', 
+                padding: '32px', 
+                borderRadius: '24px',
+                boxShadow: isDarkCard ? 'none' : '0 10px 30px -10px rgba(0,0,0,0.05)'
+              }}>
                 <div style={{ marginBottom: '16px' }}>
-                  <Icon size={28} color="#C8F542" />
+                  <Icon size={28} color={isDarkCard ? "#C8F542" : "#2D63ED"} />
                 </div>
-                <h4 style={{ color: '#F4F2ED', fontSize: '1.25rem', marginBottom: '8px', fontWeight: 700 }}>{app.tag}</h4>
-                <p style={{ color: '#8A8F99', fontSize: '0.9rem', lineHeight: '1.6' }}>{app.desc}</p>
+                <h4 style={{ color: isDarkCard ? '#F4F2ED' : '#0A0C0F', fontSize: '1.25rem', marginBottom: '8px', fontWeight: 800 }}>{app.tag}</h4>
+                <p style={{ color: isDarkCard ? '#8A8F99' : '#4A4F59', fontSize: '0.9rem', lineHeight: '1.6' }}>{app.desc}</p>
               </div>
             )
           })}
@@ -472,7 +480,7 @@ export default function Home() {
       </section>
 
       {/* ── 4. FLUXO DE MATURIDADE ANALÍTICA (TIMELINE) ─────── */}
-      <section id="fluxo" className={styles.section} style={{ background: '#07080a', borderTop: '1px solid rgba(255,255,255,0.02)' }}>
+      <section id="fluxo" className={styles.section} style={{ background: '#0a0c10', borderRadius: '48px', margin: '20px 10px', padding: '100px 24px' }}>
         <div className={styles.sectionHeader} style={{ marginBottom: '80px' }}>
           <div style={{ display: 'inline-flex', padding: '6px 14px', background: 'rgba(200,245,66,0.06)', borderRadius: '20px', color: '#C8F542', fontSize: '0.75rem', fontWeight: '700', gap: '6px', alignItems: 'center', margin: '0 auto 12px auto' }}> <TrendingUp size={12} /> PIPELINE DE MATURIDADE</div>
           <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED', letterSpacing: '-0.03em' }}>A Jornada do Dado <br /> À Tomada de Decisão</h2>
@@ -602,7 +610,7 @@ export default function Home() {
       </section>
 
       {/* ── 6. VANTAGEM COMPETITIVA ────────────────────────────── */}
-      <section id="vantagem" className={styles.section}>
+      <section id="vantagem" className={styles.section} style={{ borderRadius: '48px', margin: '20px 10px', background: '#0a0c10', padding: '100px 24px' }}>
         <div className={styles.sectionHeader} style={{ marginBottom: '40px' }}>
           <div style={{ fontFamily: 'monospace', color: '#C8F542', fontSize: '0.688rem', letterSpacing: '2px', marginBottom: '12px' }}>DIFERENCIAL COMPETITIVO</div>
           <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#F4F2ED' }}>Por que a ARKOS é a escolha estratégica definitiva</h2>
