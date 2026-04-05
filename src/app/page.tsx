@@ -94,7 +94,7 @@ export default function Home() {
       <Link href="#aplicativos" className={styles.navItem}>
         <Grid size={20} strokeWidth={1.5} />
       </Link>
-      <Link href="/login" className={styles.navItem}>
+      <Link href="/hub" className={styles.navItem}>
         <LogIn size={20} strokeWidth={1.5} style={{ color: '#C8F542' }} />
       </Link>
     </nav>
@@ -137,7 +137,7 @@ export default function Home() {
         </nav>
 
         <div className={styles.headerActions}>
-          <Link href="/login">
+          <Link href="/hub">
             <button className={styles.btnText}>Entrar</button>
           </Link>
           <Link href="https://wa.me/5583981957737" target="_blank" className={styles.headerCta}>
