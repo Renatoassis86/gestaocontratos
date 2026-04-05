@@ -270,7 +270,7 @@ export default function DiagnosticoHub() {
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '40px', width: '100%', maxWidth: '1200px', margin: '0 auto', alignItems: 'center' }} className={styles.deltaLayoutGrid}>
               
               {/* VÍDEO (LADO ESQUERDO) */}
-              <div className={styles.mediaWrapperDelta} style={{ margin: 0, height: '440px', position: 'relative' }}>
+              <div className={styles.mediaWrapperDelta} style={{ margin: 0, height: '480px', position: 'relative', background: 'transparent', borderRadius: '32px 32px 500px 500px', overflow: 'hidden' }}>
                 <video 
                   src="/delta.mp4" 
                   autoPlay 
@@ -281,11 +281,11 @@ export default function DiagnosticoHub() {
                     width: '100%', 
                     height: '100%', 
                     objectFit: 'cover', 
-                    borderRadius: '0 0 500px 500px', /* Efeito de arco solicitado */
-                    display: 'block'
+                    borderRadius: '0', /* Já contido pelo pai com overflow:hidden */
+                    display: 'block',
+                    filter: 'none' /* Garantir sem efeitos */
                   }}
                 />
-                <div className={styles.imageOverlayLight} style={{ borderRadius: '0 0 500px 500px' }}></div>
               </div>
 
               {/* LISTA VERTICAL (LADO DIREITO) */}
