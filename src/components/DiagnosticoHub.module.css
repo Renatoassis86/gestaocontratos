@@ -199,11 +199,11 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(200, 245, 66, 0.05);
 }
-.level5 { width: 33.3%; min-width: 300px; }
-.level4 { width: 50%; min-width: 300px; }
-.level3 { width: 66.6%; min-width: 300px; }
-.level2 { width: 83.3%; min-width: 300px; }
 .level1 { width: 100%; min-width: 300px; }
+.level2 { width: 83.3%; min-width: 300px; }
+.level3 { width: 66.6%; min-width: 300px; }
+.level4 { width: 50%; min-width: 300px; }
+.level5 { width: 33.3%; min-width: 300px; }
 
 @media (max-width: 768px) {
   .level5, .level4, .level3, .level2, .level1 {

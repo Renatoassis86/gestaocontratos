@@ -79,16 +79,24 @@ export default function Home() {
 
   const mobileNavbar = (
     <nav className={styles.mobileNavbar}>
-      <Link href="#" className={styles.navItem}><HomeIcon size={18} /><span>Home</span></Link>
-      <Link href="#solucao" className={styles.navItem}><CheckCircle2 size={18} /><span>Solução</span></Link>
+      <Link href="#" className={styles.navItem}>
+        <HomeIcon size={20} strokeWidth={1.5} />
+      </Link>
+      <Link href="#solucao" className={styles.navItem}>
+        <CheckCircle2 size={20} strokeWidth={1.5} />
+      </Link>
       
       {/* Central Primary Action */}
       <Link href="#diagnostico" className={`${styles.navItem} ${styles.navItemPrimary}`}>
-        <LayoutIcon size={22} strokeWidth={2.5} />
+        <LayoutIcon size={24} strokeWidth={2} />
       </Link>
       
-      <Link href="#aplicativos" className={styles.navItem}><Grid size={18} /><span>Hub</span></Link>
-      <Link href="/login" className={styles.navItem} style={{ color: '#C8F542' }}><LogIn size={18} /><span>Entrar</span></Link>
+      <Link href="#aplicativos" className={styles.navItem}>
+        <Grid size={20} strokeWidth={1.5} />
+      </Link>
+      <Link href="/login" className={styles.navItem}>
+        <LogIn size={20} strokeWidth={1.5} style={{ color: '#C8F542' }} />
+      </Link>
     </nav>
   );
 
@@ -105,12 +113,8 @@ export default function Home() {
         </div>
         
         {/* Botão Hambúrguer para Mobile */}
-        <button 
-          className={styles.burgerButton} 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          style={{ background: 'transparent', border: 'none', color: '#FFF', cursor: 'pointer', outline: 'none' }}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        <button className={styles.burgerButton} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X size={22} strokeWidth={1.2} /> : <Menu size={22} strokeWidth={1.2} />}
         </button>
         
         <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : styles.hideOnMobile}`} style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', fontSize: '0.813rem', color: '#FFFFFF' }}>
@@ -119,18 +123,17 @@ export default function Home() {
             <span style={{ cursor: 'pointer' }}>Institucional</span>
             <div className={styles.dropdownMenu}>
               <Link href="/institucional/o-que-e" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>O que é a Arkos</Link>
-              <Link href="/institucional/quem-somos" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Quem somos</Link>
+              <Link href="/institucional/o-problema" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>O Problema</Link>
+              <Link href="/institucional/a-solucao" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>A Solução</Link>
+              <Link href="/institucional/o-ecossistema" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>O Ecossistema</Link>
+              <Link href="/institucional/o-hub-arkos" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Hub Arkos</Link>
               <Link href="/institucional/equipe" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Conheça nossa equipe</Link>
-              <Link href="/institucional/nosso-negocio" className={styles.dropdownItem} onClick={() => setIsMenuOpen(false)}>Nosso negócio</Link>
             </div>
           </div>
 
-          <Link href="/institucional/o-problema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>O Problema</span></Link>
-          <Link href="/institucional/a-solucao" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Solução</span></Link>
-          <Link href="/institucional/o-ecossistema" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Ecossistema</span></Link>
-          <Link href="/institucional/o-hub-arkos" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Hub Arkos</span></Link>
+          <Link href="#benchmarks" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Benchmarks</span></Link>
+          <Link href="/institucional/diferencial" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferenciais</span></Link>
           <Link href="/diagnostico" target="_blank" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diagnóstico</span></Link>
-          <Link href="/institucional/diferencial" style={{ transition: 'color 0.2s', textDecoration: 'none', color: 'inherit' }} onClick={() => setIsMenuOpen(false)}><span>Diferencial</span></Link>
         </nav>
 
         <div className={styles.headerActions}>
@@ -535,29 +538,36 @@ export default function Home() {
         <p className={styles.sectionIntro} style={{ textAlign: 'center', color: '#8A8F99', maxWidth: '600px', margin: '0 auto 48px auto' }}>Economista, cientista de dados e estrategista. A visão que une análise econômica, governança de dados e inteligência artificial para transformar a gestão corporativa.</p>
 
         {/* Single Founder — Wide Card */}
-        <div style={{ maxWidth: '860px', margin: '0 auto', background: '#111318', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.06)', overflow: 'hidden', display: 'grid', gridTemplateColumns: '340px 1fr' }}>
-          {/* Foto */}
-          <div style={{ position: 'relative', background: '#090a0c', minHeight: '460px' }}>
-            <img
-              src="/renato_assis_co.jpg"
-              alt="Renato Silva de Assis"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
-            />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40%', background: 'linear-gradient(to top, rgba(9,10,12,0.85), transparent)' }} />
-          </div>
+        <div className={styles.founderCard}>
+          {/* Foto (Mobile Side-by-Side Wrapper) */}
+          <div className={styles.founderHeader}>
+            <div className={styles.founderImageWrapper}>
+              {/* Badge visual similar ao solicitado */}
+              <div className={styles.founderBadge}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Conheça-nos
+              </div>
+              <img
+                src="/renato_assis_co.jpg"
+                alt="Renato Silva de Assis"
+                className={styles.founderPhoto}
+              />
+              <div className={styles.founderImageOverlay} />
+            </div>
 
-          {/* Bio */}
-          <div style={{ padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '20px' }}>
-            <div>
-              <h3 style={{ fontSize: '1.9rem', fontWeight: 900, color: '#F4F2ED', lineHeight: 1.1, margin: '0 0 6px 0' }}>
+            <div className={styles.founderNameBlock}>
+              <h3 className={styles.founderName}>
                 Renato Silva <span style={{ color: '#C8F542' }}>de Assis</span>
               </h3>
-              <div style={{ fontFamily: 'monospace', fontSize: '0.65rem', color: '#5A5F6A', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+              <div className={styles.founderTitle}>
                 Idealizador &amp; Founder · Economista · Cientista de Dados
               </div>
             </div>
+          </div>
 
-            <p style={{ color: '#8A8F99', fontSize: '0.88rem', lineHeight: 1.85, margin: 0 }}>
+          {/* Bio Content */}
+          <div className={styles.founderBio}>
+            <p className={styles.founderText}>
               Economista (UFPB), Mestre em Economia Regional (UFRN) e bacharel em Ciências de Dados para Negócios. Com <strong style={{ color: '#F4F2ED' }}>mais de 16 anos como supervisor técnico do DIEESE</strong> (PB e RN), especializou-se em análise de mercado de trabalho, conjuntura econômica e pesquisa socioeconômica de alta complexidade. Fundador da Econsult — consultoria de planejamento estratégico, gestão financeira e perícia contábil. Atualmente gerente de sistema no Cidade Viva Education e professor de pós-graduação na FICV. Criou a Arkos Intelligence para transformar décadas de expertise analítica em infraestrutura tecnológica de alto impacto para o C-Level.
             </p>
 

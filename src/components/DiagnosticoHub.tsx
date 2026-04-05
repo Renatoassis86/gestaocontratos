@@ -200,11 +200,11 @@ export default function DiagnosticoHub() {
             {/* Os Blocos da Pirâmide Centralizados */}
             <div className={styles.stairInfographic} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: '0px', padding: '0px' }}>
               {[
-                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável.', width: '300px' },
-                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa e usam análise para se diferenciar no mercado.', width: '450px' },
-                { lvl: 3, t: 'Aspirantes Analíticos', d: 'Reconhecem a importância e iniciam integração de dados centralmente.', width: '600px' },
-                { lvl: 2, t: 'Análise Localizada', d: 'O uso de dados ocorre em silos funcionais sem integração corporativa.', width: '750px' },
-                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico.', width: '900px' }
+                { lvl: 1, t: 'Deficientes Analíticos', d: 'Atuam no escuro, sem dados padronizados e sem interesse analítico.' },
+                { lvl: 2, t: 'Análise Localizada', d: 'O uso de dados ocorre em silos funcionais sem integração corporativa.' },
+                { lvl: 3, t: 'Aspirantes Analíticos', d: 'Reconhecem a importância e iniciam integração de dados centralmente.' },
+                { lvl: 4, t: 'Empresas Analíticas', d: 'Possuem visão corporativa e usam análise para se diferenciar no mercado.' },
+                { lvl: 5, t: 'Competidores Analíticos', d: 'O nível máximo. Utilizam análise como sua principal vantagem sustentável.' }
               ].map((item, idx) => (
                 <div 
                   key={item.lvl} 
@@ -221,15 +221,15 @@ export default function DiagnosticoHub() {
                   <div 
                     className={`${styles.statCard} ${styles[`level${item.lvl}`]}`}
                     style={{ 
-                      borderRadius: item.lvl === 5 ? '20px 20px 0 0' : item.lvl === 1 ? '0 0 20px 20px' : '0',
+                      borderRadius: item.lvl === 1 ? '20px 20px 0 0' : item.lvl === 5 ? '0 0 20px 20px' : '0',
                       border: '1px solid rgba(200,245,66,0.3)',
-                      borderBottom: item.lvl === 1 ? '2px solid #C8F542' : 'none',
-                      borderTop: item.lvl === 5 ? '2px solid #C8F542' : idx === 0 ? '2px solid #C8F542' : '1px solid rgba(200,245,66,0.2)',
-                      background: item.lvl === 5 ? 'linear-gradient(to top, #111318, rgba(200,245,66,0.15))' : '#111318',
+                      borderBottom: item.lvl === 5 ? '2px solid #C8F542' : 'none',
+                      borderTop: item.lvl === 1 ? '2px solid #C8F542' : '1px solid rgba(200,245,66,0.2)',
+                      background: item.lvl === 1 ? 'linear-gradient(to bottom, rgba(200,245,66,0.05), #111318)' : item.lvl === 5 ? 'linear-gradient(to top, rgba(200,245,66,0.1), #111318)' : '#111318',
                       position: 'relative',
                       margin: '0 auto',
                       padding: '28px',
-                      boxShadow: item.lvl === 5 ? '0 0 50px rgba(200,245,66,0.25)' : 'none',
+                      boxShadow: item.lvl === 5 ? '0 10px 40px rgba(200,245,66,0.15)' : 'none',
                       flexShrink: 0
                     } as React.CSSProperties}
                   >
