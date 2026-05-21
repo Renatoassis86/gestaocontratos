@@ -5,6 +5,7 @@ import { createClient } from '@/infrastructure/supabase/server'
 import { propostaSignOut } from '../actions'
 import { ArrowLeft, LogOut } from 'lucide-react'
 import { PresentationViewer } from './PresentationViewer'
+import { PresentationControls } from './PresentationControls'
 
 const COOKIE_NAME = 'proposta_session'
 
@@ -15,7 +16,6 @@ interface Props {
 export default async function PropostaDoCliente({ params }: Props) {
   const { slug } = await params
 
-  // Verifica cookie de sessão e que bate com o slug da URL
   const cookieStore = await cookies()
   const sessionSlug = cookieStore.get(COOKIE_NAME)?.value
 
@@ -23,7 +23,6 @@ export default async function PropostaDoCliente({ params }: Props) {
     redirect('/proposta-comercial')
   }
 
-  // Carrega dados da proposta (via RPC com SECURITY DEFINER)
   const supabase = await createClient()
   const { data, error } = await supabase
     .rpc('obter_proposta_por_slug', { p_slug: slug })
@@ -34,65 +33,80 @@ export default async function PropostaDoCliente({ params }: Props) {
 
   const proposta = data[0] as { slug: string; nome_empresa: string; gamma_url: string }
 
+  const HEADER_HEIGHT = 56
+
   return (
     <div style={{
-      minHeight: '100vh',
+      position: 'fixed',
+      inset: 0,
+      width: '100vw',
+      height: '100vh',
       background: '#0A0C0F',
       color: '#F4F2ED',
-      display: 'flex',
-      flexDirection: 'column',
       fontFamily: 'system-ui, -apple-system, sans-serif',
+      overflow: 'hidden',
     }}>
-      {/* Header compacto */}
+      {/* Header fixo no topo */}
       <header style={{
-        padding: '14px 24px',
-        background: 'rgba(20,23,28,0.85)',
+        position: 'absolute',
+        top: 0, left: 0, right: 0,
+        height: HEADER_HEIGHT,
+        padding: '0 20px',
+        background: 'rgba(10,12,15,0.95)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        gap: 16, flexWrap: 'wrap',
+        gap: 16,
+        zIndex: 20,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'rgba(244,242,237,0.6)', textDecoration: 'none', fontSize: '0.8rem' }}>
-            <ArrowLeft size={14} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'rgba(244,242,237,0.6)', textDecoration: 'none', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
+            <ArrowLeft size={13} />
             <span>Site</span>
           </Link>
-          <div style={{ width: 1, height: 18, background: 'rgba(255,255,255,0.08)' }} />
-          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: 26 }} />
+          <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.08)', flexShrink: 0 }} />
+          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: 22, flexShrink: 0 }} />
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
             padding: '3px 10px',
             background: 'rgba(200,245,66,0.08)',
             border: '1px solid rgba(200,245,66,0.25)',
             borderRadius: 99,
-            fontSize: '0.6rem', fontWeight: 700,
+            fontSize: '0.58rem', fontWeight: 700,
             letterSpacing: '0.1em', textTransform: 'uppercase',
             color: '#C8F542',
             fontFamily: 'monospace',
+            flexShrink: 0,
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>
             Proposta · {proposta.nome_empresa}
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 8 }}>
-          <form action={propostaSignOut}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+          <PresentationControls gammaUrl={proposta.gamma_url} />
+          <form action={propostaSignOut} style={{ display: 'inline' }}>
             <button type="submit" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '7px 14px',
+              display: 'inline-flex', alignItems: 'center', gap: 5,
+              padding: '7px 12px',
               background: 'rgba(239,68,68,0.1)',
               border: '1px solid rgba(239,68,68,0.25)',
               borderRadius: 8, color: '#FCA5A5',
-              fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer',
+              fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer',
             }}>
-              <LogOut size={13} />
+              <LogOut size={12} />
               <span>Sair</span>
             </button>
           </form>
         </div>
       </header>
 
-      {/* Embed Gamma — com modo apresentação */}
-      <main style={{ flex: 1, position: 'relative', minHeight: 'calc(100vh - 60px)' }}>
+      {/* Main — iframe ocupa do header até o rodapé */}
+      <main style={{
+        position: 'absolute',
+        top: HEADER_HEIGHT,
+        left: 0, right: 0, bottom: 0,
+      }}>
         <PresentationViewer
           gammaUrl={proposta.gamma_url}
           nomeEmpresa={proposta.nome_empresa}
