@@ -3,7 +3,8 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/infrastructure/supabase/server'
 import { propostaSignOut } from '../actions'
-import { ArrowLeft, LogOut, ExternalLink } from 'lucide-react'
+import { ArrowLeft, LogOut } from 'lucide-react'
+import { PresentationViewer } from './PresentationViewer'
 
 const COOKIE_NAME = 'proposta_session'
 
@@ -74,17 +75,6 @@ export default async function PropostaDoCliente({ params }: Props) {
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
-          <a href={proposta.gamma_url} target="_blank" rel="noopener noreferrer" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '7px 14px',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 8, color: '#F4F2ED', textDecoration: 'none',
-            fontSize: '0.78rem', fontWeight: 600,
-          }}>
-            <ExternalLink size={13} />
-            <span>Abrir em tela cheia</span>
-          </a>
           <form action={propostaSignOut}>
             <button type="submit" style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -101,17 +91,11 @@ export default async function PropostaDoCliente({ params }: Props) {
         </div>
       </header>
 
-      {/* Embed Gamma */}
+      {/* Embed Gamma — com modo apresentação */}
       <main style={{ flex: 1, position: 'relative', minHeight: 'calc(100vh - 60px)' }}>
-        <iframe
-          src={proposta.gamma_url}
-          title={`Proposta ARKOS — ${proposta.nome_empresa}`}
-          allow="fullscreen"
-          style={{
-            position: 'absolute', inset: 0,
-            width: '100%', height: '100%',
-            border: 'none',
-          }}
+        <PresentationViewer
+          gammaUrl={proposta.gamma_url}
+          nomeEmpresa={proposta.nome_empresa}
         />
       </main>
     </div>
