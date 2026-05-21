@@ -21,6 +21,16 @@ export default function LoginPage({
 
   return (
     <div className={styles.page}>
+      <div className={styles.brandingCol}>
+        <div className={styles.sloganSmall}>A ARKOS É SUA SOLUÇÃO</div>
+        <div className={styles.sloganBig}>
+          Inteligência <span className={styles.dot}>.</span>
+        </div>
+        <p className={styles.sloganDesc}>
+          A infraestrutura de decisão estratégica da nova economia.
+        </p>
+      </div>
+
       <div className={styles.container}>
         <div className={styles.header}>
           <h1>Arkos<span className={styles.accent}>Suite</span></h1>

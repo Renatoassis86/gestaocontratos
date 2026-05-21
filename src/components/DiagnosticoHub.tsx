@@ -297,11 +297,11 @@ export default function DiagnosticoHub() {
                   { l: 'T', t: 'TARGETS', d: 'Foco estratégico onde algoritmos direcionam o ROI.' },
                   { l: 'A', t: 'ANALYSTS', d: 'Ciência de dados unida ao talento executivo ágil.' }
                 ].map((d) => (
-                  <div key={d.l} className={styles.deltaItemVertical}>
-                    <div className={styles.deltaLetterSmall}>{d.l}</div>
+                  <div key={d.l} className={styles.deltaItemVertical} style={{ background: '#1A1C1F', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}>
+                    <div className={styles.deltaLetterSmall} style={{ color: '#C8F542', background: 'rgba(200,245,66,0.1)' }}>{d.l}</div>
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: '1rem', color: '#0A0C0F', marginBottom: '2px' }}>{d.t}</div>
-                      <div style={{ fontSize: '0.85rem', color: '#5A5F6A', lineHeight: '1.4' }}>{d.d}</div>
+                      <div style={{ fontWeight: 800, fontSize: '1rem', color: '#F4F2ED', marginBottom: '2px' }}>{d.t}</div>
+                      <div style={{ fontSize: '0.85rem', color: '#8A8F99', fontWeight: 500, lineHeight: '1.4' }}>{d.d}</div>
                     </div>
                   </div>
                 ))}

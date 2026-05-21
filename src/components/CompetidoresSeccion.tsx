@@ -60,22 +60,23 @@ export default function CompetidoresSeccion() {
           <div className={styles.caseGrid} style={{ position: 'relative', zIndex: 1 }}>
             
             <div className={styles.caseContent}>
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.4, overflow: 'hidden', borderRadius: '16px' }}>
-                {/* Poster fallback behind the iframe */}
-                <img 
-                  src="/arkos_performance_reengineering_1775140701063.png" 
-                  alt="" 
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-                <iframe 
-                  ref={iframeRef}
-                  src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1&mute=1&controls=0&loop=1&playlist=GV3HUDMQ-F8&modestbranding=1&rel=0&playsinline=1&enablejsapi=1" 
-                  className={styles.videoBg}
-                  allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                  allowFullScreen
-                  title="Netflix Analytics"
-                />
-                <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(180deg, transparent, rgba(17,19,24,0.95))' }}></div>
+              <div className={styles.videoBgContainer} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, opacity: 0.6, overflow: 'hidden', borderRadius: '16px' }}>
+                {/* Desktop Video (Restored & Impactful) */}
+                <div className={styles.desktopOnly} style={{ position: 'absolute', inset: 0 }}>
+                  <iframe 
+                    ref={iframeRef}
+                    src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1&mute=1&controls=0&loop=1&playlist=GV3HUDMQ-F8&modestbranding=1&rel=0&playsinline=1&enablejsapi=1" 
+                    className={styles.videoBg}
+                    style={{ filter: 'brightness(0.9) contrast(1.1)' }}
+                    allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                    allowFullScreen
+                    title="Netflix Analytics"
+                  />
+                </div>
+
+
+                
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(180deg, rgba(17,19,24,0.2), rgba(17,19,24,0.95))' }}></div>
               </div>
 
               <div style={{ position: 'relative', zIndex: 1 }}>
