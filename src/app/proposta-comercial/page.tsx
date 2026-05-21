@@ -26,7 +26,7 @@ export default async function PropostaComercialLogin({ searchParams }: Props) {
       display: 'flex',
       flexDirection: 'column',
       color: '#F4F2ED',
-      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontFamily: 'var(--font-geist-sans), system-ui, -apple-system, sans-serif',
     }}>
       {/* Glow decorativo */}
       <div style={{
@@ -84,30 +84,34 @@ export default async function PropostaComercialLogin({ searchParams }: Props) {
               background: 'rgba(200,245,66,0.08)',
               border: '1px solid rgba(200,245,66,0.25)',
               borderRadius: 99,
-              fontSize: '0.65rem', fontWeight: 700,
+              fontSize: '0.688rem', fontWeight: 700,
               letterSpacing: '0.12em', textTransform: 'uppercase',
               color: '#C8F542', marginBottom: 20,
-              fontFamily: 'monospace',
+              fontFamily: 'var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace',
             }}>
               <Briefcase size={11} />
               <span>Acesso do Cliente</span>
             </div>
 
             <h1 style={{
-              fontSize: '1.9rem',
-              fontWeight: 800,
-              lineHeight: 1.15,
-              marginBottom: 8,
+              fontFamily: 'var(--font-geist-sans), system-ui, sans-serif',
+              fontSize: '2rem',
+              fontWeight: 900,
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
+              marginBottom: 12,
               color: '#F4F2ED',
             }}>
               Proposta de Trabalho<br />
-              <span style={{ color: '#C8F542', fontStyle: 'italic' }}>Customizada</span>
+              <span style={{ color: '#C8F542', fontStyle: 'italic', fontWeight: 800 }}>Customizada</span>
             </h1>
             <p style={{
-              color: 'rgba(244,242,237,0.55)',
-              fontSize: '0.88rem',
+              fontFamily: 'var(--font-geist-sans), system-ui, sans-serif',
+              color: 'rgba(244,242,237,0.6)',
+              fontSize: '0.92rem',
               lineHeight: 1.6,
               margin: 0,
+              fontWeight: 400,
             }}>
               Acesse sua proposta exclusiva preparada pela ARKOS.
             </p>

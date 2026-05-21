@@ -37,8 +37,10 @@ export function LoginForm({ initialError }: { initialError: string }) {
           borderRadius: 10,
           padding: '10px 14px',
           marginBottom: 16,
-          fontSize: '0.8rem',
+          fontSize: '0.82rem',
           color: '#FCA5A5',
+          fontFamily: 'var(--font-geist-sans), system-ui, sans-serif',
+          fontWeight: 500,
         }}>
           ⚠ {errorMsg}
         </div>
@@ -101,7 +103,9 @@ export function LoginForm({ initialError }: { initialError: string }) {
         marginTop: 22, paddingTop: 18,
         borderTop: '1px solid rgba(255,255,255,0.06)',
         display: 'flex', alignItems: 'center', gap: 8,
-        fontSize: '0.7rem', color: 'rgba(244,242,237,0.4)',
+        fontSize: '0.72rem', color: 'rgba(244,242,237,0.45)',
+        fontFamily: 'var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace',
+        letterSpacing: '0.02em',
       }}>
         <Lock size={11} />
         <span>Acesso restrito · As credenciais foram enviadas pela ARKOS</span>
@@ -112,11 +116,11 @@ export function LoginForm({ initialError }: { initialError: string }) {
 
 const labelStyle: React.CSSProperties = {
   display: 'block',
-  fontSize: '0.65rem', fontWeight: 700,
-  color: 'rgba(244,242,237,0.5)',
-  letterSpacing: '0.08em', textTransform: 'uppercase',
-  marginBottom: 6,
-  fontFamily: 'monospace',
+  fontSize: '0.688rem', fontWeight: 700,
+  color: 'rgba(244,242,237,0.55)',
+  letterSpacing: '0.12em', textTransform: 'uppercase',
+  marginBottom: 8,
+  fontFamily: 'var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace',
 }
 
 const inputStyle: React.CSSProperties = {
@@ -126,19 +130,23 @@ const inputStyle: React.CSSProperties = {
   border: '1.5px solid rgba(255,255,255,0.08)',
   borderRadius: 10,
   color: '#F4F2ED',
-  fontSize: '0.92rem',
+  fontSize: '0.95rem',
+  fontFamily: 'var(--font-geist-sans), system-ui, sans-serif',
+  fontWeight: 500,
   outline: 'none',
   transition: 'border-color 0.15s, background 0.15s',
   boxSizing: 'border-box',
+  letterSpacing: '-0.005em',
 }
 
 const submitStyle: React.CSSProperties = {
   marginTop: 10,
-  padding: '13px 20px',
+  padding: '14px 20px',
   background: 'linear-gradient(135deg, #C8F542 0%, #A8DB1F 100%)',
   color: '#0A0C0F',
+  fontFamily: 'var(--font-geist-sans), system-ui, sans-serif',
   fontWeight: 800,
-  fontSize: '0.9rem',
+  fontSize: '0.95rem',
   border: 'none',
   borderRadius: 10,
   cursor: 'pointer',
@@ -147,5 +155,5 @@ const submitStyle: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'center',
   gap: 8,
-  letterSpacing: '0.02em',
+  letterSpacing: '-0.01em',
 }
