@@ -38,18 +38,25 @@ export default async function PropostaDoCliente({ params }: Props) {
   return (
     <div style={{
       position: 'fixed',
-      inset: 0,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
       width: '100vw',
-      height: '100vh',
+      // 100dvh evita "buracos pretos" em mobile/desktop quando a barra de URL recolhe
+      // e fallback para 100vh em browsers antigos
+      height: '100dvh',
+      maxHeight: '100dvh',
+      display: 'flex',
+      flexDirection: 'column',
       background: '#0A0C0F',
       color: '#F4F2ED',
       fontFamily: 'system-ui, -apple-system, sans-serif',
       overflow: 'hidden',
     }}>
-      {/* Header fixo no topo */}
+      {/* Header fixo no topo (item flex de altura fixa) */}
       <header style={{
-        position: 'absolute',
-        top: 0, left: 0, right: 0,
+        flex: `0 0 ${HEADER_HEIGHT}px`,
         height: HEADER_HEIGHT,
         padding: '0 20px',
         background: 'rgba(10,12,15,0.95)',
@@ -101,11 +108,13 @@ export default async function PropostaDoCliente({ params }: Props) {
         </div>
       </header>
 
-      {/* Main — iframe ocupa do header até o rodapé */}
+      {/* Main — ocupa todo o espaço restante; minHeight:0 é crucial para
+          que o filho com height:100% calcule a altura corretamente em flexbox */}
       <main style={{
-        position: 'absolute',
-        top: HEADER_HEIGHT,
-        left: 0, right: 0, bottom: 0,
+        flex: '1 1 auto',
+        minHeight: 0,
+        display: 'flex',
+        position: 'relative',
       }}>
         <PresentationViewer
           gammaUrl={proposta.gamma_url}

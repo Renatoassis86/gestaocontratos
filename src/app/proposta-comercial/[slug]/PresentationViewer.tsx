@@ -32,11 +32,15 @@ export function PresentationViewer({ gammaUrl, nomeEmpresa }: Props) {
       ref={wrapperRef}
       data-viewer-wrapper
       style={{
+        // flex:1 garante ocupar todo o espaço do <main> (que também é flex)
+        flex: '1 1 auto',
         position: 'relative',
         width: '100%',
         height: '100%',
+        minHeight: 0,
         background: '#0A0C0F',
         overflow: 'hidden',
+        display: 'flex',
       }}
     >
       <iframe
@@ -46,10 +50,18 @@ export function PresentationViewer({ gammaUrl, nomeEmpresa }: Props) {
         allow="fullscreen; autoplay"
         allowFullScreen
         style={{
+          // Posicionamento absoluto interno garante que o iframe preencha
+          // o wrapper independentemente de como o Gamma reporte o tamanho
+          // do conteúdo (iframes têm altura intrínseca default de 150px,
+          // o que causa "faixa preta" se height:100% falhar na herança).
+          position: 'absolute',
+          top: 0,
+          left: 0,
           width: '100%',
           height: '100%',
           border: 'none',
           display: 'block',
+          background: '#0A0C0F',
         }}
       />
 
@@ -90,7 +102,15 @@ export function PresentationViewer({ gammaUrl, nomeEmpresa }: Props) {
           from { opacity: 0; transform: translate(-50%, 10px); }
           to   { opacity: 1; transform: translate(-50%, 0); }
         }
-        html, body { overflow: hidden !important; }
+        html, body {
+          height: 100% !important;
+          max-height: 100% !important;
+          overflow: hidden !important;
+          overscroll-behavior: none !important;
+        }
+        body > * { /* impede que algum filho do body crie scroll vertical */
+          overflow-anchor: none;
+        }
       `}</style>
     </div>
   )
