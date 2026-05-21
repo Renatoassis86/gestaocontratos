@@ -128,8 +128,32 @@ export default async function PropostaComercialLogin({ searchParams }: Props) {
             </div>
           )}
 
-          {/* Formulário */}
-          <form action={propostaSignIn} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {/* Formulário — autocomplete desativado agressivamente para evitar autofill do navegador */}
+          <form
+            action={propostaSignIn}
+            autoComplete="off"
+            data-form-type="other"
+            style={{ display: 'flex', flexDirection: 'column', gap: 14 }}
+          >
+            {/* Honeypot anti-autofill — campos invisíveis que o browser preenche em vez dos reais */}
+            <input
+              type="text"
+              name="prevent_autofill"
+              id="prevent_autofill"
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ position: 'absolute', left: -9999, width: 1, height: 1, opacity: 0 }}
+              aria-hidden="true"
+            />
+            <input
+              type="password"
+              name="prevent_autofill_pw"
+              tabIndex={-1}
+              autoComplete="new-password"
+              style={{ position: 'absolute', left: -9999, width: 1, height: 1, opacity: 0 }}
+              aria-hidden="true"
+            />
+
             <div>
               <label htmlFor="empresa" style={{
                 display: 'block',
@@ -145,6 +169,13 @@ export default async function PropostaComercialLogin({ searchParams }: Props) {
                 type="text"
                 required
                 autoFocus
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                data-lpignore="true"
+                data-form-type="other"
+                data-1p-ignore="true"
                 placeholder="Nome da empresa (ex: ACME Corp)"
                 style={{
                   width: '100%',
@@ -175,6 +206,9 @@ export default async function PropostaComercialLogin({ searchParams }: Props) {
                 name="senha"
                 type="password"
                 required
+                autoComplete="new-password"
+                data-lpignore="true"
+                data-1p-ignore="true"
                 placeholder="••••••••"
                 style={{
                   width: '100%',
