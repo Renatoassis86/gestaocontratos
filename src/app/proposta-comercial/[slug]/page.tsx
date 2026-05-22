@@ -6,6 +6,7 @@ import { propostaSignOut } from '../actions'
 import { ArrowLeft, LogOut } from 'lucide-react'
 import { PresentationViewer } from './PresentationViewer'
 import { PresentationControls } from './PresentationControls'
+import styles from './presentation-header.module.css'
 
 const COOKIE_NAME = 'proposta_session'
 
@@ -33,8 +34,6 @@ export default async function PropostaDoCliente({ params }: Props) {
 
   const proposta = data[0] as { slug: string; nome_empresa: string; gamma_url: string }
 
-  const HEADER_HEIGHT = 56
-
   return (
     <div style={{
       position: 'fixed',
@@ -54,55 +53,27 @@ export default async function PropostaDoCliente({ params }: Props) {
       fontFamily: 'system-ui, -apple-system, sans-serif',
       overflow: 'hidden',
     }}>
-      {/* Header fixo no topo (item flex de altura fixa) */}
-      <header style={{
-        flex: `0 0 ${HEADER_HEIGHT}px`,
-        height: HEADER_HEIGHT,
-        padding: '0 20px',
-        background: 'rgba(10,12,15,0.95)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        gap: 16,
-        zIndex: 20,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
-          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'rgba(244,242,237,0.6)', textDecoration: 'none', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
+      {/* Header fixo no topo — layout responsivo via CSS module */}
+      <header className={styles.header}>
+        <div className={styles.left}>
+          <Link href="/" className={styles.backLink} aria-label="Voltar ao site">
             <ArrowLeft size={13} />
             <span>Site</span>
           </Link>
-          <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.08)', flexShrink: 0 }} />
-          <img src="/logo-high-res.svg" alt="ARKOS" style={{ height: 22, flexShrink: 0 }} />
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            padding: '3px 10px',
-            background: 'rgba(200,245,66,0.08)',
-            border: '1px solid rgba(200,245,66,0.25)',
-            borderRadius: 99,
-            fontSize: '0.58rem', fontWeight: 700,
-            letterSpacing: '0.1em', textTransform: 'uppercase',
-            color: '#C8F542',
-            fontFamily: 'monospace',
-            flexShrink: 0,
-            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-          }}>
-            Proposta · {proposta.nome_empresa}
+          <div className={styles.divider} />
+          <img src="/logo-high-res.svg" alt="ARKOS" className={styles.logo} />
+          <div className={styles.empresaBadge} title={`Proposta · ${proposta.nome_empresa}`}>
+            <span className={styles.empresaPrefix}>Proposta · </span>
+            <span className={styles.empresaNome}>{proposta.nome_empresa}</span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+        <div className={styles.right}>
           <PresentationControls gammaUrl={proposta.gamma_url} />
           <form action={propostaSignOut} style={{ display: 'inline' }}>
-            <button type="submit" style={{
-              display: 'inline-flex', alignItems: 'center', gap: 5,
-              padding: '7px 12px',
-              background: 'rgba(239,68,68,0.1)',
-              border: '1px solid rgba(239,68,68,0.25)',
-              borderRadius: 8, color: '#FCA5A5',
-              fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer',
-            }}>
+            <button type="submit" className={styles.btnDanger} aria-label="Sair">
               <LogOut size={12} />
-              <span>Sair</span>
+              <span className={styles.label}>Sair</span>
             </button>
           </form>
         </div>

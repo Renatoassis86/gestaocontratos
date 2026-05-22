@@ -1,6 +1,7 @@
 'use client'
 
 import { Play, Maximize2 } from 'lucide-react'
+import styles from './presentation-header.module.css'
 
 interface Props {
   gammaUrl: string
@@ -25,35 +26,19 @@ export function PresentationControls({ gammaUrl }: Props) {
         type="button"
         onClick={iniciarApresentacao}
         title="Tela cheia · use ← → para navegar"
-        style={{
-          display: 'inline-flex', alignItems: 'center', gap: 6,
-          padding: '7px 14px',
-          background: 'linear-gradient(135deg, #C8F542, #A8DB1F)',
-          color: '#0A0C0F',
-          border: 'none',
-          borderRadius: 8,
-          cursor: 'pointer',
-          fontWeight: 800,
-          fontSize: '0.78rem',
-          boxShadow: '0 4px 12px rgba(200,245,66,0.25)',
-          fontFamily: 'system-ui, sans-serif',
-        }}
+        aria-label="Iniciar Apresentação em tela cheia"
+        className={styles.btnPrimary}
       >
         <Play size={12} fill="#0A0C0F" />
-        <span>Iniciar Apresentação</span>
+        <span className={styles.label}>Iniciar Apresentação</span>
       </button>
       <a
         href={fullPresentUrl}
         target="_blank"
         rel="noopener noreferrer"
         title="Abrir no Gamma em nova aba"
-        style={{
-          display: 'inline-flex', alignItems: 'center',
-          padding: '7px 10px',
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          borderRadius: 8, color: '#F4F2ED', textDecoration: 'none',
-        }}
+        aria-label="Abrir no Gamma em nova aba"
+        className={styles.btnGhost}
       >
         <Maximize2 size={13} />
       </a>
