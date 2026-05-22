@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2, Cloud, Video, Globe, Handshake, Workflow, Calendar, Layout as LayoutIcon } from 'lucide-react'
+import { ArrowRight, Sparkles, MessageCircle, Home as HomeIcon, TrendingUp, Eye, Cpu, Shield, Users, Menu, X, LogIn, Grid, CheckCircle2, Cloud, Video, Globe, Handshake, Workflow, Calendar, Layout as LayoutIcon, Briefcase } from 'lucide-react'
 import DiagnosticoHub from '@/components/DiagnosticoHub'
 import CompetidoresSeccion from '@/components/CompetidoresSeccion'
 import Footer from '@/components/Footer'
@@ -70,21 +70,30 @@ export default function Home() {
   }, [activeVideo]);
 
   const mobileNavbar = (
-    <nav className={styles.mobileNavbar}>
-      <Link href="#" className={styles.navItem}>
+    <nav className={styles.mobileNavbar} aria-label="Navegação principal mobile">
+      <Link href="#" className={styles.navItem} aria-label="Início">
         <HomeIcon size={20} strokeWidth={1.5} />
+        <span className={styles.navItemLabel}>Início</span>
       </Link>
-      <Link href="#solucao" className={styles.navItem}>
+      <Link href="#solucao" className={styles.navItem} aria-label="Solução">
         <CheckCircle2 size={20} strokeWidth={1.5} />
+        <span className={styles.navItemLabel}>Solução</span>
       </Link>
-      <Link href="#diagnostico" className={`${styles.navItem} ${styles.navItemPrimary}`}>
+      <Link href="#diagnostico" className={`${styles.navItem} ${styles.navItemPrimary}`} aria-label="Diagnóstico">
         <LayoutIcon size={24} strokeWidth={2} />
+        <span className={styles.navItemLabel}>Diagnóstico</span>
       </Link>
-      <Link href="#aplicativos" className={styles.navItem}>
+      <Link href="/proposta-comercial" className={styles.navItem} aria-label="Proposta do Cliente">
+        <Briefcase size={20} strokeWidth={1.5} />
+        <span className={styles.navItemLabel}>Proposta</span>
+      </Link>
+      <Link href="#aplicativos" className={styles.navItem} aria-label="Aplicativos">
         <Grid size={20} strokeWidth={1.5} />
+        <span className={styles.navItemLabel}>Apps</span>
       </Link>
-      <Link href="/hub" className={styles.navItem}>
+      <Link href="/hub" className={styles.navItem} aria-label="Entrar">
         <LogIn size={20} strokeWidth={1.5} style={{ color: '#C8F542' }} />
+        <span className={styles.navItemLabel} style={{ color: '#C8F542' }}>Entrar</span>
       </Link>
     </nav>
   );

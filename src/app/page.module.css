@@ -510,44 +510,77 @@
 
 /* ── MOBILE NAVBAR ────────────────────────────────────────── */
 .mobileNavbar {
-  display: none; 
-  position: fixed; 
-  bottom: 0; 
-  left: 0; 
-  right: 0; 
-  background: rgba(10, 12, 15, 0.85); 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08); 
-  padding: 12px 24px calc(12px + env(safe-area-inset-bottom)); 
-  justify-content: space-between; 
-  align-items: center; 
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 12, 15, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 6px calc(6px + env(safe-area-inset-bottom));
+  justify-content: space-around;
+  align-items: stretch;
   z-index: 9999;
   width: 100%;
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  gap: 2px;
 }
 
 .navItem {
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.4); 
-  text-decoration: none; 
-  flex: 1;
-  height: 48px;
+  gap: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 6px 2px;
+  height: auto;
+  border-radius: 10px;
   transition: all 0.2s ease;
   position: relative;
 }
 
 .navItem:active {
   color: #C8F542;
-  transform: scale(0.95);
+  background: rgba(200, 245, 66, 0.08);
+  transform: scale(0.96);
+}
+
+.navItemLabel {
+  font-size: 0.563rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
 }
 
 .navItemPrimary {
   color: #C8F542 !important;
   opacity: 1;
+  background: rgba(200, 245, 66, 0.06);
+  border: 1px solid rgba(200, 245, 66, 0.15);
+}
+
+@media (max-width: 380px) {
+  .mobileNavbar {
+    padding: 6px 4px calc(4px + env(safe-area-inset-bottom));
+  }
+  .navItem {
+    padding: 5px 1px;
+    gap: 2px;
+  }
+  .navItemLabel {
+    font-size: 0.5rem;
+  }
 }
 
 
