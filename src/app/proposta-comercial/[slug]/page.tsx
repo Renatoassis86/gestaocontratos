@@ -48,8 +48,10 @@ export default async function PropostaDoCliente({ params }: Props) {
       overflow: 'hidden',
     }}>
       <PresentationHeader
+        slug={proposta.slug}
         nomeEmpresa={proposta.nome_empresa}
         gammaUrl={proposta.gamma_url}
+        exibirDashboard={proposta.slug === 'mevos'}
       />
 
       <main style={{

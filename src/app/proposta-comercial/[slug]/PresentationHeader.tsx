@@ -2,15 +2,17 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, LogOut, Play, Maximize2 } from 'lucide-react'
+import { ArrowLeft, LogOut, Play, Maximize2, LayoutDashboard } from 'lucide-react'
 import { propostaSignOut } from '../actions'
 
 interface Props {
+  slug: string
   nomeEmpresa: string
   gammaUrl: string
+  exibirDashboard?: boolean
 }
 
-export function PresentationHeader({ nomeEmpresa, gammaUrl }: Props) {
+export function PresentationHeader({ slug, nomeEmpresa, gammaUrl, exibirDashboard = false }: Props) {
   const [isMobile, setIsMobile] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -72,6 +74,18 @@ export function PresentationHeader({ nomeEmpresa, gammaUrl }: Props) {
           {nomeEmpresa}
         </div>
 
+        {/* Dashboard (ícone-só, 40x40) — só aparece se cliente tiver dashboard */}
+        {exibirDashboard && (
+          <Link
+            href={`/proposta-comercial/${slug}/dashboard`}
+            aria-label="Dashboard de dados"
+            title="Dashboard de dados"
+            style={iconBtnGhostMobile}
+          >
+            <LayoutDashboard size={15} />
+          </Link>
+        )}
+
         {/* Play (ícone-só, 40x40) */}
         <button
           type="button"
@@ -123,6 +137,16 @@ export function PresentationHeader({ nomeEmpresa, gammaUrl }: Props) {
       </div>
 
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+        {exibirDashboard && (
+          <Link
+            href={`/proposta-comercial/${slug}/dashboard`}
+            title="Dashboard de dados em tempo real"
+            style={btnDashboardDesktop}
+          >
+            <LayoutDashboard size={13} />
+            <span>Dashboard</span>
+          </Link>
+        )}
         <button
           type="button"
           onClick={iniciarApresentacao}
@@ -191,6 +215,30 @@ const iconBtnDanger: React.CSSProperties = {
   background: 'rgba(239,68,68,0.12)',
   border: '1px solid rgba(239,68,68,0.28)',
   color: '#FCA5A5',
+}
+
+const iconBtnGhostMobile: React.CSSProperties = {
+  ...iconBtnBase,
+  background: 'rgba(255,255,255,0.06)',
+  border: '1px solid rgba(255,255,255,0.12)',
+  color: '#F4F2ED',
+  textDecoration: 'none',
+}
+
+const btnDashboardDesktop: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 6,
+  padding: '7px 14px',
+  background: 'rgba(255,255,255,0.06)',
+  border: '1px solid rgba(255,255,255,0.12)',
+  borderRadius: 8,
+  color: '#F4F2ED',
+  textDecoration: 'none',
+  fontWeight: 700,
+  fontSize: '0.78rem',
+  whiteSpace: 'nowrap',
+  fontFamily: 'system-ui, sans-serif',
 }
 
 const badgeDesktop: React.CSSProperties = {
