@@ -1,0 +1,7 @@
+# Acervo de dados — toda a pasta é gigante (potencial > 1 GB).
+# Só os scripts ficam versionados como receita reproduzível.
+*
+!scripts/
+!scripts/**
+!README.md
+!.gitignore

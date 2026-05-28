@@ -1,13 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
-import { FileText, BarChart2, Users, Shield, ArrowRight, CornerUpLeft } from 'lucide-react'
+import { Shield, ArrowRight } from 'lucide-react'
 
 export default function DashboardPage() {
-  const [activeTab, setActiveTab] = useState<'suite' | 'maintenance'>('suite')
-  const [maintenanceItem, setMaintenanceItem] = useState('')
-
   const apps = [
     { tag: 'MI', id: 'marketing', title: 'Marketing Intelligence', status: 'Desenvolvimento', desc: 'O marketing atua como gerador supremo de dados decisórios. Operamos desde o digital analítico até a inteligência profunda.', image: '/arkos_marketing_intelligence_hero_v1_1774542591336.png', color: '#FF4D4D', link: '#' },
     { tag: 'GDB', id: 'data', title: 'Governança de Dados e BI', status: 'Desenvolvimento', desc: 'Data warehouse, pipelines conectadas e dashboards preditivos de alta performance.', image: '/arkos_data_stream_1774143375030.png', color: '#EC4899', link: '#' },
@@ -22,24 +18,6 @@ export default function DashboardPage() {
     { tag: 'GTC', id: 'infra', title: 'Gestão de Tecnologia e Cyber', status: 'Desenvolvimento', desc: 'Monitoramento de infraestrutura, segurança de servidores e otimização de redes.', image: '/arkos_corporate_presenting_1774143639165.png', color: '#14B8A6', link: '#' },
     { tag: 'GSD', id: 'pedidos', title: 'Governança de Service Desk e Demandas', status: 'Desenvolvimento', desc: 'Controle centralizado de chamados e fluxos de atendimento escaláveis com foco em eficiência.', image: '/arkos_data_dashboard_holo_1774143471858.png', color: '#06B6D4', link: 'https://appgestaocontratos.vercel.app/' },
   ]
-
-  if (activeTab === 'maintenance') {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center' }}>
-        <div style={{ background: '#111318', border: '1px solid #1F242D', borderRadius: '16px', padding: '3rem', maxWidth: '450px' }}>
-          <div style={{ color: '#F59E0B', marginBottom: '1.25rem', fontSize: '3rem' }}>🚧</div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#F4F2ED', marginBottom: '0.5rem' }}>{maintenanceItem}</h2>
-          <p style={{ color: '#8A8F99', fontSize: '0.875rem', marginBottom: '2rem' }}>Este módulo está em manutenção ou em fase de desenvolvimento para a sua infraestrutura.</p>
-          <button 
-            onClick={() => setActiveTab('suite')} 
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#1F242D', color: '#F4F2ED', padding: '0.625rem 1.25rem', borderRadius: '10px', fontWeight: 800, fontSize: '0.813rem', border: '1px solid #272D38', cursor: 'pointer', margin: '0 auto' }}
-          >
-            <CornerUpLeft size={16} /> Voltar para Suite
-          </button>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -114,27 +92,28 @@ export default function DashboardPage() {
                   Acessar Ferramenta <ArrowRight size={16} />
                 </Link>
               ) : (
-                  <button 
-                    onClick={() => { setActiveTab('maintenance'); setMaintenanceItem(app.title); }}
-                    style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      gap: '6px', 
-                      background: 'rgba(255,255,255,0.04)', 
-                      color: '#F4F2ED', 
-                      padding: '0.75rem', 
-                      borderRadius: '10px', 
-                      fontWeight: 800, 
-                      fontSize: '0.813rem', 
-                      border: '1px solid rgba(255,255,255,0.05)', 
+                  <Link
+                    href={`/dashboard/modulos/${app.id}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '6px',
+                      background: 'rgba(255,255,255,0.04)',
+                      color: '#F4F2ED',
+                      padding: '0.75rem',
+                      borderRadius: '10px',
+                      fontWeight: 800,
+                      fontSize: '0.813rem',
+                      border: '1px solid rgba(255,255,255,0.05)',
                       cursor: 'pointer',
                       width: '100%',
+                      textDecoration: 'none',
                       transition: 'background 0.2s'
                     }}
                   >
                     Saiba Mais <ArrowRight size={16} color="#8A8F99" />
-                  </button>
+                  </Link>
               )}
             </div>
           </div>
